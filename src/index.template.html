@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Needle &amp; Dial — radio from the Internet Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Limelight&family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, nocturnal, tactile; a radio left on in a dark room.
+   IDEA: a 1950s slide-rule dial receiver, plus the newspaper radio log beside it.
+   PICTURE: the cabinet itself: grille, lit dial glass, red needle, magic eye, knobs, push-button presets.
+   COLOUR and TYPE: walnut and brass, amber-lit glass, signal-red needle, phosphor-green eye; Limelight badge, Oswald dial type, Inter text.
+   LAYOUT: radio first and widest; the log below it; rights and how-it-works last. Stacks under 700px. */
+:root{color-scheme:dark;--night:#0e0a08;--night2:#18110d;--ink:#f3e9d8;--muted:#b7a68c;--faint:#7d6f5d;--walnut:#4b2c17;--walnut-d:#26150a;--walnut-l:#734628;--brass:#d2aa60;--brass-d:#8a6630;--glass:#f7e5b8;--glass-hot:#ffd27a;--needle:#e2412b;--eye:#4cf28f;--line:#3a2a1f}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;background:radial-gradient(1200px 700px at 50% -10%,#2b1c12 0%,var(--night) 60%);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:clip;min-height:100%}
+a{color:var(--brass)}a:hover{color:var(--glass-hot)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--glass-hot);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(14px,3vw,32px) max(4vw,14px) 48px}
+header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.brand{font-family:Limelight,Georgia,serif;font-size:clamp(30px,5vw,44px);line-height:1.05;color:var(--glass-hot);text-shadow:0 0 18px rgba(255,190,90,.35)}
+.sub{color:var(--muted);font-size:15px}
+.clock{margin-left:auto;font-family:Oswald,sans-serif;font-size:20px;color:var(--muted);white-space:nowrap}
+
+/* Cabinet */
+.radio{position:relative;border-radius:26px;padding:clamp(12px,2vw,22px);background:
+  linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.25)),
+  repeating-linear-gradient(92deg,rgba(0,0,0,.10) 0 2px,rgba(255,255,255,.025) 2px 5px,rgba(0,0,0,.06) 5px 9px),
+  linear-gradient(90deg,var(--walnut-d),var(--walnut) 18%,var(--walnut-l) 50%,var(--walnut) 82%,var(--walnut-d));
+  box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.12),inset 0 -6px 14px rgba(0,0,0,.45)}
+.grille{height:clamp(54px,9vw,96px);border-radius:14px 14px 6px 6px;position:relative;overflow:hidden;
+  background:repeating-linear-gradient(90deg,#2b2017 0 3px,#4a3a2c 3px 5px,#2b2017 5px 7px),linear-gradient(#3b2e22,#2a2018);
+  box-shadow:inset 0 0 0 3px var(--brass-d),inset 0 8px 18px rgba(0,0,0,.6)}
+.badge{white-space:nowrap;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:Limelight,Georgia,serif;font-size:clamp(20px,3.4vw,34px);color:#f3d38a;padding:2px 18px;border-radius:999px;
+  background:linear-gradient(#6b4a22,#3d2810);box-shadow:0 0 0 2px var(--brass),0 6px 14px rgba(0,0,0,.5);white-space:nowrap}
+.dial{position:relative;margin-top:12px;height:clamp(120px,15vw,150px);border-radius:10px;overflow:hidden;cursor:ew-resize;touch-action:none;
+  background:linear-gradient(180deg,#2a241c,#1d1913);box-shadow:inset 0 0 0 3px var(--brass),inset 0 0 0 6px #1a120a,inset 0 10px 22px rgba(0,0,0,.7);transition:background .8s}
+.radio[data-on="true"] .dial{background:radial-gradient(120% 140% at 50% 50%,var(--glass-hot) 0%,var(--glass) 45%,#d9b878 100%)}
+.dial svg{position:absolute;inset:0;width:100%;height:100%}
+.needle{position:absolute;top:6px;bottom:6px;width:3px;margin-left:-1.5px;background:var(--needle);box-shadow:0 0 6px rgba(226,65,43,.7);border-radius:2px;pointer-events:none}
+.needle::after{content:"";position:absolute;left:-5px;top:-2px;width:13px;height:6px;border-radius:3px;background:#2a1c10}
+.face{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:clamp(12px,2vw,22px);align-items:stretch;margin-top:14px}
+.eyebox{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-radius:12px;padding:10px;background:linear-gradient(#2d1d10,#1d1209);box-shadow:inset 0 0 0 2px var(--brass-d)}
+.eyebox svg{width:78px;height:78px}
+.lbl{font-family:Oswald,sans-serif;font-size:13px;color:var(--muted)}
+.card{border-radius:12px;padding:14px 16px;background:linear-gradient(#18120c,#0f0b07);box-shadow:inset 0 0 0 2px var(--brass-d),inset 0 6px 16px rgba(0,0,0,.6);min-height:150px;display:flex;flex-direction:column;gap:4px}
+.st-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-family:Oswald,sans-serif}
+.call{font-size:22px;font-weight:600;color:var(--glass-hot)}
+.st-name{font-size:17px;color:var(--ink)}
+.st-fmt{font-size:14px;color:var(--muted);font-family:Inter,sans-serif}
+.kicker{font-family:Oswald,sans-serif;font-size:14px;color:var(--eye);margin-top:6px}
+.ptitle{font-size:clamp(20px,2.6vw,28px);line-height:1.15;font-weight:600;text-wrap:balance}
+.pline{color:var(--muted);font-size:15px}
+.prog{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:8px;font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);white-space:nowrap}
+.bar{flex:1;height:6px;border-radius:3px;background:#2e231a;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brass),var(--glass-hot))}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
+.rights{font-size:13px;color:var(--faint)}
+.trouble{color:#ff9b7a}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.controls{display:grid;grid-template-columns:repeat(3,auto);gap:10px 16px;align-items:center;justify-items:center;border-radius:12px;padding:12px 14px;background:linear-gradient(#2d1d10,#1d1209);box-shadow:inset 0 0 0 2px var(--brass-d)}
+.knob{width:70px;height:70px;border-radius:50%;position:relative;cursor:grab;touch-action:none;border:0;padding:0;
+  background:radial-gradient(circle at 35% 30%,#f2d9a0,#b98d43 45%,#5d4018 100%);box-shadow:0 6px 12px rgba(0,0,0,.55),inset 0 -3px 6px rgba(0,0,0,.4)}
+.knob::before{content:"";position:absolute;inset:9px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#7a5a28 0 6deg,#a47c3a 6deg 12deg);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
+.knob .ind{position:absolute;left:50%;top:50%;width:4px;height:26px;margin:-26px 0 0 -2px;transform-origin:50% 100%;border-radius:2px;background:#2a1a08}
+.kcol{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sw{display:flex;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 2px var(--brass-d)}
+.sw button{border:0;background:transparent;white-space:nowrap;padding:8px 12px;min-height:40px;font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);cursor:pointer}
+.sw button[aria-pressed="true"]{background:var(--brass);color:#22160a}
+.power{width:70px;height:70px;border-radius:50%;border:0;cursor:pointer;font-family:Oswald,sans-serif;font-size:14px;color:#22160a;
+  background:radial-gradient(circle at 35% 30%,#f7e1a8,#c39446 55%,#6a4718);box-shadow:0 6px 12px rgba(0,0,0,.55)}
+.radio[data-on="false"] .power{animation:pulse 2.2s ease-in-out infinite}
+.radio[data-on="true"] .power{background:radial-gradient(circle at 35% 30%,#ffb39b,#e2412b 55%,#7a1a0d);color:#fff}
+@keyframes pulse{0%,100%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 0 rgba(255,210,122,.0)}50%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 10px rgba(255,210,122,.22)}}
+.fine{display:flex;gap:6px}.fine button{min-width:44px;min-height:40px;border-radius:10px;border:0;background:#3a2615;color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--brass-d)}
+.presets{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;margin-top:14px}
+.presets button{min-height:54px;border:0;border-radius:8px 8px 12px 12px;cursor:pointer;padding:6px 4px;font-family:Oswald,sans-serif;line-height:1.1;
+  background:linear-gradient(#fbf0d6,#d8c39a);color:#2c1d0e;box-shadow:0 5px 0 #8c7350,0 8px 12px rgba(0,0,0,.4);transition:transform .08s,box-shadow .08s}
+.presets button b{display:block;font-size:16px}.presets button span{font-size:12px;color:#5a4428}
+.presets button[aria-pressed="true"]{transform:translateY(4px);box-shadow:0 1px 0 #8c7350,0 3px 6px rgba(0,0,0,.4);background:linear-gradient(#ffe7a6,#e9c574)}
+.hint{margin:12px 2px 0;color:var(--muted);font-size:14px}
+
+/* Radio log */
+.log{margin-top:34px}
+.log h2,.about h2{font-family:Oswald,sans-serif;font-weight:500;font-size:clamp(24px,3vw,32px);line-height:1.05;margin:0 0 4px}
+.log .note{color:var(--muted);font-size:15px;margin:0 0 14px}
+.rows{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:170px minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start;padding:12px 14px;border-radius:12px;background:var(--night2);box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;text-align:left;border:0;width:100%}
+.row:hover{box-shadow:inset 0 0 0 1px var(--brass-d)}
+.row[aria-current="true"]{box-shadow:inset 0 0 0 2px var(--brass);background:#21170f}
+.row .rc{font-family:Oswald,sans-serif}.row .rc b{font-size:18px;color:var(--glass-hot);font-weight:600}.row .rc span{display:block;font-size:13px;color:var(--muted)}
+.slot small{display:block;font-family:Oswald,sans-serif;font-size:13px;color:var(--muted);white-space:nowrap}
+.slot div{font-size:15px;line-height:1.3}
+.band-h{font-family:Oswald,sans-serif;color:var(--muted);font-size:15px;margin:14px 2px 2px}
+.about{margin-top:38px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 32px}
+.about h2{grid-column:1/-1}
+.about p,.about li{color:#d9cbb4;font-size:15.5px}
+.about ul{padding-left:18px;margin:6px 0}
+kbd{font-family:Oswald,sans-serif;font-size:13px;padding:1px 6px;border-radius:5px;background:#2c2016;box-shadow:inset 0 0 0 1px var(--brass-d)}
+footer{margin-top:34px;color:var(--faint);font-size:14px}
+@media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
+@media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(5,minmax(0,1fr))}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
+@media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="brand">Needle &amp; Dial</div>
+  <div class="sub">Radio stations built from the Internet Archive. Everyone tuned to a station hears the same moment.</div>
+  <div class="clock" id="clock" aria-live="off"></div>
+</header>
+
+<section class="radio" id="radio" data-on="false" aria-label="Radio">
+  <div class="grille"><div class="badge">Needle &amp; Dial</div></div>
+  <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Tuning dial" aria-valuemin="530" aria-valuemax="1700" aria-valuenow="640">
+    <svg id="dialSvg" aria-hidden="true"></svg>
+    <div class="needle" id="needle"></div>
+  </div>
+  <div class="face">
+    <div class="eyebox"><svg id="eye" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="lbl">Tuning eye</div></div>
+    <div class="card" id="card"></div>
+    <div class="controls">
+      <div class="kcol"><button class="power" id="power" aria-pressed="false" aria-label="Power">POWER</button></div>
+      <div class="kcol"><div class="knob" id="tuneKnob" role="slider" tabindex="0" aria-label="Tuning knob"><div class="ind"></div></div><div class="lbl">Tuning</div></div>
+      <div class="kcol"><div class="knob" id="volKnob" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100"><div class="ind"></div></div><div class="lbl">Volume</div></div>
+      <div class="kcol"><div class="sw" role="group" aria-label="Band"><button id="bAM">AM</button><button id="bFM">FM</button></div><div class="lbl">Band</div></div>
+      <div class="kcol"><div class="sw" role="group" aria-label="Tone"><button id="tHi">Hi-Fi</button><button id="tAm">Vintage</button></div><div class="lbl">Tone</div></div>
+      <div class="kcol"><div class="fine"><button id="seekDn" aria-label="Seek down">&#9664;&#9664;</button><button id="seekUp" aria-label="Seek up">&#9654;&#9654;</button></div><div class="lbl">Seek</div></div>
+    </div>
+  </div>
+  <div class="presets" id="presets" aria-label="Station presets"></div>
+</section>
+<p class="hint">Drag the dial or the tuning knob, press a preset, or use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to tune (<kbd>Shift</kbd> seeks), <kbd>1</kbd>–<kbd>0</kbd> for presets, <kbd>B</kbd> to switch bands, <kbd>Space</kbd> for power.</p>
+
+<section class="log" aria-labelledby="logh">
+  <h2 id="logh">On the dial</h2>
+  <p class="note" id="lognote">Times are in your time zone. Click a station to tune in.</p>
+  <div class="rows" id="rows"></div>
+</section>
+
+<section class="about">
+  <h2>How it works</h2>
+  <div>
+    <p>Every station runs on a fixed weekly schedule that your browser computes from the same starting moment, so anyone tuned to a station hears the same program at the same second. Dramas start on the hour or half hour; station IDs, vintage commercials and musical interludes fill the gaps, the way a real station hit its marks.</p>
+    <p>Nothing is hosted here. Every second of audio streams straight from the Internet Archive's servers, which is why the dial goes quiet if archive.org is down. If you use this, <a href="https://archive.org/donate" target="_blank" rel="noopener">donate to the Archive</a>.</p>
+  </div>
+  <div>
+    <p><b>Rights, station by station</b></p>
+    <ul id="rightsList"></ul>
+  </div>
+</section>
+<div id="sr" class="sr" aria-live="polite"></div>
+<footer>Needle &amp; Dial is a prototype, not affiliated with the Internet Archive. Station call letters are fictional. Audio and metadata: Internet Archive contributors, Old Time Radio Researchers, LibriVox, the Great 78 Project, the Live Music Archive tapers, Musopen and the netlabels credited on air.</footer>
+</div>
+
+<script id="catalog" type="application/json">__CATALOG__</script>
+<script>
+{
+// ==ENGINE==
+const WEEK = 604800, EPOCH = Date.UTC(2026, 10, 23, 6, 0, 0) / 1000; // Monday 23 Nov 2026, 00:00 US Central Standard Time
+const ia = (id, file) => 'https://archive.org/download/' + encodeURIComponent(id) + '/' + file.split('/').map(encodeURIComponent).join('/');
+const details = (id) => 'https://archive.org/details/' + encodeURIComponent(id);
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function shuffle(a, r) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+class Pool { constructor(items, r) { this.a = shuffle(items, r); } take(max, look = 48, avoid) { const n = Math.min(look, this.a.length); for (let j = 0; j < n; j++) if (this.a[j].d <= max && !(avoid && avoid.has(this.a[j].t))) { const it = this.a.splice(j, 1)[0]; this.a.push(it); return it; } return null; } longer(min, avoid) { for (let j = 0; j < this.a.length; j++) if (this.a[j].d > min && !(avoid && avoid.has(this.a[j].t))) { const it = this.a.splice(j, 1)[0]; this.a.push(it); return it; } return null; } }
+const adName = (f) => f.replace(/^OldRadio_Adv--/, '').replace(/\.mp3$/, '').replace(/_/g, ' ').replace(/(?<=[a-z])[A-Z0-9]$/, '').replace(/(?<=\S)\d+(?=\s|$)/g, '').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+const ID = 10;
+const NO_FILL = /intro|tuning|tunin|break|crowd|outro|dead air|fade|improv|happy birthday|tease/i;
+
+function parseCatalog(C) {
+  const P = {};
+  const sp = (e) => e.split('|');
+  P.ads = C.ads.e.map(e => { const [f, d] = sp(e); return { k: 'ad', id: C.ads.i, f, d: +d, t: adName(f) }; });
+  P.g78 = C.gramophone.e.map(e => { const [id, f, d, y, t, a] = sp(e); return { k: 'music', id, f, d: +d, y, t, a, x: '78 rpm record' }; });
+  for (const key of ['whodunit', 'midnight', 'rocket', 'saddle', 'laugh']) P[key] = C[key].s.map(s => ({ series: s.n, serial: s.n === 'Planet Man', eps: s.e.map(e => { const [f, d, t, y] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a: s.n, y }; }) }));
+  P.stories = C.storytime.s.flatMap(s => s.e.map(e => { const [f, d, t, a] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a, x: 'LibriVox' }; }));
+  P.poems = C.storytime.p.flatMap(s => s.e.map(e => { const [f, d, t, a] = sp(e); return { k: 'poem', id: s.i, f, d: +d, t, a }; }));
+  P.shows = C.tapers.s.map(s => ({ meta: { a: s.a, y: s.d, v: s.v, c: s.c, id: s.i }, items: s.t.map((e, i) => { const [f, d, t] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a: s.a, y: s.d, x: s.v + (s.c ? ', ' + s.c : ''), n: i + 1, of: s.t.length }; }) }));
+  P.vault = P.shows.flatMap(s => s.items.filter(t => t.d >= 150 && t.d <= 660 && !NO_FILL.test(t.t)).map(t => Object.assign({}, t, { k: 'music', vault: true })));
+  P.works = C.nocturne.w.map(w => ({ meta: { w: w.n, a: w.c, p: w.p }, items: w.t.map((e, i) => { const [f, d, mv] = sp(e); return { k: 'prog', id: C.nocturne.i, f, d: +d, t: mv, w: w.n, a: w.c, x: w.p, n: i + 1, of: w.t.length }; }) }));
+  P.chopin = C.nocturne.f.map(e => { const [f, d, t, p] = sp(e); return { k: 'music', id: C.nocturne.fi, f, d: +d, t, a: 'Frédéric Chopin', x: p || 'Musopen' }; });
+  P.free = C.freeform.s.flatMap(al => al.t.map(e => { const [f, d, t, ta] = sp(e); return { k: 'music', id: al.i, f, d: +d, t, a: ta || al.a, al: al.al, l: al.l }; }));
+  return P;
+}
+
+const STATIONS = [
+  { key: 'whodunit', band: 'AM', f: 640, call: 'WHOD', name: 'Whodunit', fmt: 'Crime, detectives and private eyes', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'This is W H O D. Whodunit. Six forty on your dial.', motif: [659.3, 523.3, 784], tune: [523.3, 659.3, 784, 659.3, 587.3, 698.5, 880, 0], rights: 'Old-time radio, 1940s–60s. Many episodes are believed to be public domain but not all have been checked.' },
+  { key: 'midnight', band: 'AM', f: 760, call: 'WMID', name: 'Midnight', fmt: 'Suspense and the supernatural', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'W M I D. Midnight. Seven sixty.', motif: [440, 415.3, 349.2], tune: [440, 523.3, 415.3, 349.2, 440, 329.6, 0, 0], rights: 'Old-time radio, 1940s–60s. Rights not individually checked.' },
+  { key: 'rocket', band: 'AM', f: 900, call: 'KRKT', name: 'Rocket', fmt: 'Science fiction from radio’s golden age', type: 'prog', grid: 900, fill: [['ads', 2], ['g78', 9]], say: 'K R K T. Rocket. Nine hundred.', motif: [523.3, 784, 1046.5], tune: [784, 1046.5, 987.8, 784, 659.3, 784, 523.3, 0], rights: 'Old-time radio, 1950s. Rights not individually checked.' },
+  { key: 'saddle', band: 'AM', f: 1070, call: 'KPRY', name: 'Prairie', fmt: 'Westerns and frontier drama', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'K P R Y. Prairie. Ten seventy.', motif: [392, 493.9, 587.3], tune: [392, 440, 493.9, 587.3, 493.9, 440, 392, 0], rights: 'Old-time radio, 1949–61. Rights not individually checked.' },
+  { key: 'laugh', band: 'AM', f: 1240, call: 'WHAH', name: 'Laugh Line', fmt: 'Comedy from radio’s golden age', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'W H A H. Laugh Line. Twelve forty.', motif: [587.3, 740, 880], tune: [587.3, 659.3, 740, 880, 740, 659.3, 587.3, 0], note: 'Period comedy; some humor reflects its era.', rights: 'Old-time radio, 1940s–50s. Rights not individually checked.' },
+  { key: 'gramophone', band: 'AM', f: 1340, call: 'WGRM', name: 'The Gramophone', fmt: '78 rpm records, 1898–1925', type: 'music', songs: 'g78', say: 'W G R M. The Gramophone. Thirteen forty.', motif: [698.5, 587.3, 466.2], tune: [698.5, 880, 1046.5, 880, 698.5, 587.3, 523.3, 0], rights: 'Public domain in the US: every record here was published in 1925 or earlier.' },
+  { key: 'storytime', band: 'AM', f: 1500, call: 'WPGE', name: 'Story Hour', fmt: 'Short stories and poems, read aloud', type: 'prog', grid: 300, fill: [['poems', 9]], say: 'W P G E. Story Hour. Fifteen hundred.', motif: [523.3, 587.3, 659.3], tune: [659.3, 587.3, 523.3, 587.3, 659.3, 659.3, 659.3, 0], rights: 'Public domain: LibriVox volunteer recordings of public-domain texts.' },
+  { key: 'nocturne', band: 'FM', f: 89.5, call: 'WNOC', name: 'Nocturne', fmt: 'Classical, complete works', type: 'prog', grid: 300, fill: [['chopin', 9]], say: 'W N O C. Nocturne. Eighty-nine point five F M.', motif: [349.2, 440, 523.3], tune: [349.2, 440, 523.3, 698.5, 523.3, 440, 0, 0], rights: 'Public domain and CC0 recordings from Musopen.' },
+  { key: 'freeform', band: 'FM', f: 93.3, call: 'KFRE', name: 'Free Form', fmt: 'Netlabel music under Creative Commons', type: 'music', songs: 'free', say: 'K F R E. Free Form. Ninety-three point three.', motif: [659.3, 784, 987.8], tune: [659.3, 784, 987.8, 784, 659.3, 587.3, 0, 0], rights: 'Creative Commons. Each track shows its license; all are non-commercial or more permissive.' },
+  { key: 'tapers', band: 'FM', f: 101.9, call: 'KTPR', name: 'The Taper’s Section', fmt: 'Full concerts from the Live Music Archive', type: 'prog', grid: 1800, fill: [['vault', 40]], cutFill: true, say: 'K T P R. The Taper’s Section. One oh one point nine.', motif: [392, 587.3, 784], tune: [392, 493.9, 587.3, 784, 587.3, 493.9, 0, 0], rights: 'Live Music Archive: fan recordings by artists who allow taping and free streaming.' }
+];
+STATIONS.forEach(S => { S.fLabel = S.band === 'AM' ? String(S.f) + ' AM' : S.f.toFixed(1) + ' FM'; });
+
+function programStream(S, P, r) {
+  let q = [];
+  if (S.key === 'tapers') return () => { if (!q.length) q = shuffle(P.shows, r); return q.shift(); };
+  if (S.key === 'nocturne') return () => { if (!q.length) q = shuffle(P.works, r); return q.shift(); };
+  if (S.key === 'storytime') return () => { if (!q.length) q = shuffle(P.stories, r); return { items: [q.shift()], meta: null }; };
+  const series = P[S.key]; let last = -1;
+  const refill = () => { const qs = series.map(s => s.serial ? s.eps.slice() : shuffle(s.eps, r)); const out = []; while (qs.some(x => x.length)) { const order = shuffle(qs.map((x, i) => i).filter(i => qs[i].length), r); if (order.length > 1 && order[0] === last) order.push(order.shift()); for (const i of order) { out.push(qs[i].shift()); last = i; } } return out; };
+  return () => { if (!q.length) q = refill(); return { items: [q.shift()], meta: null }; };
+}
+
+function buildStation(S, week, P) {
+  const r = rng(hash(S.key) ^ Math.imul(week + 7, 2654435761));
+  const segs = []; let t = 0;
+  const push = (o, d) => { const dur = d === undefined ? o.d : d; segs.push(Object.assign({}, o, { s: t, d: dur })); t += dur; };
+  if (S.type === 'music') {
+    const pool = new Pool(P[S.songs], r);
+    for (let h = 0; h < WEEK / 3600; h++) {
+      const end = (h + 1) * 3600; push({ k: 'id' }, ID);
+      while (end - t >= 20) { const it = pool.take(end - t, 90); if (!it) break; push(it); }
+      if (end - t > 40) { const it = pool.take(1e9, 1); push(Object.assign({}, it, { cut: true, nd: it.d }), end - t); }
+      else if (end - t > 0) push({ k: 'interval' }, end - t);
+    }
+    return segs;
+  }
+  const pools = S.fill.map(([name, max]) => ({ pool: new Pool(P[name], r), max }));
+  const fill = (T) => { const used = new Set(); const from = (pl, max) => { let n = 0; while (T - t >= 15 && n < max) { const it = pl.pool.take(T - t, 1e9, used); if (!it) break; used.add(it.t); push(it); n++; } }; pools.forEach(pl => from(pl, pl.max)); pools.forEach(pl => from(pl, 2)); if (S.cutFill && T - t > 40) { const it = pools[0].pool.longer(T - t + 5, used); if (it) push(Object.assign({}, it, { cut: true, nd: it.d }), T - t); } if (T - t > 0) push({ k: 'interval' }, T - t); };
+  const next = programStream(S, P, r);
+  while (t < WEEK) {
+    const prog = next();
+    const pd = prog.items.reduce((a, x) => a + x.d, 0);
+    if (t + pd + ID > WEEK) { fill(WEEK); break; }
+    prog.items.forEach((it, i) => push(Object.assign({}, it, { p: prog.meta, pi: i })));
+    const B = Math.min(WEEK, Math.ceil((t + ID) / S.grid) * S.grid);
+    fill(B - ID); push({ k: 'id' }, B - t);
+  }
+  return segs;
+}
+
+function makeScheduler(P) {
+  const cache = new Map();
+  const forWeek = (S, week) => { const k = S.key + ':' + week; let s = cache.get(k); if (!s) { s = buildStation(S, week, P); cache.set(k, s); if (cache.size > 40) cache.delete(cache.keys().next().value); } return s; };
+  const at = (S, now) => { const rel = now - EPOCH; const week = Math.floor(rel / WEEK); const off = rel - week * WEEK; const segs = forWeek(S, week); let lo = 0, hi = segs.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (segs[mid].s <= off) lo = mid; else hi = mid - 1; } const base = EPOCH + week * WEEK; return { segs, i: lo, seg: segs[lo], off: off - segs[lo].s, week, base, start: base + segs[lo].s }; };
+  const isStart = (S, g) => S.type === 'music' ? (g.k === 'music') : (g.k === 'prog' && !g.pi);
+  const upcoming = (S, now, n) => { const out = []; const c = at(S, now); let segs = c.segs, i = c.i + 1, base = c.base, week = c.week, guard = 0; while (out.length < n && guard++ < 60000) { if (i >= segs.length) { week++; base += WEEK; segs = forWeek(S, week); i = 0; } const g = segs[i]; if (isStart(S, g)) out.push({ at: base + g.s, seg: g }); i++; } return out; };
+  const current = (S, now) => { const c = at(S, now); if (S.type === 'music' || c.seg.k === 'prog') { let j = c.i; while (j > 0 && c.segs[j].pi) j--; const g = c.segs[j]; return { seg: c.seg, head: g, at: c.base + g.s, inProg: c.seg.k === 'prog' }; } return { seg: c.seg, head: null, at: c.start, inProg: false }; };
+  return { at, upcoming, current, forWeek };
+}
+// ==/ENGINE==
+
+const C = window.__SKY_CAT__ || JSON.parse(document.getElementById('catalog').textContent);
+const P = parseCatalog(C);
+const SCH = makeScheduler(P);
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const RANGE = { AM: [530, 1700], FM: [87.5, 108] };
+const R = { on: false, band: 'AM', f: { AM: 640, FM: 93.3 }, vol: 0.75, tone: 'hifi' };
+try { Object.assign(R, JSON.parse(localStorage.getItem('needle-dial.v1') || '{}'), { on: false }); } catch (e) {}
+const save = () => { try { localStorage.setItem('needle-dial.v1', JSON.stringify({ band: R.band, f: R.f, vol: R.vol, tone: R.tone })); } catch (e) {} };
+const MUTE = !!window.__SKY_TEST_MUTE__;
+const fmtTime = (sec) => new Date(sec * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+const fmtDur = (s) => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
+const fmtDate = (d) => { if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d) || /-00/.test(d)) return d && /^\d{4}/.test(d) ? d.slice(0, 4) : ''; const [y, m, dd] = d.split('-').map(Number); return new Date(Date.UTC(y, m - 1, dd)).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }); };
+const nowS = () => Date.now() / 1000;
+
+function describe(S, seg) {
+  if (!seg) return { title: S.name, line: '' };
+  switch (seg.k) {
+    case 'prog':
+      if (S.key === 'tapers') return { kick: 'Live · track ' + seg.n + ' of ' + seg.of, title: seg.t, line: seg.a + ' · ' + fmtDate(seg.y) + ' · ' + seg.x };
+      if (S.key === 'nocturne') return { kick: seg.of > 1 ? 'Movement ' + seg.n + ' of ' + seg.of : 'Now playing', title: seg.w + (seg.t ? ' — ' + seg.t : ''), line: seg.a + ' · ' + seg.x };
+      if (S.key === 'storytime') return { kick: 'Story', title: seg.t, line: 'by ' + seg.a + ' · read by a LibriVox volunteer' };
+      return { kick: seg.a, title: seg.t, line: seg.y ? 'First aired ' + fmtDate(seg.y) : 'Original air date unknown' };
+    case 'ad': return { kick: 'A word from our sponsor', title: seg.t, line: 'Vintage radio commercial' };
+    case 'poem': return { kick: 'Poetry interlude', title: seg.t, line: 'by ' + seg.a };
+    case 'music':
+      if (S.type === 'music' && S.key === 'freeform') return { kick: seg.cut ? 'Playing us into the top of the hour' : 'Now playing', title: seg.t, line: [seg.a, seg.al, seg.l].filter(Boolean).join(' · ') };
+      if (S.type === 'music') return { kick: seg.cut ? 'Playing us into the top of the hour' : 'Now spinning', title: seg.t, line: [seg.a, seg.y].filter(Boolean).join(' · ') + ' · 78 rpm' };
+      if (seg.vault) return { kick: seg.cut ? 'From the vault · playing us into the next show' : 'From the vault', title: seg.t, line: seg.a + ' · ' + fmtDate(seg.y) };
+      if (seg.id === 'musopen-chopin') return { kick: 'Interlude', title: seg.t, line: seg.a + ' · ' + seg.x };
+      return { kick: 'Musical interlude', title: seg.t, line: [seg.a, seg.y].filter(Boolean).join(' · ') + ' · from a 78 rpm record' };
+    case 'id': return { kick: 'Station identification', title: S.call + ' · ' + S.fLabel, line: S.name + ' — ' + S.fmt };
+    default: return { kick: 'Stand by', title: S.name, line: 'Interval signal' };
+  }
+}
+const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') return seg.a + ', ' + fmtDate(seg.y); if (S.key === 'nocturne') return seg.a.split(' ').pop() + ': ' + seg.w; if (S.type === 'music') return seg.t + (seg.a ? ' — ' + seg.a : ''); if (S.key === 'storytime') return seg.t + ' (' + seg.a + ')'; return seg.a + ': ' + seg.t; };
+
+/* ---------- Audio ---------- */
+const A = { ctx: null, els: [], cur: null };
+let sigNow = 0;
+function satCurve() { const n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = Math.tanh(1.8 * x) / Math.tanh(1.8); } return c; }
+function noiseBuffer(ctx) { const len = ctx.sampleRate * 3, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0); let pink = 0; for (let i = 0; i < len; i++) { const w = Math.random() * 2 - 1; pink = 0.97 * pink + 0.03 * w; d[i] = w * 0.5 + pink * 2.4; if (Math.random() < 0.00015) { const amp = (0.3 + Math.random() * 0.9) * (Math.random() < 0.5 ? -1 : 1); for (let k = 0; k < 50 && i + k < len; k++) d[i + k] += amp * Math.exp(-k / 7); } } return b; }
+function initAudio() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+  const sig = ctx.createGain(); sig.gain.value = 0; sig.connect(master);
+  const toneIn = ctx.createGain();
+  const hifi = ctx.createGain(); toneIn.connect(hifi); hifi.connect(sig);
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 300;
+  const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3300; lp.Q.value = 0.9;
+  const sh = ctx.createWaveShaper(); sh.curve = satCurve();
+  const am = ctx.createGain(); toneIn.connect(hp); hp.connect(lp); lp.connect(sh); sh.connect(am); am.connect(sig);
+  const ns = ctx.createBufferSource(); ns.buffer = noiseBuffer(ctx); ns.loop = true;
+  const nf = ctx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 1400; nf.Q.value = 0.5;
+  const ng = ctx.createGain(); ng.gain.value = 0; ns.connect(nf); nf.connect(ng); ng.connect(master); ns.start();
+  const wo = ctx.createOscillator(); wo.frequency.value = 600; const wg = ctx.createGain(); wg.gain.value = 0; wo.connect(wg); wg.connect(master); wo.start();
+  const synth = ctx.createGain(); synth.gain.value = 0.55; synth.connect(toneIn);
+  const els = [0, 1].map(() => { const el = new Audio(); el.crossOrigin = 'anonymous'; el.preload = 'auto'; const g = ctx.createGain(); g.gain.value = 0; ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); const slot = { el, g, url: '' }; el.addEventListener('error', () => mediaFailed(slot)); el.addEventListener('ended', () => mediaEnded(slot)); return slot; });
+  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, synth, els });
+  applyTone();
+}
+const ramp = (param, v, tc = 0.06) => param.setTargetAtTime(v, A.ctx.currentTime, tc);
+function applyTone() { if (!A.ctx) return; ramp(A.hifi.gain, R.tone === 'hifi' ? 1 : 0, 0.05); ramp(A.am.gain, R.tone === 'hifi' ? 0 : 1.3, 0.05); }
+function applyBandNoise() { if (!A.ctx) return; if (R.band === 'AM') { A.nf.type = 'bandpass'; A.nf.frequency.value = 1400; A.nf.Q.value = 0.5; } else { A.nf.type = 'highpass'; A.nf.frequency.value = 1800; A.nf.Q.value = 0.4; } }
+
+const SYN = { nodes: [], timer: 0, talk: 0 };
+function note(t0, hz, dur, type, gain) { const o = A.ctx.createOscillator(), g = A.ctx.createGain(); o.type = type; o.frequency.value = hz; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gain, t0 + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); o.connect(g); g.connect(A.synth); o.start(t0); o.stop(t0 + dur + 0.05); SYN.nodes.push(o); o.onended = () => { const i = SYN.nodes.indexOf(o); if (i >= 0) SYN.nodes.splice(i, 1); }; }
+function stopSynth() { clearTimeout(SYN.timer); clearTimeout(SYN.talk); SYN.timer = SYN.talk = 0; SYN.nodes.slice().forEach(o => { try { o.stop(); } catch (e) {} }); SYN.nodes = []; try { speechSynthesis.cancel(); } catch (e) {} }
+function speak(text) { try { const u = new SpeechSynthesisUtterance(text); u.rate = 0.98; u.pitch = 0.85; u.volume = MUTE ? 0 : Math.min(1, R.vol); const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)); const pick = vs.find(v => /Daniel|Alex|Fred|Google US English|Guy|David/i.test(v.name)) || vs[0]; if (pick) u.voice = pick; speechSynthesis.speak(u); } catch (e) {} }
+function playId(S, remain) { stopSynth(); const t0 = A.ctx.currentTime + 0.05; if (remain > 2.5) S.motif.forEach((hz, i) => { note(t0 + i * 0.33, hz, 1.5, 'sine', 0.3); note(t0 + i * 0.33, hz * 2, 0.5, 'sine', 0.05); }); if (remain > 6 && sigNow > 0.55 && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(S.say), 1350); }
+function playInterval(S, remain) { stopSynth(); const step = 0.4, loop = S.tune.length * step + 0.6, end = A.ctx.currentTime + remain - 0.3; let t = A.ctx.currentTime + 0.1; const sched = () => { const horizon = A.ctx.currentTime + 6; while (t < horizon && t < end) { S.tune.forEach((hz, i) => { const at = t + i * step; if (hz && at < end) note(at, hz, 0.9, 'triangle', 0.16); }); t += loop; } if (t < end) SYN.timer = setTimeout(sched, 2000); }; sched(); }
+
+let TUNED = null, PEND = null, DETUNE = 0, PLAY = { key: '' }, TROUBLE = '';
+const segKey = (S, c) => S.key + ':' + c.week + ':' + c.i;
+const isMedia = (seg) => seg && !!seg.f;
+function fadeSlot(slot, v) { ramp(slot.g.gain, v, 0.08); }
+function mediaOut(keep) { A.els.forEach(s => { if (s === keep) return; fadeSlot(s, 0); setTimeout(() => { if (A.cur !== s || !isMedia(PLAY.seg)) s.el.pause(); }, 450); }); }
+function startSeg(S, c) {
+  const seg = c.seg; TROUBLE = '';
+  PLAY = { key: segKey(S, c), seg, S, start: c.start, preKey: '' };
+  if (isMedia(seg)) { stopSynth(); playMedia(seg, c.start); }
+  else { A.cur = null; mediaOut(); if (seg.k === 'id') playId(S, seg.d - c.off); else playInterval(S, seg.d - c.off); }
+  setMediaSession(S, seg);
+  const dd = describe(S, seg); $('#sr').textContent = S.call + ' ' + S.fLabel + ': ' + dd.title;
+}
+function playMedia(seg, start) {
+  const url = ia(seg.id, seg.f);
+  const slot = A.els.find(x => x.url === url) || A.els.find(x => x !== A.cur) || A.els[0];
+  if (slot.url !== url || slot.failed || slot.el.error) { slot.url = url; slot.el.src = url; }
+  A.cur = slot; slot.failed = false;
+  const el = slot.el;
+  const go = () => { if (A.cur !== slot) return; const want = nowS() - start; try { if (Math.abs(el.currentTime - want) > 1.2) el.currentTime = Math.max(0, want); } catch (e) {} el.play().catch(() => {}); };
+  if (el.readyState >= 1) go(); else el.addEventListener('loadedmetadata', go, { once: true });
+  fadeSlot(slot, 1); mediaOut(slot);
+}
+const RETRY = {};
+function mediaFailed(slot) { if (A.cur === slot && isMedia(PLAY.seg) && slot.url === ia(PLAY.seg.id, PLAY.seg.f)) { slot.failed = true; TROUBLE = 'Technical difficulties: this recording would not load. Please stand by.'; A.cur = null; playInterval(PLAY.S, Math.max(1, PLAY.start + PLAY.seg.d - nowS())); const key = PLAY.key; RETRY[key] = (RETRY[key] || 0) + 1; if (RETRY[key] <= 2) setTimeout(() => { if (PLAY.key === key) PLAY.key = ''; }, 8000); } }
+function mediaEnded(slot) { if (A.cur === slot && isMedia(PLAY.seg)) { const left = PLAY.start + PLAY.seg.d - nowS(); if (left > 2) { A.cur = null; playInterval(PLAY.S, left); } } }
+function maintain(S, c) {
+  const seg = c.seg;
+  if (isMedia(seg) && A.cur) {
+    const el = A.cur.el, want = nowS() - c.start;
+    if (el.paused && el.readyState >= 2 && !el.ended) el.play().catch(() => {});
+    if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { try { el.currentTime = want; } catch (e) {} }
+    if (seg.cut && seg.d - c.off < 5) ramp(A.cur.g.gain, 0, 1.2);
+  }
+  if (seg.d - c.off < 25 && !PLAY.preKey) {
+    for (let j = c.i + 1; j < Math.min(c.segs.length, c.i + 4); j++) { const nx = c.segs[j]; if (isMedia(nx)) { const url = ia(nx.id, nx.f); const slot = A.els.find(x => x !== A.cur); if (slot && !A.els.some(x => x.url === url)) { slot.url = url; slot.el.src = url; slot.el.load(); } break; } }
+    PLAY.preKey = 'done';
+  }
+}
+function levels(S, s) {
+  const am = R.band === 'AM', locked = TUNED && S === TUNED;
+  ramp(A.sig.gain, locked ? Math.pow(s, 1.5) : 0, 0.05);
+  const n = (am ? (R.tone === 'am' ? 0.035 : 0) : 0) + (am ? 0.4 : 0.28) * Math.pow(1 - s, 1.7);
+  ramp(A.ng.gain, n, 0.05);
+  if (am && S && s > 0.03 && s < 0.97) { ramp(A.wo.frequency, 140 + Math.abs(R.f.AM - S.f) * 150, 0.05); ramp(A.wg.gain, 0.1 * s * (1 - s), 0.05); } else ramp(A.wg.gain, 0, 0.05);
+  ramp(A.master.gain, MUTE ? 0 : R.vol * R.vol, 0.08);
+}
+function bandStations(b) { return STATIONS.filter(S => S.band === b); }
+function signalOf(S, f) { const W = S.band === 'AM' ? 14 : 0.32; const x = Math.abs(f - S.f) / W; return x >= 1 ? 0 : 1 - x * x; }
+function strongest() { const f = R.f[R.band]; let best = null, s = 0; for (const S of bandStations(R.band)) { const v = signalOf(S, f); if (v > s) { s = v; best = S; } } return { S: best, s }; }
+function tick() {
+  if (!R.on || !A.ctx) return;
+  const now = nowS(); const { S, s } = strongest(); sigNow = s;
+  if (S && s > 0.15) {
+    DETUNE = 0;
+    if (TUNED !== S) { if (!PEND || PEND.S !== S) PEND = { S, at: now + 0.2 }; else if (now >= PEND.at) { TUNED = S; PEND = null; PLAY = { key: '' }; } }
+  } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; A.cur = null; mediaOut(); stopSynth(); } } }
+  levels(S, s);
+  if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) startSeg(TUNED, c); else maintain(TUNED, c); }
+}
+
+/* ---------- Media Session ---------- */
+function setMediaSession(S, seg) { if (!('mediaSession' in navigator)) return; try { const d = describe(S, seg); navigator.mediaSession.metadata = new MediaMetadata({ title: d.title, artist: S.call + ' ' + S.fLabel + ' · ' + S.name, album: d.line }); } catch (e) {} }
+if ('mediaSession' in navigator) { try { navigator.mediaSession.setActionHandler('play', () => power(true)); navigator.mediaSession.setActionHandler('pause', () => power(false)); navigator.mediaSession.setActionHandler('nexttrack', () => seek(1)); navigator.mediaSession.setActionHandler('previoustrack', () => seek(-1)); } catch (e) {} }
+
+/* ---------- Dial ---------- */
+const PAD = 30;
+const fx = (band, f, W) => PAD + (f - RANGE[band][0]) / (RANGE[band][1] - RANGE[band][0]) * (W - 2 * PAD);
+const xf = (band, x, W) => RANGE[band][0] + (x - PAD) / (W - 2 * PAD) * (RANGE[band][1] - RANGE[band][0]);
+const clampF = (band, f) => Math.min(RANGE[band][1], Math.max(RANGE[band][0], f));
+function drawDial() {
+  const svg = $('#dialSvg'), W = svg.clientWidth, H = svg.clientHeight; if (!W) return;
+  const on = R.on, ink = on ? '#3a2410' : '#6b5c48', dim = on ? 'rgba(58,36,16,.38)' : 'rgba(107,92,72,.4)', narrow = W < 560;
+  const mid = H / 2, out = [];
+  const row = (band, y0, up) => {
+    const act = R.band === band, col = act ? ink : dim, [a, b] = RANGE[band];
+    out.push(`<text x="10" y="${up ? y0 + 20 : y0 + 30}" font-family="Oswald" font-size="13" fill="${col}">${band}</text>`);
+    const minor = band === 'AM' ? 10 : 0.5, labels = band === 'AM' ? (narrow ? [600, 800, 1000, 1200, 1400, 1600] : [550, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700]) : (narrow ? [88, 92, 96, 100, 104, 108] : [88, 90, 92, 94, 96, 98, 100, 102, 104, 106, 108]);
+    const base = up ? y0 + 34 : y0 + 12;
+    for (let f = Math.ceil(a / minor) * minor; f <= b + 1e-9; f += minor) { const x = fx(band, f, W); const major = labels.some(L => Math.abs(L - f) < minor / 2); const len = major ? 10 : 5; out.push(`<line x1="${x}" x2="${x}" y1="${up ? base - len : base}" y2="${up ? base : base + len}" stroke="${col}" stroke-width="${major ? 1.4 : .8}"/>`); }
+    labels.forEach(L => { const x = fx(band, L, W); const lab = band === 'AM' ? String(L / 10) : String(L); out.push(`<text x="${x}" y="${up ? base - 14 : base + 26}" text-anchor="middle" font-family="Oswald" font-size="${narrow ? 12 : 14}" fill="${col}">${lab}</text>`); });
+    bandStations(band).forEach(S => { const x = fx(band, S.f, W); out.push(`<circle cx="${x}" cy="${base}" r="3" fill="${act && on ? '#b8341f' : col}"/>` + (narrow ? '' : `<text x="${x}" y="${up ? base + 16 : base - 8}" text-anchor="middle" font-family="Oswald" font-size="12" font-weight="600" fill="${act && on ? '#7a2414' : col}">${S.call}</text>`)); });
+  };
+  row('AM', 4, true); row('FM', mid + 2, false);
+  out.push(`<line x1="${PAD}" x2="${W - PAD}" y1="${mid}" y2="${mid}" stroke="${dim}" stroke-width="1"/>`);
+  svg.innerHTML = out.join('');
+  drawNeedle();
+}
+function drawNeedle() { const svg = $('#dialSvg'), W = svg.clientWidth; $('#needle').style.left = fx(R.band, R.f[R.band], W) + 'px'; const d = $('#dial'); d.setAttribute('aria-valuemin', RANGE[R.band][0]); d.setAttribute('aria-valuemax', RANGE[R.band][1]); d.setAttribute('aria-valuenow', R.f[R.band].toFixed(R.band === 'AM' ? 0 : 1)); d.setAttribute('aria-valuetext', R.band === 'AM' ? Math.round(R.f.AM) + ' kilohertz AM' : R.f.FM.toFixed(1) + ' megahertz FM'); $('#tuneKnob .ind').style.transform = `rotate(${(R.f[R.band] - RANGE[R.band][0]) / (RANGE[R.band][1] - RANGE[R.band][0]) * 1080}deg)`; }
+function drawEye(s) { const h = (1 - s) * 75 + 6, r = 44, a1 = (-90 - h) * Math.PI / 180, a2 = (-90 + h) * Math.PI / 180; const glow = R.on ? 1 : 0.15; $('#eye').innerHTML = `<defs><radialGradient id="eg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#d9ffe6" stop-opacity="${glow}"/><stop offset=".55" stop-color="#4cf28f" stop-opacity="${glow}"/><stop offset="1" stop-color="#0d4a27" stop-opacity="${glow}"/></radialGradient></defs><circle cx="50" cy="50" r="49" fill="#120d08"/><circle cx="50" cy="50" r="${r}" fill="url(#eg)"/><path d="M50 50 L${50 + r * Math.cos(a1)} ${50 + r * Math.sin(a1)} A${r} ${r} 0 ${h > 90 ? 1 : 0} 1 ${50 + r * Math.cos(a2)} ${50 + r * Math.sin(a2)} Z" fill="#06130b"/><circle cx="50" cy="50" r="12" fill="#1c140c"/>`; }
+
+/* ---------- Controls ---------- */
+function setBand(b, force) { if (R.band === b && !force) return; R.band = b; $('#bAM').setAttribute('aria-pressed', b === 'AM'); $('#bFM').setAttribute('aria-pressed', b === 'FM'); applyBandNoise(); drawDial(); save(); renderPresets(); }
+function setTone(t) { R.tone = t; $('#tHi').setAttribute('aria-pressed', t === 'hifi'); $('#tAm').setAttribute('aria-pressed', t === 'am'); applyTone(); save(); }
+let SWEEP = 0;
+function sweepTo(band, f, ms) { setBand(band); cancelAnimationFrame(SWEEP); const f0 = R.f[band], t0 = performance.now(); ms = ms || 650; const step = (t) => { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; R.f[band] = f0 + (f - f0) * e; drawNeedle(); if (k < 1) SWEEP = requestAnimationFrame(step); else { save(); renderPresets(); } }; SWEEP = requestAnimationFrame(step); }
+function seek(dir) { const list = bandStations(R.band).sort((a, b) => a.f - b.f), f = R.f[R.band]; const tgt = dir > 0 ? (list.find(S => S.f > f + 0.05) || list[0]) : ([...list].reverse().find(S => S.f < f - 0.05) || list[list.length - 1]); sweepTo(R.band, tgt.f, 500 + Math.min(1100, Math.abs(tgt.f - f) / (RANGE[R.band][1] - RANGE[R.band][0]) * 2400)); }
+function nudge(df) { cancelAnimationFrame(SWEEP); R.f[R.band] = clampF(R.band, R.f[R.band] + df); drawNeedle(); renderPresets(); }
+function afc() { const { S, s } = strongest(); if (S && s > 0.3) sweepTo(R.band, S.f, 220); else save(); }
+let warmT = 0;
+function power(on) {
+  on = on === undefined ? !R.on : on;
+  if (on && !A.ctx) { try { initAudio(); } catch (e) { $('#card').innerHTML = '<div class="trouble">This browser could not start audio.</div>'; return; } }
+  R.on = on; $('#radio').dataset.on = on; $('#power').setAttribute('aria-pressed', on);
+  if (on) { A.ctx.resume(); applyBandNoise(); warmT = nowS(); TUNED = null; PLAY = { key: '' }; clearInterval(power.iv); power.iv = setInterval(tick, 200); }
+  else { clearInterval(power.iv); stopSynth(); if (A.ctx) { A.els.forEach(s => s.el.pause()); ramp(A.master.gain, 0, 0.05); setTimeout(() => { if (!R.on) A.ctx.suspend(); }, 300); } TUNED = null; PLAY = { key: '' }; }
+  drawDial(); drawEye(0); render();
+}
+function knobDrag(el, onDelta) { let y0 = 0, x0 = 0, dragging = false; el.addEventListener('pointerdown', e => { dragging = true; y0 = e.clientY; x0 = e.clientX; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing'; }); el.addEventListener('pointermove', e => { if (!dragging) return; const d = (y0 - e.clientY) + (e.clientX - x0); y0 = e.clientY; x0 = e.clientX; onDelta(d); }); const end = () => { if (dragging) { dragging = false; el.style.cursor = ''; onDelta(0, true); } }; el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); }
+function setVol(v) { R.vol = Math.min(1, Math.max(0, v)); $('#volKnob .ind').style.transform = `rotate(${-135 + R.vol * 270}deg)`; $('#volKnob').setAttribute('aria-valuenow', Math.round(R.vol * 100)); save(); }
+const tuneStep = () => R.band === 'AM' ? 1 : 0.025;
+
+function renderPresets() { const { S } = strongest(); $('#presets').innerHTML = STATIONS.map((P0, i) => `<button data-i="${i}" aria-pressed="${!!(S === P0 && signalOf(P0, R.f[R.band]) > 0.9)}" title="${esc(P0.name)} — ${esc(P0.fmt)}"><b>${P0.call}</b><span>${P0.fLabel}</span></button>`).join(''); }
+
+/* ---------- Rendering ---------- */
+function render() {
+  const now = nowS(); $('#clock').textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  const card = $('#card');
+  if (!R.on) { card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">Off</span><span class="st-fmt">Ten stations are on the air right now.</span></div><div class="ptitle">Press power to warm up the tubes.</div><div class="pline">Then drag the dial or press a preset. Static between stations is part of the experience.</div>`; return; }
+  if (nowS() - warmT < 1.2) { card.dataset.key = ''; card.innerHTML = `<div class="ptitle">Warming up…</div>`; return; }
+  const { S, s } = strongest();
+  if (!TUNED || !S || S !== TUNED) { const near = S && s > 0 ? `Getting closer to ${S.call} ${S.fLabel}.` : 'Nothing on this frequency. Keep turning, or press SEEK.'; card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">${R.band} ${R.band === 'AM' ? Math.round(R.f.AM) : R.f.FM.toFixed(1)}</span><span class="st-fmt">Static</span></div><div class="ptitle">${near}</div>`; drawEye(s); return; }
+  const c = SCH.at(TUNED, now), seg = c.seg, d = describe(TUNED, seg), el = A.cur && isMedia(seg) ? A.cur.el : null;
+  const nxt = SCH.upcoming(TUNED, now, 1)[0];
+  const buffering = !!(el && (el.readyState < 3 || el.seeking) && !TROUBLE);
+  const key = [TUNED.key, c.week, c.i, TROUBLE, buffering, nxt ? nxt.at : 0].join('|');
+  if (card.dataset.key !== key) {
+    card.dataset.key = key;
+    const link = isMedia(seg) ? `<a href="${details(seg.id)}" target="_blank" rel="noopener">Archive item &#8599;</a>` : '';
+    card.innerHTML = `<div class="st-line"><span class="call">${TUNED.call}</span><span class="st-name">${esc(TUNED.fLabel)} · ${esc(TUNED.name)}</span><span class="st-fmt">${esc(TUNED.fmt)}</span></div>
+    <div class="kicker">${esc(d.kick || '')}${buffering ? ' · tuning in…' : ''}</div><div class="ptitle">${esc(d.title)}</div><div class="pline">${esc(d.line)}</div>
+    ${TROUBLE ? `<div class="trouble">${esc(TROUBLE)}</div>` : ''}
+    <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d)}</span></div>
+    <div class="links">${link}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
+  }
+  $('#pEl').textContent = fmtDur(c.off); $('#pBar').style.width = Math.min(100, c.off / seg.d * 100).toFixed(1) + '%';
+  drawEye(s);
+}
+function renderLog() {
+  const now = nowS(); const rows = [];
+  ['AM', 'FM'].forEach(b => { rows.push(`<div class="band-h">${b}</div>`); bandStations(b).forEach(S => {
+    const cur = SCH.current(S, now), up = SCH.upcoming(S, now, 2);
+    const nowTxt = S.type === 'music' ? progLabel(S, cur.seg.k === 'music' ? cur.seg : null) || 'Station break' : (cur.inProg ? progLabel(S, cur.head) : 'Between programs');
+    const sinceTxt = S.type === 'music' ? 'Now playing' : (cur.inProg ? 'On now · since ' + fmtTime(cur.at) : 'On now');
+    rows.push(`<button class="row" data-key="${S.key}" aria-current="${TUNED === S}"><span class="rc"><b>${S.call}</b> ${esc(S.fLabel)}<span>${esc(S.name)} · ${esc(S.fmt)}</span></span>
+      <span class="slot"><small>${sinceTxt}</small><div>${esc(nowTxt)}</div></span>
+      ${up.map((u, i) => `<span class="slot${i ? ' later' : ''}"><small>${fmtTime(u.at)}</small><div>${esc(progLabel(S, u.seg))}</div></span>`).join('')}</button>`); }); });
+  $('#rows').innerHTML = rows.join('');
+}
+$('#rightsList').innerHTML = STATIONS.map(S => `<li><b>${S.call} ${esc(S.name)}:</b> ${esc(S.rights)}${S.note ? ' ' + esc(S.note) : ''}</li>`).join('') + '<li><b>Commercials:</b> from the Archive’s Old Time Radio Advertisements collection.</li>';
+
+/* ---------- Events ---------- */
+$('#power').addEventListener('click', () => power());
+$('#bAM').addEventListener('click', () => sweepTo('AM', R.f.AM, 1));
+$('#bFM').addEventListener('click', () => sweepTo('FM', R.f.FM, 1));
+$('#tHi').addEventListener('click', () => setTone('hifi'));
+$('#tAm').addEventListener('click', () => setTone('am'));
+$('#seekUp').addEventListener('click', () => seek(1));
+$('#seekDn').addEventListener('click', () => seek(-1));
+$('#presets').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const S = STATIONS[+b.dataset.i]; if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); });
+$('#rows').addEventListener('click', e => { const b = e.target.closest('.row'); if (!b) return; const S = STATIONS.find(x => x.key === b.dataset.key); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+(() => { const dial = $('#dial'); let drag = false; const set = (e) => { const r = dial.getBoundingClientRect(); cancelAnimationFrame(SWEEP); R.f[R.band] = clampF(R.band, xf(R.band, e.clientX - r.left, r.width)); drawNeedle(); }; dial.addEventListener('pointerdown', e => { drag = true; dial.setPointerCapture(e.pointerId); set(e); }); dial.addEventListener('pointermove', e => { if (drag) set(e); }); const end = () => { if (drag) { drag = false; afc(); renderPresets(); } }; dial.addEventListener('pointerup', end); dial.addEventListener('pointercancel', end); dial.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { nudge(tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { nudge(-tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } }); })();
+knobDrag($('#tuneKnob'), (d, done) => { if (done) { afc(); return; } nudge(d * tuneStep()); });
+$('#tuneKnob').addEventListener('wheel', e => { e.preventDefault(); nudge(Math.sign(e.deltaY) * -tuneStep() * (e.shiftKey ? 10 : 2)); clearTimeout(afc.t); afc.t = setTimeout(afc, 350); }, { passive: false });
+knobDrag($('#volKnob'), (d) => setVol(R.vol + d / 200));
+$('#volKnob').addEventListener('wheel', e => { e.preventDefault(); setVol(R.vol - Math.sign(e.deltaY) * 0.05); }, { passive: false });
+$('#volKnob').addEventListener('keydown', e => { if (/Arrow(Up|Right)/.test(e.key)) { setVol(R.vol + 0.05); e.preventDefault(); } if (/Arrow(Down|Left)/.test(e.key)) { setVol(R.vol - 0.05); e.preventDefault(); } });
+$('#tuneKnob').addEventListener('keydown', e => { if (/Arrow(Up|Right)/.test(e.key)) { nudge(tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } if (/Arrow(Down|Left)/.test(e.key)) { nudge(-tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } });
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
+  const onCtl = e.target.closest('.knob,#dial');
+  if (e.key === ' ' && !e.target.closest('button')) { power(); e.preventDefault(); }
+  else if (!onCtl && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { const dir = e.key === 'ArrowRight' ? 1 : -1; if (e.shiftKey) seek(dir); else nudge(dir * tuneStep()); e.preventDefault(); }
+  else if (e.key === 'b' || e.key === 'B') sweepTo(R.band === 'AM' ? 'FM' : 'AM', R.f[R.band === 'AM' ? 'FM' : 'AM'], 1);
+  else if (/^[0-9]$/.test(e.key)) { const S = STATIONS[(+e.key + 9) % 10]; if (S) { if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); } }
+});
+document.addEventListener('keyup', e => { if (!e.target.closest('.knob,#dial') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.shiftKey) { clearTimeout(afc.t); afc.t = setTimeout(afc, 400); } });
+new ResizeObserver(() => drawDial()).observe($('#dial'));
+
+setBand(R.band === 'FM' ? 'FM' : 'AM', true);
+setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDial(); drawEye(0); render(); renderLog();
+setInterval(render, 500); setInterval(renderLog, 15000);
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+}
+</script>
+</body>
+</html>

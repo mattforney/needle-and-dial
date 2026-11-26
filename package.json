@@ -1,0 +1,15 @@
+{
+  "name": "needle-and-dial",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Radio stations built from the Internet Archive's audio, on a shared schedule.",
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "test": "node tools/test_engine.js",
+    "check": "python3 tools/build.py && node tools/test_engine.js",
+    "analyze": "node tools/analyze.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
