@@ -15,6 +15,9 @@ const res = JSON.parse(fs.readFileSync(process.argv[2] || path.join(__dirname, '
 const ok = res.files.filter((x) => !x.error && x.I != null && x.I > -70);
 // Results measured before the tool's fix: where 25 dB below the program fell under -50 dBFS, "quiet" must equal "silent".
 for (const x of ok) if (x.prog != null && x.prog - 25 < -50) { x.lead_quiet = x.lead_silent; x.tail_quiet = x.tail_silent; }
+// A file sampled under two pools (KTPR's vault tracks are concert tracks) counts once.
+const seenFile = new Set(), dupes = ok.filter((x) => { const k = x.id + '/' + x.f; if (seenFile.has(k)) return true; seenFile.add(k); return false; });
+for (const x of dupes) ok.splice(ok.indexOf(x), 1);
 const failed = res.files.filter((x) => x.error);
 
 const q = (a, p) => { if (!a.length) return NaN; const s = a.slice().sort((x, y) => x - y), i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo); };
@@ -34,7 +37,7 @@ for (const pool of Object.keys(P)) { const vis = new Set(); const walk = (o) => 
 
 say(`# Loudness survey: findings`);
 say();
-say(`${ok.length} of ${res.files.length} sampled files measured${failed.length ? `; ${failed.length} failed (${[...new Set(failed.map((x) => x.error.split(':')[0]))].join(', ')})` : ''}. Measured ${res.started ? res.started.slice(0, 10) : ''} with ${res.ffmpeg || 'ffmpeg'}.`);
+say(`${ok.length} files measured${dupes.length ? ` (${dupes.length} more were sampled twice, under two pools, and measured the same both times)` : ''}${failed.length ? `; ${failed.length} failed (${[...new Set(failed.map((x) => x.error.split(':')[0]))].join(', ')})` : ''}. Measured ${res.started ? res.started.slice(0, 10) : ''} with ${res.ffmpeg || 'ffmpeg'}.`);
 say();
 
 // ---- 1. spread
@@ -63,9 +66,13 @@ say();
 // over every pair of measured files that could make that change: different items for a change between items, the
 // same item for a change within one. A pool sampled one file per item can't show changes within an item: unmeasured.
 const T = -20, HEAD = -1;
-const level = { now: (x) => x.I, pool: (x) => x.I - poolMed.get(x.pool), file: (x) => { let g = T - x.I; if (g > 0) g = Math.max(0, Math.min(g, HEAD - x.TP)); return x.I + g; } };
-const poolMed = new Map(pools.map(([p, r]) => [p, q(r.map((x) => x.I), 0.5)]));
-const poolFiles = new Map(pools);
+const level = { now: (x) => x.I, pool: (x) => x.I - poolMed.get(x.cpool), file: (x) => { let g = T - x.I; if (g > 0) g = Math.max(0, Math.min(g, HEAD - x.TP)); return x.I + g; } };
+// The schedule's pools, by the catalog (a vault track belongs to its concert), not the sample's labels.
+for (const x of ok) x.cpool = poolOf.get(x.id + '/' + x.f) || x.pool;
+const cpools = [...by(ok, (x) => x.cpool).entries()];
+const poolMed = new Map(cpools.map(([p, r]) => [p, q(r.map((x) => x.I), 0.5)]));
+const poolFiles = new Map(cpools);
+const unmeasured = new Map();
 function pairsFor(a, b, same) {
   const A = poolFiles.get(a) || [], B = poolFiles.get(b) || [], out = [];
   for (const x of A) for (const y of B) if (x !== y && (same ? x.id === y.id : x.id !== y.id)) out.push([x, y]);
@@ -91,7 +98,7 @@ for (const S of api.STATIONS) {
   for (const mode of Object.keys(level)) W[mode] = [];
   for (const [k, v] of kinds) {
     const pairs = pairsFor(v.a, v.b, v.same);
-    if (!pairs.length) continue;
+    if (!pairs.length) { unmeasured.set(S.call, (unmeasured.get(S.call) || []).concat(`${k} ×${v.n}`)); continue; }
     measured += v.n;
     for (const mode of Object.keys(level)) for (const [x, y] of pairs) W[mode].push([Math.abs(level[mode](x) - level[mode](y)), v.n / pairs.length]);
     per.push([k, v.n, q(pairs.map(([x, y]) => Math.abs(x.I - y.I)), 0.5)]);
@@ -103,7 +110,8 @@ for (const S of api.STATIONS) {
   say(`| ${S.call} | ${total} | ${pct(measured, total)} | ${f1(med('now'))} | ${pct(Math.round(share('now', 3) * 1000), 1000)} | ${pct(Math.round(share('now', 6) * 1000), 1000)} | ${pct(Math.round(share('pool', 3) * 1000), 1000)} | ${pct(Math.round(share('file', 3) * 1000), 1000)} | ${top || '–'} |`);
 }
 say();
-say('A change within one Archive item can only be measured where the sample has two files from the same item; KTPR\'s concerts and the 78s are sampled one file per item, so changes between tracks of one concert are left out.');
+const sharing = ok.filter((x, i) => ok.some((y, j) => j !== i && y.id === x.id)).length;
+say(`A change within one Archive item (a concert's next track, a work's next movement) is measured from pairs of sampled files from the same item; ${sharing} sampled files share an item with another. Left out for want of such a pair: ${[...unmeasured].map(([c, k]) => `${c} ${k.join(', ')}`).join('; ') || 'nothing'}.`);
 say();
 
 // ---- 3. quiet at the ends
