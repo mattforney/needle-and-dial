@@ -31,7 +31,7 @@ node tools/test_engine.js    # schedule checks; exits non-zero if any fail
 node tools/test_archive_check.js  # the Archive check's logic, against a fake archive.org
 python3 tools/test_snapshot.py    # the snapshot tool
 node tools/test_check_log.js      # the log checker
-node tools/check_log.js log.txt   # check a phone's debug log (Share or Copy from ?debug=1) against Gate B
+node tools/check_log.js log.txt   # check a phone's debug log (Share or Copy from ?debug=1, pasted through a chat app is fine) against Gate B; the screen may wake for up to a minute (--wake) without ending the run
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names match
 ```

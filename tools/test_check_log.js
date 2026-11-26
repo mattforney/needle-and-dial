@@ -96,6 +96,31 @@ const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).s
   const r = check(synth({ edit: (ev) => { ev.push({ t: changeAt(ev, 10).t + 30, msg: 'power off', bg: true }); } }));
   expect('power off: the stretch ends there', !r.ok && /short of 2 h/.test(r.report) && r.stretch.dur < 3600, r);
 }
+// The same log pasted through a chat app: a header on each message, lines cut between messages.
+{
+  const clean = synth(), lines = clean.split('\n'), out = [];
+  let msg = '[11/26/2026 2:31 PM] Matt Forney: ';
+  for (let i = 0; i < lines.length; i++) {
+    const L = lines[i];
+    if (i % 53 === 0) out.push(msg + L); // a message starting on a whole line
+    else if (i % 47 === 0) { const cut = 3 + (i % 11); out.push(L.slice(0, cut)); out.push(msg + L.slice(cut)); } // one cut mid-line
+    else out.push(L);
+  }
+  const a = check(clean), b = check(out.join('\n'));
+  expect('chat paste: same verdict and counts', b.ok === a.ok && b.changes === a.changes && Math.abs(b.stretch.dur - a.stretch.dur) < 1e-6, b);
+  const cutAtSpace = clean.replace('\n' + clean.split('\n').find((l) => /\[bg\] still here/.test(l)), (m) => m.replace(' [bg]', '\n[11/26/2026 2:31 PM] Matt Forney: [bg]'));
+  expect('chat paste: a cut at the space after the time', check(cutAtSpace).ok, check(cutAtSpace));
+}
+// The screen lighting up for a few seconds doesn't end the run; a long look does, and so does a reload.
+{
+  const blip = (secs, also = []) => synth({ edit: (ev) => { const c = changeAt(ev, 20); ev.forEach((e) => { if (e.t > c.t + 30 && e.t < c.t + 30 + secs) e.bg = false; }); ev.push({ t: c.t + 30, msg: 'page visible', bg: false }, ...also.map((m, k) => ({ t: c.t + 30.5 + k * 0.1, msg: m, bg: false })), { t: c.t + 30 + secs, msg: 'page hidden', bg: true }); } });
+  const r = check(blip(9.5));
+  expect('short wake: passes and is listed', r.ok && /Screen woke      1 time: \d\d:\d\d:\d\d for 9\.5 s; longest stretch without a wake 1 h/.test(r.report), r);
+  const q = check(blip(300));
+  expect('long wake: ends the run', !q.ok && /short of 2 h/.test(q.report), q);
+  const w = check(blip(9.5, ['page loaded · build 44a2955 2026-11-26 08:05Z · x', 'power on']));
+  expect('reload during a wake: ends the run', !w.ok && /short of 2 h/.test(w.report), w);
+}
 // Nothing to read.
 {
   const r = check('hello\nthere');

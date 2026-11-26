@@ -4,21 +4,28 @@
 // seconds, and nothing stopping the sound. Open the site with ?debug=1, run the test, then save
 // the text the log's Share or Copy button gives and run:
 //
-//   node tools/check_log.js log.txt [--hours 2] [--start 10]
+//   node tools/check_log.js log.txt [--hours 2] [--start 10] [--wake 60]
 //
 // --hours is how long the screen must stay locked, --start how many seconds a program change or a
-// recovery may take. Prints what happened while locked and a verdict; exit code 0 pass, 1 fail,
-// 2 when the file has no log lines.
+// recovery may take, --wake the longest the screen may light up (a notification, a glance) without
+// ending the locked run; each wake is listed. Prints what happened while locked and a verdict; exit
+// code 0 pass, 1 fail, 2 when the file has no log lines. A log pasted through a chat app, with a
+// "[11/26/2026 2:31 PM] Name: " header on each message and lines cut between messages, is fine.
 'use strict';
 const fs = require('fs');
 
-const LINE = /^(\d{2}):(\d{2}):(\d{2})\.(\d{3}) (\[bg\] )?(.*)$/;
+const LINE = /^(\d{2}):(\d{2}):(\d{2})\.(\d{3}) ?(\[bg\] ?)?(.*)$/;
+
+// A chat app puts a "[date time] Name: " header on each message and may cut a line where one message
+// ends: drop the headers, starting a new line only where the next message starts one.
+const CHAT = /\r?\n?\[\d{1,4}[\/.-]\d{1,2}[\/.-]\d{1,4},? \d{1,2}:\d{2}(?::\d{2})?(?:\s?[AaPp]\.?[Mm]\.?)?\] [^:\n]{1,60}: /g;
+const unchat = (text) => String(text).replace(CHAT, (m, at, all) => (/^(\d{2}:\d{2}:\d{2}\.\d{3}|Needle & Dial |Mozilla\/)/.test(all.slice(at + m.length)) ? '\n' : ''));
 
 // Lines in order, with times in seconds that keep counting past midnight.
 function parse(text) {
   const lines = [], header = {};
   let day = 0, prev = -Infinity;
-  for (const raw of String(text).split(/\r?\n/)) {
+  for (const raw of unchat(text).split(/\r?\n/)) {
     const line = raw.trim(), m = LINE.exec(line);
     if (!m) {
       if (/^Needle & Dial /.test(line)) header.build = line.slice('Needle & Dial '.length).trim();
@@ -62,7 +69,7 @@ function device(header, lines) {
 }
 
 function check(text, opt = {}) {
-  const need = (opt.hours ?? 2) * 3600, slow = opt.start ?? 10, quiet = opt.quiet ?? 75;
+  const need = (opt.hours ?? 2) * 3600, slow = opt.start ?? 10, quiet = opt.quiet ?? 75, wake = opt.wake ?? 60;
   const { header, lines } = parse(text);
   if (!lines.length) return { ok: false, unreadable: true, report: 'No log lines found. Save the text from the log’s Share or Copy button.' };
 
@@ -79,6 +86,15 @@ function check(text, opt = {}) {
     if (!locked && cur) { Object.assign(cur, { i1: i, to: L.t }); stretches.push(cur); cur = null; }
   });
   if (cur) stretches.push(Object.assign(cur, { i1: lines.length, to: lines[lines.length - 1].t, open: true }));
+  // A short wake (the screen lighting up for a notification or a glance) doesn't end a locked run,
+  // unless the page reloaded or the radio was switched off in it.
+  const runs = [];
+  for (const st of stretches) {
+    const r = runs[runs.length - 1], gap = r ? st.from - r.to : Infinity;
+    const broken = r && lines.slice(r.i1, st.i0).some((L) => /^page loaded|^power off$/.test(L.msg));
+    if (r && gap <= wake && !broken) { r.wakes.push({ at: lines[r.i1].at, dur: gap }); r.longest = Math.max(r.longest, st.to - st.from); Object.assign(r, { i1: st.i1, to: st.to, open: st.open }); }
+    else runs.push(Object.assign({}, st, { wakes: [], longest: st.to - st.from }));
+  }
   const builds = [...new Set(lines.filter((L) => /^page loaded/.test(L.msg)).map((L) => (/build (\S+)/.exec(L.msg) || [])[1]).filter(Boolean))];
   const out = [`Log from ${builds.length ? 'build ' + builds.join(', ') : header.build ? 'build ' + header.build.split(' ')[0] : 'an unknown build'} · ${device(header, lines)}`];
 
@@ -94,9 +110,10 @@ function check(text, opt = {}) {
     out.push('The screen was never locked with the radio on.', '', 'Gate B, locked phone: FAIL');
     return { ok: false, report: out.join('\n'), problems: ['never locked'] };
   }
-  const S = stretches.reduce((a, b) => (b.to - b.from > a.to - a.from ? b : a));
+  const S = runs.reduce((a, b) => (b.to - b.from > a.to - a.from ? b : a));
   const dur = S.to - S.from, inS = lines.slice(S.i0, S.i1), end = lines[S.i1];
-  out.push(`Locked with the radio on: ${lines[S.i0].at} → ${end ? end.at : lines[lines.length - 1].at}, ${fmtDur(dur)}${stretches.length > 1 ? ` (the longest of ${stretches.length} locked stretches)` : ''}${S.open ? ', and still locked when the log ends' : ''}`);
+  out.push(`Locked with the radio on: ${lines[S.i0].at} → ${end ? end.at : lines[lines.length - 1].at}, ${fmtDur(dur)}${runs.length > 1 ? ` (the longest of ${runs.length} locked runs)` : ''}${S.open ? ', and still locked when the log ends' : ''}`);
+  if (S.wakes.length) out.push(`  Screen woke      ${n(S.wakes.length, 'time', 'times')}: ${S.wakes.map((w) => `${w.at} for ${w.dur.toFixed(1)} s`).join(', ')}; longest stretch without a wake ${fmtDur(S.longest)}`);
 
   const problems = [], notes = [];
   const nextSound = (i, until) => { for (let j = i + 1; j < S.i1 && lines[j].t <= until; j++) if (SOUND.test(lines[j].msg)) return lines[j]; return null; };
@@ -169,14 +186,14 @@ function check(text, opt = {}) {
   if (dur < need) problems.unshift(`locked for ${fmtDur(dur)}, short of ${fmtDur(need)}`);
   const ok = !problems.length;
   out.push('', `Gate B, locked phone: ${ok ? 'PASS' : 'FAIL'}`, ...problems.map((p) => '  - ' + p));
-  return { ok, report: out.join('\n'), problems, stretch: { from: S.from, to: S.to, dur }, changes: changes.length, stops: stops.length };
+  return { ok, report: out.join('\n'), problems, stretch: { from: S.from, to: S.to, dur, wakes: S.wakes.length, longest: S.longest }, changes: changes.length, stops: stops.length };
 }
 
 module.exports = { parse, check };
 
 if (require.main === module) {
   const args = process.argv.slice(2), opt = {};
-  for (let i = 0; i < args.length; i++) if (args[i] === '--hours') opt.hours = +args[++i]; else if (args[i] === '--start') opt.start = +args[++i]; else opt.file = args[i];
+  for (let i = 0; i < args.length; i++) if (args[i] === '--hours') opt.hours = +args[++i]; else if (args[i] === '--start') opt.start = +args[++i]; else if (args[i] === '--wake') opt.wake = +args[++i]; else opt.file = args[i];
   const text = opt.file ? fs.readFileSync(opt.file, 'utf8') : fs.readFileSync(0, 'utf8');
   const r = check(text, opt);
   console.log(r.report);
