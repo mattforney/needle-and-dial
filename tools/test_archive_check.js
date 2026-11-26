@@ -28,7 +28,7 @@ const META = {
   partial: { metadata: {}, files: [{ name: 'here.mp3', length: '60' }, { name: 'priv.mp3', length: '60', private: 'true' }] },
   longer: { metadata: {}, files: [{ name: 'l.mp3', length: '130' }] },
   close: { metadata: {}, files: [{ name: 'c.mp3', length: '101.5' }] },
-  restricted: { metadata: { 'access-restricted-item': 'true' }, files: [{ name: 'r.mp3', length: '03:20' }] },
+  restricted: { metadata: { 'access-restricted-item': 'true', title: 'A Concert | Live' }, files: [{ name: 'r.mp3', length: '03:20' }] },
   approved: { metadata: { 'access-restricted-item': 'true' }, files: [{ name: 'p.mp3', length: '200' }] },
   dl: { metadata: {}, files: ['f403.mp3', 'f404.mp3', 'f503.mp3', 'f500once.mp3'].map((name) => ({ name, length: '10' })) },
   pipe: { metadata: {}, files: [] }, // a missing file whose name needs escaping in the report
@@ -85,7 +85,7 @@ function fakeArchive() {
   const moved = await checkAll(files, { fetch: fakeArchive().fetch, sleep: async () => {}, delay: 0, approvals: { approved: 'x', restricted: 'y' } });
   ok(moved.hash !== s.hash && moved.pending.length === 0, 'approving an item changes the hash and clears it from review');
   const md = report(s, new Date(Date.UTC(2026, 10, 29, 14, 30)), 'https://example.test/run');
-  for (const h of ['## Archive check, Sun, Nov 29, 2026', '### Needs fixing', '### Length changed', '### Stream-only, waiting for your review', "### Couldn't check this week", `<!-- archive-check:${s.hash} -->`, '[run log](https://example.test/run)', 'a\\|b.mp3'])
+  for (const h of ['## Archive check, Sun, Nov 29, 2026', '### Needs fixing', '### Length changed', '### Stream-only, waiting for your review', "### Couldn't check this week", `<!-- archive-check:${s.hash} -->`, '[run log](https://example.test/run)', 'a\\|b.mp3', '[A Concert \\| Live](https://archive.org/details/restricted)'])
     ok(md.includes(h), 'report has ' + JSON.stringify(h));
   const clean = report(await checkAll(files.slice(0, 2), { fetch: fakeArchive().fetch, sleep: async () => {}, delay: 0 }));
   ok(clean.includes('Every file is where the catalog expects it.') && !clean.includes('###'), 'a clean run says so and has no sections');

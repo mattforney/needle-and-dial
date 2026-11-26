@@ -97,6 +97,7 @@ async function checkItem(id, files, o) {
   if (!r.ok) { files.forEach((x) => res(x, 'failed', `metadata: HTTP ${r.status}`)); return out; }
   if (!meta || !meta.metadata || !Array.isArray(meta.files)) { files.forEach((x) => res(x, 'gone', meta && meta.is_dark ? 'item withdrawn (dark)' : 'item no longer exists')); return out; }
   out.restricted = String(meta.metadata['access-restricted-item']).toLowerCase() === 'true';
+  out.title = String(meta.metadata.title || '');
   const byName = new Map(meta.files.map((m) => [String(m.name).normalize('NFC'), m]));
   for (const x of files) {
     const m = byName.get(x.f.normalize('NFC'));
@@ -131,7 +132,7 @@ function summarize(files, items, approvals) {
   const fileByKey = new Map(files.map((x) => [x.key, x]));
   const results = items.flatMap((it) => it.results.map((r) => ({ ...r, file: fileByKey.get(r.key) })));
   const count = (s) => results.filter((r) => r.status === s).length;
-  const streamOnly = items.filter((it) => it.restricted).map((it) => ({ id: it.id, approved: approvals[it.id] || '', files: files.filter((x) => x.id === it.id) }));
+  const streamOnly = items.filter((it) => it.restricted).map((it) => ({ id: it.id, title: it.title || it.id, approved: approvals[it.id] || '', files: files.filter((x) => x.id === it.id) }));
   const pending = streamOnly.filter((s) => !s.approved);
   const problems = results.filter((r) => PROBLEM.has(r.status));
   const keys = [...problems.map((r) => r.status + ' ' + r.key), ...pending.map((s) => 'stream-only ' + s.id)].sort();
@@ -157,7 +158,7 @@ function table(rows, head, cells, cap = 60) {
   return lines.join('\n');
 }
 function report(s, when = new Date(), run = '') {
-  const day = when.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  const day = when.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'America/Chicago' }); // the schedule's time zone
   const out = [`## Archive check, ${day}`, ''];
   const parts = [`${s.ok.toLocaleString('en-US')} fine`];
   if (s.broken) parts.push(`${s.broken} ${s.broken === 1 ? 'needs' : 'need'} fixing`);
@@ -171,7 +172,7 @@ function report(s, when = new Date(), run = '') {
   if (len.length) out.push('', '### Length changed', '', "The schedule uses the catalog's length, so these end early (the interval signal fills the rest) or get cut off. Update the length in the catalog, or check the new file.", '',
     table(len, ['Station', 'Title', 'File', 'Lengths'], (r) => [who(r.file), label(r.file), link(r.file), r.note]));
   if (s.pending.length) out.push('', '### Stream-only, waiting for your review', '', `The Archive streams these items but offers no download. To keep one, add its identifier to \`${APPROVALS}\` with a one-line reason; otherwise replace it.`, '',
-    ['| Station | Item | Files |', '|---|---|---|', ...s.pending.map((p) => `| ${who({ stations: new Set(p.files.flatMap((x) => [...x.stations])), pool: p.files[0].pool })} | [${esc(p.id)}](https://archive.org/details/${encodeURIComponent(p.id)}) | ${p.files.length} |`)].join('\n'));
+    ['| Station | Item | Files |', '|---|---|---|', ...s.pending.map((p) => `| ${who({ stations: new Set(p.files.flatMap((x) => [...x.stations])), pool: p.files[0].pool })} | [${esc(p.title)}](https://archive.org/details/${encodeURIComponent(p.id)}) | ${p.files.length} |`)].join('\n'));
   const approved = s.streamOnly.filter((x) => x.approved);
   if (approved.length) out.push('', `Stream-only items you approved: ${approved.map((x) => `\`${x.id}\``).join(', ')}.`);
   const unchecked = s.results.filter((r) => r.status === 'unchecked');
