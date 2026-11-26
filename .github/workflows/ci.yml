@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore: [gh-pages]
   pull_request:
+  workflow_dispatch: # the weekly Archive check starts this after saving a snapshot
 
 jobs:
   build-and-test:
@@ -19,6 +20,8 @@ jobs:
         run: node tools/test_engine.js
       - name: Archive check logic
         run: node tools/test_archive_check.js
+      - name: Snapshot tool
+        run: python3 tools/test_snapshot.py
       - name: Install test tools
         run: npm ci
       - name: Playback checks
@@ -29,7 +32,7 @@ jobs:
   # Publishes main to GitHub Pages through the gh-pages branch, only after the build and every check pass.
   publish:
     needs: build-and-test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     permissions:
       contents: write

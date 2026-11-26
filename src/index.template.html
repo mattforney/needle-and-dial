@@ -250,9 +250,25 @@ function buildStation(S, week, P) {
   return segs;
 }
 
+// Weekly snapshots: each week schedules from a frozen copy of the catalog (snapshots/ in the
+// repo). A snapshot names the Monday it starts and any files to hold out of it.
+const weekOf = (ymd) => (Date.UTC(+ymd.slice(0, 4), +ymd.slice(5, 7) - 1, +ymd.slice(8, 10), 6) / 1000 - EPOCH) / WEEK;
+function excludeFiles(P, ex) {
+  if (!ex || !ex.length) return P;
+  const out = new Set(ex), keep = (x) => !(x && typeof x.id === 'string' && typeof x.f === 'string' && out.has(x.id + '/' + x.f));
+  for (const k of Object.keys(P)) P[k] = P[k].filter(keep).map(o => { for (const c of ['eps', 'items']) if (Array.isArray(o[c])) o = Object.assign({}, o, { [c]: o[c].filter(keep) }); return o; }).filter(o => !(Array.isArray(o.eps) && !o.eps.length) && !(Array.isArray(o.items) && !o.items.length));
+  return P;
+}
+// The page carries this week's snapshot whole; later ones list only the stations that change.
+function loadSnapshots(raw) {
+  let prev = {};
+  return raw.map(s => { const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog; prev = cat; return { from: s.from, week: weekOf(s.from), P: excludeFiles(parseCatalog(cat), s.exclude) }; }).sort((a, b) => a.week - b.week);
+}
+const schedulerFor = (snaps) => makeScheduler((w) => snaps.reduce((p, s) => (s.week <= w ? s.P : p), snaps[0].P));
+// P is one parsed catalog, or a function from week number to the catalog that week uses.
 function makeScheduler(P) {
-  const cache = new Map();
-  const forWeek = (S, week) => { const k = S.key + ':' + week; let s = cache.get(k); if (!s) { s = buildStation(S, week, P); cache.set(k, s); if (cache.size > 40) cache.delete(cache.keys().next().value); } return s; };
+  const cache = new Map(), Pfor = typeof P === 'function' ? P : () => P;
+  const forWeek = (S, week) => { const k = S.key + ':' + week; let s = cache.get(k); if (!s) { s = buildStation(S, week, Pfor(week)); cache.set(k, s); if (cache.size > 40) cache.delete(cache.keys().next().value); } return s; };
   const at = (S, now) => { const rel = now - EPOCH; const week = Math.floor(rel / WEEK); const off = rel - week * WEEK; const segs = forWeek(S, week); let lo = 0, hi = segs.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (segs[mid].s <= off) lo = mid; else hi = mid - 1; } const base = EPOCH + week * WEEK; return { segs, i: lo, seg: segs[lo], off: off - segs[lo].s, week, base, start: base + segs[lo].s }; };
   const isStart = (S, g) => S.type === 'music' ? (g.k === 'music') : (g.k === 'prog' && !g.pi);
   const upcoming = (S, now, n) => { const out = []; const c = at(S, now); let segs = c.segs, i = c.i + 1, base = c.base, week = c.week, guard = 0; while (out.length < n && guard++ < 60000) { if (i >= segs.length) { week++; base += WEEK; segs = forWeek(S, week); i = 0; } const g = segs[i]; if (isStart(S, g)) out.push({ at: base + g.s, seg: g }); i++; } return out; };
@@ -261,9 +277,8 @@ function makeScheduler(P) {
 }
 // ==/ENGINE==
 
-const C = window.__SKY_CAT__ || JSON.parse(document.getElementById('catalog').textContent);
-const P = parseCatalog(C);
-const SCH = makeScheduler(P);
+const SNAPS = loadSnapshots(JSON.parse(document.getElementById('catalog').textContent));
+const SCH = schedulerFor(SNAPS);
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const RANGE = { AM: [530, 1700], FM: [87.5, 108] };
@@ -274,7 +289,23 @@ const MUTE = !!window.__SKY_TEST_MUTE__;
 const fmtTime = (sec) => new Date(sec * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 const fmtDur = (s) => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
 const fmtDate = (d) => { if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d) || /-00/.test(d)) return d && /^\d{4}/.test(d) ? d.slice(0, 4) : ''; const [y, m, dd] = d.split('-').map(Number); return new Date(Date.UTC(y, m - 1, dd)).toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }); };
-const nowS = () => Date.now() / 1000;
+// Clock sync: the schedule assumes every listener's clock agrees. The page reads the time from
+// the server it came from (the Date header, to the second) and corrects the device clock when it
+// is clearly off. Within 2 s the device, usually set by the network, is the better clock.
+const CLOCK = { off: 0, checked: 0 };
+const nowS = () => (Date.now() + CLOCK.off) / 1000;
+async function syncClock() {
+  if (!/^https?:$/.test(location.protocol)) return;
+  try {
+    const t0 = Date.now(), r = await fetch(location.href.split('#')[0], { method: 'HEAD', cache: 'no-store' }), t1 = Date.now();
+    const d = Date.parse(r.headers.get('date') || '');
+    if (!Number.isFinite(d)) return;
+    const off = Math.round(d + 500 - (t0 + t1) / 2); // the header is truncated to the second
+    CLOCK.checked = t1;
+    CLOCK.off = Math.abs(off) > 2000 ? off : 0;
+    dlog(`clock: device ${off >= 0 ? 'behind' : 'ahead of'} the server by ${(Math.abs(off) / 1000).toFixed(1)} s${CLOCK.off ? '; correcting' : ''} (round trip ${t1 - t0} ms)`);
+  } catch (e) {}
+}
 
 function describe(S, seg) {
   if (!seg) return { title: S.name, line: '' };
@@ -379,7 +410,7 @@ function initAudio() {
   const el = new Audio(); el.preload = 'auto';
   let g = null;
   if (ROUTE) { el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); }
-  const keep = IOS ? null : new Audio();
+  const keep = IOS && QS.get('keepalive') !== '1' ? null : new Audio(); // ?keepalive=1: try it on iPhone too
   if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
   Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
@@ -603,7 +634,7 @@ function renderPresets() { const { S } = strongest(); $('#presets').innerHTML = 
 
 /* ---------- Rendering ---------- */
 function render() {
-  const now = nowS(); $('#clock').textContent = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  const now = nowS(); $('#clock').textContent = new Date(now * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   const card = $('#card');
   if (!R.on) { card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">Off</span><span class="st-fmt">Ten stations are on the air right now.</span></div><div class="ptitle">Press power to warm up the tubes.</div><div class="pline">Then drag the dial or press a preset. Static between stations is part of the experience.</div>`; return; }
   if (nowS() - warmT < 1.2) { card.dataset.key = ''; card.innerHTML = `<div class="ptitle">Warming up…</div>`; return; }
@@ -678,6 +709,8 @@ document.addEventListener('visibilitychange', () => {
   if (A.el.paused && !A.held) playCarrier('page visible');
   tick('visible'); render();
 });
+syncClock();
+document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - CLOCK.checked > 3600e3) syncClock(); });
 document.addEventListener('freeze', () => dlog('page frozen by the browser'));
 document.addEventListener('resume', () => dlog('page unfrozen'));
 document.addEventListener('keyup', e => { if (!e.target.closest('.knob,#dial') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.shiftKey) { clearTimeout(afc.t); afc.t = setTimeout(afc, 400); } });
@@ -707,7 +740,7 @@ if (DBG.on) {
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>

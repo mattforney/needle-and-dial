@@ -15,8 +15,9 @@ on:
         default: true
 
 permissions:
-  contents: read
+  contents: write # commits next week's snapshot
   issues: write
+  actions: write # starts CI, which republishes the site
 
 concurrency:
   group: archive-check
@@ -47,3 +48,22 @@ jobs:
           TITLE: ${{ steps.check.outputs.title }}
           FILES: ${{ steps.check.outputs.files }}
         run: bash tools/archive_check_issue.sh
+      - name: Draft next week's snapshot
+        id: snap
+        if: always() && steps.check.outcome == 'success' && !inputs.items
+        run: python3 tools/snapshot.py --exclude-from dist/archive-check.json
+      - name: Save the snapshot and republish
+        if: always() && steps.snap.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- snapshots)" ]; then echo "Next week schedules from the snapshot already in place."; exit 0; fi
+          week=$(cd tools && python3 -c 'import datetime, ndlib; print(ndlib.week_date(ndlib.week_index(datetime.datetime.now(datetime.timezone.utc)) + 1))')
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A snapshots
+          git commit -m "Snapshot for the week of $week"
+          git pull --rebase -q origin main
+          git push origin HEAD:main
+          # A push made with this workflow's token starts no other workflow, so start CI by hand.
+          gh workflow run ci.yml --ref main

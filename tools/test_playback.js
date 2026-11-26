@@ -18,9 +18,10 @@ try { pw = require('playwright-core'); } catch (e) { pw = require('playwright');
 const htmlPath = process.argv.slice(2).find((x) => !x.startsWith('--')) || path.join(__dirname, '..', 'dist', 'index.html');
 const HTML = fs.readFileSync(htmlPath, 'utf8');
 const code = HTML.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
-const CAT = JSON.parse(HTML.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
-const api = new Function('CAT', code + '\nreturn { STATIONS, parseCatalog, makeScheduler, ia };')(CAT);
-const SCH = api.makeScheduler(api.parseCatalog(CAT));
+const INLINE = JSON.parse(HTML.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
+const snapshotted = Array.isArray(INLINE); // pages built before weekly snapshots inline one catalog
+const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor' : ''} };`)(null);
+const SCH = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE)) : api.makeScheduler(api.parseCatalog(INLINE));
 const S = api.STATIONS.find((s) => s.key === 'gramophone');
 const PRESET = api.STATIONS.indexOf(S);
 const url = (seg) => api.ia(seg.id, seg.f);
@@ -170,6 +171,21 @@ async function handling(browser) {
   return finish(t, 'tune away and back, outside pause, power off and on', problems);
 }
 
+// Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
+async function clockSync(browser, skewMs) {
+  const ctx = await browser.newContext();
+  await ctx.route(/fonts\.(googleapis|gstatic)\.com|archive\.org/, (r) => r.abort());
+  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', headers: { date: new Date(Date.now() + skewMs).toUTCString() }, body: HTML }));
+  const page = await ctx.newPage();
+  await page.goto('http://nd.test/?debug=1');
+  let off = null;
+  for (let i = 0; i < 20 && off === null; i++) { await sleep(150); off = await page.evaluate(() => (window.SKY && window.SKY.clock.checked ? window.SKY.clock.off : null)); }
+  await ctx.close();
+  const want = Math.abs(skewMs) > 2000;
+  const ok = off !== null && (want ? Math.abs(off - skewMs) < 1500 : off === 0);
+  return { name: `clock sync, server ${skewMs / 1000} s from the device`, ok, problems: ok ? [] : [`clock offset ${off} ms`], log: '' };
+}
+
 (async () => {
   const browser = await pw.chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
   const OPTS = [
@@ -179,7 +195,7 @@ async function handling(browser) {
   ];
   const jobs = [];
   for (const sc of SCEN) for (const opt of OPTS) if (opt.lock || sc === SCEN[0] || sc === SCEN[1]) jobs.push(run(browser, sc, opt));
-  if (!process.argv.includes('--old')) jobs.push(handling(browser));
+  if (!process.argv.includes('--old')) jobs.push(handling(browser), clockSync(browser, 90000), clockSync(browser, -45000), clockSync(browser, 800));
   const results = await Promise.all(jobs);
   await browser.close();
   let fail = 0;
