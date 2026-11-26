@@ -75,7 +75,11 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .radio[data-on="true"] .power{background:radial-gradient(circle at 35% 30%,#ffb39b,#e2412b 55%,#7a1a0d);color:#fff}
 @keyframes pulse{0%,100%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 0 rgba(255,210,122,.0)}50%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 10px rgba(255,210,122,.22)}}
 .fine{display:flex;gap:6px}.fine button{min-width:44px;min-height:40px;border-radius:10px;border:0;background:#3a2615;color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--brass-d)}
-.presets{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;margin-top:14px}
+.presets{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:14px}
+.presets button{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.presets button span{white-space:nowrap}
+.presets button.empty{background:transparent;box-shadow:inset 0 0 0 1px var(--brass-d);color:var(--muted)}.presets button.empty span{color:var(--faint)}
+.presets button.saved{animation:presetSaved .7s ease-out}
+@keyframes presetSaved{0%{box-shadow:0 0 0 0 rgba(255,214,120,.9)}100%{box-shadow:0 0 0 14px rgba(255,214,120,0)}}
 .presets button{min-height:54px;border:0;border-radius:8px 8px 12px 12px;cursor:pointer;padding:6px 4px;font-family:Oswald,sans-serif;line-height:1.1;
   background:linear-gradient(#fbf0d6,#d8c39a);color:#2c1d0e;box-shadow:0 5px 0 #8c7350,0 8px 12px rgba(0,0,0,.4);transition:transform .08s,box-shadow .08s}
 .presets button b{display:block;font-size:16px}.presets button span{font-size:12px;color:#5a4428}
@@ -134,7 +138,7 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 .dbg pre{margin:0;padding:0 10px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
 body.has-dbg .wrap{padding-bottom:42vh}
 @media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
-@media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(5,minmax(0,1fr))}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
+@media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.presets button b{font-size:15px}.presets button span{font-size:11px}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
 /* Touch screens: no keyboard instructions. */
 @media(hover:none) and (pointer:coarse){.hint .keys{display:none}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
@@ -168,7 +172,7 @@ body.has-dbg .wrap{padding-bottom:42vh}
   </div>
   <div class="presets" id="presets" aria-label="Station presets"></div>
 </section>
-<p class="hint">Drag the dial or the tuning knob, or press a preset.<span class="keys"> On a keyboard: <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to tune (<kbd>Shift</kbd> seeks), <kbd>1</kbd>–<kbd>0</kbd> for presets, <kbd>B</kbd> to switch bands, <kbd>Space</kbd> for power.</span></p>
+<p class="hint">Drag the dial or the tuning knob, or press a preset; hold one to save the station you’re on.<span class="keys"> On a keyboard: <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to tune (<kbd>Shift</kbd> seeks), <kbd>1</kbd>–<kbd>6</kbd> for presets (<kbd>Shift</kbd> with one saves the dial’s frequency there), <kbd>B</kbd> to switch bands, <kbd>Space</kbd> for power.</span></p>
 
 <section class="log" aria-labelledby="logh">
   <h2 id="logh">On the dial</h2>
@@ -882,7 +886,40 @@ function knobDrag(el, onDelta) { let y0 = 0, x0 = 0, dragging = false; el.addEve
 function setVol(v) { R.vol = Math.min(1, Math.max(0, v)); $('#volKnob .ind').style.transform = `rotate(${-135 + R.vol * 270}deg)`; $('#volKnob').setAttribute('aria-valuenow', Math.round(R.vol * 100)); save(); }
 const tuneStep = () => R.band === 'AM' ? 1 : 0.025;
 
-function renderPresets() { const { S } = strongest(); $('#presets').innerHTML = STATIONS.map((P0, i) => `<button data-i="${i}" aria-pressed="${!!(S === P0 && signalOf(P0, R.f[R.band]) > 0.9)}" title="${esc(P0.name)} — ${esc(P0.fmt)}"><b>${P0.call}</b><span>${P0.fLabel}</span></button>`).join(''); }
+/* ---------- Presets: a bank of six per band, as on a car radio ---------- */
+// A press tunes to the frequency a button holds; holding it (or Shift with its number key) stores the
+// frequency the dial is on. By default the AM bank leaves out WHOD, which is where the dial starts.
+const BANK = 6, PRESET_KEYS = { AM: ['midnight', 'rocket', 'saddle', 'laugh', 'gramophone', 'storytime'], FM: ['nocturne', 'freeform', 'tapers'] };
+const fLabelOf = (band, f) => (band === 'AM' ? Math.round(f) + ' AM' : f.toFixed(1) + ' FM');
+const PRESETS = (() => {
+  const d = {};
+  for (const b of ['AM', 'FM']) d[b] = Array.from({ length: BANK }, (_, k) => { const S = STATIONS.find((x) => x.key === PRESET_KEYS[b][k]); return S ? S.f : null; });
+  try { const s = JSON.parse(localStorage.getItem('needle-dial.presets') || 'null'); if (s) for (const b of ['AM', 'FM']) if (Array.isArray(s[b]) && s[b].length === BANK) d[b] = s[b].map((f) => (typeof f === 'number' && isFinite(f) ? clampF(b, f) : null)); } catch (e) {}
+  return d;
+})();
+const stationAt = (band, f) => bandStations(band).find((S) => signalOf(S, f) > 0.9) || null;
+function renderPresets() {
+  const f = R.f[R.band], near = R.band === 'AM' ? 3 : 0.05;
+  $('#presets').innerHTML = PRESETS[R.band].map((pf, k) => {
+    if (pf == null) return `<button type="button" class="empty" data-slot="${k}" aria-label="Preset ${k + 1}, empty: hold to save the frequency the dial is on"><b>${k + 1}</b><span>Empty</span></button>`;
+    const S = stationAt(R.band, pf);
+    return `<button type="button" data-slot="${k}"${S ? ` data-i="${STATIONS.indexOf(S)}"` : ''} aria-pressed="${Math.abs(f - pf) <= near}" title="${S ? esc(S.name) + ' — ' + esc(S.fmt) : 'Between stations'}. Hold to save the dial’s frequency here instead." aria-label="Preset ${k + 1}: ${S ? S.call + ', ' : ''}${fLabelOf(R.band, pf)}"><b>${S ? S.call : k + 1}</b><span>${R.band === 'AM' ? Math.round(pf) : pf.toFixed(1)}</span></button>`;
+  }).join('');
+}
+function savePreset(k) {
+  const b = R.band, f = TUNED && TUNED.band === b ? TUNED.f : b === 'AM' ? Math.round(R.f[b]) : Math.round(R.f[b] * 10) / 10, S = stationAt(b, f);
+  PRESETS[b][k] = f;
+  try { localStorage.setItem('needle-dial.presets', JSON.stringify(PRESETS)); } catch (e) {}
+  renderPresets();
+  const btn = $(`#presets button[data-slot="${k}"]`); if (btn) { btn.classList.add('saved'); setTimeout(() => btn.classList.remove('saved'), 700); }
+  $('#sr').textContent = `Saved ${S ? S.call + ' ' : ''}${fLabelOf(b, f)} to preset ${k + 1}.`;
+}
+function pressPreset(k) {
+  const pf = PRESETS[R.band][k];
+  if (pf == null) { $('#sr').textContent = `Preset ${k + 1} is empty. Hold it, or press Shift and ${k + 1}, to save the frequency the dial is on.`; return; }
+  if (!R.on) power(true);
+  sweepTo(R.band, pf, 700);
+}
 
 /* ---------- Rendering ---------- */
 function render() {
@@ -958,7 +995,12 @@ $('#tHi').addEventListener('click', () => setTone('hifi'));
 $('#tAm').addEventListener('click', () => setTone('am'));
 $('#seekUp').addEventListener('click', () => seek(1));
 $('#seekDn').addEventListener('click', () => seek(-1));
-$('#presets').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const S = STATIONS[+b.dataset.i]; if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); });
+// A press tunes; a hold of 0.65 s saves (and the click that ends it doesn't tune).
+const HOLD = { timer: 0, saved: false };
+$('#presets').addEventListener('pointerdown', (e) => { const b = e.target.closest('button[data-slot]'); if (!b) return; HOLD.saved = false; clearTimeout(HOLD.timer); HOLD.timer = setTimeout(() => { HOLD.saved = true; savePreset(+b.dataset.slot); }, 650); });
+for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) $('#presets').addEventListener(ev, () => clearTimeout(HOLD.timer));
+$('#presets').addEventListener('contextmenu', (e) => { if (e.target.closest('button[data-slot]')) e.preventDefault(); });
+$('#presets').addEventListener('click', (e) => { const b = e.target.closest('button[data-slot]'); if (!b) return; if (HOLD.saved) { HOLD.saved = false; return; } pressPreset(+b.dataset.slot); });
 $('#rlDays').addEventListener('click', (e) => { const b = e.target.closest('button[data-day]'); if (!b) return; RL.day = +b.dataset.day; RL.early = false; renderRadioLog(); $(`#rlDays button[data-day="${RL.day}"]`).focus(); });
 $('#rlStation').addEventListener('change', (e) => { RL.key = e.target.value; renderRadioLog(); });
 $('#rlBody').addEventListener('click', (e) => { if (e.target.closest('.rl-early')) { RL.early = !RL.early; renderRadioLog(); $('#rlBody .rl-early').focus(); return; } const b = e.target.closest('.rl-call'); if (!b) return; const S = STATIONS.find((x) => x.key === b.dataset.tune); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
@@ -976,7 +1018,7 @@ document.addEventListener('keydown', e => {
   if (e.key === ' ' && !e.target.closest('button')) { power(); e.preventDefault(); }
   else if (!onCtl && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { const dir = e.key === 'ArrowRight' ? 1 : -1; if (e.shiftKey) seek(dir); else nudge(dir * tuneStep()); e.preventDefault(); }
   else if (e.key === 'b' || e.key === 'B') sweepTo(R.band === 'AM' ? 'FM' : 'AM', R.f[R.band === 'AM' ? 'FM' : 'AM'], 1);
-  else if (/^[0-9]$/.test(e.key)) { const S = STATIONS[(+e.key + 9) % 10]; if (S) { if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); } }
+  else if (/^(Digit|Numpad)[1-6]$/.test(e.code)) { const k = +e.code.slice(-1) - 1; if (e.shiftKey) savePreset(k); else pressPreset(k); e.preventDefault(); }
 });
 // A tap anywhere restarts a radio the browser or phone paused.
 const kick = () => { if (R.on && A.el && (A.held || A.blocked || A.el.paused)) resume('tap'); };

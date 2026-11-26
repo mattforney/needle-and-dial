@@ -185,6 +185,32 @@ async function handling(browser) {
   return finish(t, 'tune away and back, outside pause, power off and on', problems);
 }
 
+// Presets: a bank of six per band. The AM bank leaves out WHOD; a press tunes, a hold or Shift with
+// a number saves the dial's frequency, and saved presets survive a reload.
+async function presetBanks(browser) {
+  const sc = { at: end(a.c), first: a.c, lead: 40 };
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [];
+  const bank = () => page.evaluate(() => [...document.querySelectorAll('#presets button')].map((b) => b.querySelector('b').textContent));
+  const am = await bank();
+  if (am.join() !== 'WMID,KRKT,KPRY,WHAH,WGRM,WPGE') problems.push('AM bank is ' + am.join());
+  await page.click('#presets button[data-slot="1"]'); await sleep(1500);
+  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KRKT') problems.push('preset 2 did not tune KRKT');
+  await page.click('#bFM'); await sleep(800);
+  const fm = await bank();
+  if (fm.join() !== 'WNOC,KFRE,KTPR,4,5,6') problems.push('FM bank is ' + fm.join());
+  const box = await page.locator('#presets button[data-slot="3"]').boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await page.mouse.down(); await sleep(900); await page.mouse.up(); await sleep(200);
+  await page.keyboard.press('Shift+Digit5'); await sleep(200);
+  const saved = await bank();
+  if (saved[3] !== 'KFRE' || saved[4] !== 'KFRE') problems.push('hold and Shift+5 did not save KFRE: ' + saved.join());
+  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KFRE') problems.push('the hold also tuned');
+  await page.reload(); await sleep(600);
+  const after = await bank();
+  if (after.join() !== 'WNOC,KFRE,KTPR,KFRE,KFRE,6') problems.push('after a reload the FM bank is ' + after.join());
+  return finish(t, 'preset banks: press, hold, keys, reload', problems);
+}
+
 // iPhone pauses a station that is still loading when the screen locks (seen 25 and 26 Nov). With
 // the keep-alive still playing, the page should start it again by itself, without an unlock.
 const WHOD = api.STATIONS.find((s) => s.call === 'WHOD');
@@ -272,7 +298,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.
