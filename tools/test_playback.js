@@ -7,7 +7,8 @@
 // and the page clock is moved to just before a change of record on WGRM.
 //
 //   node tools/test_playback.js [path/to/index.html]
-//   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string.
+//   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string;
+//   ND_ONLY=<part of a check's name> runs just the checks that match.
 //
 // Needs Chrome (CHROME_PATH, or /usr/bin/google-chrome) and playwright-core.
 const fs = require('fs');
@@ -53,13 +54,16 @@ const SCEN = [
 ];
 
 // ---- fake archive.org: a quiet tone of the right length for each file
+const WAVS = new Map();
 function wavFor(sc, u) {
   const sec = (sc.len && sc.len[u]) || [a.c, a.n1, b.c, b.n2].filter((x) => url(x.seg) === u).map((x) => x.seg.nd || x.seg.d)[0] || 240;
+  if (WAVS.has(u + '|' + sec)) return WAVS.get(u + '|' + sec);
   const sr = 8000, n = Math.round(sec * sr), buf = Buffer.alloc(44 + n);
   buf.write('RIFF', 0); buf.writeUInt32LE(36 + n, 4); buf.write('WAVEfmt ', 8); buf.writeUInt32LE(16, 16);
   buf.writeUInt16LE(1, 20); buf.writeUInt16LE(1, 22); buf.writeUInt32LE(sr, 24); buf.writeUInt32LE(sr, 28);
   buf.writeUInt16LE(1, 32); buf.writeUInt16LE(8, 34); buf.write('data', 36); buf.writeUInt32LE(n, 40);
   for (let i = 0; i < n; i++) buf[44 + i] = 128 + Math.round(20 * Math.sin(2 * Math.PI * 440 * i / sr));
+  WAVS.set(u + '|' + sec, buf);
   return buf;
 }
 
@@ -103,7 +107,8 @@ async function open(browser, sc, opt) {
   const failed = new Set();
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
   await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
-  await ctx.route('https://archive.org/download/**', (route) => {
+  await ctx.route('https://archive.org/download/**', async (route) => {
+    if (sc.slow && sc.slow.test(route.request().url())) await sleep(2500); // a slow network keeps the file loading
     const req = route.request(), u = req.url(), h = { 'content-type': 'audio/wav', 'accept-ranges': 'bytes', 'access-control-allow-origin': '*' };
     if (req.method() === 'GET' && sc.failOnce && sc.failOnce.includes(u) && !failed.has(u)) { failed.add(u); return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); }
     const buf = wavFor(sc, u);
@@ -171,6 +176,31 @@ async function handling(browser) {
   return finish(t, 'tune away and back, outside pause, power off and on', problems);
 }
 
+// iPhone pauses a station that is still loading when the screen locks (seen 25 and 26 Nov). With
+// the keep-alive still playing, the page should start it again by itself, without an unlock.
+const WHOD = api.STATIONS.find((s) => s.call === 'WHOD');
+async function lockWhileLoading(browser) {
+  const sc = { at: end(a.c), first: a.c, lead: 40, slow: /OTRR_|whodunit/i, len: {} };
+  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  const t = await open(browser, sc, { strict: true, timers: 'slow' });
+  const { page } = t, problems = [];
+  await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1)); // tune to WHOD with the screen on
+  let u = '';
+  for (let i = 0; i < 30 && !u; i++) { await sleep(100); u = await page.evaluate(() => (window.SKY.A.kind === 'media' && window.SKY.TUNED && window.SKY.TUNED.call === 'WHOD' ? window.SKY.A.src : '')); }
+  if (!u) { problems.push('WHOD never started loading'); return finish(t, 'paused while loading at lock time, restarted', problems); }
+  await sleep(800);
+  // lock, and pause the station the way iOS does when the file hasn't started playing yet
+  const loading = await page.evaluate(() => { const el = window.SKY.A.el, r = el.readyState; window.__lock(); el.pause(); return r < 3; });
+  if (!loading) problems.push('the file had already loaded, so this checked nothing');
+  let ok = false;
+  for (let i = 0; i < 60 && !ok; i++) { await sleep(200); ok = await page.evaluate((u) => { const A = window.SKY.A; return A.src === u && A.shown === u && !A.el.paused && A.el.readyState >= 3; }, u); }
+  const s = await page.evaluate(() => ({ held: window.SKY.A.held, log: window.SKY.log() }));
+  if (!ok) problems.push('WHOD did not start playing again with the screen locked');
+  if (s.held) problems.push('the page gave up and held the station');
+  if (!/paused as the screen locked while loading; restarting/.test(s.log)) problems.push('no restart in the log');
+  return finish(t, 'paused while loading at lock time, restarted', problems);
+}
+
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
 async function clockSync(browser, skewMs) {
   const ctx = await browser.newContext();
@@ -193,9 +223,11 @@ async function clockSync(browser, skewMs) {
     { label: 'locked, strict browser', lock: true, strict: true, timers: 'slow' },
     { label: 'locked, strict browser, no timers', lock: true, strict: true, timers: 'off' },
   ];
-  const jobs = [];
-  for (const sc of SCEN) for (const opt of OPTS) if (opt.lock || sc === SCEN[0] || sc === SCEN[1]) jobs.push(run(browser, sc, opt));
-  if (!process.argv.includes('--old')) jobs.push(handling(browser), clockSync(browser, 90000), clockSync(browser, -45000), clockSync(browser, 800));
+  const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
+  for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(run(browser, sc, opt));
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)],
+    ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)]];
+  if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f());
   const results = await Promise.all(jobs);
   await browser.close();
   let fail = 0;

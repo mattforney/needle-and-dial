@@ -415,7 +415,7 @@ function initAudio() {
   Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
   el.addEventListener('loadedmetadata', onMeta);
-  el.addEventListener('playing', () => { if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind); } });
+  el.addEventListener('playing', () => { A.lockRetry = 0; if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind); } });
   el.addEventListener('waiting', () => { if (A.kind === 'media') dlog('buffering'); });
   el.addEventListener('stalled', () => dlog('network stalled'));
   el.addEventListener('ended', onEnded);
@@ -445,7 +445,7 @@ function carry(src, kind, t0, len, loop, label) {
   Object.assign(A, { src, kind, t0, len: len || 0, loop: !!loop });
   el.loop = !!loop;
   if (fresh) {
-    A.swapAt = performance.now();
+    A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0;
     el.src = src;
     const want = wantPos(); if (want > 0.5) { try { el.currentTime = want; } catch (e) {} }
     dlog('→ ' + label);
@@ -468,7 +468,12 @@ function resume(why) {
   if (A.keep && A.keep.paused) A.keep.play().catch(() => {});
   dlog('resume (' + why + ')'); playCarrier(why); setPlaybackState(); render();
 }
-function restartCarrier() { const t = performance.now(); if (t - A.nudgeAt < 5000) return; A.nudgeAt = t; dlog('carrier was stopped; restarting it'); playCarrier('restart'); }
+function restartCarrier() {
+  const t = performance.now();
+  if (A.lockRetry && t > A.lockRetry) { A.lockRetry = 0; A.held = true; setPlaybackState(); dlog("couldn't restart it with the screen locked; press play on the lock screen, or unlock"); render(); return; }
+  if (t - A.nudgeAt < (A.lockRetry ? 2000 : 5000)) return;
+  A.nudgeAt = t; dlog('carrier was stopped; restarting it'); playCarrier('restart');
+}
 // Fill the rest of a slot when its file runs out early or will not load.
 function bridge() {
   const S = PLAY.S, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
@@ -476,7 +481,17 @@ function bridge() {
   else { const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence'); }
 }
 function onEnded() { if (!R.on) return; dlog('file ended before its slot'); bridge(); }
-function onPause() { if (!R.on || A.el.ended || performance.now() - A.swapAt < 400) return; A.held = true; setPlaybackState(); dlog('paused by the phone or browser'); render(); }
+function onPause() {
+  if (!R.on || A.el.ended || performance.now() - A.swapAt < 400) return;
+  // iPhone pauses a station that is still loading when the screen locks, even with the keep-alive
+  // playing (seen 26 Nov). If the keep-alive is still going, it wasn't a call or another app taking
+  // over the audio, so start the station again, retrying for up to 20 s before giving up.
+  if (document.hidden && A.keep && !A.keep.paused && performance.now() - A.swapAt < 10000 && ++A.lockTries <= 3) {
+    A.lockRetry = performance.now() + 20000; A.nudgeAt = performance.now();
+    dlog('paused as the screen locked while loading; restarting'); playCarrier('after lock'); return;
+  }
+  A.held = true; setPlaybackState(); dlog('paused by the phone or browser'); render();
+}
 function onError() {
   const err = A.el.error;
   if (!R.on || !err) return;

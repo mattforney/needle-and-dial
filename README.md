@@ -30,6 +30,7 @@ node tools/test_engine.js    # schedule checks; exits non-zero if any fail
 node tools/test_archive_check.js  # the Archive check's logic, against a fake archive.org
 python3 tools/test_snapshot.py    # the snapshot tool
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
+ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names match
 ```
 
 `npm run check` runs them all. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
@@ -50,7 +51,7 @@ After the Sunday Archive check, the same workflow drafts next week's snapshot fr
 
 ## How playback works
 
-One audio element, the carrier, plays everything: programs, station IDs, interval signals and silence. It changes source between segments but never stops, and a second element loops silence underneath, so a phone never sees the page stop playing. Phone browsers can refuse to start a new player with the screen locked; this design gives them nothing new to start. While the page is hidden, the schedule runs off the players' progress events rather than timers. On load, the page reads the server's time and corrects the device clock if it is more than 2 seconds off, so everyone tuned to a station hears the same moment. On iPhone and iPad the carrier plays directly instead of through Web Audio, because Web Audio stops when the screen locks there.
+One audio element, the carrier, plays everything: programs, station IDs, interval signals and silence. It changes source between segments but never stops, and a second element loops silence underneath, so a phone never sees the page stop playing. Phone browsers can refuse to start a new player with the screen locked; this design gives them nothing new to start. While the page is hidden, the schedule runs off the players' progress events rather than timers. On load, the page reads the server's time and corrects the device clock if it is more than 2 seconds off, so everyone tuned to a station hears the same moment. On iPhone and iPad the carrier plays directly instead of through Web Audio, because Web Audio stops when the screen locks there. iPhone also pauses a station that is still loading when the screen locks. If the silent second player is still going, the page starts the station again by itself (up to three tries within 20 seconds); otherwise the station waits for play on the lock screen or an unlock.
 
 Add `?debug=1` to the address to show an event log at the bottom of the page. It survives reloads, and its Copy button puts the whole log on the clipboard for a bug report. `python3 tools/build.py --debug` also writes `dist/index-debug.html`, which shows the log without the address change, for phones. `?audio=direct` or `?audio=webaudio` forces either audio path for testing, and `?keepalive=1` adds the silent second player on iPhone and iPad too.
 
