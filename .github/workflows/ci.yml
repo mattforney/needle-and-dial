@@ -16,3 +16,9 @@ jobs:
         run: python3 tools/build.py
       - name: Schedule checks
         run: node tools/test_engine.js
+      - name: Install test tools
+        run: npm ci
+      - name: Playback checks
+        run: node tools/test_playback.js
+        env:
+          CHROME_PATH: /usr/bin/google-chrome

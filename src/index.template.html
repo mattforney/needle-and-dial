@@ -100,6 +100,13 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .about ul{padding-left:18px;margin:6px 0}
 kbd{font-family:Oswald,sans-serif;font-size:13px;padding:1px 6px;border-radius:5px;background:#2c2016;box-shadow:inset 0 0 0 1px var(--brass-d)}
 footer{margin-top:34px;color:var(--faint);font-size:14px}
+.dbg{position:fixed;left:0;right:0;bottom:0;z-index:50;max-height:38vh;display:flex;flex-direction:column;background:rgba(8,6,4,.96);box-shadow:0 -1px 0 var(--brass-d);font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#cfe9d6}
+.dbg[hidden]{display:none}
+.dbg-h{display:flex;gap:8px;align-items:center;padding:6px 10px;font-family:Oswald,sans-serif;font-size:13px;color:var(--muted)}
+.dbg-h b{font-weight:500;margin-right:auto}
+.dbg-h button{border:0;border-radius:6px;min-height:30px;padding:4px 12px;background:#3a2615;color:var(--ink);cursor:pointer}
+.dbg pre{margin:0;padding:0 10px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+body.has-dbg .wrap{padding-bottom:42vh}
 @media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
 @media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(5,minmax(0,1fr))}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
@@ -155,6 +162,8 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 <div id="sr" class="sr" aria-live="polite"></div>
 <footer>Needle &amp; Dial is a prototype, not affiliated with the Internet Archive. Station call letters are fictional. Audio and metadata: Internet Archive contributors, Old Time Radio Researchers, LibriVox, the Great 78 Project, the Live Music Archive tapers, Musopen and the netlabels credited on air.</footer>
 </div>
+
+<div class="dbg" id="dbg" hidden><div class="dbg-h"><b>Debug log</b><button id="dbgCopy" type="button">Copy</button><button id="dbgClear" type="button">Clear</button></div><pre id="dbgLog"></pre></div>
 
 <script id="catalog" type="application/json">__CATALOG__</script>
 <script>
@@ -288,8 +297,67 @@ function describe(S, seg) {
 const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') return seg.a + ', ' + fmtDate(seg.y); if (S.key === 'nocturne') return seg.a.split(' ').pop() + ': ' + seg.w; if (S.type === 'music') return seg.t + (seg.a ? ' — ' + seg.a : ''); if (S.key === 'storytime') return seg.t + ' (' + seg.a + ')'; return seg.a + ': ' + seg.t; };
 
 /* ---------- Audio ---------- */
-const A = { ctx: null, els: [], cur: null };
+// One <audio> element, the carrier, plays everything a station sends: programs, station IDs,
+// interval signals, even silence. Between segments it changes source; it never stops. Phone
+// browsers can refuse to start a player while the screen is locked (Brave on Android did, at
+// the end of a program), but a player that is already going may move on to its next source.
+// A second element loops silence underneath, so the page is never without a playing player,
+// even mid-swap. The carrier runs through Web Audio for the tone switch and signal fading,
+// except on iPhone and iPad, where Web Audio stops when the screen locks.
+const QS = new URLSearchParams(location.search);
+const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
+
+/* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
+const BUILD = '__BUILD__';
+const DBG = { on: QS.get('debug') === '1', lines: [], hb: 0, paint: 0 };
+if (DBG.on) { try { DBG.lines = JSON.parse(localStorage.getItem('needle-dial.debug') || '[]'); } catch (e) {} }
+function dlog(msg) {
+  const d = new Date();
+  DBG.lines.push(d.toTimeString().slice(0, 8) + '.' + String(d.getMilliseconds()).padStart(3, '0') + (document.hidden ? ' [bg] ' : ' ') + msg);
+  if (DBG.lines.length > 600) DBG.lines.splice(0, DBG.lines.length - 600);
+  if (!DBG.on) return;
+  try { localStorage.setItem('needle-dial.debug', JSON.stringify(DBG.lines)); } catch (e) {}
+  if (!DBG.paint) DBG.paint = setTimeout(paintDbg, 150);
+}
+function paintDbg() { DBG.paint = 0; const pre = $('#dbgLog'); if (!DBG.on || !pre || document.hidden) return; const atEnd = pre.scrollTop + pre.clientHeight >= pre.scrollHeight - 8; pre.textContent = DBG.lines.slice(-200).join('\n'); if (atEnd) pre.scrollTop = pre.scrollHeight; }
+
+/* Station sounds: synthesized once per station into WAV files the carrier plays like any other. */
+const SR = 16000;
+function wavURL(pcm, sr) {
+  const n = pcm.length, v = new DataView(new ArrayBuffer(44 + n * 2));
+  const tag = (o, s) => { for (let i = 0; i < 4; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  tag(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); tag(8, 'WAVE'); tag(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); tag(36, 'data'); v.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, pcm[i])) * 32767, true);
+  return URL.createObjectURL(new Blob([v.buffer], { type: 'audio/wav' }));
+}
+// notes: [start s, Hz, length s, triangle?, peak]. A 12 ms attack, then an exponential fall to silence.
+function synth(sec, notes) {
+  const out = new Float32Array(Math.round(sec * SR));
+  for (const [t, hz, dur, tri, peak] of notes) {
+    const i0 = Math.round(t * SR), n = Math.min(out.length - i0, Math.round(dur * SR)), att = Math.round(0.012 * SR), fall = Math.pow(1e-4, 1 / Math.max(1, n - att)), w = 2 * Math.PI * hz / SR;
+    let env = peak;
+    for (let k = 0; k < n; k++) { const e = k < att ? peak * k / att : (env *= fall), s = Math.sin(w * k); out[i0 + k] += 0.55 * e * (tri ? 2 / Math.PI * Math.asin(s) : s); }
+  }
+  return out;
+}
+const idPCM = (S) => synth(ID + 2, S.motif.flatMap((hz, i) => [[0.05 + i * 0.33, hz, 1.5, 0, 0.3], [0.05 + i * 0.33, hz * 2, 0.5, 0, 0.05]]));
+// The interval tune repeats to at least 6 s: phones treat very short sounds as one-off effects, not playback.
+function intervalPCM(S) { const step = 0.4, loop = S.tune.length * step + 0.6, reps = Math.ceil(6 / loop), notes = []; for (let r = 0; r < reps; r++) S.tune.forEach((hz, i) => { if (hz) notes.push([r * loop + 0.1 + i * step, hz, 0.9, 1, 0.16]); }); return { pcm: synth(reps * loop, notes), len: reps * loop }; }
+const CLIPS = {};
+function clip(kind, S) {
+  const key = kind + (S ? ':' + S.key : '');
+  if (!CLIPS[key]) {
+    if (kind === 'silence') CLIPS[key] = { url: wavURL(new Float32Array(8 * 8000), 8000), len: 8 };
+    else if (kind === 'id') CLIPS[key] = { url: wavURL(idPCM(S), SR), len: ID + 2 };
+    else { const x = intervalPCM(S); CLIPS[key] = { url: wavURL(x.pcm, SR), len: x.len }; }
+  }
+  return CLIPS[key];
+}
+
 function satCurve() { const n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = Math.tanh(1.8 * x) / Math.tanh(1.8); } return c; }
 function noiseBuffer(ctx) { const len = ctx.sampleRate * 3, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0); let pink = 0; for (let i = 0; i < len; i++) { const w = Math.random() * 2 - 1; pink = 0.97 * pink + 0.03 * w; d[i] = w * 0.5 + pink * 2.4; if (Math.random() < 0.00015) { const amp = (0.3 + Math.random() * 0.9) * (Math.random() < 0.5 ? -1 : 1); for (let k = 0; k < 50 && i + k < len; k++) d[i + k] += amp * Math.exp(-k / 7); } } return b; }
 function initAudio() {
@@ -306,64 +374,129 @@ function initAudio() {
   const nf = ctx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 1400; nf.Q.value = 0.5;
   const ng = ctx.createGain(); ng.gain.value = 0; ns.connect(nf); nf.connect(ng); ng.connect(master); ns.start();
   const wo = ctx.createOscillator(); wo.frequency.value = 600; const wg = ctx.createGain(); wg.gain.value = 0; wo.connect(wg); wg.connect(master); wo.start();
-  const synth = ctx.createGain(); synth.gain.value = 0.55; synth.connect(toneIn);
-  const els = [0, 1].map(() => { const el = new Audio(); el.crossOrigin = 'anonymous'; el.preload = 'auto'; const g = ctx.createGain(); g.gain.value = 0; ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); const slot = { el, g, url: '' }; el.addEventListener('error', () => mediaFailed(slot)); el.addEventListener('ended', () => mediaEnded(slot)); return slot; });
-  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, synth, els });
+  const el = new Audio(); el.preload = 'auto';
+  let g = null;
+  if (ROUTE) { el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); }
+  const keep = IOS ? null : new Audio();
+  if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
+  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
+  el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
+  el.addEventListener('loadedmetadata', onMeta);
+  el.addEventListener('playing', () => { if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind); } });
+  el.addEventListener('waiting', () => { if (A.kind === 'media') dlog('buffering'); });
+  el.addEventListener('stalled', () => dlog('network stalled'));
+  el.addEventListener('ended', onEnded);
+  el.addEventListener('error', onError);
+  el.addEventListener('pause', onPause);
+  el.addEventListener('play', () => { if (A.held) { A.held = false; setPlaybackState(); dlog('resumed'); render(); } });
+  ctx.onstatechange = () => dlog('audio engine ' + ctx.state);
+  if (IOS && navigator.audioSession) { try { navigator.audioSession.type = 'playback'; } catch (e) {} }
   applyTone();
+  dlog('audio ' + (ROUTE ? 'through Web Audio' : 'direct') + (keep ? ', with keep-alive' : ''));
 }
 const ramp = (param, v, tc = 0.06) => param.setTargetAtTime(v, A.ctx.currentTime, tc);
+function wake() { try { const p = A.ctx && A.ctx.state !== 'running' && A.ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
 function applyTone() { if (!A.ctx) return; ramp(A.hifi.gain, R.tone === 'hifi' ? 1 : 0, 0.05); ramp(A.am.gain, R.tone === 'hifi' ? 0 : 1.3, 0.05); }
 function applyBandNoise() { if (!A.ctx) return; if (R.band === 'AM') { A.nf.type = 'bandpass'; A.nf.frequency.value = 1400; A.nf.Q.value = 0.5; } else { A.nf.type = 'highpass'; A.nf.frequency.value = 1800; A.nf.Q.value = 0.4; } }
 
-const SYN = { nodes: [], timer: 0, talk: 0 };
-function note(t0, hz, dur, type, gain) { const o = A.ctx.createOscillator(), g = A.ctx.createGain(); o.type = type; o.frequency.value = hz; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(gain, t0 + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); o.connect(g); g.connect(A.synth); o.start(t0); o.stop(t0 + dur + 0.05); SYN.nodes.push(o); o.onended = () => { const i = SYN.nodes.indexOf(o); if (i >= 0) SYN.nodes.splice(i, 1); }; }
-function stopSynth() { clearTimeout(SYN.timer); clearTimeout(SYN.talk); SYN.timer = SYN.talk = 0; SYN.nodes.slice().forEach(o => { try { o.stop(); } catch (e) {} }); SYN.nodes = []; try { speechSynthesis.cancel(); } catch (e) {} }
+const SYN = { talk: 0 };
+function stopSpeech() { clearTimeout(SYN.talk); SYN.talk = 0; try { speechSynthesis.cancel(); } catch (e) {} }
 function speak(text) { try { const u = new SpeechSynthesisUtterance(text); u.rate = 0.98; u.pitch = 0.85; u.volume = MUTE ? 0 : Math.min(1, R.vol); const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)); const pick = vs.find(v => /Daniel|Alex|Fred|Google US English|Guy|David/i.test(v.name)) || vs[0]; if (pick) u.voice = pick; speechSynthesis.speak(u); } catch (e) {} }
-function playId(S, remain) { stopSynth(); const t0 = A.ctx.currentTime + 0.05; if (remain > 2.5) S.motif.forEach((hz, i) => { note(t0 + i * 0.33, hz, 1.5, 'sine', 0.3); note(t0 + i * 0.33, hz * 2, 0.5, 'sine', 0.05); }); if (remain > 6 && sigNow > 0.55 && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(S.say), 1350); }
-function playInterval(S, remain) { stopSynth(); const step = 0.4, loop = S.tune.length * step + 0.6, end = A.ctx.currentTime + remain - 0.3; let t = A.ctx.currentTime + 0.1; const sched = () => { const horizon = A.ctx.currentTime + 6; while (t < horizon && t < end) { S.tune.forEach((hz, i) => { const at = t + i * step; if (hz && at < end) note(at, hz, 0.9, 'triangle', 0.16); }); t += loop; } if (t < end) SYN.timer = setTimeout(sched, 2000); }; sched(); }
+
+/* The carrier */
+const wantPos = () => { const p = nowS() - A.t0; return A.loop && A.len ? ((p % A.len) + A.len) % A.len : Math.max(0, p); };
+function onMeta() { const want = wantPos(); if (want > 0.5 && Math.abs(A.el.currentTime - want) > 1.2) { try { A.el.currentTime = want; } catch (e) {} } }
+// Point the carrier at a source and keep it playing. t0 is the moment the source's 0:00 lines up with.
+function carry(src, kind, t0, len, loop, label) {
+  const el = A.el, fresh = src !== A.src || !!el.error;
+  Object.assign(A, { src, kind, t0, len: len || 0, loop: !!loop });
+  el.loop = !!loop;
+  if (fresh) {
+    A.swapAt = performance.now();
+    el.src = src;
+    const want = wantPos(); if (want > 0.5) { try { el.currentTime = want; } catch (e) {} }
+    dlog('→ ' + label);
+  } else onMeta();
+  playCarrier(kind);
+}
+function playCarrier(why) {
+  if (!R.on || A.held) return;
+  const src = A.src;
+  let p; try { p = A.el.play(); } catch (e) { p = Promise.reject(e); }
+  if (p && p.then) p.then(() => { if (A.blocked) { A.blocked = false; dlog('playing again'); render(); } }, (e) => {
+    if (A.src !== src || (e && e.name === 'AbortError')) return; // a newer source took over
+    dlog(`play refused (${why}): ${e && e.name} ${(e && e.message) || ''}`.trim());
+    if (e && e.name === 'NotAllowedError') { A.blocked = true; render(); }
+  });
+}
+function resume(why) {
+  if (!R.on || !A.ctx) return;
+  A.held = false; A.blocked = false; wake();
+  if (A.keep && A.keep.paused) A.keep.play().catch(() => {});
+  dlog('resume (' + why + ')'); playCarrier(why); setPlaybackState(); render();
+}
+function nudge() { const t = performance.now(); if (t - A.nudgeAt < 5000) return; A.nudgeAt = t; dlog('carrier was stopped; restarting it'); playCarrier('restart'); }
+// Fill the rest of a slot when its file runs out early or will not load.
+function bridge() {
+  const S = PLAY.S, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
+  if (TUNED && S === TUNED && left > 2) { const k = clip('interval', S); carry(k.url, 'interval', nowS(), k.len, true, 'interval signal for ' + Math.round(left) + ' s'); }
+  else { const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence'); }
+}
+function onEnded() { if (!R.on) return; dlog('file ended before its slot'); bridge(); }
+function onPause() { if (!R.on || A.el.ended || performance.now() - A.swapAt < 400) return; A.held = true; setPlaybackState(); dlog('paused by the phone or browser'); render(); }
+function onError() {
+  const err = A.el.error;
+  if (!R.on || !err) return;
+  dlog(`load error ${err.code}${err.message ? ': ' + err.message : ''} (${A.kind})`);
+  if (A.kind === 'silence') return;
+  if (A.kind === 'media' && isMedia(PLAY.seg) && A.src === ia(PLAY.seg.id, PLAY.seg.f)) {
+    TROUBLE = 'Technical difficulties: this recording would not load. Please stand by.';
+    const n = A.retries[PLAY.key] = (A.retries[PLAY.key] || 0) + 1;
+    A.retryKey = PLAY.key; A.retryAt = n <= 2 ? nowS() + 8 : 0;
+  }
+  bridge();
+}
 
 let TUNED = null, PEND = null, DETUNE = 0, PLAY = { key: '' }, TROUBLE = '';
 const segKey = (S, c) => S.key + ':' + c.week + ':' + c.i;
 const isMedia = (seg) => seg && !!seg.f;
-function fadeSlot(slot, v) { ramp(slot.g.gain, v, 0.08); }
-function mediaOut(keep) { A.els.forEach(s => { if (s === keep) return; fadeSlot(s, 0); setTimeout(() => { if (A.cur !== s || !isMedia(PLAY.seg)) s.el.pause(); }, 450); }); }
 function startSeg(S, c) {
   const seg = c.seg; TROUBLE = '';
-  PLAY = { key: segKey(S, c), seg, S, start: c.start, preKey: '' };
-  if (isMedia(seg)) { stopSynth(); playMedia(seg, c.start); }
-  else { A.cur = null; mediaOut(); if (seg.k === 'id') playId(S, seg.d - c.off); else playInterval(S, seg.d - c.off); }
+  PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false };
+  stopSpeech(); A.fade = 1; if (A.g) ramp(A.g.gain, 1, 0.03);
+  const what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(c.off)} of ${Math.round(seg.d)} s`;
+  if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what);
+  else if (seg.k === 'id') {
+    const k = clip('id', S); carry(k.url, 'id', c.start, k.len, false, what);
+    if (c.off < 4 && sigNow > 0.55 && !document.hidden && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(S.say), Math.max(0, 1350 - c.off * 1000));
+  } else { const k = clip('interval', S); carry(k.url, 'interval', c.start, k.len, true, what); }
+  clip('id', S); clip('interval', S);
   setMediaSession(S, seg);
   const dd = describe(S, seg); $('#sr').textContent = S.call + ' ' + S.fLabel + ': ' + dd.title;
 }
-function playMedia(seg, start) {
-  const url = ia(seg.id, seg.f);
-  const slot = A.els.find(x => x.url === url) || A.els.find(x => x !== A.cur) || A.els[0];
-  if (slot.url !== url || slot.failed || slot.el.error) { slot.url = url; slot.el.src = url; }
-  A.cur = slot; slot.failed = false;
-  const el = slot.el;
-  const go = () => { if (A.cur !== slot) return; const want = nowS() - start; try { if (Math.abs(el.currentTime - want) > 1.2) el.currentTime = Math.max(0, want); } catch (e) {} el.play().catch(() => {}); };
-  if (el.readyState >= 1) go(); else el.addEventListener('loadedmetadata', go, { once: true });
-  fadeSlot(slot, 1); mediaOut(slot);
+function warmNext(c) {
+  for (let j = c.i + 1; j < Math.min(c.segs.length, c.i + 4); j++) {
+    const nx = c.segs[j];
+    // Warm the connection (and archive.org's redirect) for the next file, the way the carrier will ask for it.
+    if (isMedia(nx)) { try { fetch(ia(nx.id, nx.f), { method: 'HEAD', mode: 'no-cors', credentials: ROUTE ? 'omit' : 'include' }).catch(() => {}); } catch (e) {} return; }
+  }
 }
-const RETRY = {};
-function mediaFailed(slot) { if (A.cur === slot && isMedia(PLAY.seg) && slot.url === ia(PLAY.seg.id, PLAY.seg.f)) { slot.failed = true; TROUBLE = 'Technical difficulties: this recording would not load. Please stand by.'; A.cur = null; playInterval(PLAY.S, Math.max(1, PLAY.start + PLAY.seg.d - nowS())); const key = PLAY.key; RETRY[key] = (RETRY[key] || 0) + 1; if (RETRY[key] <= 2) setTimeout(() => { if (PLAY.key === key) PLAY.key = ''; }, 8000); } }
-function mediaEnded(slot) { if (A.cur === slot && isMedia(PLAY.seg)) { const left = PLAY.start + PLAY.seg.d - nowS(); if (left > 2) { A.cur = null; playInterval(PLAY.S, left); } } }
 function maintain(S, c) {
-  const seg = c.seg;
-  if (isMedia(seg) && A.cur) {
-    const el = A.cur.el, want = nowS() - c.start;
-    if (el.paused && el.readyState >= 2 && !el.ended) el.play().catch(() => {});
-    if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { try { el.currentTime = want; } catch (e) {} }
-    if (seg.cut && seg.d - c.off < 5) ramp(A.cur.g.gain, 0, 1.2);
+  const seg = c.seg, el = A.el, left = seg.d - c.off;
+  if (A.kind === 'media' && !A.held) {
+    const want = nowS() - c.start;
+    if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { dlog(`resync ${el.currentTime.toFixed(1)} → ${want.toFixed(1)} s`); try { el.currentTime = want; } catch (e) {} }
+    if (seg.cut && left < 5) A.fade = 0;
+    // Move on before the file runs out: a player sitting at its end is a stopped player.
+    if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { dlog('file is shorter than its slot'); bridge(); }
   }
-  if (seg.d - c.off < 25 && !PLAY.preKey) {
-    for (let j = c.i + 1; j < Math.min(c.segs.length, c.i + 4); j++) { const nx = c.segs[j]; if (isMedia(nx)) { const url = ia(nx.id, nx.f); const slot = A.els.find(x => x !== A.cur); if (slot && !A.els.some(x => x.url === url)) { slot.url = url; slot.el.src = url; slot.el.load(); } break; } }
-    PLAY.preKey = 'done';
-  }
+  if (el.paused && !A.held && !A.blocked && !el.ended) nudge();
+  if (left < 25 && !PLAY.warm) { PLAY.warm = true; warmNext(c); }
 }
 function levels(S, s) {
-  const am = R.band === 'AM', locked = TUNED && S === TUNED;
-  ramp(A.sig.gain, locked ? Math.pow(s, 1.5) : 0, 0.05);
+  const am = R.band === 'AM', locked = !!(TUNED && S === TUNED), on = locked ? Math.pow(s, 1.5) : 0;
+  if (A.g) { ramp(A.sig.gain, on, 0.05); ramp(A.g.gain, A.fade, A.fade ? 0.05 : 1.2); }
+  else { const v = MUTE ? 0 : Math.min(1, on * A.fade * R.vol * R.vol), mu = MUTE || !locked; if (Math.abs(A.el.volume - v) > 0.005) A.el.volume = v; if (A.el.muted !== mu) A.el.muted = mu; }
   const n = (am ? (R.tone === 'am' ? 0.035 : 0) : 0) + (am ? 0.4 : 0.28) * Math.pow(1 - s, 1.7);
   ramp(A.ng.gain, n, 0.05);
   if (am && S && s > 0.03 && s < 0.97) { ramp(A.wo.frequency, 140 + Math.abs(R.f.AM - S.f) * 150, 0.05); ramp(A.wg.gain, 0.1 * s * (1 - s), 0.05); } else ramp(A.wg.gain, 0, 0.05);
@@ -372,20 +505,39 @@ function levels(S, s) {
 function bandStations(b) { return STATIONS.filter(S => S.band === b); }
 function signalOf(S, f) { const W = S.band === 'AM' ? 14 : 0.32; const x = Math.abs(f - S.f) / W; return x >= 1 ? 0 : 1 - x * x; }
 function strongest() { const f = R.f[R.band]; let best = null, s = 0; for (const S of bandStations(R.band)) { const v = signalOf(S, f); if (v > s) { s = v; best = S; } } return { S: best, s }; }
-function tick() {
+// Runs every 200 ms from a timer and, while the page is hidden, from the players' own progress
+// events, which keep coming when a locked phone slows timers down or stops them.
+let lastTick = 0;
+const TK = { timer: 0, media: 0 };
+function tick(src) {
   if (!R.on || !A.ctx) return;
+  const t = performance.now();
+  if (src === 'media' && t - lastTick < 180) return;
+  if (lastTick && t - lastTick > 3000) dlog('scheduler was asleep for ' + ((t - lastTick) / 1000).toFixed(1) + ' s');
+  lastTick = t; TK[src === 'media' ? 'media' : 'timer']++;
+  if (DBG.on && t - DBG.hb > 30000) { DBG.hb = t; const el = A.el, k = A.keep; dlog(`still here: ${A.kind} at ${el.currentTime.toFixed(1)} s, ${el.paused ? 'PAUSED' : 'playing'}, ready ${el.readyState}${k ? ', keep-alive ' + (k.paused ? 'PAUSED' : 'on') : ''}, engine ${A.ctx.state}, ticks ${TK.timer}/${TK.media}`); }
   const now = nowS(); const { S, s } = strongest(); sigNow = s;
   if (S && s > 0.15) {
     DETUNE = 0;
-    if (TUNED !== S) { if (!PEND || PEND.S !== S) PEND = { S, at: now + 0.2 }; else if (now >= PEND.at) { TUNED = S; PEND = null; PLAY = { key: '' }; } }
-  } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; A.cur = null; mediaOut(); stopSynth(); } } }
-  levels(S, s);
+    if (TUNED !== S) { if (!PEND || PEND.S !== S) PEND = { S, at: now + 0.2 }; else if (now >= PEND.at) { TUNED = S; PEND = null; PLAY = { key: '' }; dlog('tuned to ' + S.call + ' ' + S.fLabel); } }
+  } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; stopSpeech(); dlog('off station'); } } }
+  if (A.retryAt && now >= A.retryAt) { A.retryAt = 0; if (PLAY.key === A.retryKey) { dlog('trying the recording again'); PLAY.key = ''; } }
   if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) startSeg(TUNED, c); else maintain(TUNED, c); }
+  else if (A.el.paused && !A.held && !A.blocked && !A.el.ended) nudge();
+  levels(S, s);
 }
 
 /* ---------- Media Session ---------- */
 function setMediaSession(S, seg) { if (!('mediaSession' in navigator)) return; try { const d = describe(S, seg); navigator.mediaSession.metadata = new MediaMetadata({ title: d.title, artist: S.call + ' ' + S.fLabel + ' · ' + S.name, album: d.line }); } catch (e) {} }
-if ('mediaSession' in navigator) { try { navigator.mediaSession.setActionHandler('play', () => power(true)); navigator.mediaSession.setActionHandler('pause', () => power(false)); navigator.mediaSession.setActionHandler('nexttrack', () => seek(1)); navigator.mediaSession.setActionHandler('previoustrack', () => seek(-1)); } catch (e) {} }
+function setPlaybackState() { if (!('mediaSession' in navigator)) return; try { navigator.mediaSession.playbackState = R.on && !A.held ? 'playing' : 'paused'; } catch (e) {} }
+if ('mediaSession' in navigator) {
+  const act = (a, fn) => { try { navigator.mediaSession.setActionHandler(a, fn); } catch (e) {} };
+  act('play', () => { if (R.on) resume('media key'); else power(true); });
+  act('pause', () => power(false));
+  act('stop', () => power(false));
+  act('nexttrack', () => seek(1));
+  act('previoustrack', () => seek(-1));
+}
 
 /* ---------- Dial ---------- */
 const PAD = 30;
@@ -424,11 +576,22 @@ function afc() { const { S, s } = strongest(); if (S && s > 0.3) sweepTo(R.band,
 let warmT = 0;
 function power(on) {
   on = on === undefined ? !R.on : on;
-  if (on && !A.ctx) { try { initAudio(); } catch (e) { $('#card').innerHTML = '<div class="trouble">This browser could not start audio.</div>'; return; } }
+  if (on && !A.ctx) { try { initAudio(); } catch (e) { $('#card').innerHTML = '<div class="trouble">This browser could not start audio.</div>'; dlog('audio failed to start: ' + e); return; } }
   R.on = on; $('#radio').dataset.on = on; $('#power').setAttribute('aria-pressed', on);
-  if (on) { A.ctx.resume(); applyBandNoise(); warmT = nowS(); TUNED = null; PLAY = { key: '' }; clearInterval(power.iv); power.iv = setInterval(tick, 200); }
-  else { clearInterval(power.iv); stopSynth(); if (A.ctx) { A.els.forEach(s => s.el.pause()); ramp(A.master.gain, 0, 0.05); setTimeout(() => { if (!R.on) A.ctx.suspend(); }, 300); } TUNED = null; PLAY = { key: '' }; }
-  drawDial(); drawEye(0); render();
+  if (on) {
+    wake(); applyBandNoise(); warmT = nowS(); TUNED = null; PEND = null; PLAY = { key: '' }; A.held = A.blocked = false;
+    // Both players start inside the tap. Browsers that are strict about background audio
+    // remember which players a tap started, and later let only those carry on.
+    const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence (power on)');
+    if (A.keep) { if (!A.keep.src) A.keep.src = k.url; A.keep.play().catch((e) => dlog('keep-alive refused: ' + e.name)); }
+    clearInterval(power.iv); power.iv = setInterval(() => tick('timer'), 200);
+    dlog('power on');
+  } else {
+    clearInterval(power.iv); stopSpeech();
+    if (A.ctx) { A.el.pause(); if (A.keep) A.keep.pause(); ramp(A.master.gain, 0, 0.05); setTimeout(() => { if (!R.on) A.ctx.suspend(); }, 300); }
+    TUNED = null; PLAY = { key: '' }; A.retryAt = 0; dlog('power off');
+  }
+  setPlaybackState(); drawDial(); drawEye(0); render();
 }
 function knobDrag(el, onDelta) { let y0 = 0, x0 = 0, dragging = false; el.addEventListener('pointerdown', e => { dragging = true; y0 = e.clientY; x0 = e.clientX; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing'; }); el.addEventListener('pointermove', e => { if (!dragging) return; const d = (y0 - e.clientY) + (e.clientX - x0); y0 = e.clientY; x0 = e.clientX; onDelta(d); }); const end = () => { if (dragging) { dragging = false; el.style.cursor = ''; onDelta(0, true); } }; el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); }
 function setVol(v) { R.vol = Math.min(1, Math.max(0, v)); $('#volKnob .ind').style.transform = `rotate(${-135 + R.vol * 270}deg)`; $('#volKnob').setAttribute('aria-valuenow', Math.round(R.vol * 100)); save(); }
@@ -443,17 +606,18 @@ function render() {
   if (!R.on) { card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">Off</span><span class="st-fmt">Ten stations are on the air right now.</span></div><div class="ptitle">Press power to warm up the tubes.</div><div class="pline">Then drag the dial or press a preset. Static between stations is part of the experience.</div>`; return; }
   if (nowS() - warmT < 1.2) { card.dataset.key = ''; card.innerHTML = `<div class="ptitle">Warming up…</div>`; return; }
   const { S, s } = strongest();
-  if (!TUNED || !S || S !== TUNED) { const near = S && s > 0 ? `Getting closer to ${S.call} ${S.fLabel}.` : 'Nothing on this frequency. Keep turning, or press SEEK.'; card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">${R.band} ${R.band === 'AM' ? Math.round(R.f.AM) : R.f.FM.toFixed(1)}</span><span class="st-fmt">Static</span></div><div class="ptitle">${near}</div>`; drawEye(s); return; }
-  const c = SCH.at(TUNED, now), seg = c.seg, d = describe(TUNED, seg), el = A.cur && isMedia(seg) ? A.cur.el : null;
+  const warn = TROUBLE || (A.blocked ? 'Your browser stopped the radio. Tap anywhere on the page to start it again.' : A.held ? 'Paused by your phone or browser. Tap anywhere on the page to resume.' : '');
+  if (!TUNED || !S || S !== TUNED) { const near = S && s > 0 ? `Getting closer to ${S.call} ${S.fLabel}.` : 'Nothing on this frequency. Keep turning, or press SEEK.'; card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">${R.band} ${R.band === 'AM' ? Math.round(R.f.AM) : R.f.FM.toFixed(1)}</span><span class="st-fmt">Static</span></div><div class="ptitle">${near}</div>${warn ? `<div class="trouble">${esc(warn)}</div>` : ''}`; drawEye(s); return; }
+  const c = SCH.at(TUNED, now), seg = c.seg, d = describe(TUNED, seg), el = A.kind === 'media' && isMedia(seg) ? A.el : null;
   const nxt = SCH.upcoming(TUNED, now, 1)[0];
-  const buffering = !!(el && (el.readyState < 3 || el.seeking) && !TROUBLE);
-  const key = [TUNED.key, c.week, c.i, TROUBLE, buffering, nxt ? nxt.at : 0].join('|');
+  const buffering = !!(el && (el.readyState < 3 || el.seeking) && !warn);
+  const key = [TUNED.key, c.week, c.i, warn, buffering, nxt ? nxt.at : 0].join('|');
   if (card.dataset.key !== key) {
     card.dataset.key = key;
     const link = isMedia(seg) ? `<a href="${details(seg.id)}" target="_blank" rel="noopener">Archive item &#8599;</a>` : '';
     card.innerHTML = `<div class="st-line"><span class="call">${TUNED.call}</span><span class="st-name">${esc(TUNED.fLabel)} · ${esc(TUNED.name)}</span><span class="st-fmt">${esc(TUNED.fmt)}</span></div>
     <div class="kicker">${esc(d.kick || '')}${buffering ? ' · tuning in…' : ''}</div><div class="ptitle">${esc(d.title)}</div><div class="pline">${esc(d.line)}</div>
-    ${TROUBLE ? `<div class="trouble">${esc(TROUBLE)}</div>` : ''}
+    ${warn ? `<div class="trouble">${esc(warn)}</div>` : ''}
     <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d)}</span></div>
     <div class="links">${link}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
   }
@@ -498,13 +662,39 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'b' || e.key === 'B') sweepTo(R.band === 'AM' ? 'FM' : 'AM', R.f[R.band === 'AM' ? 'FM' : 'AM'], 1);
   else if (/^[0-9]$/.test(e.key)) { const S = STATIONS[(+e.key + 9) % 10]; if (S) { if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); } }
 });
+// A tap anywhere restarts a radio the browser or phone paused.
+const kick = () => { if (R.on && A.el && (A.held || A.blocked || A.el.paused)) resume('tap'); };
+document.addEventListener('pointerdown', kick, true);
+document.addEventListener('keydown', kick, true);
+document.addEventListener('visibilitychange', () => {
+  dlog(document.hidden ? 'page hidden' : 'page visible');
+  if (document.hidden) { stopSpeech(); return; }
+  paintDbg();
+  if (!R.on || !A.ctx) return;
+  wake();
+  if (A.keep && A.keep.paused) A.keep.play().catch(() => {});
+  if (A.el.paused && !A.held) playCarrier('page visible');
+  tick('visible'); render();
+});
+document.addEventListener('freeze', () => dlog('page frozen by the browser'));
+document.addEventListener('resume', () => dlog('page unfrozen'));
 document.addEventListener('keyup', e => { if (!e.target.closest('.knob,#dial') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.shiftKey) { clearTimeout(afc.t); afc.t = setTimeout(afc, 400); } });
 new ResizeObserver(() => drawDial()).observe($('#dial'));
 
 setBand(R.band === 'FM' ? 'FM' : 'AM', true);
 setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDial(); drawEye(0); render(); renderLog();
 setInterval(render, 500); setInterval(renderLog, 15000);
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+if (DBG.on) {
+  $('#dbg').hidden = false; document.body.classList.add('has-dbg');
+  const flash = (m) => { const b = $('#dbgCopy'); b.textContent = m; setTimeout(() => { b.textContent = 'Copy'; }, 1500); };
+  const select = () => { const r = document.createRange(); r.selectNodeContents($('#dbgLog')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); flash('Selected'); };
+  $('#dbgCopy').addEventListener('click', () => { const txt = 'Needle & Dial ' + BUILD + '\n' + navigator.userAgent + '\n' + DBG.lines.join('\n'); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => flash('Copied'), select); else select(); });
+  $('#dbgClear').addEventListener('click', () => { DBG.lines = []; try { localStorage.removeItem('needle-dial.debug'); } catch (e) {} paintDbg(); });
+  dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
+  if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
+  paintDbg();
+}
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>

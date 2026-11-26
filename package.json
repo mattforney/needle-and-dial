@@ -6,10 +6,14 @@
   "scripts": {
     "build": "python3 tools/build.py",
     "test": "node tools/test_engine.js",
-    "check": "python3 tools/build.py && node tools/test_engine.js",
+    "test:playback": "node tools/test_playback.js",
+    "check": "python3 tools/build.py && node tools/test_engine.js && node tools/test_playback.js",
     "analyze": "node tools/analyze.js"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0"
   }
 }

@@ -12,20 +12,28 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `catalog/` | One JSON file per station, listing the Archive items it plays |
 | `tools/build.py` | Builds `dist/index.html`, with the catalog inlined, plus `dist/catalog.json` |
 | `tools/test_engine.js` | Audits a week of schedule for every station: no gaps or overlaps, programs on the grid, week boundaries intact |
+| `tools/test_playback.js` | Plays the built page in headless Chrome across record changes, with the screen "locked" and a browser that is strict about background audio |
 | `tools/analyze.js` | Lists every media URL in the catalog (`dist/urls.txt`) and prints break statistics |
 | `tools/hashcheck.py` | Prints a size and hash for each station catalog |
 | `research/ia-survey/` | The survey of Internet Archive audio that future stations draw on |
 
 ## Build and test
 
-Needs Python 3 and Node 18 or later. There are no packages to install.
+Needs Python 3 and Node 18 or later. The playback test also needs Google Chrome and `npm install` (one dev package, `playwright-core`).
 
 ```
-python3 tools/build.py      # writes dist/index.html and dist/catalog.json
-node tools/test_engine.js   # exits non-zero if any check fails
+python3 tools/build.py       # writes dist/index.html and dist/catalog.json
+node tools/test_engine.js    # schedule checks; exits non-zero if any fail
+node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ```
 
-`npm run check` runs both. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push.
+`npm run check` runs all three. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push.
+
+## How playback works
+
+One audio element, the carrier, plays everything: programs, station IDs, interval signals and silence. It changes source between segments but never stops, and a second element loops silence underneath, so a phone never sees the page stop playing. Phone browsers can refuse to start a new player with the screen locked; this design gives them nothing new to start. While the page is hidden, the schedule runs off the players' progress events rather than timers. On iPhone and iPad the carrier plays directly instead of through Web Audio, because Web Audio stops when the screen locks there.
+
+Add `?debug=1` to the address to show an event log at the bottom of the page. It survives reloads, and its Copy button puts the whole log on the clipboard for a bug report. `?audio=direct` or `?audio=webaudio` forces either audio path for testing.
 
 ## Roadmap
 

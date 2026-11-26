@@ -1,0 +1,194 @@
+// Playback test: does the radio keep going across program changes with the screen locked?
+//
+// It drives the built page in headless Chrome and imitates a phone browser that is strict
+// about background audio (the Brave-on-Android failure): a player may only start if a tap
+// started it before, and with the screen locked nothing new may start unless something is
+// already playing. Archive.org audio is replaced by generated WAV files of the right length,
+// and the page clock is moved to just before a change of record on WGRM.
+//
+//   node tools/test_playback.js [path/to/index.html]
+//   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string.
+//
+// Needs Chrome (CHROME_PATH, or /usr/bin/google-chrome) and playwright-core.
+const fs = require('fs');
+const path = require('path');
+let pw;
+try { pw = require('playwright-core'); } catch (e) { pw = require('playwright'); }
+
+const htmlPath = process.argv.slice(2).find((x) => !x.startsWith('--')) || path.join(__dirname, '..', 'dist', 'index.html');
+const HTML = fs.readFileSync(htmlPath, 'utf8');
+const code = HTML.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
+const CAT = JSON.parse(HTML.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
+const api = new Function('CAT', code + '\nreturn { STATIONS, parseCatalog, makeScheduler, ia };')(CAT);
+const SCH = api.makeScheduler(api.parseCatalog(CAT));
+const S = api.STATIONS.find((s) => s.key === 'gramophone');
+const PRESET = api.STATIONS.indexOf(S);
+const url = (seg) => api.ia(seg.id, seg.f);
+
+// ---- the moments to test
+const next = (c) => SCH.at(S, c.start + c.seg.d + 0.01);
+function find(from, pred) {
+  let c = SCH.at(S, from);
+  for (let k = 0; k < 5000; k++) { const n1 = next(c), n2 = next(n1); if (pred(c, n1, n2)) return { c, n1, n2 }; c = n1; }
+  throw new Error('pattern not found');
+}
+const media = (x) => !!x.seg.f;
+const from = Date.now() / 1000 + 300;
+const a = find(from, (c, n1) => media(c) && !c.seg.cut && c.seg.d > 60 && media(n1) && n1.seg.d > 60);
+const b = find(from, (c, n1, n2) => media(c) && n1.seg.k === 'id' && media(n2) && n2.seg.d > 40);
+const end = (x) => x.start + x.seg.d;
+const isClip = (p) => p.src.startsWith('blob:');
+const playingUrl = (u, minT = 1) => (ps) => ps.some((p) => p.src === u && p.t > minT) || 'expected ' + decodeURIComponent(u.split('/').pop()).slice(0, 40) + ' to be playing';
+const playingLoop = (ps) => ps.some((p) => isClip(p) && p.loop && p.carrier) || 'expected the carrier on a looping clip';
+
+const SCEN = [
+  { name: 'record to record', at: end(a.c), first: a.c, checks: [[a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
+  { name: 'record, station ID, record', at: end(b.c), first: b.c,
+    checks: [[b.n1.start + 4, (ps) => ps.some((p) => p.carrier && isClip(p) && !p.loop) || 'expected the ID clip on the carrier'], [b.n2.start + 5, playingUrl(url(b.n2.seg))]] },
+  { name: 'record shorter than its slot', at: end(a.c), first: a.c, len: { [url(a.c.seg)]: a.c.seg.d - 6 },
+    checks: [[end(a.c) - 3, playingLoop], [a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
+  { name: 'next record fails to load once', at: end(a.c), first: a.c, failOnce: [url(a.n1.seg)],
+    checks: [[a.n1.start + 4, playingLoop], [a.n1.start + 14, playingUrl(url(a.n1.seg), 8)]] },
+];
+
+// ---- fake archive.org: a quiet tone of the right length for each file
+function wavFor(sc, u) {
+  const sec = (sc.len && sc.len[u]) || [a.c, a.n1, b.c, b.n2].filter((x) => url(x.seg) === u).map((x) => x.seg.nd || x.seg.d)[0] || 240;
+  const sr = 8000, n = Math.round(sec * sr), buf = Buffer.alloc(44 + n);
+  buf.write('RIFF', 0); buf.writeUInt32LE(36 + n, 4); buf.write('WAVEfmt ', 8); buf.writeUInt32LE(16, 16);
+  buf.writeUInt16LE(1, 20); buf.writeUInt16LE(1, 22); buf.writeUInt32LE(sr, 24); buf.writeUInt32LE(sr, 28);
+  buf.writeUInt16LE(1, 32); buf.writeUInt16LE(8, 34); buf.write('data', 36); buf.writeUInt32LE(n, 40);
+  for (let i = 0; i < n; i++) buf[44 + i] = 128 + Math.round(20 * Math.sin(2 * Math.PI * 440 * i / sr));
+  return buf;
+}
+
+// ---- runs in the page before its own scripts
+function init({ offset, strict, timers }) {
+  const realNow = Date.now.bind(Date);
+  Date.now = () => realNow() + offset;
+  window.__SKY_TEST_MUTE__ = true;
+  let hidden = false;
+  Object.defineProperty(Document.prototype, 'hidden', { configurable: true, get: () => hidden });
+  Object.defineProperty(Document.prototype, 'visibilityState', { configurable: true, get: () => (hidden ? 'hidden' : 'visible') });
+  window.__lock = (h = true) => { hidden = h; document.dispatchEvent(new Event('visibilitychange')); };
+  // Background timers: 'slow' fires at most once a second (what Chrome does), 'off' never fires.
+  const SI = window.setInterval.bind(window);
+  window.setInterval = (fn, ms, ...args) => { let last = 0; return SI(() => { if (hidden) { const t = performance.now(); if (timers === 'off' || t - last < 1000) return; last = t; } fn(...args); }, ms); };
+  const T = (window.__T = { players: new Set(), refused: [] });
+  let tapUntil = 0;
+  const started = new WeakSet();
+  for (const ev of ['pointerdown', 'keydown', 'click']) addEventListener(ev, (e) => { if (e.isTrusted) tapUntil = performance.now() + 5000; }, true);
+  const playing = () => [...T.players].some((m) => !m.paused && !m.ended);
+  const play = HTMLMediaElement.prototype.play;
+  HTMLMediaElement.prototype.play = function () {
+    T.players.add(this);
+    const tap = performance.now() < tapUntil;
+    let why = '';
+    if (strict && !tap && !started.has(this)) why = 'this player was never started by a tap';
+    else if (strict && !tap && hidden && !playing()) why = 'screen locked and nothing else playing';
+    if (why) { T.refused.push({ why, src: (this.currentSrc || this.src).slice(-70), at: Date.now() / 1000 }); return Promise.reject(new DOMException('simulated: ' + why, 'NotAllowedError')); }
+    if (tap) started.add(this);
+    return play.call(this);
+  };
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const pageNow = (page) => page.evaluate(() => Date.now() / 1000);
+async function until(page, t) { for (;;) { if ((await pageNow(page)) >= t) return; await sleep(200); } }
+const players = (page) => page.evaluate(() => [...window.__T.players].filter((m) => !m.paused && !m.ended).map((m) => ({ src: m.currentSrc, t: m.currentTime, loop: m.loop, carrier: !!(window.SKY && window.SKY.A && window.SKY.A.el === m) })));
+
+async function open(browser, sc, opt) {
+  const ctx = await browser.newContext();
+  const failed = new Set();
+  await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
+  await ctx.route('https://archive.org/download/**', (route) => {
+    const req = route.request(), u = req.url(), h = { 'content-type': 'audio/wav', 'accept-ranges': 'bytes', 'access-control-allow-origin': '*' };
+    if (req.method() === 'GET' && sc.failOnce && sc.failOnce.includes(u) && !failed.has(u)) { failed.add(u); return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); }
+    const buf = wavFor(sc, u);
+    if (req.method() === 'HEAD') return route.fulfill({ status: 200, headers: { ...h, 'content-length': String(buf.length) }, body: '' });
+    const m = /bytes=(\d*)-(\d*)/.exec(req.headers()['range'] || '');
+    if (!m) return route.fulfill({ status: 200, headers: h, body: buf });
+    const s = m[1] ? +m[1] : 0, e = m[2] ? Math.min(+m[2], buf.length - 1) : buf.length - 1;
+    return route.fulfill({ status: 206, headers: { ...h, 'content-range': `bytes ${s}-${e}/${buf.length}` }, body: buf.subarray(s, e + 1) });
+  });
+  await ctx.addInitScript(init, { offset: Math.round((sc.at - (sc.lead || 14)) * 1000 - Date.now()), strict: opt.strict, timers: opt.timers });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  await page.goto('http://nd.test/?debug=1' + (process.env.ND_QS ? '&' + process.env.ND_QS : ''));
+  await page.click(`#presets button[data-i="${PRESET}"]`);
+  const firstUrl = url(sc.first.seg);
+  let started = false;
+  for (let i = 0; i < 40 && !started; i++) { started = (await players(page)).some((p) => p.src === firstUrl && p.t > 0.2); if (!started) await sleep(200); }
+  return { ctx, page, errors, started };
+}
+async function finish(t, name, problems) {
+  const res = await t.page.evaluate(() => ({ refused: window.__T.refused, log: window.SKY && window.SKY.log ? window.SKY.log() : '' }));
+  await t.ctx.close();
+  if (!t.started) problems.unshift('first record never started');
+  for (const x of res.refused) problems.push(`refused: ${x.why} (${x.src})`);
+  for (const e of t.errors) problems.push('page error: ' + e);
+  return { name, ok: !problems.length, problems, log: res.log };
+}
+
+async function run(browser, sc, opt) {
+  const t = await open(browser, sc, opt);
+  if (opt.lock) await t.page.evaluate(() => window.__lock());
+  const problems = [];
+  for (const [at, check] of sc.checks) { await until(t.page, at); const r = check(await players(t.page)); if (r !== true) problems.push(`at ${(at - sc.at).toFixed(0)} s: ${r}`); }
+  return finish(t, `${sc.name} · ${opt.label}`, problems);
+}
+
+// Things a listener does with the screen on: tune away and back, get paused by the phone, power off and on.
+async function handling(browser) {
+  const sc = { at: end(a.c), first: a.c, lead: 40 };
+  const t = await open(browser, sc, { strict: true, timers: 'slow' });
+  const { page } = t, problems = [];
+  const state = () => page.evaluate(() => { const A = window.SKY.A; return { src: A.el.currentSrc, t: A.el.currentTime, paused: A.el.paused, held: A.held, card: document.querySelector('#card').textContent }; });
+  await page.evaluate(() => { window.__emptied = 0; window.SKY.A.el.addEventListener('emptied', () => window.__emptied++); });
+  const s0 = await state();
+  await page.evaluate(() => window.SKY.sweepTo('AM', 1300, 1));
+  await sleep(2500);
+  await page.evaluate(() => window.SKY.sweepTo('AM', 1340, 1));
+  await sleep(1200);
+  const s1 = await state();
+  if (s1.src !== s0.src || s1.t < s0.t + 2 || (await page.evaluate(() => window.__emptied))) problems.push('tuning away and back reloaded the record');
+  await page.evaluate(() => window.SKY.A.el.pause()); // what a phone call or the notification does
+  await sleep(700);
+  const s2 = await state();
+  if (!s2.held || !/Tap anywhere/.test(s2.card)) problems.push('an outside pause was not shown as paused');
+  await page.mouse.click(10, 10);
+  await sleep(800);
+  const s3 = await state();
+  if (s3.paused || s3.held) problems.push('a tap did not resume after an outside pause');
+  await page.click('#power'); await sleep(400);
+  if (!(await state()).paused) problems.push('power off did not stop the carrier');
+  await page.click('#power'); await sleep(2500);
+  const s4 = await state();
+  if (s4.paused || s4.src !== s0.src) problems.push('power on did not return to the record');
+  return finish(t, 'tune away and back, outside pause, power off and on', problems);
+}
+
+(async () => {
+  const browser = await pw.chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
+  const OPTS = [
+    { label: 'unlocked', lock: false, strict: false, timers: 'slow' },
+    { label: 'locked, strict browser', lock: true, strict: true, timers: 'slow' },
+    { label: 'locked, strict browser, no timers', lock: true, strict: true, timers: 'off' },
+  ];
+  const jobs = [];
+  for (const sc of SCEN) for (const opt of OPTS) if (opt.lock || sc === SCEN[0] || sc === SCEN[1]) jobs.push(run(browser, sc, opt));
+  if (!process.argv.includes('--old')) jobs.push(handling(browser));
+  const results = await Promise.all(jobs);
+  await browser.close();
+  let fail = 0;
+  for (const r of results) {
+    if (!r.ok) fail++;
+    console.log(`${r.ok ? 'PASS' : 'FAIL'}  ${r.name}`);
+    for (const p of r.problems) console.log('      ' + p);
+    if ((process.env.ND_LOG || !r.ok) && r.log) console.log(r.log.split('\n').slice(process.env.ND_LOG ? 0 : -20).map((l) => '      | ' + l).join('\n'));
+  }
+  console.log(fail ? `${fail} of ${results.length} playback checks failed` : `all ${results.length} playback checks passed`);
+  process.exitCode = fail ? 1 : 0;
+})().catch((e) => { console.error(e); process.exitCode = 1; });
