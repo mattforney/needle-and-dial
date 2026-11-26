@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches-ignore: [gh-pages]
   pull_request:
 
 jobs:
@@ -22,26 +23,25 @@ jobs:
         run: node tools/test_playback.js
         env:
           CHROME_PATH: /usr/bin/google-chrome
-      - name: Package the site
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist
 
-  # Publishes main to GitHub Pages, only after the build and every check pass.
-  deploy:
+  # Publishes main to GitHub Pages through the gh-pages branch, only after the build and every check pass.
+  publish:
     needs: build-and-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: write
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
+      - uses: actions/checkout@v5
+      - name: Build
+        run: python3 tools/build.py
+      - name: Push the site to gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd dist
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Publish ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages

@@ -27,7 +27,7 @@ node tools/test_engine.js    # schedule checks; exits non-zero if any fail
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ```
 
-`npm run check` runs all three. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push.
+`npm run check` runs all three. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
 
 ## How playback works
 
