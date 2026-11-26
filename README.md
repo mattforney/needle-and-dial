@@ -13,6 +13,7 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `tools/build.py` | Builds `dist/index.html`, with this week's snapshot and any later drafts inlined, plus `dist/catalog.json` (the catalog as it stands) |
 | `tools/test_engine.js` | Audits each week of schedule for every station: no gaps or overlaps, the legal ID at every top of the hour, programs on the minutes their station's clock allows, nothing running through the hour except long-form programs, nothing faded, week boundaries intact |
 | `tools/archive_check.js` | The weekly Archive check: confirms every catalog file still exists, still downloads, hasn't turned stream-only and keeps its length (`tools/test_archive_check.js` tests it offline) |
+| `tools/check_log.js` | Checks a phone's debug log against the locked-phone half of Gate B: every program change and how long it took, every stop and how long the sound was gone, heartbeat gaps, and a verdict (`tools/test_check_log.js` tests it) |
 | `snapshots/` | The frozen catalog each schedule week uses, one file per Monday it starts (`tools/snapshot.py` drafts them; `tools/test_snapshot.py` tests it) |
 | `catalog/review/stream-only.json` | Stream-only Archive items you've approved to keep, each with a one-line reason |
 | `tools/test_playback.js` | Plays the built page in headless Chrome across record changes, with the screen "locked" and a browser that is strict about background audio |
@@ -29,6 +30,8 @@ python3 tools/build.py       # writes dist/index.html and dist/catalog.json
 node tools/test_engine.js    # schedule checks; exits non-zero if any fail
 node tools/test_archive_check.js  # the Archive check's logic, against a fake archive.org
 python3 tools/test_snapshot.py    # the snapshot tool
+node tools/test_check_log.js      # the log checker
+node tools/check_log.js log.txt   # check a phone's debug log (Share or Copy from ?debug=1) against Gate B
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names match
 ```

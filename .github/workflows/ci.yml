@@ -22,6 +22,8 @@ jobs:
         run: node tools/test_archive_check.js
       - name: Snapshot tool
         run: python3 tools/test_snapshot.py
+      - name: Log checker
+        run: node tools/test_check_log.js
       - name: Install test tools
         run: npm ci
       - name: Playback checks

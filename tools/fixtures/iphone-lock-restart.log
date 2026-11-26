@@ -1,0 +1,24 @@
+Needle & Dial 1f08420 2026-11-26 07:07Z
+Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1
+14:22:32.889 [bg] page hidden
+14:22:32.921 page loaded · build 1f08420 2026-11-26 07:07Z · Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1
+14:22:32.932 clock: device ahead of the server by 0.4 s (round trip 34 ms)
+14:22:46.020 audio direct, with keep-alive
+14:22:46.326 → silence (power on)
+14:22:46.341 power on
+14:22:46.373 audio engine running
+14:22:46.494 playing silence
+14:22:46.942 tuned to KPRY 1070 AM
+14:22:46.944 → KPRY prog “Love of a Good Woman” at 1367 of 1735 s
+14:22:47.052 buffering
+14:22:49.816 playing media
+14:22:52.646 tuned to WMID 760 AM
+14:22:52.647 → WMID prog “The Evil of Adelaide Winters” at 1373 of 1780 s
+14:22:52.743 buffering
+14:22:53.961 [bg] page hidden
+14:22:53.961 [bg] paused as the screen locked while loading; restarting
+14:22:53.972 [bg] buffering
+14:22:55.859 [bg] playing media
+14:23:03.042 [bg] still here: media at 1380.2 s, playing, ready 4, keep-alive on, engine running, ticks 47/37
+14:23:03.272 [bg] network stalled
+14:23:25.731 page visible

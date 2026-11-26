@@ -456,7 +456,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -536,8 +536,10 @@ function initAudio() {
     let note = '';
     if (A.seekAt) { const s = (performance.now() - A.seekAt) / 1000, lag = wantPos() - el.currentTime; A.seekAt = 0; noteLoad(s); note = ` after ${s.toFixed(1)} s, ${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; }
     if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind + note); }
+    else if (A.waitAt) dlog(`back after ${((performance.now() - A.waitAt) / 1000).toFixed(1)} s of buffering`); // for tools/check_log.js
+    A.waitAt = 0;
   });
-  el.addEventListener('waiting', () => { if (A.kind === 'media') dlog('buffering'); });
+  el.addEventListener('waiting', () => { if (A.kind === 'media') { dlog('buffering'); A.waitAt = performance.now(); } });
   el.addEventListener('stalled', () => dlog('network stalled'));
   el.addEventListener('ended', onEnded);
   el.addEventListener('error', onError);
