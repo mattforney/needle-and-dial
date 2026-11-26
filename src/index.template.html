@@ -60,7 +60,7 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .rights{font-size:13px;color:var(--faint)}
 .trouble{color:#ff9b7a}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.controls{display:grid;grid-template-columns:repeat(3,auto);gap:10px 16px;align-items:center;justify-items:center;border-radius:12px;padding:12px 14px;background:linear-gradient(#2d1d10,#1d1209);box-shadow:inset 0 0 0 2px var(--brass-d)}
+.controls{display:grid;grid-template-columns:repeat(3,auto);gap:10px 16px;align-items:start;justify-items:center;border-radius:12px;padding:12px 14px;background:linear-gradient(#2d1d10,#1d1209);box-shadow:inset 0 0 0 2px var(--brass-d)}
 .knob{width:70px;height:70px;border-radius:50%;position:relative;cursor:grab;touch-action:none;border:0;padding:0;
   background:radial-gradient(circle at 35% 30%,#f2d9a0,#b98d43 45%,#5d4018 100%);box-shadow:0 6px 12px rgba(0,0,0,.55),inset 0 -3px 6px rgba(0,0,0,.4)}
 .knob::before{content:"";position:absolute;inset:9px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#7a5a28 0 6deg,#a47c3a 6deg 12deg);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
@@ -109,6 +109,8 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 body.has-dbg .wrap{padding-bottom:42vh}
 @media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
 @media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(5,minmax(0,1fr))}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
+/* Touch screens: no keyboard instructions. */
+@media(hover:none) and (pointer:coarse){.hint .keys{display:none}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
 </style>
 </head>
@@ -140,11 +142,11 @@ body.has-dbg .wrap{padding-bottom:42vh}
   </div>
   <div class="presets" id="presets" aria-label="Station presets"></div>
 </section>
-<p class="hint">Drag the dial or the tuning knob, press a preset, or use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to tune (<kbd>Shift</kbd> seeks), <kbd>1</kbd>–<kbd>0</kbd> for presets, <kbd>B</kbd> to switch bands, <kbd>Space</kbd> for power.</p>
+<p class="hint">Drag the dial or the tuning knob, or press a preset.<span class="keys"> On a keyboard: <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to tune (<kbd>Shift</kbd> seeks), <kbd>1</kbd>–<kbd>0</kbd> for presets, <kbd>B</kbd> to switch bands, <kbd>Space</kbd> for power.</span></p>
 
 <section class="log" aria-labelledby="logh">
   <h2 id="logh">On the dial</h2>
-  <p class="note" id="lognote">Times are in your time zone. Click a station to tune in.</p>
+  <p class="note" id="lognote">Times are in your time zone. Choose a station to tune in.</p>
   <div class="rows" id="rows"></div>
 </section>
 
@@ -435,7 +437,7 @@ function resume(why) {
   if (A.keep && A.keep.paused) A.keep.play().catch(() => {});
   dlog('resume (' + why + ')'); playCarrier(why); setPlaybackState(); render();
 }
-function nudge() { const t = performance.now(); if (t - A.nudgeAt < 5000) return; A.nudgeAt = t; dlog('carrier was stopped; restarting it'); playCarrier('restart'); }
+function restartCarrier() { const t = performance.now(); if (t - A.nudgeAt < 5000) return; A.nudgeAt = t; dlog('carrier was stopped; restarting it'); playCarrier('restart'); }
 // Fill the rest of a slot when its file runs out early or will not load.
 function bridge() {
   const S = PLAY.S, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
@@ -490,7 +492,7 @@ function maintain(S, c) {
     // Move on before the file runs out: a player sitting at its end is a stopped player.
     if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { dlog('file is shorter than its slot'); bridge(); }
   }
-  if (el.paused && !A.held && !A.blocked && !el.ended) nudge();
+  if (el.paused && !A.held && !A.blocked && !el.ended) restartCarrier();
   if (left < 25 && !PLAY.warm) { PLAY.warm = true; warmNext(c); }
 }
 function levels(S, s) {
@@ -523,7 +525,7 @@ function tick(src) {
   } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; stopSpeech(); dlog('off station'); } } }
   if (A.retryAt && now >= A.retryAt) { A.retryAt = 0; if (PLAY.key === A.retryKey) { dlog('trying the recording again'); PLAY.key = ''; } }
   if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) startSeg(TUNED, c); else maintain(TUNED, c); }
-  else if (A.el.paused && !A.held && !A.blocked && !A.el.ended) nudge();
+  else if (A.el.paused && !A.held && !A.blocked && !A.el.ended) restartCarrier();
   levels(S, s);
 }
 

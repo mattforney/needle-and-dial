@@ -6,6 +6,10 @@ const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseC
 const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
+// The page script runs in sloppy mode, where a second function with the same name silently replaces
+// the first. Parsing it as strict code turns that, and other strict-mode slips, into a failure.
+const page = html.split('<script>').pop().split('</script>')[0];
+try { new Function('"use strict";\n' + page); } catch (e) { bad('page script: ' + e.message); }
 const t0 = Date.now();
 const all = {};
 for (const S of STATIONS) all[S.key] = buildStation(S, 0, P);
