@@ -186,8 +186,9 @@ const WHOD = api.STATIONS.find((s) => s.call === 'WHOD');
 const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1';
 async function lockWhileLoading(browser, ua) {
   const name = 'paused while loading at lock time, restarted' + (ua ? ' · iPhone' : '');
-  const sc = { at: end(a.c), first: a.c, lead: 40, slow: /OTRR_|whodunit/i, len: {} };
+  const sc = { at: end(a.c), first: a.c, lead: 40, len: {} };
   for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  sc.slow = new Set(Object.keys(sc.len)); // whatever WHOD is playing then, program or filler, loads slowly
   const t = await open(browser, sc, { strict: true, timers: 'slow', ua });
   const { page } = t, problems = [];
   await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1)); // tune to WHOD with the screen on

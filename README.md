@@ -11,7 +11,7 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `src/index.template.html` | The whole app in one page: interface, schedule engine and audio |
 | `catalog/` | One JSON file per station, listing the Archive items it plays |
 | `tools/build.py` | Builds `dist/index.html`, with this week's snapshot and any later drafts inlined, plus `dist/catalog.json` (the catalog as it stands) |
-| `tools/test_engine.js` | Audits a week of schedule for every station: no gaps or overlaps, programs on the grid, week boundaries intact |
+| `tools/test_engine.js` | Audits each week of schedule for every station: no gaps or overlaps, the legal ID at every top of the hour, programs on the minutes their station's clock allows, nothing running through the hour except long-form programs, nothing faded, week boundaries intact |
 | `tools/archive_check.js` | The weekly Archive check: confirms every catalog file still exists, still downloads, hasn't turned stream-only and keeps its length (`tools/test_archive_check.js` tests it offline) |
 | `snapshots/` | The frozen catalog each schedule week uses, one file per Monday it starts (`tools/snapshot.py` drafts them; `tools/test_snapshot.py` tests it) |
 | `catalog/review/stream-only.json` | Stream-only Archive items you've approved to keep, each with a one-line reason |
@@ -48,6 +48,10 @@ To run it by hand: Actions, then Weekly Archive check, then Run workflow. Give i
 Each week's schedule comes from a frozen copy of the catalog, so the program guide never shifts mid-week. `snapshots/2026-11-30.json` is the catalog in effect from Monday 30 November, 00:00 Central, until the next snapshot's Monday; a week without a file of its own keeps the one before. Edits to `catalog/` therefore reach the air the following Monday.
 
 After the Sunday Archive check, the same workflow drafts next week's snapshot from `catalog/`, holding out files the check found broken and stream-only items not yet approved (files that only changed length, or couldn't be checked, stay in). If that differs from what the week would otherwise use, it commits the file and republishes the site. To draft one by hand: `python3 tools/snapshot.py`. A snapshot is fixed once its week starts; to change what is on air this week anyway, edit that week's file directly, knowing it reshuffles that station from that moment.
+
+## How the schedule works
+
+Each station's week is built from that week's catalog snapshot, the same for every listener. Every hour opens with the legal ID at :00. A program starts after a 10-second station break on a minute its length allows: up to 14:50 long on a quarter hour, up to 29:50 on :00 or :30, up to 59:50 on :00, so it ends before the top of the hour. Story Hour and Nocturne start a piece on any five-minute mark from which it ends before the hour. KTPR's concerts start on :00 or :30 and, like anything longer than an hour, run through the top of the hour, with the legal ID in the break between tracks or movements nearest it. Ads, 78s, poems, interludes or vault tracks fill the gaps, packed so nothing is faded out, and up to a minute of interval signal covers the rest. `tools/test_engine.js` checks every one of these rules for every week the page carries.
 
 ## How playback works
 

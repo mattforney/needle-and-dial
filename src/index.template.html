@@ -177,9 +177,73 @@ const details = (id) => 'https://archive.org/details/' + encodeURIComponent(id);
 function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 function shuffle(a, r) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
-class Pool { constructor(items, r) { this.a = shuffle(items, r); } take(max, look = 48, avoid) { const n = Math.min(look, this.a.length); for (let j = 0; j < n; j++) if (this.a[j].d <= max && !(avoid && avoid.has(this.a[j].t))) { const it = this.a.splice(j, 1)[0]; this.a.push(it); return it; } return null; } longer(min, avoid) { for (let j = 0; j < this.a.length; j++) if (this.a[j].d > min && !(avoid && avoid.has(this.a[j].t))) { const it = this.a.splice(j, 1)[0]; this.a.push(it); return it; } return null; } }
+class Pool {
+  constructor(items, r) { this.a = shuffle(items, r); }
+  take(max, look = 48, avoid) { const n = Math.min(look, this.a.length); for (let j = 0; j < n; j++) if (this.a[j].d <= max && !(avoid && avoid.has(this.a[j].t))) { const it = this.a.splice(j, 1)[0]; this.a.push(it); return it; } return null; }
+  // The one or two items, among the next `look` in rotation, that come closest to filling max (their
+  // places in the pool; use() takes them).
+  fit(max, look = 48, avoid) {
+    const n = Math.min(look, this.a.length), ok = [];
+    for (let j = 0; j < n; j++) if (this.a[j].d <= max && !(avoid && avoid.has(this.a[j].t))) ok.push(j);
+    let best = [], most = 0;
+    for (let i = 0; i < ok.length; i++) {
+      const di = this.a[ok[i]].d;
+      if (di > most) { most = di; best = [ok[i]]; }
+      for (let k = i + 1; k < ok.length; k++) { const s = di + this.a[ok[k]].d; if (s <= max && s > most && this.a[ok[k]].t !== this.a[ok[i]].t) { most = s; best = [ok[i], ok[k]]; } }
+    }
+    return best;
+  }
+  // Any number of them, as close to max as they can get (subset sum to the second); slower, so it's
+  // only asked when one or two won't do.
+  most(max, look = 48, avoid) {
+    const n = Math.min(look, this.a.length), R = Math.floor(max), by = new Int16Array(R + 1).fill(-1), seen = new Set();
+    by[0] = n;
+    for (let j = 0; j < n; j++) {
+      const x = this.a[j], d = Math.ceil(x.d);
+      if (d > R || seen.has(x.t) || (avoid && avoid.has(x.t))) continue;
+      seen.add(x.t);
+      for (let s = R; s >= d; s--) if (by[s] < 0 && by[s - d] >= 0) by[s] = j;
+    }
+    let s = R; while (s > 0 && by[s] < 0) s--;
+    const idx = []; while (s > 0) { const j = by[s]; idx.push(j); s -= Math.ceil(this.a[j].d); }
+    return idx.sort((x, y) => x - y);
+  }
+  span(idx) { return idx.reduce((x, j) => x + this.a[j].d, 0); }
+  // Take the items at those places, in order, to the back of the rotation.
+  use(idx) { const items = idx.map((j) => this.a[j]); idx.slice().sort((x, y) => y - x).forEach((j) => this.a.splice(j, 1)); this.a.push(...items); return items; }
+}
 const adName = (f) => f.replace(/^OldRadio_Adv--/, '').replace(/\.mp3$/, '').replace(/_/g, ' ').replace(/(?<=[a-z])[A-Z0-9]$/, '').replace(/(?<=\S)\d+(?=\s|$)/g, '').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
-const ID = 10;
+const ID = 10, QH = 900, HOUR = 3600;
+// Hour clocks: every hour opens at :00 with the legal ID, and every other program start gets a 10 s
+// station break (imaging). On stations of shows, a program up to 14:50 long starts on a quarter hour,
+// up to 29:50 on :00 or :30, up to 59:50 on :00, so it ends before the next top of the hour. Stories
+// and complete works start on any five-minute mark from which they end before the hour, and concerts
+// on :00 or :30. Anything that runs through a top of the hour gets the legal ID in the break between
+// tracks or movements nearest it, the natural break the FCC rule asks for.
+const stepFor = (d) => (d <= QH - ID ? QH : d <= 2 * QH - ID ? 2 * QH : d <= HOUR - ID ? HOUR : 2 * QH);
+// Whether a program of length d may have its station break at B. Stations of shows keep that classic
+// clock; a station whose clock is a number of minutes (stories, complete works) starts a piece on any
+// such mark from which it ends before the top of the hour.
+function canStart(S, d, B) {
+  if (S.longForm) return B % (2 * QH) === 0; // concerts: on the hour or half hour, through the hour if need be
+  if (!S.clock) return B % QH === 0 && B % stepFor(d) === 0;
+  return B % (S.clock * 60) === 0 && (d > HOUR - ID || B + ID + d <= (Math.floor(B / HOUR) + 1) * HOUR);
+}
+// When a program whose break is at B ends: a legal ID joins it for each top of the hour it runs through.
+function endOf(B, items) { let t = B + ID, top = (Math.floor(t / HOUR) + 1) * HOUR; for (const it of items) { if (t + it.d > top) { t += ID; top += HOUR; } t += it.d; } return t; }
+const SEGUE = />\s*$/; // a live track that runs straight into the next
+// The first allowed break at or after t for program b. A gap too long for interval signal (a minute)
+// and too short for the station's shortest filler (`least`) can't be filled, so skip a break that
+// would leave one before it, or a program end that would leave one before the top of the hour.
+function startFor(S, b, t, least) {
+  const bad = (g) => g > 60 && g < least, first = Math.ceil(t / 300) * 300;
+  for (let B = first; B < first + 12 * HOUR; B += 300) {
+    if (!canStart(S, b.d, B) || bad(B - t)) continue;
+    const E = endOf(B, b.pg.items);
+    if (!bad(Math.ceil(E / HOUR) * HOUR - E)) return B;
+  }
+  let B = first; while (!canStart(S, b.d, B)) B += 300; return B; // none avoids it: the audit will say so
+}
 const NO_FILL = /intro|tuning|tunin|break|crowd|outro|dead air|fade|improv|happy birthday|tease/i;
 
 function parseCatalog(C) {
@@ -187,7 +251,7 @@ function parseCatalog(C) {
   const sp = (e) => e.split('|');
   P.ads = C.ads.e.map(e => { const [f, d] = sp(e); return { k: 'ad', id: C.ads.i, f, d: +d, t: adName(f) }; });
   P.g78 = C.gramophone.e.map(e => { const [id, f, d, y, t, a] = sp(e); return { k: 'music', id, f, d: +d, y, t, a, x: '78 rpm record' }; });
-  for (const key of ['whodunit', 'midnight', 'rocket', 'saddle', 'laugh']) P[key] = C[key].s.map(s => ({ series: s.n, serial: s.n === 'Planet Man', eps: s.e.map(e => { const [f, d, t, y] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a: s.n, y }; }) }));
+  for (const key of ['whodunit', 'midnight', 'rocket', 'saddle', 'laugh']) P[key] = C[key].s.map(s => ({ series: s.n, serial: s.n === 'Planet Man', eps: s.e.map(e => { const [f, d, t, y] = sp(e); return Object.assign({ k: 'prog', id: s.i, f, d: +d, t, a: s.n, y }, s.n === 'Planet Man' ? { sr: 1 } : {}); }) }));
   P.stories = C.storytime.s.flatMap(s => s.e.map(e => { const [f, d, t, a] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a, x: 'LibriVox' }; }));
   P.poems = C.storytime.p.flatMap(s => s.e.map(e => { const [f, d, t, a] = sp(e); return { k: 'poem', id: s.i, f, d: +d, t, a }; }));
   P.shows = C.tapers.s.map(s => ({ meta: { a: s.a, y: s.d, v: s.v, c: s.c, id: s.i }, items: s.t.map((e, i) => { const [f, d, t] = sp(e); return { k: 'prog', id: s.i, f, d: +d, t, a: s.a, y: s.d, x: s.v + (s.c ? ', ' + s.c : ''), n: i + 1, of: s.t.length }; }) }));
@@ -199,16 +263,16 @@ function parseCatalog(C) {
 }
 
 const STATIONS = [
-  { key: 'whodunit', band: 'AM', f: 640, call: 'WHOD', name: 'Whodunit', fmt: 'Crime, detectives and private eyes', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'This is W H O D. Whodunit. Six forty on your dial.', motif: [659.3, 523.3, 784], tune: [523.3, 659.3, 784, 659.3, 587.3, 698.5, 880, 0], rights: 'Old-time radio, 1940s–60s. Many episodes are believed to be public domain but not all have been checked.' },
-  { key: 'midnight', band: 'AM', f: 760, call: 'WMID', name: 'Midnight', fmt: 'Suspense and the supernatural', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'W M I D. Midnight. Seven sixty.', motif: [440, 415.3, 349.2], tune: [440, 523.3, 415.3, 349.2, 440, 329.6, 0, 0], rights: 'Old-time radio, 1940s–60s. Rights not individually checked.' },
-  { key: 'rocket', band: 'AM', f: 900, call: 'KRKT', name: 'Rocket', fmt: 'Science fiction from radio’s golden age', type: 'prog', grid: 900, fill: [['ads', 2], ['g78', 9]], say: 'K R K T. Rocket. Nine hundred.', motif: [523.3, 784, 1046.5], tune: [784, 1046.5, 987.8, 784, 659.3, 784, 523.3, 0], rights: 'Old-time radio, 1950s. Rights not individually checked.' },
-  { key: 'saddle', band: 'AM', f: 1070, call: 'KPRY', name: 'Prairie', fmt: 'Westerns and frontier drama', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'K P R Y. Prairie. Ten seventy.', motif: [392, 493.9, 587.3], tune: [392, 440, 493.9, 587.3, 493.9, 440, 392, 0], rights: 'Old-time radio, 1949–61. Rights not individually checked.' },
-  { key: 'laugh', band: 'AM', f: 1240, call: 'WHAH', name: 'Laugh Line', fmt: 'Comedy from radio’s golden age', type: 'prog', grid: 1800, fill: [['ads', 2], ['g78', 9]], say: 'W H A H. Laugh Line. Twelve forty.', motif: [587.3, 740, 880], tune: [587.3, 659.3, 740, 880, 740, 659.3, 587.3, 0], note: 'Period comedy; some humor reflects its era.', rights: 'Old-time radio, 1940s–50s. Rights not individually checked.' },
+  { key: 'whodunit', band: 'AM', f: 640, call: 'WHOD', name: 'Whodunit', fmt: 'Crime, detectives and private eyes', type: 'prog', fill: [['ads', 2], ['g78', 9]], say: 'This is W H O D. Whodunit. Six forty on your dial.', motif: [659.3, 523.3, 784], tune: [523.3, 659.3, 784, 659.3, 587.3, 698.5, 880, 0], rights: 'Old-time radio, 1940s–60s. Many episodes are believed to be public domain but not all have been checked.' },
+  { key: 'midnight', band: 'AM', f: 760, call: 'WMID', name: 'Midnight', fmt: 'Suspense and the supernatural', type: 'prog', fill: [['ads', 2], ['g78', 9]], say: 'W M I D. Midnight. Seven sixty.', motif: [440, 415.3, 349.2], tune: [440, 523.3, 415.3, 349.2, 440, 329.6, 0, 0], rights: 'Old-time radio, 1940s–60s. Rights not individually checked.' },
+  { key: 'rocket', band: 'AM', f: 900, call: 'KRKT', name: 'Rocket', fmt: 'Science fiction from radio’s golden age', type: 'prog', fill: [['ads', 2], ['g78', 9]], say: 'K R K T. Rocket. Nine hundred.', motif: [523.3, 784, 1046.5], tune: [784, 1046.5, 987.8, 784, 659.3, 784, 523.3, 0], rights: 'Old-time radio, 1950s. Rights not individually checked.' },
+  { key: 'saddle', band: 'AM', f: 1070, call: 'KPRY', name: 'Prairie', fmt: 'Westerns and frontier drama', type: 'prog', fill: [['ads', 2], ['g78', 9]], say: 'K P R Y. Prairie. Ten seventy.', motif: [392, 493.9, 587.3], tune: [392, 440, 493.9, 587.3, 493.9, 440, 392, 0], rights: 'Old-time radio, 1949–61. Rights not individually checked.' },
+  { key: 'laugh', band: 'AM', f: 1240, call: 'WHAH', name: 'Laugh Line', fmt: 'Comedy from radio’s golden age', type: 'prog', fill: [['ads', 2], ['g78', 9]], say: 'W H A H. Laugh Line. Twelve forty.', motif: [587.3, 740, 880], tune: [587.3, 659.3, 740, 880, 740, 659.3, 587.3, 0], note: 'Period comedy; some humor reflects its era.', rights: 'Old-time radio, 1940s–50s. Rights not individually checked.' },
   { key: 'gramophone', band: 'AM', f: 1340, call: 'WGRM', name: 'The Gramophone', fmt: '78 rpm records, 1898–1925', type: 'music', songs: 'g78', say: 'W G R M. The Gramophone. Thirteen forty.', motif: [698.5, 587.3, 466.2], tune: [698.5, 880, 1046.5, 880, 698.5, 587.3, 523.3, 0], rights: 'Public domain in the US: every record here was published in 1925 or earlier.' },
-  { key: 'storytime', band: 'AM', f: 1500, call: 'WPGE', name: 'Story Hour', fmt: 'Short stories and poems, read aloud', type: 'prog', grid: 300, fill: [['poems', 9]], say: 'W P G E. Story Hour. Fifteen hundred.', motif: [523.3, 587.3, 659.3], tune: [659.3, 587.3, 523.3, 587.3, 659.3, 659.3, 659.3, 0], rights: 'Public domain: LibriVox volunteer recordings of public-domain texts.' },
-  { key: 'nocturne', band: 'FM', f: 89.5, call: 'WNOC', name: 'Nocturne', fmt: 'Classical, complete works', type: 'prog', grid: 300, fill: [['chopin', 9]], say: 'W N O C. Nocturne. Eighty-nine point five F M.', motif: [349.2, 440, 523.3], tune: [349.2, 440, 523.3, 698.5, 523.3, 440, 0, 0], rights: 'Public domain and CC0 recordings from Musopen.' },
+  { key: 'storytime', band: 'AM', f: 1500, call: 'WPGE', name: 'Story Hour', fmt: 'Short stories and poems, read aloud', type: 'prog', clock: 5, fill: [['poems', 9]], say: 'W P G E. Story Hour. Fifteen hundred.', motif: [523.3, 587.3, 659.3], tune: [659.3, 587.3, 523.3, 587.3, 659.3, 659.3, 659.3, 0], rights: 'Public domain: LibriVox volunteer recordings of public-domain texts.' },
+  { key: 'nocturne', band: 'FM', f: 89.5, call: 'WNOC', name: 'Nocturne', fmt: 'Classical, complete works', type: 'prog', clock: 5, fill: [['chopin', 9]], say: 'W N O C. Nocturne. Eighty-nine point five F M.', motif: [349.2, 440, 523.3], tune: [349.2, 440, 523.3, 698.5, 523.3, 440, 0, 0], rights: 'Public domain and CC0 recordings from Musopen.' },
   { key: 'freeform', band: 'FM', f: 93.3, call: 'KFRE', name: 'Free Form', fmt: 'Netlabel music under Creative Commons', type: 'music', songs: 'free', say: 'K F R E. Free Form. Ninety-three point three.', motif: [659.3, 784, 987.8], tune: [659.3, 784, 987.8, 784, 659.3, 587.3, 0, 0], rights: 'Creative Commons. Each track shows its license; all are non-commercial or more permissive.' },
-  { key: 'tapers', band: 'FM', f: 101.9, call: 'KTPR', name: 'The Taper’s Section', fmt: 'Full concerts from the Live Music Archive', type: 'prog', grid: 1800, fill: [['vault', 40]], cutFill: true, say: 'K T P R. The Taper’s Section. One oh one point nine.', motif: [392, 587.3, 784], tune: [392, 493.9, 587.3, 784, 587.3, 493.9, 0, 0], rights: 'Live Music Archive: fan recordings by artists who allow taping and free streaming.' }
+  { key: 'tapers', band: 'FM', f: 101.9, call: 'KTPR', name: 'The Taper’s Section', fmt: 'Full concerts from the Live Music Archive', type: 'prog', longForm: true, fill: [['vault', 40]], say: 'K T P R. The Taper’s Section. One oh one point nine.', motif: [392, 587.3, 784], tune: [392, 493.9, 587.3, 784, 587.3, 493.9, 0, 0], rights: 'Live Music Archive: fan recordings by artists who allow taping and free streaming.' }
 ];
 STATIONS.forEach(S => { S.fLabel = S.band === 'AM' ? String(S.f) + ' AM' : S.f.toFixed(1) + ' FM'; });
 
@@ -226,26 +290,75 @@ function buildStation(S, week, P) {
   const r = rng(hash(S.key) ^ Math.imul(week + 7, 2654435761));
   const segs = []; let t = 0;
   const push = (o, d) => { const dur = d === undefined ? o.d : d; segs.push(Object.assign({}, o, { s: t, d: dur })); t += dur; };
+  // Fill up to T from the pools in order, each up to its count: whatever is next in rotation while
+  // there's room, then the closest fit of one or two items for the last stretch, so nothing has to be
+  // cut short to make the break. Whatever can't be filled plays the interval signal.
+  const packTo = (T, pools) => {
+    const used = new Set();
+    const from = (pl, max) => {
+      for (let n = 0; T - t >= 15 && n < max; ) {
+        if (T - t > 2 * pl.long) { const it = pl.pool.take(T - t, 1e9, used); if (!it) return; used.add(it.t); push(it); n++; }
+        else {
+          const R = T - t, pool = pl.pool;
+          let idx = pool.fit(R, pl.look, used);
+          if (R - pool.span(idx) > 20) { const more = pool.most(R, pl.look, used); if (pool.span(more) >= pool.span(idx)) idx = more; }
+          if (!idx.length) return;
+          pool.use(idx).forEach((it) => { used.add(it.t); push(it); }); n += idx.length;
+        }
+      }
+    };
+    pools.forEach((pl) => from(pl, pl.max)); pools.forEach((pl) => from(pl, pl.max));
+    if (T - t > 0) push({ k: 'interval' }, T - t);
+  };
+  const poolOf = (name, max, look) => ({ pool: new Pool(P[name], r), max, look, long: P[name].reduce((m, x) => Math.max(m, x.d), 0) });
   if (S.type === 'music') {
-    const pool = new Pool(P[S.songs], r);
-    for (let h = 0; h < WEEK / 3600; h++) {
-      const end = (h + 1) * 3600; push({ k: 'id' }, ID);
-      while (end - t >= 20) { const it = pool.take(end - t, 90); if (!it) break; push(it); }
-      if (end - t > 40) { const it = pool.take(1e9, 1); push(Object.assign({}, it, { cut: true, nd: it.d }), end - t); }
-      else if (end - t > 0) push({ k: 'interval' }, end - t);
-    }
+    const songs = [poolOf(S.songs, 1e9, 90)];
+    for (let h = 0; h < WEEK / HOUR; h++) { push({ k: 'id' }, ID); packTo((h + 1) * HOUR, songs); }
     return segs;
   }
-  const pools = S.fill.map(([name, max]) => ({ pool: new Pool(P[name], r), max }));
-  const fill = (T) => { const used = new Set(); const from = (pl, max) => { let n = 0; while (T - t >= 15 && n < max) { const it = pl.pool.take(T - t, 1e9, used); if (!it) break; used.add(it.t); push(it); n++; } }; pools.forEach(pl => from(pl, pl.max)); pools.forEach(pl => from(pl, 2)); if (S.cutFill && T - t > 40) { const it = pools[0].pool.longer(T - t + 5, used); if (it) push(Object.assign({}, it, { cut: true, nd: it.d }), T - t); } if (T - t > 0) push({ k: 'interval' }, T - t); };
-  const next = programStream(S, P, r);
-  while (t < WEEK) {
-    const prog = next();
-    const pd = prog.items.reduce((a, x) => a + x.d, 0);
-    if (t + pd + ID > WEEK) { fill(WEEK); break; }
-    prog.items.forEach((it, i) => push(Object.assign({}, it, { p: prog.meta, pi: i })));
-    const B = Math.min(WEEK, Math.ceil((t + ID) / S.grid) * S.grid);
-    fill(B - ID); push({ k: 'id' }, B - t);
+  const pools = S.fill.map(([name, max]) => poolOf(name, max, 48));
+  const next = programStream(S, P, r), who = (b) => b.pg.items[0].a, waiting = [];
+  // the shortest gap a fill can count on: the 20th-percentile item of its finest pool
+  const least = Math.min(...pools.map((pl) => pl.pool.a.map((x) => x.d).sort((x, y) => x - y)[Math.floor(pl.pool.a.length / 5)]));
+  let last = null;
+  for (;;) {
+    while (waiting.length < 6) { const pg = next(); waiting.push({ pg, d: pg.items.reduce((a, x) => a + x.d, 0), passed: 0 }); }
+    // Of the next six programs, the one that can start soonest. Each series stays in order, the same
+    // one doesn't run back to back unless that saves ten minutes of filler (a serial's next chapter
+    // may), and every time a program is passed over it gains two minutes on the others.
+    let pick = -1, best = Infinity;
+    waiting.forEach((b, i) => {
+      if (waiting.findIndex((x) => who(x) === who(b)) !== i) return;
+      const B = startFor(S, b, t, least);
+      if (B + ID + b.d + ID * (Math.ceil((b.d + ID) / HOUR) + 1) > WEEK) return;
+      const cost = B - t + (who(b) === last && !b.pg.items[0].sr ? 600 : 0) - 120 * b.passed;
+      if (cost < best) { best = cost; pick = i; }
+    });
+    if (pick < 0) { // nothing fits before the week ends: filler, hour by hour
+      if (t < WEEK && t % HOUR === 0) push({ k: 'id' }, ID);
+      for (let top = (Math.floor(t / HOUR) + 1) * HOUR; top <= WEEK; top += HOUR) { packTo(top, pools); if (top < WEEK) push({ k: 'id' }, ID); }
+      break;
+    }
+    const b = waiting.splice(pick, 1)[0]; waiting.forEach((x) => x.passed++);
+    const B = startFor(S, b, t, least);
+    packTo(B, pools);
+    push({ k: B % HOUR ? 'imaging' : 'id' }, ID);
+    // Through each top of the hour, the legal ID goes into the nearest natural break: between two
+    // items, but not where one track runs straight into the next (a '>' after its title).
+    const items = b.pg.items, flows = (i) => SEGUE.test(items[i].t || '');
+    let top = (Math.floor(t / HOUR) + 1) * HOUR, owed = false;
+    items.forEach((it, i) => {
+      const natural = i === 0 || !flows(i - 1);
+      if (owed && natural) { push({ k: 'id', pi: -1 }, ID); owed = false; }
+      if (!owed && t + it.d > top) {
+        let j = i, end = t + it.d; while (j < items.length - 1 && flows(j)) end += items[++j].d;
+        if (natural && top - t <= end - top) push({ k: 'id', pi: -1 }, ID); else owed = true;
+        top += HOUR;
+      }
+      push(Object.assign({}, it, { p: b.pg.meta, pi: i }));
+    });
+    if (owed) push({ k: 'id', pi: -1 }, ID);
+    last = who(b);
   }
   return segs;
 }
@@ -326,6 +439,7 @@ function describe(S, seg) {
       if (seg.id === 'musopen-chopin') return { kick: 'Interlude', title: seg.t, line: seg.a + ' · ' + seg.x };
       return { kick: 'Musical interlude', title: seg.t, line: [seg.a, seg.y].filter(Boolean).join(' · ') + ' · from a 78 rpm record' };
     case 'id': return { kick: 'Station identification', title: S.call + ' · ' + S.fLabel, line: S.name + ' — ' + S.fmt };
+    case 'imaging': return { kick: 'You’re listening to', title: S.name + ' · ' + S.fLabel, line: S.fmt };
     default: return { kick: 'Stand by', title: S.name, line: 'Interval signal' };
   }
 }
@@ -534,9 +648,11 @@ function startSeg(S, c) {
   stopSpeech(); A.fade = 1; if (A.g) ramp(A.g.gain, 1, 0.03);
   const what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(c.off)} of ${Math.round(seg.d)} s`;
   if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what);
-  else if (seg.k === 'id') {
-    const k = clip('id', S); carry(k.url, 'id', c.start, k.len, false, what);
-    if (c.off < 4 && sigNow > 0.55 && !document.hidden && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(S.say), Math.max(0, 1350 - c.off * 1000));
+  else if (seg.k === 'id' || seg.k === 'imaging') {
+    // the legal ID gives the call letters; a station break between programs, the name and the dial
+    const k = clip('id', S), say = seg.k === 'id' ? S.say : S.say.split('. ').slice(1).join('. ');
+    carry(k.url, seg.k, c.start, k.len, false, what);
+    if (c.off < 4 && sigNow > 0.55 && !document.hidden && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(say), Math.max(0, 1350 - c.off * 1000));
   } else { const k = clip('interval', S); carry(k.url, 'interval', c.start, k.len, true, what); }
   clip('id', S); clip('interval', S);
   setMediaSession(S, seg);

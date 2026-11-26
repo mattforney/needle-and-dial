@@ -2,8 +2,8 @@ const fs = require('fs');
 const html = fs.readFileSync(__dirname + '/../src/index.template.html', 'utf8');
 const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const CAT = JSON.parse(fs.readFileSync(__dirname + '/../dist/catalog.json', 'utf8'));
-const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, weekOf, excludeFiles, loadSnapshots };')(CAT);
-const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, weekOf, excludeFiles, loadSnapshots } = api;
+const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, weekOf, excludeFiles, loadSnapshots };')(CAT);
+const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, weekOf, excludeFiles, loadSnapshots } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // The page script runs in sloppy mode, where a second function with the same name silently replaces
@@ -22,8 +22,6 @@ for (const S of STATIONS) {
     if (!(g.d > 0)) bad(`${S.key} seg ${i} non-positive d=${g.d}`);
     if (i && Math.abs(segs[i - 1].s + segs[i - 1].d - g.s) > 1e-6) bad(`${S.key} gap/overlap at ${i}`);
     if (g.f && !g.id) bad(`${S.key} media seg without id`);
-    if (g.cut && !(g.nd > g.d)) bad(`${S.key} cut seg ${i} not longer than its slot (${g.nd} <= ${g.d})`);
-    if (g.k === 'prog' && !g.pi && S.type !== 'music' && g.s % S.grid !== 0) bad(`${S.key} program start off-grid at ${g.s} (${g.s % S.grid})`);
   }
   const last = segs[segs.length - 1];
   if (Math.abs(last.s + last.d - WEEK) > 1e-6) bad(`${S.key} does not end at WEEK: ${last.s + last.d}`);
@@ -33,6 +31,65 @@ for (const S of STATIONS) {
   const pct = (k) => ((by[k] || 0) / WEEK * 100).toFixed(1) + '%';
   const reps = [...titles.values()]; const maxRep = reps.length ? Math.max(...reps) : 0;
   console.log(`${S.call} ${S.key.padEnd(10)} segs=${String(segs.length).padStart(5)} prog=${pct('prog')} music=${pct('music')} ad=${pct('ad')} poem=${pct('poem')} id=${pct('id')} interval=${pct('interval')} maxInterval=${Math.round(maxInt)}s programs/wk=${progs} uniquePrograms=${titles.size} maxRepeats=${maxRep} cuts=${cuts}`);
+}
+// Hour clocks, the schedule half of Gate B. Every top of the hour has the legal ID, at :00 exactly
+// or, inside a program longer than an hour, in the break between its items nearest the hour, and
+// there are no legal IDs anywhere else. Every program starts right after a station break on a
+// minute its station's clock allows for its length (canStart), and only programs longer than an
+// hour run through a top of the hour. Nothing is faded out to make a break.
+const fmtT = (s) => { const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), x = Math.round(s % 60); return `${'MTWTFSS'[d]} ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}`; };
+function clockAudit(label, S, segs, stats) {
+  const fails = [], progs = [];
+  for (let i = 0; i < segs.length; i++) {
+    if (segs[i].k !== 'prog' || segs[i].pi !== 0) continue;
+    const p = { i0: i, start: segs[i].s, d: 0, ids: [], bounds: [] };
+    let j = i;
+    let prev = null; // natural breaks: between items, but not after a track that runs into the next
+    for (; j < segs.length && (j === i || segs[j].pi > 0 || segs[j].pi === -1); j++) { if (segs[j].pi === -1) p.ids.push(j); else { p.d += segs[j].d; if (j > i && !/>\s*$/.test(prev.t || '')) p.bounds.push(segs[j].s); prev = segs[j]; } }
+    p.i1 = j; p.end = segs[j - 1].s + segs[j - 1].d; p.long = p.d > HOUR - ID || !!S.longForm; p.through = Math.floor((p.start - ID) / HOUR) !== Math.floor((p.end - 1) / HOUR); progs.push(p); i = j - 1;
+  }
+  const inLong = (s) => progs.find((p) => p.long && p.start < s && s < p.end);
+  const legal = new Set(), worst = { dev: 0, at: 0 };
+  for (let h = 0; h < WEEK / HOUR; h++) {
+    const H = h * HOUR, exact = segs.findIndex((g) => g.k === 'id' && g.s === H);
+    if (exact >= 0) { legal.add(exact); continue; }
+    const p = inLong(H);
+    if (!p) { fails.push(`no legal ID at ${fmtT(H)}`); continue; }
+    const j = p.ids.reduce((b, k) => (b < 0 || Math.abs(segs[k].s - H) < Math.abs(segs[b].s - H) ? k : b), -1);
+    if (j < 0) { fails.push(`no legal ID in the program running through ${fmtT(H)}`); continue; }
+    const x = segs[j].s, dev = Math.abs(x - H), closer = p.bounds.filter((b) => b !== x && b !== x + ID && Math.abs(b - H) + ID < dev);
+    const before = segs[j - 1]; if (before && before.pi > 0 && /\s*>\s*$/.test(before.t || '') && segs[j + 1] && segs[j + 1].pi > 0) fails.push(`legal ID at ${fmtT(x)} cuts into a segue`);
+    if (closer.length) fails.push(`legal ID for ${fmtT(H)} at ${fmtT(x)}, but a break at ${fmtT(closer[0])} is nearer`);
+    legal.add(j); if (dev > worst.dev) Object.assign(worst, { dev, at: H });
+  }
+  segs.forEach((g, i) => { if (g.k === 'id' && !legal.has(i)) fails.push(`legal ID away from the top of the hour at ${fmtT(g.s)}`); });
+  for (const p of progs) {
+    const br = segs[p.i0 - 1];
+    if (!br || (br.k !== 'id' && br.k !== 'imaging') || br.d !== ID) fails.push(`program at ${fmtT(p.start)} has no station break before it`);
+    if (!canStart(S, p.d, p.start - ID)) fails.push(`${Math.round(p.d / 60)}-minute program starts at ${fmtT(p.start)}`);
+    if (!p.long && Math.floor((p.start - ID) / HOUR) !== Math.floor((p.end - 1) / HOUR)) fails.push(`program at ${fmtT(p.start)} runs through the top of the hour`);
+  }
+  segs.forEach((g, i) => {
+    if (g.k === 'imaging' && !(segs[i + 1] && segs[i + 1].pi === 0)) fails.push(`station break at ${fmtT(g.s)} without a program after it`);
+    if (g.cut) fails.push(`faded out at ${fmtT(g.s)}`);
+    if (g.f && Math.floor(g.s / HOUR) !== Math.floor((g.s + g.d - 1e-6) / HOUR) && !inLong(g.s + g.d / 2)) fails.push(`${g.k} at ${fmtT(g.s)} runs through the top of the hour`);
+  });
+  if (stats) {
+    // the longest run of filler between two programs, and how much of the week is filler
+    let run = 0, longest = 0, filler = 0;
+    for (const g of segs) { const f = g.k === 'ad' || g.k === 'poem' || g.k === 'interval' || (g.k === 'music' && S.type !== 'music'); if (f) { run += g.d; filler += g.d; longest = Math.max(longest, run); } else if (g.k === 'prog' || g.k === 'music') run = 0; }
+    const ints = segs.filter((g) => g.k === 'interval').map((g) => g.d);
+    Object.assign(stats, { programs: progs.length, long: progs.filter((p) => p.through).length, filler: filler / WEEK, longest, worstID: worst, intervals: ints.length, maxInterval: Math.max(0, ...ints), imaging: segs.filter((g) => g.k === 'imaging').length });
+  }
+  for (const f of fails.slice(0, 5)) bad(`${label}: ${f}`);
+  if (fails.length > 5) bad(`${label}: ${fails.length - 5} more`);
+  return fails.length;
+}
+for (const S of STATIONS) {
+  const st = {};
+  clockAudit(`${S.key} week 0`, S, all[S.key], st);
+  clockAudit(`${S.key} week 1`, S, buildStation(S, 1, P));
+  console.log(`clock ${S.call}: ${String(st.programs).padStart(4)} programs${st.long ? ` (${st.long} through the hour; legal ID at most ${Math.round(st.worstID.dev / 60)} min from the hour)` : ''}, filler ${(st.filler * 100).toFixed(1)}% of the week, longest filler run ${Math.round(st.longest / 60)} min, ${st.imaging} station breaks, interval signal ${st.intervals}× (longest ${Math.round(st.maxInterval)} s)`);
 }
 // No filler runs past a minute: the interval signal is a station's dead air.
 const MAX_FILLER = 60;
@@ -50,7 +107,7 @@ for (const S of STATIONS) { const b = EPOCH + WEEK; const c1 = SCH.at(S, b - 0.5
 // Snapshots: every frozen week builds a clean schedule for that week.
 const audit = (label, S, segs) => {
   if (segs[0].s !== 0) bad(label + ' first seg not at 0');
-  for (let i = 0; i < segs.length; i++) { const g = segs[i]; if (!(g.d > 0)) bad(`${label} seg ${i} non-positive d`); if (i && Math.abs(segs[i - 1].s + segs[i - 1].d - g.s) > 1e-6) bad(`${label} gap/overlap at ${i}`); if (g.k === 'interval' && g.d > MAX_FILLER) bad(`${label}: ${Math.round(g.d)} s of interval signal`); if (g.k === 'prog' && !g.pi && S.type !== 'music' && g.s % S.grid !== 0) bad(`${label} program off-grid at ${g.s}`); }
+  for (let i = 0; i < segs.length; i++) { const g = segs[i]; if (!(g.d > 0)) bad(`${label} seg ${i} non-positive d`); if (i && Math.abs(segs[i - 1].s + segs[i - 1].d - g.s) > 1e-6) bad(`${label} gap/overlap at ${i}`); if (g.k === 'interval' && g.d > MAX_FILLER) bad(`${label}: ${Math.round(g.d)} s of interval signal`); }
   const last = segs[segs.length - 1]; if (Math.abs(last.s + last.d - WEEK) > 1e-6) bad(label + ' does not end at WEEK');
 };
 const snapDir = __dirname + '/../snapshots';
@@ -61,7 +118,7 @@ for (const n of snaps) {
   if (n !== s.from + '.json') bad(`${n} says it starts ${s.from}`);
   if (!Number.isInteger(w)) { bad(`${n}: ${s.from} is not a schedule Monday`); continue; }
   const Ps = excludeFiles(parseCatalog(s.catalog), s.exclude);
-  for (const S of STATIONS) audit(`${n} ${S.key}`, S, buildStation(S, w, Ps));
+  for (const S of STATIONS) { const segs = buildStation(S, w, Ps); audit(`${n} ${S.key}`, S, segs); clockAudit(`${n} ${S.key}`, S, segs); }
   console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out`);
 }
 // Holding files out: they never air, emptied series and shows drop away, and the week stays whole.
@@ -71,7 +128,7 @@ for (const n of snaps) {
   if (P2.whodunit.length !== P.whodunit.length - 1) bad('excludeFiles: a series with every episode held out should drop away');
   if (P2.shows[0].items.length !== P.shows[0].items.length - 2) bad('excludeFiles: held-out tracks should leave the rest of the show');
   if (P2.vault.some((x) => gone.includes(x.id + '/' + x.f))) bad('excludeFiles: held-out tracks still in the vault pool');
-  for (const S of STATIONS) { const segs = buildStation(S, 0, P2); audit('excluded ' + S.key, S, segs); if (segs.some((g) => g.f && gone.includes(g.id + '/' + g.f))) bad(`excludeFiles: ${S.key} still plays a held-out file`); }
+  for (const S of STATIONS) { const segs = buildStation(S, 0, P2); audit('excluded ' + S.key, S, segs); clockAudit('excluded ' + S.key, S, segs); if (segs.some((g) => g.f && gone.includes(g.id + '/' + g.f))) bad(`excludeFiles: ${S.key} still plays a held-out file`); }
   const two = makeScheduler((w) => (w < 1 ? P : P2)), t1 = EPOCH + WEEK + 3600;
   if (JSON.stringify(two.forWeek(STATIONS[0], 0)) !== JSON.stringify(all[STATIONS[0].key])) bad('makeScheduler: week 0 should use its own catalog');
   if (two.forWeek(STATIONS[0], 1).some((g) => g.f && gone.includes(g.id + '/' + g.f))) bad('makeScheduler: week 1 should use the later catalog');
