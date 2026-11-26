@@ -103,7 +103,7 @@ async function until(page, t) { for (;;) { if ((await pageNow(page)) >= t) retur
 const players = (page) => page.evaluate(() => [...window.__T.players].filter((m) => !m.paused && !m.ended).map((m) => ({ src: m.currentSrc, t: m.currentTime, loop: m.loop, carrier: !!(window.SKY && window.SKY.A && window.SKY.A.el === m) })));
 
 async function open(browser, sc, opt) {
-  const ctx = await browser.newContext();
+  const ctx = await browser.newContext(opt.ua ? { userAgent: opt.ua } : {});
   const failed = new Set();
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
   await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
@@ -115,7 +115,9 @@ async function open(browser, sc, opt) {
     if (req.method() === 'HEAD') return route.fulfill({ status: 200, headers: { ...h, 'content-length': String(buf.length) }, body: '' });
     const m = /bytes=(\d*)-(\d*)/.exec(req.headers()['range'] || '');
     if (!m) return route.fulfill({ status: 200, headers: h, body: buf });
-    const s = m[1] ? +m[1] : 0, e = m[2] ? Math.min(+m[2], buf.length - 1) : buf.length - 1;
+    // At most 512 KB an answer, as some servers do: the player asks again as it needs more. Sending whole
+    // files through the test browser's control channel slowed every other check down.
+    const s = m[1] ? +m[1] : 0, e = Math.min(m[2] ? +m[2] : Infinity, buf.length - 1, s + 524287);
     return route.fulfill({ status: 206, headers: { ...h, 'content-range': `bytes ${s}-${e}/${buf.length}` }, body: buf.subarray(s, e + 1) });
   });
   await ctx.addInitScript(init, { offset: Math.round((sc.at - (sc.lead || 14)) * 1000 - Date.now()), strict: opt.strict, timers: opt.timers });
@@ -179,15 +181,18 @@ async function handling(browser) {
 // iPhone pauses a station that is still loading when the screen locks (seen 25 and 26 Nov). With
 // the keep-alive still playing, the page should start it again by itself, without an unlock.
 const WHOD = api.STATIONS.find((s) => s.call === 'WHOD');
-async function lockWhileLoading(browser) {
+// The iPhone from the 26 Nov tests: the page should pick direct audio and the keep-alive by itself.
+const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1';
+async function lockWhileLoading(browser, ua) {
+  const name = 'paused while loading at lock time, restarted' + (ua ? ' · iPhone' : '');
   const sc = { at: end(a.c), first: a.c, lead: 40, slow: /OTRR_|whodunit/i, len: {} };
   for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
-  const t = await open(browser, sc, { strict: true, timers: 'slow' });
+  const t = await open(browser, sc, { strict: true, timers: 'slow', ua });
   const { page } = t, problems = [];
   await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1)); // tune to WHOD with the screen on
   let u = '';
   for (let i = 0; i < 30 && !u; i++) { await sleep(100); u = await page.evaluate(() => (window.SKY.A.kind === 'media' && window.SKY.TUNED && window.SKY.TUNED.call === 'WHOD' ? window.SKY.A.src : '')); }
-  if (!u) { problems.push('WHOD never started loading'); return finish(t, 'paused while loading at lock time, restarted', problems); }
+  if (!u) { problems.push('WHOD never started loading'); return finish(t, name, problems); }
   await sleep(800);
   // lock, and pause the station the way iOS does when the file hasn't started playing yet
   const loading = await page.evaluate(() => { const el = window.SKY.A.el, r = el.readyState; window.__lock(); el.pause(); return r < 3; });
@@ -198,22 +203,28 @@ async function lockWhileLoading(browser) {
   if (!ok) problems.push('WHOD did not start playing again with the screen locked');
   if (s.held) problems.push('the page gave up and held the station');
   if (!/paused as the screen locked while loading; restarting/.test(s.log)) problems.push('no restart in the log');
-  return finish(t, 'paused while loading at lock time, restarted', problems);
+  if (ua && !/audio direct, with keep-alive/.test(s.log)) problems.push('expected direct audio with the keep-alive on iPhone');
+  return finish(t, name, problems);
 }
 
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
-async function clockSync(browser, skewMs) {
+// slowMs holds the page's time check that long before the server stamps its answer: a slow uplink, or a busy server.
+async function clockSync(browser, skewMs, slowMs = 0) {
   const ctx = await browser.newContext();
   await ctx.route(/fonts\.(googleapis|gstatic)\.com|archive\.org/, (r) => r.abort());
-  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', headers: { date: new Date(Date.now() + skewMs).toUTCString() }, body: HTML }));
+  await ctx.route('http://nd.test/**', async (r) => {
+    if (slowMs && r.request().method() === 'HEAD') await sleep(slowMs);
+    return r.fulfill({ status: 200, contentType: 'text/html', headers: { date: new Date(Date.now() + skewMs).toUTCString() }, body: HTML });
+  });
   const page = await ctx.newPage();
   await page.goto('http://nd.test/?debug=1');
-  let off = null;
-  for (let i = 0; i < 20 && off === null; i++) { await sleep(150); off = await page.evaluate(() => (window.SKY && window.SKY.clock.checked ? window.SKY.clock.off : null)); }
+  let c = null;
+  for (let i = 0; i < 20 + slowMs / 150 && !c; i++) { await sleep(150); c = await page.evaluate(() => (window.SKY && window.SKY.clock.checked ? { off: window.SKY.clock.off, rtt: window.SKY.clock.rtt } : null)); }
   await ctx.close();
+  // The page's estimate is good to within 0.5 s plus half the round trip it measured.
   const want = Math.abs(skewMs) > 2000;
-  const ok = off !== null && (want ? Math.abs(off - skewMs) < 1500 : off === 0);
-  return { name: `clock sync, server ${skewMs / 1000} s from the device`, ok, problems: ok ? [] : [`clock offset ${off} ms`], log: '' };
+  const ok = !!c && (want ? Math.abs(c.off - skewMs) <= 501 + c.rtt / 2 : c.off === 0);
+  return { name: `clock sync, server ${skewMs / 1000} s from the device${slowMs ? ', slow round trip' : ''}`, ok, problems: ok ? [] : [c ? `clock offset ${c.off} ms (round trip ${c.rtt} ms)` : 'no clock check'], log: '' };
 }
 
 (async () => {
@@ -225,8 +236,8 @@ async function clockSync(browser, skewMs) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)],
-    ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)]];
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)],
+    ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f());
   const results = await Promise.all(jobs);
   await browser.close();

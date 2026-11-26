@@ -292,7 +292,7 @@ const fmtDate = (d) => { if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d) || /-00/.test(
 // Clock sync: the schedule assumes every listener's clock agrees. The page reads the time from
 // the server it came from (the Date header, to the second) and corrects the device clock when it
 // is clearly off. Within 2 s the device, usually set by the network, is the better clock.
-const CLOCK = { off: 0, checked: 0 };
+const CLOCK = { off: 0, checked: 0, rtt: 0 };
 const nowS = () => (Date.now() + CLOCK.off) / 1000;
 async function syncClock() {
   if (!/^https?:$/.test(location.protocol)) return;
@@ -300,9 +300,11 @@ async function syncClock() {
     const t0 = Date.now(), r = await fetch(location.href.split('#')[0], { method: 'HEAD', cache: 'no-store' }), t1 = Date.now();
     const d = Date.parse(r.headers.get('date') || '');
     if (!Number.isFinite(d)) return;
-    const off = Math.round(d + 500 - (t0 + t1) / 2); // the header is truncated to the second
-    CLOCK.checked = t1;
-    CLOCK.off = Math.abs(off) > 2000 ? off : 0;
+    // The header is truncated to the second and was stamped somewhere inside the round trip, so this
+    // is good to within 0.5 s plus half the round trip. Correct the clock only when it is clearly off.
+    const off = Math.round(d + 500 - (t0 + t1) / 2), rtt = t1 - t0;
+    Object.assign(CLOCK, { checked: t1, rtt });
+    CLOCK.off = Math.abs(off) > 2000 + rtt / 2 ? off : 0;
     dlog(`clock: device ${off >= 0 ? 'behind' : 'ahead of'} the server by ${(Math.abs(off) / 1000).toFixed(1)} s${CLOCK.off ? '; correcting' : ''} (round trip ${t1 - t0} ms)`);
   } catch (e) {}
 }
@@ -410,7 +412,7 @@ function initAudio() {
   const el = new Audio(); el.preload = 'auto';
   let g = null;
   if (ROUTE) { el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); }
-  const keep = IOS && QS.get('keepalive') !== '1' ? null : new Audio(); // ?keepalive=1: try it on iPhone too
+  const keep = QS.get('keepalive') === '0' ? null : new Audio(); // on everywhere since 26 Nov; ?keepalive=0 turns it off for testing
   if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
   Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
@@ -484,8 +486,9 @@ function onEnded() { if (!R.on) return; dlog('file ended before its slot'); brid
 function onPause() {
   if (!R.on || A.el.ended || performance.now() - A.swapAt < 400) return;
   // iPhone pauses a station that is still loading when the screen locks, even with the keep-alive
-  // playing (seen 26 Nov). If the keep-alive is still going, it wasn't a call or another app taking
-  // over the audio, so start the station again, retrying for up to 20 s before giving up.
+  // playing. If the keep-alive is still going, it wasn't a call or another app taking over the audio,
+  // so start the station again, retrying for up to 20 s before giving up. On iPhone this brought the
+  // sound back in about 2 s with the screen locked (26 Nov).
   if (document.hidden && A.keep && !A.keep.paused && performance.now() - A.swapAt < 10000 && ++A.lockTries <= 3) {
     A.lockRetry = performance.now() + 20000; A.nudgeAt = performance.now();
     dlog('paused as the screen locked while loading; restarting'); playCarrier('after lock'); return;
