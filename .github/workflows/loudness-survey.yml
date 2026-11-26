@@ -1,0 +1,44 @@
+# Measures the files in research/loudness/sample.json (loudness, and quiet at each end) and commits the
+# results to this branch. It runs only on the loudness-survey branch, so main and the site are untouched.
+# The measuring resumes where it stopped: a file already in results.json is not downloaded again.
+name: Loudness survey
+
+on:
+  push:
+    branches: [loudness-survey]
+    paths: [research/loudness/sample.json, tools/loudness_survey.js, .github/workflows/loudness-survey.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: loudness-survey
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install ffmpeg
+        run: |
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          ffmpeg -version | head -1
+      - name: Self-test on synthetic audio
+        run: node tools/loudness_survey.js selftest
+      - name: Measure the sample (one file at a time)
+        run: node tools/loudness_survey.js measure research/loudness/sample.json research/loudness/results.json
+      - name: Summary
+        if: always() && hashFiles('research/loudness/results.json') != ''
+        run: node tools/loudness_survey.js report research/loudness/results.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit the results
+        if: always() && hashFiles('research/loudness/results.json') != ''
+        run: |
+          git add research/loudness/results.json
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Loudness survey results [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

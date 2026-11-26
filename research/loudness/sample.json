@@ -1,0 +1,1016 @@
+{
+ "made": "2026-11-26",
+ "seed": 20261126,
+ "pools": {
+  "ads": {
+   "files": 55,
+   "items": 1,
+   "sampled": 8
+  },
+  "chopin": {
+   "files": 99,
+   "items": 1,
+   "sampled": 6
+  },
+  "free": {
+   "files": 97,
+   "items": 17,
+   "sampled": 10
+  },
+  "g78": {
+   "files": 135,
+   "items": 132,
+   "sampled": 12
+  },
+  "laugh": {
+   "files": 48,
+   "items": 6,
+   "sampled": 10
+  },
+  "midnight": {
+   "files": 47,
+   "items": 6,
+   "sampled": 10
+  },
+  "poems": {
+   "files": 45,
+   "items": 2,
+   "sampled": 6
+  },
+  "rocket": {
+   "files": 48,
+   "items": 4,
+   "sampled": 10
+  },
+  "saddle": {
+   "files": 48,
+   "items": 6,
+   "sampled": 10
+  },
+  "shows": {
+   "files": 200,
+   "items": 11,
+   "sampled": 11
+  },
+  "stories": {
+   "files": 55,
+   "items": 6,
+   "sampled": 10
+  },
+  "vault": {
+   "files": 149,
+   "items": 11,
+   "sampled": 11
+  },
+  "whodunit": {
+   "files": 48,
+   "items": 6,
+   "sampled": 10
+  },
+  "works": {
+   "files": 144,
+   "items": 1,
+   "sampled": 10
+  }
+ },
+ "files": [
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Sugar_Crinkles3.mp3",
+   "d": 73,
+   "t": "Sugar Crinkles"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--NBC8convention.mp3",
+   "d": 45,
+   "t": "NBC8convention"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Camel5.mp3",
+   "d": 36,
+   "t": "Camel"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Quaker_Oats4.mp3",
+   "d": 20,
+   "t": "Quaker Oats"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Palmolive_Soap.mp3",
+   "d": 67,
+   "t": "Palmolive Soap"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--DelMonte_Catsup2.mp3",
+   "d": 75,
+   "t": "Del Monte Catsup"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--NBC2.mp3",
+   "d": 61,
+   "t": "NBC"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Jello1.mp3",
+   "d": 28,
+   "t": "Jello"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Polonaise no.5 - Op.40 no.2_ C-minor.mp3",
+   "d": 290,
+   "t": "Polonaise no. 5, Op. 40 no. 2 in C minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 24 no. 2 in C major.mp3",
+   "d": 132,
+   "t": "Mazurka, Op. 24 no 2 in C major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz no.8 - Op.64 no.3_ Ab-major.mp3",
+   "d": 184,
+   "t": "Waltz no. 8, Op. 64 no. 3 in A-flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 14.mp3",
+   "d": 32,
+   "t": "Prelude Op. 28 no. 14"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 50 no. 2 in A flat major.mp3",
+   "d": 198,
+   "t": "Mazurka op. 50 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.71No.1InDMinor.mp3",
+   "d": 363,
+   "t": "Polonaise, Op. 71 no. 1 in D minor"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "06_-_echo_lali_-_betes_pas_si_betes.mp3",
+   "d": 154,
+   "t": "Betes Pas Si Betes"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl038MirandaShvangiradzeTalkToMeEp",
+   "f": "4Daisi.mp3",
+   "d": 221,
+   "t": "Daisi"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-03-IRemember.mp3",
+   "d": 255,
+   "t": "I Remember"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_04_-_Zero_Call_-_Earthquake.mp3",
+   "d": 209,
+   "t": "Earthquake"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_04_-_Oh_Lord.mp3",
+   "d": 260,
+   "t": "Oh Lord"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda049",
+   "f": "DumboGetsMad-EclecticPrawn.mp3",
+   "d": 243,
+   "t": "Eclectic Prawn"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda009",
+   "f": "UnderscoreOrkestra-BalancingAct.mp3",
+   "d": 264,
+   "t": "Balancing Act"
+  },
+  {
+   "pool": "free",
+   "id": "HILIV003",
+   "f": "03_hiliv003_onsundaysidream_cocoon.mp3",
+   "d": 371,
+   "t": "Cocoon"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "02-flujo.mp3",
+   "d": 397,
+   "t": "Flujo"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_04-duis-dancing_elephant.mp3",
+   "d": 213,
+   "t": "Dancing Elephant"
+  },
+  {
+   "pool": "g78",
+   "id": "78_secret-of-suzanne-oh-gioia-la-nube-leggera-what-joy-to-watch_lucrezia-bori-erm_gbia0314502a",
+   "f": "Secret of Suzanne - Oh gioia, la nube legg - Lucrezia Bori.mp3",
+   "d": 235,
+   "t": "Secret of Suzanne - Oh gioia, la nube leggera (What Joy to Watch)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_gott-is-einer_moishe-oysher-kadimah-singers-sam-medoff_gbia0432650b",
+   "f": "GOTT IS EINER - MOISHE OYSHER - KADIMAH SINGERS.mp3",
+   "d": 167,
+   "t": "Gott Is Einer"
+  },
+  {
+   "pool": "g78",
+   "id": "78_boo-hoo-boo_lenzbergs-midnight-frolic-orchestra-arthur-hall-nelson-link-lentz-and_gbia0406230b",
+   "f": "BOO-HOO-BOO - Lenzberg's Midnight Frolic Orchestra.mp3",
+   "d": 201,
+   "t": "Boo-Hoo-Boo"
+  },
+  {
+   "pool": "g78",
+   "id": "78_das-lila-lied_marek-weber-mit-seiner-knstlerkapelle-vom-esplanade-arno-billing_gbia7004182b",
+   "f": "Das lila Lied - Marek Weber mit seiner Künstlerkapelle vom Esplanade.mp3",
+   "d": 220,
+   "t": "Das lila Lied"
+  },
+  {
+   "pool": "g78",
+   "id": "78_abandonado-abandoned_guillermo-posadas-bregor-skolnik-and-his-orchestra_gbia0000134a",
+   "f": "Abandonado (Abandoned) - Guillermo Posadas-restored.mp3",
+   "d": 232,
+   "t": "Abandonado (Abandoned)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_bees-knees_the-original-memphis-five-lopez-and-lewis_gbia0278930a",
+   "f": "BEE'S KNEES - The Original Memphis Five - Lopez and Lewis.mp3",
+   "d": 198,
+   "t": "Bee's Knees"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-swallows_virginia-rea-bingham-cowen_gbia3004823b",
+   "f": "THE SWALLOWS - VIRGINIA REA - Bingham - Cowen.mp3",
+   "d": 200,
+   "t": "The Swallows"
+  },
+  {
+   "pool": "g78",
+   "id": "78_gianni-schicchi-o-mio-babbino-caro_florence-easton-puccini_gbia0267927b",
+   "f": "Gianni Schicchi - O mio babbino caro - FLORENCE EASTON.mp3",
+   "d": 151,
+   "t": "Gianni Schicchi - O mio babbino caro"
+  },
+  {
+   "pool": "g78",
+   "id": "78_to-morrow-land-waltz-medley_ernest-l.-stevens-tandler-hulton_gbia0001886b",
+   "f": "To-Morrow Land Waltz Medley - Ernest L. Stevens-restored.mp3",
+   "d": 253,
+   "t": "To-Morrow Land Waltz Medley"
+  },
+  {
+   "pool": "g78",
+   "id": "78_adios-pilar_roberto-firpo-orquesta-tipica-m-joves-orq-tipica-roberto-firpo-max-gl_gbia0054506a",
+   "f": "Adios Pilar - Roberto Firpo - Orquesta Tipica.mp3",
+   "d": 174,
+   "t": "Adios Pilar"
+  },
+  {
+   "pool": "g78",
+   "id": "78_burning-sands_vincent-lopez-and-his-hotel-pennsylvania-orchestra-d-onivas_gbia0077454b",
+   "f": "Burning Sands - Vincent Lopez and His Hotel Pennsylvania Orchestra.mp3",
+   "d": 201,
+   "t": "Burning Sands"
+  },
+  {
+   "pool": "g78",
+   "id": "78_weary-blues_stark-cope-harveys-orch._gbia0000426a",
+   "f": "Weary Blues - Stark - Cope Harvey's Orch..mp3",
+   "d": 210,
+   "t": "Weary Blues"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (088) 1951-06-21 Mother Drives a Car.mp3",
+   "d": 1758,
+   "t": "Mother Drives a Car"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-10-16 Recovering from a cold.mp3",
+   "d": 1770,
+   "t": "Recovering from a cold"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 44-01-23 (110) Eve and Gildy Get Together.mp3",
+   "d": 1653,
+   "t": "Eve and Gildy Get Together"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris51-05-27182ContractWorries.mp3",
+   "d": 1763,
+   "t": "Contract Worries"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello44-11-09LousRaceHorsePeanutButter.mp3",
+   "d": 1536,
+   "t": "Lou's Race Horse, Peanut Butter"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1955-04-10 (284) Tears for Mr. Boynton.mp3",
+   "d": 1757,
+   "t": "Tears for Mr. Boynton"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (171) 1953-05-07 The Good Old Days.mp3",
+   "d": 1772,
+   "t": "The Good Old Days"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-12-11 Guest Frank Leahy - Texas benefit.mp3",
+   "d": 1770,
+   "t": "Guest Frank Leahy - Texas benefit"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 52-11-12 (472) Problems with Leroy's Teacher.mp3",
+   "d": 1764,
+   "t": "Problems With Leroy's Teacher"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris54-02-26279ANightAtTheMovies.mp3",
+   "d": 1784,
+   "t": "A Night at the Movies"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_48-02-11_ep298_Money_Is_The_Root_Of_All_Evil.mp3",
+   "d": 1773,
+   "t": "Money Is The Root Of All Evil"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_49-11-15_-085-_Three_Skeleton_Key_-William_Conrad-_-1-.mp3",
+   "d": 1764,
+   "t": "Three Skeleton Key (William Conrad)"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 48-01-20 (137) The Man in the Black Derby.mp3",
+   "d": 1736,
+   "t": "The Man in the Black Derby"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep72_The_Shadow.mp3",
+   "d": 1483,
+   "t": "The Shadow"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 600410 848 Two Horse Parlay (128-44) 23062 24m15s.mp3",
+   "d": 1435,
+   "t": "Two Horse Parlay"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  52-08-10 The Magic Tile.mp3",
+   "d": 1477,
+   "t": "The Magic Tile"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_49-04-10_ep357_Murder_at_Twin_Pines.mp3",
+   "d": 1531,
+   "t": "Murder at Twin Pines"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_54-06-24_-215-_Judgment_Day_at_Crippled_Deer.mp3",
+   "d": 1707,
+   "t": "Judgment Day at Crippled Deer"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 48-08-10 (166) The Visiting Corpse.mp3",
+   "d": 1752,
+   "t": "The Visiting Corpse"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep07_What_Was_It.mp3",
+   "d": 1498,
+   "t": "What Was It"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "dover_beach_arnold_ce_64kb.mp3",
+   "d": 154,
+   "t": "Dover Beach"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_red_cross_spirit_speaks_finley_j_pdc_64kb.mp3",
+   "d": 99,
+   "t": "The Red Cross Spirit Speaks"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "queen_of_hearts_rossetti_blb_64kb.mp3",
+   "d": 102,
+   "t": "The Queen of Hearts"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "matrix_lowell_blb_64kb.mp3",
+   "d": 59,
+   "t": "The Matrix"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "good_news_from_ghent_browning_ks_64kb.mp3",
+   "d": 271,
+   "t": "How they Brought the Good News from Ghent to Aix"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_lamb_wb_ah_64kb.mp3",
+   "d": 82,
+   "t": "The Lamb"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-09-15__24_HelloTomorrow.mp3",
+   "d": 1741,
+   "t": "Hello Tomorrow"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_53-06-20_038_The_Indestructible_Germ.mp3",
+   "d": 1761,
+   "t": "The Indestructible Germ"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-07-03058MrCostelloHero.mp3",
+   "d": 1668,
+   "t": "Mr Costello, Hero"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep13_On_a_Scout_Ship.mp3",
+   "d": 703,
+   "t": "On a Scout Ship"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-06-10__36_Nightmare.mp3",
+   "d": 1494,
+   "t": "Nightmare"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-11-06_110_The_Watchman_of_Wormak.mp3",
+   "d": 1516,
+   "t": "The Watchman of Wormak"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-02-22039Junkyard.mp3",
+   "d": 1768,
+   "t": "Junkyard"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep12_Marston_Dead.mp3",
+   "d": 720,
+   "t": "Marston Dead"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-05-20__07_TheLostRace.mp3",
+   "d": 1779,
+   "t": "The Lost Race"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_53-10-10_054_On_the_Ice_Cap_of_Planet_X.mp3",
+   "d": 1783,
+   "t": "On the Ice Cap of Planet X"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 61-02-19 (463) Kitty Love.mp3",
+   "d": 1499,
+   "t": "Kitty Love"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1950-11-12 (19) Blood Relative.mp3",
+   "d": 1760,
+   "t": "Blood Relative"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep12_Return_of_the_Badmen.mp3",
+   "d": 1690,
+   "t": "Return of the Badmen"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-06-17_ep21_Winter_Soldier.mp3",
+   "d": 1789,
+   "t": "Winter Soldier"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1953-11-08 Ep 08 The Capture Of Stacy Gault.mp3",
+   "d": 1723,
+   "t": "The Capture Of Stacy Gault"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs.mp3",
+   "d": 1468,
+   "t": "The Dollhouse in Diamond Springs"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 59-02-01 (356) The Bobsy Twins.mp3",
+   "d": 1438,
+   "t": "The Bobsy Twins"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1950-08-12 (06) The Broken Spur.mp3",
+   "d": 1775,
+   "t": "The Broken Spur"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep44_The_Badlands.mp3",
+   "d": 1711,
+   "t": "The Badlands"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-02-19_ep05_Boredom.mp3",
+   "d": 1773,
+   "t": "Boredom"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t04.mp3",
+   "d": 273,
+   "t": "It's So Heavy"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t08.mp3",
+   "d": 370,
+   "t": "Brown Eyed Women"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t11.mp3",
+   "d": 233,
+   "t": "Inaudible Melodies"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t10.mix.mp3",
+   "d": 314,
+   "t": "One Shot"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t11.mp3",
+   "d": 246,
+   "t": "Find Another You"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt03.mp3",
+   "d": 279,
+   "t": "Chop 'em Down"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t07.mp3",
+   "d": 290,
+   "t": "Classic Situation"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t02.mp3",
+   "d": 304,
+   "t": "If There's Love"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t04.mp3",
+   "d": 926,
+   "t": "Bullet ->"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t04.mp3",
+   "d": 53,
+   "t": "I Got the Twitch>"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track05.mp3",
+   "d": 252,
+   "t": "Spanish Moon >"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "baby_tramp_bierce_py_64kb.mp3",
+   "d": 794,
+   "t": "A Baby Tramp"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "sorrow_chekhov_pl_64kb.mp3",
+   "d": 986,
+   "t": "Sorrow"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "pit_and_the_pendulum_64kb.mp3",
+   "d": 2348,
+   "t": "The Pit and the Pendulum"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "childs_dream_of_a_star_dickens_sc_64kb.mp3",
+   "d": 405,
+   "t": "A Child's Dream of a Star"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "mother_goose_04_baum_sdw_64kb.mp3",
+   "d": 597,
+   "t": "The Cat and the Fiddle"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "god_sees_the_truth_and_waits_tolstoy_wsc_64kb.mp3",
+   "d": 1095,
+   "t": "God Sees the Truth, But Waits"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "cask_of_amontillado_poe_zw-rh_64kb.mp3",
+   "d": 945,
+   "t": "The Cask of Amontillado"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "erich_zann_lovecraft_gmh_64kb.mp3",
+   "d": 1217,
+   "t": "The Music of Erich Zann"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "children_zodiac_kipling_ce_64kb.mp3",
+   "d": 2536,
+   "t": "The Children of the Zodiac"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "damned_thing_bierce_ge_64kb.mp3",
+   "d": 1278,
+   "t": "The Damned Thing"
+  },
+  {
+   "pool": "vault",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track08.mp3",
+   "d": 219,
+   "t": "Oh Atlanta"
+  },
+  {
+   "pool": "vault",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t13.mp3",
+   "d": 358,
+   "t": "Hey Joe"
+  },
+  {
+   "pool": "vault",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t11.mp3",
+   "d": 246,
+   "t": "Find Another You"
+  },
+  {
+   "pool": "vault",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt01.mp3",
+   "d": 504,
+   "t": "Rastaman Chant"
+  },
+  {
+   "pool": "vault",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t05.mp3",
+   "d": 323,
+   "t": "Night Out"
+  },
+  {
+   "pool": "vault",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t05.mp3",
+   "d": 253,
+   "t": "Taylor"
+  },
+  {
+   "pool": "vault",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t03.mp3",
+   "d": 437,
+   "t": "Crab Eyes"
+  },
+  {
+   "pool": "vault",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t08.mp3",
+   "d": 299,
+   "t": "Mistaken I.D."
+  },
+  {
+   "pool": "vault",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t08.mp3",
+   "d": 370,
+   "t": "Brown Eyed Women"
+  },
+  {
+   "pool": "vault",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t11.mix.mp3",
+   "d": 601,
+   "t": "Hey Girl"
+  },
+  {
+   "pool": "vault",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t03.mp3",
+   "d": 429,
+   "t": "Anyhow"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1951-12-29 125 The Alma Scott Matter.mp3",
+   "d": 1682,
+   "t": "The Alma Scott Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 49-07-02 (011) The Bloody Hat Case.mp3",
+   "d": 1770,
+   "t": "The Bloody Hat Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 51-11-17 (087) The Alex Raymond Murder Case.mp3",
+   "d": 1683,
+   "t": "The Alex Raymond Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-06-09 (048) The Assassination of Leon Trotsky.mp3",
+   "d": 1766,
+   "t": "The Assassination of Leon Trotsky"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (43) The Dead Man Walks.mp3",
+   "d": 1593,
+   "t": "The Dead Man Walks"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1948-07-26 (098) The Lie That Came True.mp3",
+   "d": 1778,
+   "t": "The Lie That Came True"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1957-07-28 545 The Confederate Coinage Matter [AFRTS].mp3",
+   "d": 1788,
+   "t": "The Confederate Coinage Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 50-04-26 (051) The Ralph Baxter Case.mp3",
+   "d": 1771,
+   "t": "The Ralph Baxter Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 49-08-25 (007) The Val Dane Murder Case.mp3",
+   "d": 1771,
+   "t": "The Val Dane Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-02-24 (034) The Good Ship Jane, Why She Became Flotsam.mp3",
+   "d": 1785,
+   "t": "The Good Ship Jane, Why She Became Flotsam"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-20-GoldbergVariationsBwv.988-Variation19.mp3",
+   "d": 71,
+   "t": "Variation 19"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-05-GoldbergVariationsBwv.988-Variation4.mp3",
+   "d": 53,
+   "t": "Variation 4"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.19inCMajorK465/WolfgangAmadeusMozart-StringQuartetNo.19InCK465Dissonance-01-AdagioAllegro.mp3",
+   "d": 513,
+   "t": "Adagio Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.1inAMajor/AlexanderBorodin-StringQuartetNo.1InAMajor-04-Andante-AllegroRisoluto.mp3",
+   "d": 533,
+   "t": "Andante - Allegro risoluto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-01-AllegroMaNonTroppo.mp3",
+   "d": 475,
+   "t": "Allegro ma non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-12-GoldbergVariationsBwv.988-Variation11.mp3",
+   "d": 94,
+   "t": "Variation 11"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Greig_PeerGynt/EdvardGrieg-PeerGyntSuiteNo.1Op.46-01-Morning.mp3",
+   "d": 229,
+   "t": "Morning"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Haydn_StringQuartetInDMajorOp.64/JosephHaydn-StringQuartetInDOp.645H363Lark-02-AdagioCantabile.mp3",
+   "d": 291,
+   "t": "Adagio, Cantabile"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-10-GoldbergVariationsBwv.988-Variation9.CanonOnTheThird.mp3",
+   "d": 99,
+   "t": "Variation 9. Canon on the third"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_StringQuartetNo.6inFMinorOp.80/FelixMendelssohn-StringQuartetNo.6InFMinorOp.80-03-Adagio.mp3",
+   "d": 486,
+   "t": "Adagio"
+  }
+ ]
+}
