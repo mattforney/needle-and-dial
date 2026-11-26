@@ -342,7 +342,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -352,7 +352,7 @@ if (DBG.on) { try { DBG.lines = JSON.parse(localStorage.getItem('needle-dial.deb
 function dlog(msg) {
   const d = new Date();
   DBG.lines.push(d.toTimeString().slice(0, 8) + '.' + String(d.getMilliseconds()).padStart(3, '0') + (document.hidden ? ' [bg] ' : ' ') + msg);
-  if (DBG.lines.length > 600) DBG.lines.splice(0, DBG.lines.length - 600);
+  if (DBG.lines.length > 3000) DBG.lines.splice(0, DBG.lines.length - 3000); // room for several hours with the screen locked
   if (!DBG.on) return;
   try { localStorage.setItem('needle-dial.debug', JSON.stringify(DBG.lines)); } catch (e) {}
   if (!DBG.paint) DBG.paint = setTimeout(paintDbg, 150);
@@ -417,7 +417,12 @@ function initAudio() {
   Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
   el.addEventListener('loadedmetadata', onMeta);
-  el.addEventListener('playing', () => { A.lockRetry = 0; if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind); } });
+  el.addEventListener('playing', () => {
+    A.lockRetry = 0;
+    let note = '';
+    if (A.seekAt) { const s = (performance.now() - A.seekAt) / 1000, lag = wantPos() - el.currentTime; A.seekAt = 0; noteLoad(s); note = ` after ${s.toFixed(1)} s, ${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; }
+    if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind + note); }
+  });
   el.addEventListener('waiting', () => { if (A.kind === 'media') dlog('buffering'); });
   el.addEventListener('stalled', () => dlog('network stalled'));
   el.addEventListener('ended', onEnded);
@@ -440,17 +445,29 @@ function speak(text) { try { const u = new SpeechSynthesisUtterance(text); u.rat
 
 /* The carrier */
 const wantPos = () => { const p = nowS() - A.t0; return A.loop && A.len ? ((p % A.len) + A.len) % A.len : Math.max(0, p); };
-function onMeta() { const want = wantPos(); if (want > 0.5 && Math.abs(A.el.currentTime - want) > 1.2) { try { A.el.currentTime = want; } catch (e) {} } }
+// Tuning in seeks into the middle of a file, and the player starts as far behind the schedule as that
+// seek took to load: about 3 s on a phone (26 Nov). So the seek aims ahead by the median of this
+// device's last five such loads (3 s until it has one). Starting a little ahead costs nothing in
+// mid-program; starting behind cuts off the end of the program when the next item starts on time.
+const LOADS = (() => { try { return JSON.parse(localStorage.getItem('needle-dial.loads') || '[]').filter((s) => s > 0 && s < 15).slice(-5); } catch (e) { return []; } })();
+function loadLead() { const l = LOADS.slice().sort((x, y) => x - y); return l.length ? Math.min(6, l[l.length >> 1]) : 3; }
+function noteLoad(s) { if (!(s > 0 && s < 15)) return; LOADS.push(s); if (LOADS.length > 5) LOADS.shift(); try { localStorage.setItem('needle-dial.loads', JSON.stringify(LOADS.map((x) => +x.toFixed(2)))); } catch (e) {} }
+const aimPos = () => Math.max(wantPos(), A.aim); // while a seek is loading, the spot it aimed at
+// Line the player up when it is behind, or well ahead (a seek that loaded faster than expected
+// leaves it a little ahead, which is fine, and pulling it back would repeat what was just heard).
+function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if (want > 0.5 && (d < -1.2 || d > 4)) { try { A.el.currentTime = want; } catch (e) {} } }
 // Point the carrier at a source and keep it playing. t0 is the moment the source's 0:00 lines up with.
 function carry(src, kind, t0, len, loop, label) {
   const el = A.el, fresh = src !== A.src || !!el.error;
   Object.assign(A, { src, kind, t0, len: len || 0, loop: !!loop });
   el.loop = !!loop;
   if (fresh) {
-    A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0;
+    A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0;
     el.src = src;
-    const want = wantPos(); if (want > 0.5) { try { el.currentTime = want; } catch (e) {} }
-    dlog('→ ' + label);
+    const want = wantPos();
+    if (want > 0.5 && kind === 'media') { A.aim = Math.max(want, Math.min(want + loadLead(), PLAY.seg ? PLAY.seg.d - 1 : Infinity)); A.seekAt = A.swapAt; }
+    if (want > 0.5) { try { el.currentTime = Math.max(want, A.aim); } catch (e) {} }
+    dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : ''));
   } else onMeta();
   playCarrier(kind);
 }
@@ -466,7 +483,7 @@ function playCarrier(why) {
 }
 function resume(why) {
   if (!R.on || !A.ctx) return;
-  A.held = false; A.blocked = false; wake();
+  A.held = false; A.blocked = false; A.seekAt = 0; wake(); // a wait for the listener isn't a load time
   if (A.keep && A.keep.paused) A.keep.play().catch(() => {});
   dlog('resume (' + why + ')'); playCarrier(why); setPlaybackState(); render();
 }
@@ -493,7 +510,7 @@ function onPause() {
     A.lockRetry = performance.now() + 20000; A.nudgeAt = performance.now();
     dlog('paused as the screen locked while loading; restarting'); playCarrier('after lock'); return;
   }
-  A.held = true; setPlaybackState(); dlog('paused by the phone or browser'); render();
+  A.held = true; A.seekAt = 0; setPlaybackState(); dlog('paused by the phone or browser'); render();
 }
 function onError() {
   const err = A.el.error;

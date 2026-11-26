@@ -8,7 +8,7 @@
 //
 //   node tools/test_playback.js [path/to/index.html]
 //   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string;
-//   ND_ONLY=<part of a check's name> runs just the checks that match.
+//   ND_ONLY=<part of a check's name> runs just the checks that match; ND_PAR=n runs n at a time (6).
 //
 // Needs Chrome (CHROME_PATH, or /usr/bin/google-chrome) and playwright-core.
 const fs = require('fs');
@@ -108,7 +108,8 @@ async function open(browser, sc, opt) {
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
   await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
   await ctx.route('https://archive.org/download/**', async (route) => {
-    if (sc.slow && sc.slow.test(route.request().url())) await sleep(2500); // a slow network keeps the file loading
+    const ru = route.request().url();
+    if (sc.slow && (sc.slow instanceof Set ? sc.slow.has(ru) : sc.slow.test(ru))) await sleep(2500); // a slow network keeps the file loading
     const req = route.request(), u = req.url(), h = { 'content-type': 'audio/wav', 'accept-ranges': 'bytes', 'access-control-allow-origin': '*' };
     if (req.method() === 'GET' && sc.failOnce && sc.failOnce.includes(u) && !failed.has(u)) { failed.add(u); return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); }
     const buf = wavFor(sc, u);
@@ -207,6 +208,34 @@ async function lockWhileLoading(browser, ua) {
   return finish(t, name, problems);
 }
 
+// Tuning in seeks into the middle of a file, and the player starts as far behind the schedule as the
+// seek took to load. Once one tune-in has been timed, the next should start within a second of the
+// schedule. Both stations' files load slowly here (each request waits 2.5 s).
+const WMID = api.STATIONS.find((s) => s.call === 'WMID');
+async function tuneInLead(browser) {
+  const sc = { at: end(a.c), first: a.c, lead: 60, len: {} };
+  for (const S2 of [WHOD, WMID]) for (let t = sc.at - 65; t < sc.at + 5; t++) { const c = SCH.at(S2, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  sc.slow = new Set(Object.keys(sc.len));
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [], lags = [];
+  for (const [f, call] of [[640, 'WHOD'], [760, 'WMID']]) {
+    await page.evaluate((f) => window.SKY.sweepTo('AM', f, 1), f);
+    let r = null;
+    for (let i = 0; i < 80 && !r; i++) {
+      await sleep(100);
+      r = await page.evaluate((call) => { const A = window.SKY.A, T = window.SKY.TUNED; return T && T.call === call && A.kind === 'media' && A.shown === A.src && !A.el.paused ? Date.now() / 1000 - A.t0 - A.el.currentTime : null; }, call);
+    }
+    if (r === null) { problems.push(call + ' never started playing'); break; }
+    lags.push(r);
+  }
+  const log = await page.evaluate(() => window.SKY.log());
+  if (lags.length === 2) {
+    if (Math.abs(lags[1]) > 1.5) problems.push(`second tune-in started ${Math.abs(lags[1]).toFixed(1)} s ${lags[1] > 0 ? 'behind' : 'ahead of'} the schedule (first: ${lags[0].toFixed(1)} s behind)`);
+    if (!/WMID prog .*aiming \d+\.\d s ahead/.test(log)) problems.push('no aimed seek in the log');
+  }
+  return finish(t, 'tuning in starts in step with the schedule', problems);
+}
+
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
 // slowMs holds the page's time check that long before the server stamps its answer: a slow uplink, or a busy server.
 async function clockSync(browser, skewMs, slowMs = 0) {
@@ -235,11 +264,13 @@ async function clockSync(browser, skewMs, slowMs = 0) {
     { label: 'locked, strict browser, no timers', lock: true, strict: true, timers: 'off' },
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
-  for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)],
+  for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
-  if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f());
-  const results = await Promise.all(jobs);
+  if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
+  // A few checks at a time: they keep real time, and a crowded machine makes players start late.
+  const results = new Array(jobs.length); let next = 0;
+  await Promise.all(Array.from({ length: Math.min(+process.env.ND_PAR || 6, jobs.length) }, async () => { while (next < jobs.length) { const k = next++; results[k] = await jobs[k](); } }));
   await browser.close();
   let fail = 0;
   for (const r of results) {
