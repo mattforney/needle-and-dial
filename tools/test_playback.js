@@ -185,7 +185,7 @@ async function handling(browser) {
   return finish(t, 'tune away and back, outside pause, power off and on', problems);
 }
 
-// Presets: a bank of six per band. The AM bank leaves out WHOD; a press tunes, a hold or Shift with
+// Presets: a bank of six per band. The AM bank leaves out WPGE; a press tunes, a hold or Shift with
 // a number saves the dial's frequency, and saved presets survive a reload.
 async function presetBanks(browser) {
   const sc = { at: end(a.c), first: a.c, lead: 40 };
@@ -193,9 +193,9 @@ async function presetBanks(browser) {
   const { page } = t, problems = [];
   const bank = () => page.evaluate(() => [...document.querySelectorAll('#presets button')].map((b) => b.querySelector('b').textContent));
   const am = await bank();
-  if (am.join() !== 'WMID,KRKT,KPRY,WHAH,WGRM,WPGE') problems.push('AM bank is ' + am.join());
-  await page.click('#presets button[data-slot="1"]'); await sleep(1500);
-  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KRKT') problems.push('preset 2 did not tune KRKT');
+  if (am.join() !== 'WHOD,WMID,KRKT,KPRY,WHAH,WGRM') problems.push('AM bank is ' + am.join());
+  await page.click('#presets button[data-slot="2"]'); await sleep(1500);
+  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KRKT') problems.push('preset 3 did not tune KRKT');
   await page.click('#bFM'); await sleep(800);
   const fm = await bank();
   if (fm.join() !== 'WNOC,KFRE,KTPR,4,5,6') problems.push('FM bank is ' + fm.join());

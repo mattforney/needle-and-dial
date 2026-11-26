@@ -888,8 +888,8 @@ const tuneStep = () => R.band === 'AM' ? 1 : 0.025;
 
 /* ---------- Presets: a bank of six per band, as on a car radio ---------- */
 // A press tunes to the frequency a button holds; holding it (or Shift with its number key) stores the
-// frequency the dial is on. By default the AM bank leaves out WHOD, which is where the dial starts.
-const BANK = 6, PRESET_KEYS = { AM: ['midnight', 'rocket', 'saddle', 'laugh', 'gramophone', 'storytime'], FM: ['nocturne', 'freeform', 'tapers'] };
+// frequency the dial is on. By default the AM bank runs WHOD to WGRM and leaves out WPGE.
+const BANK = 6, PRESET_KEYS = { AM: ['whodunit', 'midnight', 'rocket', 'saddle', 'laugh', 'gramophone'], FM: ['nocturne', 'freeform', 'tapers'] };
 const fLabelOf = (band, f) => (band === 'AM' ? Math.round(f) + ' AM' : f.toFixed(1) + ' FM');
 const PRESETS = (() => {
   const d = {};
