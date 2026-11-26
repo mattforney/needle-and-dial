@@ -2,8 +2,10 @@
 // end, to scope level matching and trims before building them (roadmap: "Loudness and trims").
 //
 //   node tools/loudness_survey.js pick              writes research/loudness/sample.json (needs dist/catalog.json)
+//   node tools/loudness_survey.js pick all          writes research/loudness/all.json: every file in the catalog
 //   node tools/loudness_survey.js selftest          measures synthetic files whose answers are known
-//   node tools/loudness_survey.js measure SAMPLE OUT  downloads each sampled file once, one at a time, and measures it
+//   node tools/loudness_survey.js measure LIST OUT [--max N]  downloads each listed file once, one at a time, and
+//                                                   measures it; files already in OUT are skipped, so it resumes
 //   node tools/loudness_survey.js report OUT        prints a summary by pool, as Markdown
 //
 // archive.org can't be reached from every machine, so the "Loudness survey" workflow runs measure on
@@ -87,7 +89,7 @@ function ends(db) {
 
 // ---- the sample: about ten files a pool, spread over the pool's Archive items, the same every time
 const PER = { ads: 8, g78: 12, poems: 6, chopin: 6, shows: 11, vault: 11 };
-function pick() {
+function pick(all) {
   const html = fs.readFileSync(path.join(ROOT, 'src/index.template.html'), 'utf8');
   const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
   const CAT = JSON.parse(fs.readFileSync(path.join(ROOT, 'dist/catalog.json'), 'utf8'));
@@ -100,13 +102,19 @@ function pick() {
     walk(P[pool]);
     const byItem = new Map();
     for (const o of [...seen.values()].sort((x, y) => (x.id + '/' + x.f < y.id + '/' + y.f ? -1 : 1))) { if (!byItem.has(o.id)) byItem.set(o.id, []); byItem.get(o.id).push(o); }
+    if (all) { // every file, once, under the first pool it appears in
+      let n = 0;
+      for (const o of [...byItem.values()].flat()) if (!files.some((x) => x.id === o.id && x.f === o.f)) { files.push({ pool, id: o.id, f: o.f, d: o.d, t: o.t || '' }); n++; }
+      pools[pool] = { files: seen.size, items: byItem.size, listed: n };
+      continue;
+    }
     const items = shuffle([...byItem.keys()]).map((id) => shuffle(byItem.get(id).slice()));
     const want = Math.min(PER[pool] || 10, seen.size), got = [];
     for (let k = 0; got.length < want; k++) { const list = items[k % items.length]; if (list.length) got.push(list.pop()); }
     for (const o of got) files.push({ pool, id: o.id, f: o.f, d: o.d, t: o.t || '' });
     pools[pool] = { files: seen.size, items: byItem.size, sampled: got.length };
   }
-  const out = path.join(ROOT, 'research/loudness/sample.json');
+  const out = path.join(ROOT, all ? 'research/loudness/all.json' : 'research/loudness/sample.json');
   fs.writeFileSync(out, JSON.stringify({ made: new Date().toISOString().slice(0, 10), seed: 20261126, pools, files }, null, 1) + '\n');
   console.log(`${files.length} files from ${Object.keys(pools).length} pools, ${Math.round(files.reduce((s, x) => s + (x.d || 0), 0) / 3600)} hours of audio → ${path.relative(ROOT, out)}`);
 }
@@ -126,17 +134,17 @@ async function download(url, to) {
   }
 }
 
-async function survey(samplePath, outPath) {
+async function survey(samplePath, outPath, max = Infinity) {
   const sample = JSON.parse(fs.readFileSync(samplePath, 'utf8'));
   const out = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, 'utf8'))
     : { started: new Date().toISOString(), ffmpeg: execFileSync('ffmpeg', ['-version']).toString().split('\n')[0], method: { block_ms: 100, rate: RATE, silent_dbfs: SILENT, quiet_db_below_program: QUIET }, files: [] };
-  const done = new Set(out.files.filter((x) => !x.error).map((x) => x.id + '/' + x.f));
-  out.files = out.files.filter((x) => !x.error);
+  const done = new Set(out.files.map((x) => x.id + '/' + x.f)); // a file that failed stays failed: no endless retries
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nd-loud-'));
-  let k = 0;
+  let k = 0, n = 0;
   for (const s of sample.files) {
     k++;
     if (done.has(s.id + '/' + s.f)) continue;
+    if (n++ >= max) break;
     const file = path.join(tmp, 'a' + (path.extname(s.f).toLowerCase() || '.mp3')), rec = { pool: s.pool, id: s.id, f: s.f, d: s.d }, t0 = Date.now();
     try {
       rec.bytes = await download(ia(s.id, s.f), file);
@@ -149,8 +157,10 @@ async function survey(samplePath, outPath) {
     console.log(`${String(k).padStart(3)}/${sample.files.length} ${s.pool.padEnd(9)} ${rec.error ? 'ERROR ' + rec.error : `${rec.I} LUFS, lead ${rec.lead_quiet} s, tail ${rec.tail_quiet} s`}  ${s.f.slice(0, 60)}`);
     await sleep(1000);
   }
-  out.finished = new Date().toISOString();
+  const left = sample.files.filter((s) => !out.files.some((x) => x.id === s.id && x.f === s.f)).length;
+  if (!left) out.finished = new Date().toISOString();
   fs.writeFileSync(outPath, JSON.stringify(out, null, 1) + '\n');
+  console.log(`${out.files.length} measured (${out.files.filter((x) => x.error).length} failed), ${left} left`);
 }
 
 // ---- summary by pool
@@ -198,6 +208,7 @@ async function selftest() {
 module.exports = { measure, ends, ia };
 if (require.main !== module) return;
 const [cmd, ...args] = process.argv.slice(2);
-const run = { pick: () => pick(), selftest: () => selftest(), measure: () => survey(args[0], args[1]), report: () => report(args[0]) }[cmd];
+const maxAt = args.indexOf('--max'), max = maxAt >= 0 ? +args[maxAt + 1] : Infinity;
+const run = { pick: () => pick(args[0] === 'all'), selftest: () => selftest(), measure: () => survey(args[0], args[1], max), report: () => report(args[0]) }[cmd];
 if (!run) { console.error('usage: node tools/loudness_survey.js pick | selftest | measure SAMPLE OUT | report OUT'); process.exitCode = 2; }
 else Promise.resolve(run()).catch((e) => { console.error(e); process.exitCode = 1; });

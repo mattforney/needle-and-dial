@@ -18,3 +18,7 @@ Scoping for the roadmap's "Loudness and trims": before building level matching a
 `node tools/loudness_survey.js selftest` checks all of this on synthetic files with known answers (a −20 dBFS tone reads −23.0 LUFS; silence, hiss, needle noise, a click and a mid-file gap give the lengths they were made with; mono and stereo read the same program level). The workflow runs it before measuring.
 
 `results.json` holds one record per file; `node tools/loudness_survey.js report research/loudness/results.json` prints a summary by pool, and `node research/loudness/analyze.js` the figures in [FINDINGS.md](FINDINGS.md): spread, the jumps at each change of recording in a real week of each station, quiet at the ends, the cost of each target level, and catalog durations against the files. *Quiet* was briefly stricter than *silent* for very quiet files (25 dB below their program level fell under −50 dBFS); the tool now uses whichever threshold is higher, and `analyze.js` corrects results measured before that.
+
+## Every file
+
+`all.json` lists all 1,069 files in the catalog (`node tools/loudness_survey.js pick all`), each once, under the first pool it appears in (KTPR's vault tracks are tracks of its concerts, so they're listed as concerts). The workflow measures them into `levels.json`, 50 at a time, committing after each 50, so a stopped run resumes where it left off; files that fail are recorded with the error and not retried. The 132 files measured in the sample run are reused rather than downloaded again.

@@ -1,0 +1,7561 @@
+{
+ "made": "2026-11-26",
+ "seed": 20261126,
+ "pools": {
+  "ads": {
+   "files": 55,
+   "items": 1,
+   "listed": 55
+  },
+  "chopin": {
+   "files": 99,
+   "items": 1,
+   "listed": 99
+  },
+  "free": {
+   "files": 97,
+   "items": 17,
+   "listed": 97
+  },
+  "g78": {
+   "files": 135,
+   "items": 132,
+   "listed": 135
+  },
+  "laugh": {
+   "files": 48,
+   "items": 6,
+   "listed": 48
+  },
+  "midnight": {
+   "files": 47,
+   "items": 6,
+   "listed": 47
+  },
+  "poems": {
+   "files": 45,
+   "items": 2,
+   "listed": 45
+  },
+  "rocket": {
+   "files": 48,
+   "items": 4,
+   "listed": 48
+  },
+  "saddle": {
+   "files": 48,
+   "items": 6,
+   "listed": 48
+  },
+  "shows": {
+   "files": 200,
+   "items": 11,
+   "listed": 200
+  },
+  "stories": {
+   "files": 55,
+   "items": 6,
+   "listed": 55
+  },
+  "vault": {
+   "files": 149,
+   "items": 11,
+   "listed": 0
+  },
+  "whodunit": {
+   "files": 48,
+   "items": 6,
+   "listed": 48
+  },
+  "works": {
+   "files": 144,
+   "items": 1,
+   "listed": 144
+  }
+ },
+ "files": [
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--45rpm_records.mp3",
+   "d": 56,
+   "t": "45rpm records"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Anacin.mp3",
+   "d": 41,
+   "t": "Anacin"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Anchor_Hocking.mp3",
+   "d": 45,
+   "t": "Anchor Hocking"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Autolite5.mp3",
+   "d": 64,
+   "t": "Autolite"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--AutoliteB.mp3",
+   "d": 76,
+   "t": "Autolite"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Blue_Coal1.mp3",
+   "d": 30,
+   "t": "Blue Coal"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Bromo_Quinine.mp3",
+   "d": 59,
+   "t": "Bromo Quinine"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--CBS_Radio3.mp3",
+   "d": 34,
+   "t": "CBS Radio"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Camel5.mp3",
+   "d": 36,
+   "t": "Camel"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Carnation1.mp3",
+   "d": 86,
+   "t": "Carnation"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Cheerios2.mp3",
+   "d": 60,
+   "t": "Cheerios"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--ChesterfieldN.mp3",
+   "d": 79,
+   "t": "Chesterfield"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Colgate_Shaving_Cream.mp3",
+   "d": 55,
+   "t": "Colgate Shaving Cream"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Columbia_Phonograph.mp3",
+   "d": 62,
+   "t": "Columbia Phonograph"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Cream_Of_Wheat.mp3",
+   "d": 29,
+   "t": "Cream Of Wheat"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--DelMonte_Catsup2.mp3",
+   "d": 75,
+   "t": "Del Monte Catsup"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--DuPont_Chemistry1.mp3",
+   "d": 51,
+   "t": "Du Pont Chemistry"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Dutch_Cleanser3.mp3",
+   "d": 71,
+   "t": "Dutch Cleanser"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Exlax1.mp3",
+   "d": 61,
+   "t": "Exlax"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Fitch_ShaveCream1.mp3",
+   "d": 75,
+   "t": "Fitch Shave Cream"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Frigidaire1.mp3",
+   "d": 75,
+   "t": "Frigidaire"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Goodyear_Rubber_Cement.mp3",
+   "d": 89,
+   "t": "Goodyear Rubber Cement"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Haleys_MO.mp3",
+   "d": 57,
+   "t": "Haleys MO"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Ingram_Gasoline.mp3",
+   "d": 61,
+   "t": "Ingram Gasoline"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Jello1.mp3",
+   "d": 28,
+   "t": "Jello"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Jello7_Magic.mp3",
+   "d": 40,
+   "t": "Jello Magic"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Johnsons_Glocoat2.mp3",
+   "d": 53,
+   "t": "Johnsons Glocoat"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Kellogs1.mp3",
+   "d": 53,
+   "t": "Kellogs"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Kraft5_Parfait1.mp3",
+   "d": 33,
+   "t": "Kraft Parfait"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--L_and_M_Cigs3.mp3",
+   "d": 49,
+   "t": "L and M Cigs"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Lava_Soap.mp3",
+   "d": 72,
+   "t": "Lava Soap"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Lipton1.mp3",
+   "d": 40,
+   "t": "Lipton"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Lucky_Strike2.mp3",
+   "d": 65,
+   "t": "Lucky Strike"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Lux6.mp3",
+   "d": 41,
+   "t": "Lux"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--LuxF.mp3",
+   "d": 30,
+   "t": "Lux"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Maxwell_House3.mp3",
+   "d": 30,
+   "t": "Maxwell House"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--NBC2.mp3",
+   "d": 61,
+   "t": "NBC"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--NBC8convention.mp3",
+   "d": 45,
+   "t": "NBC8convention"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--PabstBlueRibbon3.mp3",
+   "d": 69,
+   "t": "Pabst Blue Ribbon"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Palmolive_Soap.mp3",
+   "d": 67,
+   "t": "Palmolive Soap"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Post_Bran_Flakes1.mp3",
+   "d": 24,
+   "t": "Post Bran Flakes"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Quaker_Oats4.mp3",
+   "d": 20,
+   "t": "Quaker Oats"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Rexall3.mp3",
+   "d": 69,
+   "t": "Rexall"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Roma_Wines3.mp3",
+   "d": 61,
+   "t": "Roma Wines"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Signal_Battery.mp3",
+   "d": 68,
+   "t": "Signal Battery"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Signal_Oil3.mp3",
+   "d": 89,
+   "t": "Signal Oil"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Signal_Oil9.mp3",
+   "d": 52,
+   "t": "Signal Oil"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Signal_OilE.mp3",
+   "d": 35,
+   "t": "Signal Oil"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Spam5.mp3",
+   "d": 51,
+   "t": "Spam"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Sugar_Crinkles3.mp3",
+   "d": 73,
+   "t": "Sugar Crinkles"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Swan_Soap5.mp3",
+   "d": 23,
+   "t": "Swan Soap"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Tums2.mp3",
+   "d": 69,
+   "t": "Tums"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Velveta2.mp3",
+   "d": 40,
+   "t": "Velveta"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Wildroot1.mp3",
+   "d": 50,
+   "t": "Wildroot"
+  },
+  {
+   "pool": "ads",
+   "id": "Old_Radio_Adverts_01",
+   "f": "OldRadio_Adv--Wrigleys3.mp3",
+   "d": 30,
+   "t": "Wrigleys"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Ballade no. 2 - Op. 38.mp3",
+   "d": 494,
+   "t": "Ballade no. 2 - Op. 38"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Ballade no. 3 - Op. 47.mp3",
+   "d": 507,
+   "t": "Ballade no. 3 - Op. 47"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Canon in F minor.mp3",
+   "d": 43,
+   "t": "Canon in F minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Fantasie Impromptu Op. 66.mp3",
+   "d": 326,
+   "t": "Fantasie Impromptu Op. 66"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Fugue in A minor B. 144.mp3",
+   "d": 160,
+   "t": "Fugue in A minor B. 144"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Grande Valse Brilliante Op.18 In E flat major.mp3",
+   "d": 319,
+   "t": "Grande Valse Brilliante, Op. 18 in E Flat Major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Impromptu no. 1 - Op. 29.mp3",
+   "d": 280,
+   "t": "Impromptu no. 1 - Op. 29"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Impromptu no. 2 - Op. 36.mp3",
+   "d": 367,
+   "t": "Impromptu no. 2 - Op. 36"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Impromptu no. 3 - Op. 51.mp3",
+   "d": 388,
+   "t": "Impromptu no. 3 - Op. 51"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 17 no. 3 in A flat major.mp3",
+   "d": 246,
+   "t": "Mazurka, Op. 17 no. 3 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 17 no. 4 in A minor.mp3",
+   "d": 299,
+   "t": "Mazurka, Op. 17 no. 4 in A minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 24 no. 2 in C major.mp3",
+   "d": 132,
+   "t": "Mazurka, Op. 24 no 2 in C major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 24 no. 3 in A flat major.mp3",
+   "d": 155,
+   "t": "Mazurka, Op. 24 no. 3 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 24 no. 4 in B flat minor.mp3",
+   "d": 288,
+   "t": "Mazurka, Op. 24 no. 4 in B flat minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 50 no. 1 in G major.mp3",
+   "d": 171,
+   "t": "Mazurka op. 50 no. 1"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 50 no. 2 in A flat major.mp3",
+   "d": 198,
+   "t": "Mazurka op. 50 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 50 no. 3 in C sharp minor.mp3",
+   "d": 360,
+   "t": "Mazurka op. 50 no. 3"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 56 no. 1 in B major.mp3",
+   "d": 317,
+   "t": "Mazurka op. 56 no. 1"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 56 no. 2 in C major.mp3",
+   "d": 112,
+   "t": "Mazurka op. 56 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 56 no. 3 in C minor.mp3",
+   "d": 374,
+   "t": "Mazurka op. 56. no 3"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 59 no. 1 in A minor.mp3",
+   "d": 262,
+   "t": "Mazurka op. 59 no. 1"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 59 no. 2 in A flat major.mp3",
+   "d": 166,
+   "t": "Mazurka op. 59 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 59 no. 3 in F sharp minor.mp3",
+   "d": 219,
+   "t": "Mazurka op. 59 no. 3"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 7 no. 3 in F minor.mp3",
+   "d": 148,
+   "t": "Mazurka, Op. 7 no 3 in F minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 7 no. 4 in A flat major.mp3",
+   "d": 74,
+   "t": "Mazurka, Op. 7 no. 4 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne B. 108 in C minor.mp3",
+   "d": 193,
+   "t": "Nocturne B. 108 in C minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne B. 49 in C sharp minor 'Lento con gran espressione' (1).mp3",
+   "d": 238,
+   "t": "Nocturne B. 49 in C sharp minor 'Lento con gran espressione' (1)"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne B. 49 in C sharp minor 'Lento con gran espressione' (2).mp3",
+   "d": 225,
+   "t": "Nocturne B. 49 in C sharp minor 'Lento con gran espressione' (2)"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 15 no. 1 In F major.mp3",
+   "d": 305,
+   "t": "Nocturne, Op. 15 no. 1 in F major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 27 no. 1 in C sharp minor.mp3",
+   "d": 352,
+   "t": "Nocturne, Op. 27 no. 1 in C sharp minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 32 no. 1 in B major.mp3",
+   "d": 301,
+   "t": "Nocturne Op. 32 no. 1 in B major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 32 no. 2 in A flat major.mp3",
+   "d": 343,
+   "t": "Nocturne Op. 32 no. 2 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 48 no. 1 in C minor.mp3",
+   "d": 379,
+   "t": "Nocturne, Op. 48 no. 1 in C minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 48 no. 2 in F sharp minor.mp3",
+   "d": 496,
+   "t": "Nocturne, Op. 48 no. 2 in F sharp minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 55 no. 1 in F minor.mp3",
+   "d": 316,
+   "t": "Nocturne, Op. 55 no. 1 in F minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 55 no. 2 in E flat major.mp3",
+   "d": 309,
+   "t": "Nocturne op. 55 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 62 no. 2 in E major.mp3",
+   "d": 339,
+   "t": "Nocturne, Op. 62 no. 2 in E"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 9 no. 2 in E flat major.mp3",
+   "d": 276,
+   "t": "Nocturne Op. 9 no. 2 in E flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp.72No.1InEMinor.mp3",
+   "d": 272,
+   "t": "Nocturne, Op. 72 no. 1 in E minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp.9No.1InBFlatMinor.mp3",
+   "d": 337,
+   "t": "Nocturne Op. 9 no. 1 in B flat minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp.9No.3.mp3",
+   "d": 417,
+   "t": "Nocturne op. 9 no. 3"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp27No2.mp3",
+   "d": 377,
+   "t": "Nocturne Op. 27 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp9No2.mp3",
+   "d": 271,
+   "t": "Nocturne Op. 9 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Polonaise no.5 - Op.40 no.2_ C-minor.mp3",
+   "d": 290,
+   "t": "Polonaise no. 5, Op. 40 no. 2 in C minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseB.13InBFlatMinor.mp3",
+   "d": 349,
+   "t": "Polonaise, B. 13 in B flat minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseB.1InGMinor.mp3",
+   "d": 236,
+   "t": "Polonaise, B. 1 in G minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseB.36InG-flatMajor.mp3",
+   "d": 482,
+   "t": "Polonaise, B.36 in G-flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseB.5InAFlatMajor.mp3",
+   "d": 294,
+   "t": "Polonaise, B. 5 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseB.6InG-sharpMinor.mp3",
+   "d": 421,
+   "t": "Polonaise, B. 6 in G-sharp minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.26No.1.mp3",
+   "d": 508,
+   "t": "Polonaise op. 26 no. 1"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.26No.2.mp3",
+   "d": 480,
+   "t": "Polonaise op. 26 no. 2"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.53InAFlatMajorheroic.mp3",
+   "d": 438,
+   "t": "Polonaise, Op. 53 in A flat major 'Heroic'"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.71No.1InDMinor.mp3",
+   "d": 363,
+   "t": "Polonaise, Op. 71 no. 1 in D minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "PolonaiseOp.71No.2InBFlatMajor.mp3",
+   "d": 502,
+   "t": "Polonaise, Op. 71 no. 2 in B flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 1.mp3",
+   "d": 40,
+   "t": "Prelude Op. 28 no. 1"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 10.mp3",
+   "d": 33,
+   "t": "Prelude Op. 28 no. 10"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 11.mp3",
+   "d": 47,
+   "t": "Prelude Op. 28 no. 11"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 12.mp3",
+   "d": 76,
+   "t": "Prelude Op. 28 no. 12"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 13.mp3",
+   "d": 167,
+   "t": "Prelude Op. 28 no. 13"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 14.mp3",
+   "d": 32,
+   "t": "Prelude Op. 28 no. 14"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 15.mp3",
+   "d": 295,
+   "t": "Prelude Op. 28 no. 15"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 16.mp3",
+   "d": 75,
+   "t": "Prelude Op. 28 no. 16"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 17.mp3",
+   "d": 180,
+   "t": "Prelude Op. 28 no. 17"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 18.mp3",
+   "d": 77,
+   "t": "Prelude Op. 28 no. 18"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 19.mp3",
+   "d": 257,
+   "t": "Prelude Op. 28 no. 19"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 21.mp3",
+   "d": 115,
+   "t": "Prelude Op. 28 no. 21"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 22.mp3",
+   "d": 57,
+   "t": "Prelude Op. 28 no. 22"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 23.mp3",
+   "d": 61,
+   "t": "Prelude Op. 28 no. 23"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 24.mp3",
+   "d": 157,
+   "t": "Prelude Op. 28 no. 24"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 5.mp3",
+   "d": 39,
+   "t": "Prelude Op. 28 no. 5"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 6.mp3",
+   "d": 108,
+   "t": "Prelude Op. 28 no. 6"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 7.mp3",
+   "d": 155,
+   "t": "Prelude Op. 28 no. 7"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no. 9.mp3",
+   "d": 79,
+   "t": "Prelude Op. 28 no. 9"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Prelude Op. 28 no.3.mp3",
+   "d": 58,
+   "t": "Prelude Op. 28 no.3"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Sonata for Piano and Cello in G Minor, Op. 65 - II. Scherzo.mp3",
+   "d": 281,
+   "t": "Sonata for Piano and Cello in G Minor, Op. 65 - II. Scherzo"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Sonata for Piano and Cello in G Minor, Op. 65 - III. Largo.mp3",
+   "d": 218,
+   "t": "Sonata for Piano and Cello in G Minor, Op. 65 - III. Largo"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Sonata for Piano and Cello in G Minor, Op. 65 - IV. Finale. Allegro.mp3",
+   "d": 379,
+   "t": "Sonata for Piano and Cello in G Minor, Op. 65 - IV. Finale. Allegro"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "TarantelleOp.43.mp3",
+   "d": 197,
+   "t": "Tarantelle Op. 43"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Valse.mp3",
+   "d": 130,
+   "t": "Valse"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "ValseMlancoliqueleRegretcharlesMayerOp.332.mp3",
+   "d": 153,
+   "t": "Valse mélancolique, 'Le Regret' (Charles Mayer Op. 332)"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Variations for flute and piano.mp3",
+   "d": 289,
+   "t": "Variations for flute and piano"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "VariationsInAMajorsouvenirDePaganiniB.37.mp3",
+   "d": 208,
+   "t": "Variations in A major 'Souvenir de Paganini', B. 37"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz B. 133 in E flat major.mp3",
+   "d": 105,
+   "t": "Waltz B. 133 in E flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 64 no. 1 in D flat major.mp3",
+   "d": 107,
+   "t": "Waltz Op. 64 no. 1 in D flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 64 no. 2 in C sharp minor.mp3",
+   "d": 230,
+   "t": "Waltz Op. 64 no. 2 in C sharp minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 69 no. 1 in A flat major.mp3",
+   "d": 248,
+   "t": "Waltz Op. 69 no. 1 in A flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 69 no. 2 in B minor.mp3",
+   "d": 215,
+   "t": "Waltz Op. 69 no. 2 in B minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 70 no. 1 in G flat major.mp3",
+   "d": 100,
+   "t": "Waltz Op. 70 no. 1 in G flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 70 no. 2 in F minor.mp3",
+   "d": 185,
+   "t": "Waltz Op. 70 no. 2 in F minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz Op. 70 no. 3 in D flat major.mp3",
+   "d": 170,
+   "t": "Waltz Op. 70 no. 3 in D flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz no. 18 - op. posth: Eb-major.mp3",
+   "d": 105,
+   "t": "Waltz no. 18 - op. posth: Eb-major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz no. 19 - op. posth: A minor.mp3",
+   "d": 131,
+   "t": "Waltz no. 19 - op. posth: A minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Waltz no.8 - Op.64 no.3_ Ab-major.mp3",
+   "d": 184,
+   "t": "Waltz no. 8, Op. 64 no. 3 in A-flat major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "WaltzB.21InAFlatMajor.mp3",
+   "d": 118,
+   "t": "Waltz, B. 21 in A Flat Major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "WaltzB.46InEFlatMajor.mp3",
+   "d": 143,
+   "t": "Waltz, B. 46 in E Flat Major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "WaltzB.56InEMinor.mp3",
+   "d": 175,
+   "t": "Waltz, B. 56 in E minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "WaltzOp.34No.2InAMinor.mp3",
+   "d": 303,
+   "t": "Waltz Op. 34 no. 2 in A minor"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "WaltzOp.34No.3InFMajor.mp3",
+   "d": 126,
+   "t": "Waltz Op. 34 no. 3 in F major"
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Wiosna.mp3",
+   "d": 86,
+   "t": "Wiosna"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "01-recorcholis.mp3",
+   "d": 441,
+   "t": "Recorcholis (Perdimos a Uno)"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "02-flujo.mp3",
+   "d": 397,
+   "t": "Flujo"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "03-linea.mp3",
+   "d": 509,
+   "t": "Linea"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "04-telonio.mp3",
+   "d": 558,
+   "t": "Telonio"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "05-siametico.mp3",
+   "d": 441,
+   "t": "Siametico"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "06-adoradores-del-sol.mp3",
+   "d": 596,
+   "t": "Adoradores del Sol"
+  },
+  {
+   "pool": "free",
+   "id": "001netlabel-jazz-01-recorcholis",
+   "f": "07-el-inutil.mp3",
+   "d": 407,
+   "t": "El inutil"
+  },
+  {
+   "pool": "free",
+   "id": "DWK031",
+   "f": "Aydio_-_01_-_Track.mp3",
+   "d": 378,
+   "t": "Track"
+  },
+  {
+   "pool": "free",
+   "id": "DWK031",
+   "f": "Aydio_-_02_-_Deltitnu.mp3",
+   "d": 282,
+   "t": "Deltitnu"
+  },
+  {
+   "pool": "free",
+   "id": "DWK031",
+   "f": "Aydio_-_03_-_XHD.mp3",
+   "d": 313,
+   "t": "XHD"
+  },
+  {
+   "pool": "free",
+   "id": "DWK031",
+   "f": "Aydio_-_04_-_Step_One.mp3",
+   "d": 333,
+   "t": "Step One"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_01_-_April_Showers.mp3",
+   "d": 269,
+   "t": "April Showers"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_02_-_Downtown_Irony.mp3",
+   "d": 261,
+   "t": "Downtown Irony"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_03_-_Soul_Key.mp3",
+   "d": 303,
+   "t": "Soul Key"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_04_-_A_Million_Dollar.mp3",
+   "d": 248,
+   "t": "A Million Dollar"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_05_-_U_Can_Get_It.mp3",
+   "d": 259,
+   "t": "U Can Get It"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_06_-_Back_Home.mp3",
+   "d": 285,
+   "t": "Back Home"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_07_-_Muhammad_Ali.mp3",
+   "d": 239,
+   "t": "Muhammad Ali"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_08_-_The_Misfit_Song.mp3",
+   "d": 285,
+   "t": "The Misfit Song"
+  },
+  {
+   "pool": "free",
+   "id": "DWK123",
+   "f": "ProleteR_-_09_-_May_Flowers_feat._Taskrok.mp3",
+   "d": 154,
+   "t": "May Flowers (feat. Taskrok)"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_01_-_Dance_With_The_Democrat.mp3",
+   "d": 210,
+   "t": "Dance With The Democrat"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_02_-_Stairway_To_The_USSR.mp3",
+   "d": 167,
+   "t": "Stairway To The USSR"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_03_-_Once_Have_I.mp3",
+   "d": 236,
+   "t": "Once Have I"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_04_-_Oh_Lord.mp3",
+   "d": 260,
+   "t": "Oh Lord"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_05_-_The_Little_White_Duck.mp3",
+   "d": 319,
+   "t": "The Little White Duck"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_06_-_Black_Train.mp3",
+   "d": 310,
+   "t": "Black Train"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_07_-_Drop_Out.mp3",
+   "d": 210,
+   "t": "Drop Out"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_08_-_The_Getaway.mp3",
+   "d": 284,
+   "t": "The Getaway"
+  },
+  {
+   "pool": "free",
+   "id": "DWK149",
+   "f": "Boogie_Belgique_-_09_-_Moriarty.mp3",
+   "d": 281,
+   "t": "Moriarty"
+  },
+  {
+   "pool": "free",
+   "id": "HILIV003",
+   "f": "01_hiliv003_onsundaysidream_hypnagogic.mp3",
+   "d": 316,
+   "t": "Hypnagogic"
+  },
+  {
+   "pool": "free",
+   "id": "HILIV003",
+   "f": "02_hiliv003_onsundaysidream_elin.mp3",
+   "d": 299,
+   "t": "Elin"
+  },
+  {
+   "pool": "free",
+   "id": "HILIV003",
+   "f": "03_hiliv003_onsundaysidream_cocoon.mp3",
+   "d": 371,
+   "t": "Cocoon"
+  },
+  {
+   "pool": "free",
+   "id": "HILIV003",
+   "f": "04_hiliv003_onsundaysidream_notathome.mp3",
+   "d": 234,
+   "t": "Not at Home"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "01-NS050-Multi-Panel_Christmas-With-Mr-Rice.mp3",
+   "d": 241,
+   "t": "Christmas with Mr. Rice"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "02-NS050-Full-Source_Prior-To-alt-ver.mp3",
+   "d": 168,
+   "t": "Prior To (alt. ver.)"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "03-NS050-Cocolixe_Swing-Low.mp3",
+   "d": 200,
+   "t": "Swing Low"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "04-NS050-Tardiss_The-Light-Between.mp3",
+   "d": 183,
+   "t": "The Light Between"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "05-NS050-pEACEFANg_Colonial-Builders-Master-For-Felsenmeer-v2.mp3",
+   "d": 182,
+   "t": "Colonial Builder's Master (For Felsenmeer) v.2"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "06-NS050-Limited-Taste_Full-Source_Daylights-Prior-To-Morning-Sun.mp3",
+   "d": 236,
+   "t": "Daylights Prior To Morning Sun"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "07-NS050-Naked-House_Basement.mp3",
+   "d": 108,
+   "t": "Basement"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "08-NS050-Medos-Little-Trap_Lake.mp3",
+   "d": 254,
+   "t": "Lake"
+  },
+  {
+   "pool": "free",
+   "id": "NS050",
+   "f": "10-NS050-Artie-Appleseed_Chipembere-trad.mp3",
+   "d": 154,
+   "t": "Chipembere (trad.)"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "1-Winter_Flowers.mp3",
+   "d": 217,
+   "t": "Winter Flowers"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "2-Twenty_Squares_Of_Light.mp3",
+   "d": 251,
+   "t": "Twenty Squares Of Light"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "3-Theory_Of_Colour.mp3",
+   "d": 271,
+   "t": "Theory Of Colour"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "4-Interlude.mp3",
+   "d": 104,
+   "t": "Interlude"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "5-Mosquito.mp3",
+   "d": 212,
+   "t": "Mosquito"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "6-A_Sister_For_Clare.mp3",
+   "d": 186,
+   "t": "A Sister For Clare"
+  },
+  {
+   "pool": "free",
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "7-Metal_For_Blue_Sky_Thinkers.mp3",
+   "d": 228,
+   "t": "Metal For Blue Sky Thinkers"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-01-SomewhereElse.mp3",
+   "d": 263,
+   "t": "Somewhere Else"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-02-LoveBreaks.mp3",
+   "d": 301,
+   "t": "Love Breaks"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-03-IRemember.mp3",
+   "d": 255,
+   "t": "I Remember"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-04-TheBalladOfRufusRutherford.mp3",
+   "d": 240,
+   "t": "The Ballad of Rufus Rutherford"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-05-DontSayGoodbye.mp3",
+   "d": 329,
+   "t": "Don't Say Goodbye"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl037CandlegravityAMomentForMyself",
+   "f": "Candlegravity-AMomentForMyself-06-YouWereInMyDream.mp3",
+   "d": 407,
+   "t": "You Were In My Dream"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl038MirandaShvangiradzeTalkToMeEp",
+   "f": "1RainyThoughts.mp3",
+   "d": 209,
+   "t": "Rainy thoughts"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl038MirandaShvangiradzeTalkToMeEp",
+   "f": "2TalkToMe.mp3",
+   "d": 290,
+   "t": "Talk to me"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl038MirandaShvangiradzeTalkToMeEp",
+   "f": "3ReadyForTheTrip.mp3",
+   "d": 269,
+   "t": "Ready for the Trip"
+  },
+  {
+   "pool": "free",
+   "id": "Vkrsnl038MirandaShvangiradzeTalkToMeEp",
+   "f": "4Daisi.mp3",
+   "d": 221,
+   "t": "Daisi"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda009",
+   "f": "UnderscoreOrkestra-BalancingAct.mp3",
+   "d": 264,
+   "t": "Balancing Act"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "01RidingAloneForThousandsOfMiles-Lullaby.mp3",
+   "d": 509,
+   "t": "Lullaby"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "03RidingAloneForThousandsOfMiles-SheWasMyLighthouse.mp3",
+   "d": 349,
+   "t": "She was my lighthouse"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "04RidingAloneForThousandsOfMiles-LoveSong.mp3",
+   "d": 397,
+   "t": "Love song"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "05RidingAloneForThousandsOfMiles-Satellite.mp3",
+   "d": 165,
+   "t": "Satellite"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "07RidingAloneForThousandsOfMiles-FinalNotice.mp3",
+   "d": 467,
+   "t": "Final notice"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "08RidingAloneForThousandsOfMiles-Eli.mp3",
+   "d": 331,
+   "t": "Eli"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "RidingAloneForThousandsOfMiles-BrickCityLoveSong.mp3",
+   "d": 444,
+   "t": "Brick City Love Song"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda049",
+   "f": "02.DumboGetsMad-PlumyTale.mp3",
+   "d": 238,
+   "t": "Plumy Tale"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda049",
+   "f": "DumboGetsMad-EclecticPrawn.mp3",
+   "d": 243,
+   "t": "Eclectic Prawn"
+  },
+  {
+   "pool": "free",
+   "id": "badpanda074",
+   "f": "BenMason-Easy.mp3",
+   "d": 210,
+   "t": "Easy"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_01-duis-ea1.mp3",
+   "d": 144,
+   "t": "Ea1"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_02-duis-watch_the.mp3",
+   "d": 166,
+   "t": "Watch The"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_03-duis-1900_and_2004.mp3",
+   "d": 228,
+   "t": "1900 And 2004"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_04-duis-dancing_elephant.mp3",
+   "d": 213,
+   "t": "Dancing Elephant"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_05-duis-el_and_eu.mp3",
+   "d": 307,
+   "t": "El And Eu"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_06-duis-gnomo.mp3",
+   "d": 304,
+   "t": "Gnomo"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_07-duis-gruv.mp3",
+   "d": 225,
+   "t": "Gruv"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_08-duis-with_the_six.mp3",
+   "d": 248,
+   "t": "With The Six"
+  },
+  {
+   "pool": "free",
+   "id": "foot149",
+   "f": "foot149_09-duis-4_inches.mp3",
+   "d": 124,
+   "t": "4 Inches"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "01_-_echo_lali_-_echo_lali.mp3",
+   "d": 119,
+   "t": "Echo Lali"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "02_-_echo_lali_-_le_velo_sauvage.mp3",
+   "d": 244,
+   "t": "Le Velo Sauvage"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "03_-_echo_lali_-_mignone_souris_blanche.mp3",
+   "d": 120,
+   "t": "Mignone Souris Blanche"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "04_-_echo_lali_-_la_puce_infirmiere.mp3",
+   "d": 138,
+   "t": "La Puce Infirmiere"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "06_-_echo_lali_-_betes_pas_si_betes.mp3",
+   "d": 154,
+   "t": "Betes Pas Si Betes"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "07_-_echo_lali_-_tape_des_mains.mp3",
+   "d": 206,
+   "t": "Tape des Mains"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "08_-_echo_lali_-_dis_papa_dis.mp3",
+   "d": 138,
+   "t": "Dis Papa Dis"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "09_-_echo_lali_-_le_voyage_de_leo.mp3",
+   "d": 248,
+   "t": "Le Voyage De Leo"
+  },
+  {
+   "pool": "free",
+   "id": "kzz002",
+   "f": "10_-_echo_lali_-_la_valise_aux_mille_voyages.mp3",
+   "d": 150,
+   "t": "La Valise aux Mille Voyages"
+  },
+  {
+   "pool": "free",
+   "id": "mtk140",
+   "f": "mtk140-ST-01-csanca.mp3",
+   "d": 272,
+   "t": "Csanca"
+  },
+  {
+   "pool": "free",
+   "id": "mtk140",
+   "f": "mtk140-ST-02-ill-meet-you-there.mp3",
+   "d": 217,
+   "t": "I'll meet you there"
+  },
+  {
+   "pool": "free",
+   "id": "mtk140",
+   "f": "mtk140-ST-03-i-met-a-girl-with-butterfly-wings.mp3",
+   "d": 227,
+   "t": "I met a girl with butterfly wings"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_01_-_Zero_Call_-_A-40.mp3",
+   "d": 264,
+   "t": "A-40"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_02_-_Zero_Call_-_Battle_of_Young.mp3",
+   "d": 244,
+   "t": "Battle of Young"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_03_-_Zero_Call_-_Say_Hello_to_Devil.mp3",
+   "d": 246,
+   "t": "Say Hello to Devil"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_04_-_Zero_Call_-_Earthquake.mp3",
+   "d": 209,
+   "t": "Earthquake"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_05_-_Zero_Call_-_Fear.mp3",
+   "d": 308,
+   "t": "Fear"
+  },
+  {
+   "pool": "free",
+   "id": "stqk011",
+   "f": "STQK011_06_-_Zero_Call_-_Sirius.mp3",
+   "d": 293,
+   "t": "Sirius"
+  },
+  {
+   "pool": "g78",
+   "id": "78_a-peruvian-triste-b-pan-american-waltz_carlos-valderrama_gbia0001886a",
+   "f": "(a) Peruvian Triste (b) Pan-American Waltz - Carlos Valderrama-restored.mp3",
+   "d": 281,
+   "t": "(a) Peruvian Triste; (b) Pan-American Waltz"
+  },
+  {
+   "pool": "g78",
+   "id": "78_a-picnic-for-two_ada-jones_gbia0066252a",
+   "f": "A Picnic for Two - Ada Jones.mp3",
+   "d": 116,
+   "t": "A Picnic for Two"
+  },
+  {
+   "pool": "g78",
+   "id": "78_a-victory-ball-fantasy-part-2_willem-mengelberg-new-york-philharmonic-orchestra_gbia0016554",
+   "f": "01 - A Victory Ball - Fantasy - Part 1 - Willem Mengelberg.mp3",
+   "d": 195,
+   "t": "A Victory Ball - Fantasy - Part 1"
+  },
+  {
+   "pool": "g78",
+   "id": "78_a-victory-ball-fantasy-part-2_willem-mengelberg-new-york-philharmonic-orchestra_gbia0016554",
+   "f": "02 - A Victory Ball - Fantasy - Part 2 - Willem Mengelberg.mp3",
+   "d": 212,
+   "t": "A Victory Ball - Fantasy - Part 2"
+  },
+  {
+   "pool": "g78",
+   "id": "78_abandonado-abandoned_guillermo-posadas-bregor-skolnik-and-his-orchestra_gbia0000134a",
+   "f": "Abandonado (Abandoned) - Guillermo Posadas-restored.mp3",
+   "d": 232,
+   "t": "Abandonado (Abandoned)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_adios-pilar_roberto-firpo-orquesta-tipica-m-joves-orq-tipica-roberto-firpo-max-gl_gbia0054506a",
+   "f": "Adios Pilar - Roberto Firpo - Orquesta Tipica.mp3",
+   "d": 174,
+   "t": "Adios Pilar"
+  },
+  {
+   "pool": "g78",
+   "id": "78_after-you-get-what-you-want-you-dont-want-it_eddie-nelson-irving-berlin_gbia0464665a",
+   "f": "AFTER YOU GET WHAT YOU WANT YOU DON'T WANT  - EDDIE NELSON.mp3",
+   "d": 196,
+   "t": "After You Get What You Want You Don't Want It"
+  },
+  {
+   "pool": "g78",
+   "id": "78_afterwards_reed-miller-john-w-mullen_gbia0083079b",
+   "f": "Afterwards - Reed Miller - John W. Mullen.mp3",
+   "d": 286,
+   "t": "Afterwards"
+  },
+  {
+   "pool": "g78",
+   "id": "78_aggravatin-papa_vincent-lopez-and-his-hotel-pennsylvania-orchestra-turk-robinson_gbia0402097a",
+   "f": "AGGRAVATIN' PAPA - VINCENT LOPEZ AND HIS HOTEL PENNSYLVANIA ORCHESTRA.mp3",
+   "d": 183,
+   "t": "Aggravatin' Papa"
+  },
+  {
+   "pool": "g78",
+   "id": "78_alone-at-last_international-dance-orchestra-kahn-fiorito_gbia0004311b",
+   "f": "Alone At Last - International Dance Orchestra.mp3",
+   "d": 190,
+   "t": "Alone At Last"
+  },
+  {
+   "pool": "g78",
+   "id": "78_auld-lang-syne_auld-lang-syne_gbia0298939a",
+   "f": "AULD LANG SYNE - AULD LANG SYNE.mp3",
+   "d": 179,
+   "t": "Auld Lang Syne"
+  },
+  {
+   "pool": "g78",
+   "id": "78_baby-sister-blues_macdowell-sisters-henry-i-marshall_gbia0100633a",
+   "f": "Baby Sister Blues - MacDowell Sisters - Henry I. Marshall.mp3",
+   "d": 225,
+   "t": "Baby Sister Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_barcarolle_offenbach_gbia3030629a",
+   "f": "BARCAROLLE - Offenbach.mp3",
+   "d": 173,
+   "t": "Barcarolle"
+  },
+  {
+   "pool": "g78",
+   "id": "78_beau-soir-a-beautiful-song_giuseppe-de-luca-paul-bouget-claude-a-debussy_gbia0519962a",
+   "f": "Beau Soir (A Beautiful Song) - Giuseppe de Luca.mp3",
+   "d": 137,
+   "t": "Beau Soir (A Beautiful Song)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_bees-knees_the-original-memphis-five-lopez-and-lewis_gbia0278930a",
+   "f": "BEE'S KNEES - The Original Memphis Five - Lopez and Lewis.mp3",
+   "d": 198,
+   "t": "Bee's Knees"
+  },
+  {
+   "pool": "g78",
+   "id": "78_bella-figlia-dell-amore-fairest-daughter-of-the-graces_caruso-sembrich-scotti-se_gbia0105065a",
+   "f": "Bella figlia dell' amore (Fairest Daughter of the - Caruso.mp3",
+   "d": 234,
+   "t": "Rigoletto - Quartet, Act III Bella figlia dell' amore (Fairest Daughter of the Graces)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_bells-of-st-mary_miss-edna-simpson-adams_gbia3026621a",
+   "f": "BELLS OF ST. MARY - MISS EDNA SIMPSON - Adams.mp3",
+   "d": 196,
+   "t": "Bells of St. Mary"
+  },
+  {
+   "pool": "g78",
+   "id": "78_blue_mcmurrays-california-thumpers-clarke-leslie-handman_gbia0062264b",
+   "f": "Blue - McMurray's California Thumpers - Clarke.mp3",
+   "d": 179,
+   "t": "Blue"
+  },
+  {
+   "pool": "g78",
+   "id": "78_boo-hoo-boo_lenzbergs-midnight-frolic-orchestra-arthur-hall-nelson-link-lentz-and_gbia0406230b",
+   "f": "BOO-HOO-BOO - Lenzberg's Midnight Frolic Orchestra.mp3",
+   "d": 201,
+   "t": "Boo-Hoo-Boo"
+  },
+  {
+   "pool": "g78",
+   "id": "78_burning-sands_vincent-lopez-and-his-hotel-pennsylvania-orchestra-d-onivas_gbia0077454b",
+   "f": "Burning Sands - Vincent Lopez and His Hotel Pennsylvania Orchestra.mp3",
+   "d": 201,
+   "t": "Burning Sands"
+  },
+  {
+   "pool": "g78",
+   "id": "78_carmen-love-is-like-a-wood-bird-act-1_geraldine-farrar-bizet_gbia0354066a",
+   "f": "Carmen (\"Love is Like a Wood Bird\") (Ac - Geraldine Farrar.mp3",
+   "d": 199,
+   "t": "Carmen (\"Love is Like a Wood Bird\") (Act 1)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_carolina-in-the-morning_billy-burton-and-everett-clark-gus-kahn-and-walter-donaldso_gbia0336418a",
+   "f": "CAROLINA IN THE MORNING - Billy Burton and Everett Clark.mp3",
+   "d": 212,
+   "t": "Carolina in the Morning"
+  },
+  {
+   "pool": "g78",
+   "id": "78_conchita_armand-vecsey-armand-vecsey-and-his-hungarian-orchestra_gbia0000855a",
+   "f": "Conchita - Armand Vecsey - Armand Vecsey and his Hungarian Orchestra-restored.mp3",
+   "d": 246,
+   "t": "Conchita"
+  },
+  {
+   "pool": "g78",
+   "id": "78_corn-on-the-cob_cliff-hess-banta--hess-with-selvins-orchestra_gbia0000417b",
+   "f": "Corn on The Cob - Cliff Hess - Banta & Hess with Selvin's Orchestra.mp3",
+   "d": 180,
+   "t": "Corn on The Cob"
+  },
+  {
+   "pool": "g78",
+   "id": "78_cradle-song-brahms-op.-49-no.-4_rosa-ponselle-brahms_gbia0005361a",
+   "f": "Cradle Song (Brahms, Op. 49, No. 4) - Rosa Ponselle.mp3",
+   "d": 144,
+   "t": "Cradle Song (Brahms, Op. 49, No. 4)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_cuarto-lagrimas_francisco-canaro-y-su-orquesta-tipica-lito-bayardo-alberto-arenas_gbia0072729b",
+   "f": "Cuarto Lagrimas - Francisco Canaro y su Orquesta Tipica.mp3",
+   "d": 172,
+   "t": "Cuatro Lagrimas"
+  },
+  {
+   "pool": "g78",
+   "id": "78_das-lila-lied_marek-weber-mit-seiner-knstlerkapelle-vom-esplanade-arno-billing_gbia7004182b",
+   "f": "Das lila Lied - Marek Weber mit seiner Künstlerkapelle vom Esplanade.mp3",
+   "d": 220,
+   "t": "Das lila Lied"
+  },
+  {
+   "pool": "g78",
+   "id": "78_der-rosenkavalier_richard-strauss-tanzwalzer-armand-vecesey-and-his-hungarian-orche_gbia0000083b",
+   "f": "Der Rosenkavalier - Richard Strauss - Tanzwalzer-restored.mp3",
+   "d": 217,
+   "t": "Der Rosenkavalier"
+  },
+  {
+   "pool": "g78",
+   "id": "78_dont-wake-me-up-let-me-dream_eddie-peabody-his-band-arthur-hall-gilbert-wayne-ba_gbia0015093a",
+   "f": "Don't Wake Me Up Let Me Dream - Eddie Peabody & His Band.mp3",
+   "d": 199,
+   "t": "Don't Wake Me Up Let Me Dream"
+  },
+  {
+   "pool": "g78",
+   "id": "78_down-by-the-o-h-i-o-o-my-o_billy-jones-j-yellen-a-olman_gbia0088880b",
+   "f": "Down By the O-H-I-O O-My-O - Billy Jones.mp3",
+   "d": 174,
+   "t": "Down By the O-H-I-O O-My-O"
+  },
+  {
+   "pool": "g78",
+   "id": "78_down-the-petersky-moscow-street-song_feodor-chaliapin-chaliapin_gbia0005696a",
+   "f": "Down The Petersky (Moscow Street Song) - Feodor Chaliapin-restored.mp3",
+   "d": 136,
+   "t": "Down The Petersky (Moscow Street Song)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_dubinushka-russian-laborers-song_feodor-chaliapin_gbia0005696b",
+   "f": "Dubinushka (Russian Laborers_ Song) - Feodor Chaliapin-restored.mp3",
+   "d": 204,
+   "t": "Dubinushka (Russian Laborers' Song)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_elegie-song-of-mourning_alma-gluck-and-efrem-zimbalist-massenet_gbia0009500a",
+   "f": "Elegie (Song of Mourning) - Alma Gluck and Efrem Zimbalist.mp3",
+   "d": 190,
+   "t": "Elegie (Song of Mourning)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_entry-of-the-gladiators-march_julius-fucik_gbia0083119a",
+   "f": "Entry of the Gladiators March - Julius Fucik.mp3",
+   "d": 251,
+   "t": "Entry of the Gladiators March"
+  },
+  {
+   "pool": "g78",
+   "id": "78_every-tear-is-a-smile_chas-hart-sanders-carlo_gbia0472778b",
+   "f": "Every Tear Is A Smile - Chas. Hart - Sanders.mp3",
+   "d": 170,
+   "t": "Every Tear Is A Smile"
+  },
+  {
+   "pool": "g78",
+   "id": "78_fairy-tiptoe_the-peerless-orchestra-fredericks_gbia3035909b",
+   "f": "Fairy Tiptoe - The Peerless Orchestra - FREDERICKS.mp3",
+   "d": 174,
+   "t": "Fairy Tiptoe"
+  },
+  {
+   "pool": "g78",
+   "id": "78_fantasia_mr-chas-draper-h-lazarus_gbia0038941a",
+   "f": "Fantasia - Mr. Chas. Draper - H. Lazarus.mp3",
+   "d": 190,
+   "t": "Fantasia"
+  },
+  {
+   "pool": "g78",
+   "id": "78_funiculi-funicula_vessellas-italian-band-denza_gbia3033472b",
+   "f": "Funiculi-Funicula - Vessella's Italian Band.mp3",
+   "d": 196,
+   "t": "Funiculi-Funicula"
+  },
+  {
+   "pool": "g78",
+   "id": "78_gianni-schicchi-o-mio-babbino-caro_florence-easton-puccini_gbia0267927b",
+   "f": "Gianni Schicchi - O mio babbino caro - FLORENCE EASTON.mp3",
+   "d": 151,
+   "t": "Gianni Schicchi - O mio babbino caro"
+  },
+  {
+   "pool": "g78",
+   "id": "78_go-long-mike-mulo-trotur_bob-haring-and-his-orchestra-creamer-king_gbia0106121a",
+   "f": "Go 'Long, Mike (Mulo trotur) - Bob Haring and His Orchestra.mp3",
+   "d": 184,
+   "t": "Go 'Long, Mule (Mulo trotar)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_gott-is-einer_moishe-oysher-kadimah-singers-sam-medoff_gbia0432650b",
+   "f": "GOTT IS EINER - MOISHE OYSHER - KADIMAH SINGERS.mp3",
+   "d": 167,
+   "t": "Gott Is Einer"
+  },
+  {
+   "pool": "g78",
+   "id": "78_hard-hearted-hannah-the-vamp-of-savannah_jack-yellen-bob-bigelow-chas.-bates-sigl_gbia0000416b",
+   "f": "Hard Hearted Hannah (The Vamp of Savannah) - Jack Yellen.mp3",
+   "d": 196,
+   "t": "Hard Hearted Hannah (The Vamp of Savannah)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_hohenfriedberger-marsch_friedrich-der-groe_gbia0123777a",
+   "f": "Hohenfriedberger Marsch - Friedrich der Große.mp3",
+   "d": 165,
+   "t": "Hohenfriedberger Marsch"
+  },
+  {
+   "pool": "g78",
+   "id": "78_hush-little-baby-dont-you-cry_frieda-hempel-and-the-lyric-male-quartet-f-belasc_gbia0423884b",
+   "f": "HUSH, LITTLE BA - FRIEDA HEMPEL and THE LYRIC MALE QUARTET.mp3",
+   "d": 203,
+   "t": "Hush, Little Baby, Don't You Cry"
+  },
+  {
+   "pool": "g78",
+   "id": "78_i-aint-never-had-nobody-crazy-over-me_durante-stein-roth-the-broadway-syncopaters_gbia0000427a",
+   "f": "I Aint Never Had Nobody Crazy Over Me - Durante-restored.mp3",
+   "d": 180,
+   "t": "I Ain't Never Had Nobody Crazy Over Me"
+  },
+  {
+   "pool": "g78",
+   "id": "78_i-passed-by-your-window_de-groot-and-the-piccadilly-orchestra-may-brahe_gbia0538227a",
+   "f": "I passed by your window - DE GROOT AND THE PICCADILLY ORCHESTRA.mp3",
+   "d": 184,
+   "t": "I passed by your window"
+  },
+  {
+   "pool": "g78",
+   "id": "78_i-wish-there-was-a-wireless-to-heaven_george-wilton-ballard-manuel-white_gbia0014409b",
+   "f": "I Wish There Was a Wireless to Hea - George Wilton Ballard.mp3",
+   "d": 198,
+   "t": "I Wish There Was a Wireless to Heaven"
+  },
+  {
+   "pool": "g78",
+   "id": "78_im-gonna-get-you_mamie-smith-and-her-jazz-hounds-porter-grainger_gbia0295928b",
+   "f": "I'M GONNA GET YOU - MAMIE SMITH AND HER JAZZ HOUNDS.mp3",
+   "d": 185,
+   "t": "I'm Gonna Get You"
+  },
+  {
+   "pool": "g78",
+   "id": "78_in-the-sweet-bye-and-bye_haydn-quartet_gbia0044652a",
+   "f": "In the Sweet Bye and Bye - Haydn Quartet.mp3",
+   "d": 173,
+   "t": "In the Sweet Bye and Bye"
+  },
+  {
+   "pool": "g78",
+   "id": "78_its-a-long-long-way-to-tipperary_john-mccormack-jack-judge-harry-williams_gbia0058285a",
+   "f": "It's a Long, Long Way to Tipperary - John McCormack.mp3",
+   "d": 205,
+   "t": "It's a Long, Long Way to Tipperary"
+  },
+  {
+   "pool": "g78",
+   "id": "78_ive-got-the-yes-we-have-no-bananas-blues_billy-west-brown--hanley-king_gbia0011452a",
+   "f": "I've Got The Yes We Have No Bananas Blues - Billy West.mp3",
+   "d": 180,
+   "t": "I've Got The Yes We Have No Bananas Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_jazzin-babies-blues_ethel-waters-and-joe-smiths-jazz-masters-richard-jones_gbia0363130a",
+   "f": "JAZZIN' BABIES BLUES - ETHEL WATERS And Joe Smith's Jazz Masters.mp3",
+   "d": 187,
+   "t": "Jazzin' Babies Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_juzbo-jazz_earl-fullers-famous-jazz-band-earl-fuller_gbia0023216b",
+   "f": "Juzbo Jazz - Earl Fuller's Famous Jazz Band.mp3",
+   "d": 247,
+   "t": "Juzbo Jazz"
+  },
+  {
+   "pool": "g78",
+   "id": "78_keep-the-home-fires-burning-til-the-boys-come-home_john-mccormack-lena-guilbert_gbia0010539a",
+   "f": "Keep the Home-Fires Burning ('Til the Boy - John McCormack.mp3",
+   "d": 193,
+   "t": "Keep the Home-Fires Burning ('Til the Boys Come Home)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_koj-no-tsuki-moon-on-ruined-castles_yoshie-fujiwara_gbia0187330b",
+   "f": "Kojõ-no-Tsuki (Moon on Ruined Castles) - Yoshie Fujiwara.mp3",
+   "d": 193,
+   "t": "Kojõ-no-Tsuki (Moon on Ruined Castles)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_la-gazza-ladra-overture_rossini_gbia0023286a",
+   "f": "La Gazza Ladra Overture - Rossini.mp3",
+   "d": 287,
+   "t": "La Gazza Ladra Overture"
+  },
+  {
+   "pool": "g78",
+   "id": "78_la-percanta-esta-triste_carlos-gardel-v-greco_gbia0041338b",
+   "f": "La Percanta Esta Triste - Carlos Gardel - V. Greco.mp3",
+   "d": 156,
+   "t": "La Percanta Esta Triste"
+  },
+  {
+   "pool": "g78",
+   "id": "78_livet-i-finnskogarne_karl-karlsson-jularbo-helge-erichson_gbia0072663a",
+   "f": "Livet i Finnskogarne - Karl Karlsson Jularbo & Helge Erichson.mp3",
+   "d": 172,
+   "t": "Livet i Finnskogarne"
+  },
+  {
+   "pool": "g78",
+   "id": "78_lolita_enrico-caruso-buzzi-pecia_gbia0299616a",
+   "f": "Lolita - Enrico Caruso - Buzzi - Pecia.mp3",
+   "d": 177,
+   "t": "Lolita"
+  },
+  {
+   "pool": "g78",
+   "id": "78_maria-mari_beniamino-gigli-vincenzo-russo-eduardo-di-capua_gbia0042759a",
+   "f": "Maria, Mari - Beniamino Gigli - Vincenzo Russo.mp3",
+   "d": 212,
+   "t": "Maria, Mari"
+  },
+  {
+   "pool": "g78",
+   "id": "78_mary-of-argyle_colin-omore-nelson-jefferys_gbia0079739a",
+   "f": "Mary of Argyle - Colin O'More - Nelson - Jefferys.mp3",
+   "d": 185,
+   "t": "Mary of Argyle"
+  },
+  {
+   "pool": "g78",
+   "id": "78_mazurka-in-c-sharp-minor_sergei-rachmaninoff-chopin_gbia0015772a",
+   "f": "Mazurka (in C Sharp Minor) - Sergei Rachmaninoff-restored.mp3",
+   "d": 113,
+   "t": "Mazurka (in C Sharp Minor)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_mia-cara-waltz_concert-band_gbia0377686a",
+   "f": "Mia Cara Waltz - Concert Band.mp3",
+   "d": 176,
+   "t": "Mia Cara Waltz"
+  },
+  {
+   "pool": "g78",
+   "id": "78_mikado-airs-no-1_new-york-light-opera-co-gilbert-sullivan_gbia0083065",
+   "f": "01 - Mikado Airs - No 1 - New York Light Opera Co.-restored.mp3",
+   "d": 267,
+   "t": "Mikado Airs - No 1"
+  },
+  {
+   "pool": "g78",
+   "id": "78_mikado-airs-no-1_new-york-light-opera-co-gilbert-sullivan_gbia0083065",
+   "f": "02 - Mikado Airs - No. 2 - New York Light Opera Co.-restored.mp3",
+   "d": 258,
+   "t": "Mikado Airs - No. 2"
+  },
+  {
+   "pool": "g78",
+   "id": "78_moon-river_david--the-bar-harbor-society-orchestra_gbia0000636a",
+   "f": "Moon River - David  - The Bar Harbor Society Orchestra-restored.mp3",
+   "d": 187,
+   "t": "Moon River"
+  },
+  {
+   "pool": "g78",
+   "id": "78_morning-noon-and-night_a-palet-gallarini-suppe_gbia0237941b",
+   "f": "MORNING, NOON AND NIGHT - A. PALET GALLARINI.mp3",
+   "d": 192,
+   "t": "Morning, Noon and Night"
+  },
+  {
+   "pool": "g78",
+   "id": "78_my-bird-of-paradise-medley_jaudas-society-orchestra_gbia0082906a",
+   "f": "My Bird of Paradise Medley - Jaudas' Society Orchestra.mp3",
+   "d": 288,
+   "t": "My Bird of Paradise Medley"
+  },
+  {
+   "pool": "g78",
+   "id": "78_my-cuban-pearl_v.-dattilo-kaplans-melodists_gbia0000910b",
+   "f": "My Cuban Pearl - V. Dattilo - Kaplans Melodists-restored.mp3",
+   "d": 258,
+   "t": "My Cuban Pearl"
+  },
+  {
+   "pool": "g78",
+   "id": "78_my-wild-irish-rose_dennis-otoole_gbia0463439a",
+   "f": "MY WILD IRISH ROSE - DENNIS O'TOOLE.mp3",
+   "d": 194,
+   "t": "My Wild Irish Rose"
+  },
+  {
+   "pool": "g78",
+   "id": "78_negro-spiritual-melody_fritz-kreisler-carl-lamson_gbia0015765b",
+   "f": "Negro Spiritual Melody - Fritz Kreisler - Carl Lamson.mp3",
+   "d": 216,
+   "t": "Negro Spiritual Melody"
+  },
+  {
+   "pool": "g78",
+   "id": "78_nelly-kelly-i-love-you_charles-hart-cohan_gbia0045648b",
+   "f": "Nelly Kelly, I Love You - Charles Hart - Cohan-restored.mp3",
+   "d": 169,
+   "t": "Nelly Kelly, I Love You"
+  },
+  {
+   "pool": "g78",
+   "id": "78_nobody_gbia0417740a",
+   "f": "NOBODY.mp3",
+   "d": 190,
+   "t": "Nobody"
+  },
+  {
+   "pool": "g78",
+   "id": "78_nocturne_jascha-heifetz-lili-boulanger-isidor-achron_gbia0046547a",
+   "f": "Nocturne - Jascha Heifetz - Lili Boulanger.mp3",
+   "d": 172,
+   "t": "Nocturne"
+  },
+  {
+   "pool": "g78",
+   "id": "78_none-legible__gbia0001998a",
+   "f": "None legible-restored.mp3",
+   "d": 247,
+   "t": "Won't You Dream Of Me"
+  },
+  {
+   "pool": "g78",
+   "id": "78_none-legible__gbia0001998b",
+   "f": "None legible-restored.mp3",
+   "d": 229,
+   "t": "The First Is The Last"
+  },
+  {
+   "pool": "g78",
+   "id": "78_o-sole-mio_giulio-crimi-vocalion-orchestra-di-capua_gbia0079628a",
+   "f": "O Sole Mio - Giulio Crimi - Vocalion Orchestra.mp3",
+   "d": 190,
+   "t": "O Sole Mio"
+  },
+  {
+   "pool": "g78",
+   "id": "78_of-all-the-wrongs-you-done-to-me_clarence-williams-blue-five-eva-taylor-len-payton_gbia0100514b",
+   "f": "Of all the Wrongs You Done  - Clarence Williams' Blue Five.mp3",
+   "d": 183,
+   "t": "Of all the Wrongs You Done to Me"
+  },
+  {
+   "pool": "g78",
+   "id": "78_old-hungarian-melody_raez-laezi-armand-vecsey-and-his-hungarian-orchestra_gbia0000092a",
+   "f": "Old Hungarian Melody - Raez Laezi - Armand Vecsey and his Hungarian Orchestra.mp3",
+   "d": 191,
+   "t": "Old Hungarian Melody"
+  },
+  {
+   "pool": "g78",
+   "id": "78_old-time-waltzes---part-6_selvins-orchestra_gbia0010555",
+   "f": "05 - Old Time Waltzes - Part 5 - Selvin's Orchestra.mp3",
+   "d": 182,
+   "t": "Old Time Waltzes - Part 5"
+  },
+  {
+   "pool": "g78",
+   "id": "78_old-time-waltzes---part-6_selvins-orchestra_gbia0010555",
+   "f": "06 - Old Time Waltzes - Part 6 - Selvin's Orchestra.mp3",
+   "d": 192,
+   "t": "Old Time Waltzes - Part 6"
+  },
+  {
+   "pool": "g78",
+   "id": "78_on-the-alamo_isham-jones-harry-radermans-orchestra_gbia0000908b",
+   "f": "On The Alamo - Isham Jones - Harry Radermans Orchestra-restored.mp3",
+   "d": 235,
+   "t": "On The Alamo"
+  },
+  {
+   "pool": "g78",
+   "id": "78_one-two-three-four_macdowell-sisters-jack-alau_gbia0100633b",
+   "f": "One, Two, Three, Four - MacDowell Sisters.mp3",
+   "d": 224,
+   "t": "One, Two, Three, Four"
+  },
+  {
+   "pool": "g78",
+   "id": "78_orys-creole-trombone_kid-orys-sunshine-orchestra-papa-mutt-carey-kid-ory-dink-joh_gbia0215087a",
+   "f": "ORY'S CREOLE TROMBONE - KID ORY'S SUNSHINE ORCHESTRA.mp3",
+   "d": 203,
+   "t": "Ory's Creole Trombone"
+  },
+  {
+   "pool": "g78",
+   "id": "78_over-there_billy-murray-george-m-cohan_gbia0088690a",
+   "f": "Over There - Billy Murray - George M. Cohan.mp3",
+   "d": 214,
+   "t": "Over There"
+  },
+  {
+   "pool": "g78",
+   "id": "78_paprika_pacific-coast-players-david_gbia0080828b",
+   "f": "Paprika - Pacific Coast Players - David.mp3",
+   "d": 193,
+   "t": "Paprika"
+  },
+  {
+   "pool": "g78",
+   "id": "78_peer-gynt-suite-part-1-morning-mood_manhattan-symphony-orchestra-edward-h-grieg_gbia0453643b",
+   "f": "Peer Gynt Suite Part 1 \"Mor - Manhattan Symphony Orchestra.mp3",
+   "d": 200,
+   "t": "Peer Gynt Suite Part 1 \"Morning Mood\""
+  },
+  {
+   "pool": "g78",
+   "id": "78_pretty-little-baby_phil-bakers-bad-boys-sid-silvers-phil-baker-ben-bernie_gbia0527224a",
+   "f": "PRETTY LITTLE BABY - PHIL BAKER'S BAD BOYS.mp3",
+   "d": 238,
+   "t": "Pretty Little Baby"
+  },
+  {
+   "pool": "g78",
+   "id": "78_ride-of-the-valkyries_american-symphony-orchestra-wagner_gbia0078143b",
+   "f": "Ride of the Valkyries - American Symphony Orchestra.mp3",
+   "d": 263,
+   "t": "Ride of the Valkyries"
+  },
+  {
+   "pool": "g78",
+   "id": "78_santiago-waltz_a.-corbin-peerless-orchestra_gbia0000855b",
+   "f": "Santiago Waltz - A. Corbin - Peerless Orchestra-restored.mp3",
+   "d": 221,
+   "t": "Santiago Waltz"
+  },
+  {
+   "pool": "g78",
+   "id": "78_secret-of-suzanne-oh-gioia-la-nube-leggera-what-joy-to-watch_lucrezia-bori-erm_gbia0314502a",
+   "f": "Secret of Suzanne - Oh gioia, la nube legg - Lucrezia Bori.mp3",
+   "d": 235,
+   "t": "Secret of Suzanne - Oh gioia, la nube leggera (What Joy to Watch)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_serenade-softly-through-the-night-is-calling_john-mccormack-fritz-kreisler-matt_gbia0036222a",
+   "f": "Serenade-\"Softly Through - John McCormack - Fritz Kreisler.mp3",
+   "d": 221,
+   "t": "Serenade-\"Softly Through the Night is Calling\""
+  },
+  {
+   "pool": "g78",
+   "id": "78_shake-it-and-break-it_lanins-southern-serenaders-friscoe-chiha-clark_gbia0101530a",
+   "f": "Shake It and Break It - Lanin's Southern Serenaders.mp3",
+   "d": 191,
+   "t": "Shake It and Break It"
+  },
+  {
+   "pool": "g78",
+   "id": "78_shake-your-feet_original-memphis-five-gene-buck-dave-stamper_gbia0101462a",
+   "f": "Shake Your Feet - Original Memphis Five - Gene Buck.mp3",
+   "d": 191,
+   "t": "Shake Your Feet"
+  },
+  {
+   "pool": "g78",
+   "id": "78_show-me-the-way-to-go-home_harry-fay-irving-king_gbia3037986b",
+   "f": "SHOW ME THE WAY TO GO HOME - HARRY FAY - Irving King.mp3",
+   "d": 189,
+   "t": "Show Me the Way to Go Home"
+  },
+  {
+   "pool": "g78",
+   "id": "78_sleep_frisco-syncopaters-earl-lebieg_gbia0005030b",
+   "f": "Sleep - Frisco Syncopaters - Earl Lebieg-restored.mp3",
+   "d": 174,
+   "t": "Sleep"
+  },
+  {
+   "pool": "g78",
+   "id": "78_social-club_gonzalez-y-su-orquesta-m-martinez-p_gbia0046383a",
+   "f": "Social Club - Gonzalez y su Orquesta - M. Martinez P..mp3",
+   "d": 185,
+   "t": "Social Club"
+  },
+  {
+   "pool": "g78",
+   "id": "78_society-blues_kid-orys-sunshine-orchestra-papa-mutt-carey-kid-ory-dink-johnson-fre_gbia0215087b",
+   "f": "SOCIETY BLUES - KID ORY'S SUNSHINE ORCHESTRA.mp3",
+   "d": 192,
+   "t": "Society Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_song-of-the-volga-boatmen_fritz-kreisler-carl-lamson-kreisler_gbia0015765a",
+   "f": "Song of the Volga Boatmen - Fritz Kreisler.mp3",
+   "d": 190,
+   "t": "Song of the Volga Boatmen"
+  },
+  {
+   "pool": "g78",
+   "id": "78_songs-my-mother-taught-me_fritz-kreisler-dvorak-kreisler-carl-lamson_gbia0016601a",
+   "f": "Songs My Mother Taught Me - Fritz Kreisler.mp3",
+   "d": 193,
+   "t": "Songs My Mother Taught Me"
+  },
+  {
+   "pool": "g78",
+   "id": "78_spanish-rose_cyril-travis-kaplans-melodists_gbia0000910a",
+   "f": "Spanish Rose - Cyril Travis - Kaplan's Melodists.mp3",
+   "d": 269,
+   "t": "Spanish Rose"
+  },
+  {
+   "pool": "g78",
+   "id": "78_take-me-out-to-the-ball-game_harvey-hindermeyer_gbia0111514b",
+   "f": "TAKE ME OUT TO THE BALL GAME - Harvey Hindermeyer.mp3",
+   "d": 157,
+   "t": "Take Me Out to the Ball Game"
+  },
+  {
+   "pool": "g78",
+   "id": "78_tango_mischa-elman-josef-bonime-i.-albeniz-elman_gbia0010962a",
+   "f": "Tango - Mischa Elman - Josef Bonime - I. Albeniz.mp3",
+   "d": 133,
+   "t": "Tango"
+  },
+  {
+   "pool": "g78",
+   "id": "78_tea-for-two_university-sextette-caesar-youmans_gbia0065267b",
+   "f": "Tea for Two - University Sextette - Caesar.mp3",
+   "d": 183,
+   "t": "Tea for Two"
+  },
+  {
+   "pool": "g78",
+   "id": "78_tears_king-olivers-jazz-band-hardin-armstrong-joe-oliver-louis-armstrong-johnny-do_gbia0001053a",
+   "f": "Tears - King Oliver's Jazz Band - Hardin.mp3",
+   "d": 199,
+   "t": "Tears"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-girl-i-left-behind-me_mr-john-terrell_gbia0362662a",
+   "f": "THE GIRL I LEFT BEHIND ME - Mr. John Terrell.mp3",
+   "d": 107,
+   "t": "The Girl I Left Behind Me"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-last-rose-of-summer_luisa-tatrazzini-moore_gbia0460089a",
+   "f": "The Last Rose of Summer - Luisa Tatrazzini.mp3",
+   "d": 255,
+   "t": "The Last Rose of Summer"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-love-nest_jack-hyltons-jazz-band-hirsch_gbia3044205b",
+   "f": "The love nest - Jack Hylton's Jazz Band - HIRSCH.mp3",
+   "d": 194,
+   "t": "The love nest"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-mocking-bird_miss-morgan--mr.-stanley_gbia0004217a",
+   "f": "The Mocking Bird - Miss Morgan & Mr. Stanley.mp3",
+   "d": 161,
+   "t": "The Mocking Bird"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-new-york-glide_ethel-waters-alburys-blue-and-jazz-seven-tom-delaney_gbia0275389b",
+   "f": "THE NEW YORK GLIDE - ETHEL WATERS - ALBURY'S BLUE AND JAZZ SEVEN.mp3",
+   "d": 200,
+   "t": "The New York Glide"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-swallows_virginia-rea-bingham-cowen_gbia3004823b",
+   "f": "THE SWALLOWS - VIRGINIA REA - Bingham - Cowen.mp3",
+   "d": 200,
+   "t": "The Swallows"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-volga-boatmans-song-and-the-charming-boy_russian-balalaika-ensemble_gbia0420751b",
+   "f": "THE VOLGA BOATMAN'S SONG AND  - RUSSIAN BALALAIKA ENSEMBLE.mp3",
+   "d": 320,
+   "t": "The Volga Boatman's Song and the Charming Boy"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-willow-song_gbia0033674a",
+   "f": "The Willow Song.mp3",
+   "d": 162,
+   "t": "The Willow Song"
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-world-is-waiting-for-the-sunrise_billy-west-lockhart-seitz_gbia0068583a",
+   "f": "The World Is Waiting for the Sunrise - Billy West.mp3",
+   "d": 195,
+   "t": "The World Is Waiting for the Sunrise"
+  },
+  {
+   "pool": "g78",
+   "id": "78_to-morrow-land-waltz-medley_ernest-l.-stevens-tandler-hulton_gbia0001886b",
+   "f": "To-Morrow Land Waltz Medley - Ernest L. Stevens-restored.mp3",
+   "d": 253,
+   "t": "To-Morrow Land Waltz Medley"
+  },
+  {
+   "pool": "g78",
+   "id": "78_tosca---recondita-armonia-strange-harmony_enrico-caruso-puccini-victor-orchestra_gbia0012569a",
+   "f": "Tosca - Recondita armonia (Strange Harmony - Enrico Caruso-restored.mp3",
+   "d": 134,
+   "t": "Tosca - Recondita armonia (Strange Harmony)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_tripoli-on-the-shores-of-tripoli_c-hart-and-e-shaw-cuinningham-dubin-weill_gbia0085480a",
+   "f": "Tripoli (On the Shores of Tripoli) - C. Hart and E. Shaw.mp3",
+   "d": 179,
+   "t": "Tripoli (On the Shores of Tripoli)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_triumphal-march-from-aida_music-lovers-operatic-band_gbia0130423a",
+   "f": "TRIUMPHAL MARCH FROM \"AIDA\" - Music Lovers Operatic Band.mp3",
+   "d": 176,
+   "t": "Triumphal March from \"Aida\""
+  },
+  {
+   "pool": "g78",
+   "id": "78_two-time-dan_turk-robinson-the-broadway-syncopaters_gbia0000427b",
+   "f": "Two Time Dan - Turk - Robinson - The Broadway Syncopaters.mp3",
+   "d": 190,
+   "t": "Two Time Dan"
+  },
+  {
+   "pool": "g78",
+   "id": "78_unknown-blues_fletcher-henderson-henderson_gbia0001307b",
+   "f": "Unknown Blues - Fletcher Henderson - Henderson-restored.mp3",
+   "d": 154,
+   "t": "Unknown Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_upright-and-grand_banta-frank-banta-and-the-ambassadors_gbia0000417a",
+   "f": "Upright and Grand - Banta - Frank Banta and The Ambassadors.mp3",
+   "d": 189,
+   "t": "Upright and Grand"
+  },
+  {
+   "pool": "g78",
+   "id": "78_valse-in-a-flat-op-42_sergei-rachmaninoff-chopin_gbia0307222a",
+   "f": "Valse in A Flat Op. 42 - SERGEI RACHMANINOFF.mp3",
+   "d": 237,
+   "t": "Valse in A Flat Op. 42"
+  },
+  {
+   "pool": "g78",
+   "id": "78_valse-in-d-flat-major_sergei-rachmaninoff-chopin_gbia0012582a",
+   "f": "Valse in D Flat Major - Sergei Rachmaninoff-restored.mp3",
+   "d": 112,
+   "t": "Valse in D Flat Major"
+  },
+  {
+   "pool": "g78",
+   "id": "78_virginia-reel_jaudas-society-orchestra_gbia0000097b",
+   "f": "Virginia Reel - Jaudas' Society Orchestra.mp3",
+   "d": 235,
+   "t": "Virginia Reel"
+  },
+  {
+   "pool": "g78",
+   "id": "78_voi-che-sapete-le-nozze-di-figaro_mozart_gbia0298771a",
+   "f": "\"Voi che sapete\" Le Nozze di Figaro - Mozart.mp3",
+   "d": 264,
+   "t": "\"Voi che sapete\" Le Nozze di Figaro"
+  },
+  {
+   "pool": "g78",
+   "id": "78_weary-blues_stark-cope-harveys-orch._gbia0000426a",
+   "f": "Weary Blues - Stark - Cope Harvey's Orch..mp3",
+   "d": 210,
+   "t": "Weary Blues"
+  },
+  {
+   "pool": "g78",
+   "id": "78_wedding-march_mendelssohn_gbia0414052a",
+   "f": "WEDDING MARCH - Mendelssohn.mp3",
+   "d": 267,
+   "t": "Wedding March"
+  },
+  {
+   "pool": "g78",
+   "id": "78_weve-been-married-just-one-year_daisy-taylor-and-jack-charman-muir_gbia0298589b",
+   "f": "We've Been Married Just On - Daisy Taylor and Jack Charman.mp3",
+   "d": 172,
+   "t": "We've Been Married Just One Year"
+  },
+  {
+   "pool": "g78",
+   "id": "78_when-hearts-are-young_max-terrs-orchestra-romberg-goodman_gbia0041339b",
+   "f": "When Hearts Are Young - Max Terr's Orchestra.mp3",
+   "d": 191,
+   "t": "When Hearts Are Young"
+  },
+  {
+   "pool": "g78",
+   "id": "78_when-you-and-i-were-young-maggie_carl-williams-johnson-butterfield_gbia0086605b",
+   "f": "When You And I Were Young Maggie - Carl Williams.mp3",
+   "d": 185,
+   "t": "When You And I Were Young Maggie"
+  },
+  {
+   "pool": "g78",
+   "id": "78_where-my-dear-lady-sleeps_reinald-werrenrath-fred-e-weatherly-f-s-breville-smit_gbia0047062a",
+   "f": "Where My Dear Lady Sleeps - Reinald Werrenrath.mp3",
+   "d": 177,
+   "t": "Where My Dear Lady Sleeps"
+  },
+  {
+   "pool": "g78",
+   "id": "78_wheres-my-sweetie-hiding-donde-ha-ido-me-dulcita_paul-van-loan-and-his-orchestr_gbia0221140b",
+   "f": "Where's My Sweetie Hidin - Paul Van Loan and His Orchestra.mp3",
+   "d": 177,
+   "t": "Where's My Sweetie Hiding? (Donde ha ido me dulcita)"
+  },
+  {
+   "pool": "g78",
+   "id": "78_whispering-flowers_fr-von-blon_gbia0083337a",
+   "f": "Whispering Flowers - Fr. von Blon.mp3",
+   "d": 251,
+   "t": "Whispering Flowers"
+  },
+  {
+   "pool": "g78",
+   "id": "78_wie-mein-uhnerl-zwanzig-fahr_fred-carlo-zeller_gbia0072705a",
+   "f": "Wie mein Uhnerl zwanzig Fahr - Fred Carlo.mp3",
+   "d": 207,
+   "t": "Wie mein Uhnerl zwanzig Fahr"
+  },
+  {
+   "pool": "g78",
+   "id": "78_yes-we-have-no-bananas_harry-blake-silver-cohn_gbia0010444a",
+   "f": "Yes! We Have No Bananas - Harry Blake - SIlver-restored.mp3",
+   "d": 169,
+   "t": "Yes! We Have No Bananas"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello43-12-30TheLawyerWithBertGordon.mp3",
+   "d": 1756,
+   "t": "The Lawyer with Bert Gordon"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello44-11-09LousRaceHorsePeanutButter.mp3",
+   "d": 1536,
+   "t": "Lou's Race Horse, Peanut Butter"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello45-11-01Latin-americanParty.mp3",
+   "d": 1756,
+   "t": "Latin-American Party"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello46-10-10LouIsHallucinating.mp3",
+   "d": 1782,
+   "t": "Lou Is Hallucinating"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello48-01-14LouBuysAnApartmentHouse.mp3",
+   "d": 1765,
+   "t": "Lou Buys an Apartment House"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello48-08-11LouGetsAJobOfferFromTheUn.mp3",
+   "d": 1787,
+   "t": "Lou Gets a Job Offer from the UN"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Abbott_Costello_Singles",
+   "f": "AbbottAndCostello49-04-14SamShovel-CaseOfTheRussianDiplomat.mp3",
+   "d": 1764,
+   "t": "Sam Shovel - Case Of The Russian Diplomat"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (046) 1950-07-06 Vacation Arrives.mp3",
+   "d": 1757,
+   "t": "Vacation Arrives"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (067) 1951-01-25 Sound Matchmaking.mp3",
+   "d": 1768,
+   "t": "Sound Matchmaking"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (088) 1951-06-21 Mother Drives a Car.mp3",
+   "d": 1758,
+   "t": "Mother Drives a Car"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (123) 1952-04-17 New Washing Machine.mp3",
+   "d": 1747,
+   "t": "New Washing Machine"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (150) 1952-12-11 A Worried Witness.mp3",
+   "d": 1743,
+   "t": "A Worried Witness"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (171) 1953-05-07 The Good Old Days.mp3",
+   "d": 1772,
+   "t": "The Good Old Days"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Father_Knows_Best_Singles",
+   "f": "Father Knows Best (208) 1954-01-21 The Mink Coat Woes.mp3",
+   "d": 1788,
+   "t": "The Mink Coat Woes"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris47-11-23044PhilSeesTheDoctor.mp3",
+   "d": 1783,
+   "t": "Phil Sees the Doctor"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris49-02-20091JuryDuty.mp3",
+   "d": 1778,
+   "t": "Jury Duty"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris50-01-15127FixingTheFurnace.mp3",
+   "d": 1763,
+   "t": "Fixing the Furnace"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris50-12-03157TheMissingBaby.mp3",
+   "d": 1773,
+   "t": "The Missing Baby"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris51-05-27182ContractWorries.mp3",
+   "d": 1763,
+   "t": "Contract Worries"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris52-03-16207ChoosingWhereToGoOnVacation.mp3",
+   "d": 1766,
+   "t": "Choosing Where to Go on Vacation"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris53-05-10249MothersDayGiftTrouble.mp3",
+   "d": 1785,
+   "t": "Mother's Day Gift Trouble"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris54-02-26279ANightAtTheMovies.mp3",
+   "d": 1784,
+   "t": "A Night at the Movies"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-09-18 Edward, My Son.mp3",
+   "d": 1770,
+   "t": "Edward, My Son"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-10-02 Jack takes inventory of his pantry and has amnesia.mp3",
+   "d": 1770,
+   "t": "Jack takes inventory of his pantry and has amnesia"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-10-16 Recovering from a cold.mp3",
+   "d": 1770,
+   "t": "Recovering from a cold"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-11-06 Jack rides in a yacht.mp3",
+   "d": 1770,
+   "t": "Jack rides in a yacht"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-11-27 A quiet evening at home playing cards.mp3",
+   "d": 1770,
+   "t": "A quiet evening at home playing cards"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1949-12-11 Guest Frank Leahy - Texas benefit.mp3",
+   "d": 1770,
+   "t": "Guest Frank Leahy - Texas benefit"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1950-01-01 Jack's broken New Year's date - again.mp3",
+   "d": 1770,
+   "t": "Jack's broken New Years date - again"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1950-01-15 How Jack and Fred Allen met.mp3",
+   "d": 1770,
+   "t": "How Jack and Fred Allen met"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Jack_Benny_Singles_1949-1950",
+   "f": "JB 1950-01-29 Jack prepares to go to New York by train for a Heart Fund benefit.mp3",
+   "d": 1770,
+   "t": "Jack prepares to go to New York by train for a Heart Fund benefit"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1949-01-16 (024) Student Government Day.mp3",
+   "d": 1770,
+   "t": "Student Government Day"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1949-06-12 (045) Wishing Well Dance.mp3",
+   "d": 1770,
+   "t": "Wishing Well Dance"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1949-12-25 (072) The Magic Christmas Tree.mp3",
+   "d": 1769,
+   "t": "The Magic Christmas Tree"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1950-10-08 (100) Radio Bombay.mp3",
+   "d": 1772,
+   "t": "Radio Bombay"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1951-04-22 (128) New School TV Set.mp3",
+   "d": 1775,
+   "t": "New School TV Set"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1954-01-10 (231) Hobbies (AFRS).mp3",
+   "d": 1433,
+   "t": "Hobbies"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1955-04-10 (284) Tears for Mr. Boynton.mp3",
+   "d": 1757,
+   "t": "Tears for Mr. Boynton"
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1955-08-28 (304) Couch Potato.mp3",
+   "d": 1762,
+   "t": "Couch Potato"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 42-01-04 (019) Gildy Goes on a Diet.mp3",
+   "d": 1664,
+   "t": "Gildy Goes on a Diet"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 44-01-23 (110) Eve and Gildy Get Together.mp3",
+   "d": 1653,
+   "t": "Eve and Gildy Get Together"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 45-09-16 (178) Leroy Suspended from School.mp3",
+   "d": 1788,
+   "t": "Leroy Suspended from School"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 46-10-16 (221) Gildy Contemplates Early Retirement (AFRTS).mp3",
+   "d": 1773,
+   "t": "Gildy Contemplates Early Retirement"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 48-02-04 (276) Acting Mayor.mp3",
+   "d": 1760,
+   "t": "Acting Mayor"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 49-11-09 (340) Birthday Tea Party for Marjorie.mp3",
+   "d": 1790,
+   "t": "Birthday Tea Party for Marjorie"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 50-11-15 (382) Summerfield Centennial Pageant.mp3",
+   "d": 1790,
+   "t": "Summerfield Centennial Pageant"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 52-11-12 (472) Problems with Leroy's Teacher.mp3",
+   "d": 1764,
+   "t": "Problems With Leroy's Teacher"
+  },
+  {
+   "pool": "laugh",
+   "id": "Otrr_The_Great_Gildersleeve_Singles",
+   "f": "The Great Gildersleeve 53-10-14 (520) Gildy Involved with Teacher and Principal.mp3",
+   "d": 1743,
+   "t": "Gildy Involved with Teacher and Principal"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_47-11-05_-013-_Evening_Primrose_-Elliott_Lewis-.mp3",
+   "d": 1770,
+   "t": "Evening Primrose (Elliott Lewis)"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_48-03-07_-031-_Jimmy_Goggles_the_God_-national_broadcast-.mp3",
+   "d": 1681,
+   "t": "Jimmy Goggles, the God"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_49-02-12_-055-_The_Lost_Special.mp3",
+   "d": 1771,
+   "t": "The Lost Special"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_49-11-15_-085-_Three_Skeleton_Key_-William_Conrad-_-1-.mp3",
+   "d": 1764,
+   "t": "Three Skeleton Key (William Conrad)"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_50-04-28_-108-_Something_for_Nothing.mp3",
+   "d": 1770,
+   "t": "Something for Nothing"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_50-12-17_-137-_Wild_Jack_Rhett_-John_Dehner-_-2-.mp3",
+   "d": 1770,
+   "t": "Wild Jack Rhett (John Dehner)"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_52-12-14_-161-_Four_Went_Home.mp3",
+   "d": 1786,
+   "t": "Four Went Home"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_53-06-14_-187-_Clear_for_Action.mp3",
+   "d": 1734,
+   "t": "Clear for Action"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_54-06-24_-215-_Judgment_Day_at_Crippled_Deer.mp3",
+   "d": 1707,
+   "t": "Judgment Day at Crippled Deer"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  44-11-29 The Voice on the Wire.mp3",
+   "d": 1745,
+   "t": "The Voice on the Wire"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  45-09-18 Terror by Night.mp3",
+   "d": 1749,
+   "t": "Terror by Night"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  46-03-12 Strands of Death.mp3",
+   "d": 1721,
+   "t": "Strands of Death"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  48-01-26 The Doomed.mp3",
+   "d": 1495,
+   "t": "The Doomed"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  49-02-07 Death Demon.mp3",
+   "d": 1553,
+   "t": "Death Demon"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  49-10-10 The Devil's Workshop.mp3",
+   "d": 1569,
+   "t": "The Devil's Workshop"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Inner_Sanctum_Mysteries_Singles",
+   "f": "Inner Sanctum  52-08-10 The Magic Tile.mp3",
+   "d": 1477,
+   "t": "The Magic Tile"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 44-07-02 (031) The Queen of the Cats.mp3",
+   "d": 1761,
+   "t": "The Queen of the Cats"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 47-01-05 (085) New Year's Nightmare.mp3",
+   "d": 1728,
+   "t": "New Year's Nightmare"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 48-01-20 (137) The Man in the Black Derby.mp3",
+   "d": 1736,
+   "t": "The Man in the Black Derby"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 48-08-10 (166) The Visiting Corpse.mp3",
+   "d": 1752,
+   "t": "The Visiting Corpse"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 49-10-11 (225) The Last Survivor.mp3",
+   "d": 1722,
+   "t": "The Last Survivor"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 50-05-23 (256) The Lady in Red.mp3",
+   "d": 1735,
+   "t": "The Lady in Red"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Mysterious_Traveler_Singles",
+   "f": "Mysterious Traveler 51-12-25 (336) Christmas Story.mp3",
+   "d": 1769,
+   "t": "Christmas Story"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 430615 046 Last Night (128-44) 27985 29m30s.mp3",
+   "d": 1750,
+   "t": "Last Night"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 450705 148 The Last Detail (128-44) 28263 29m28s.mp3",
+   "d": 1788,
+   "t": "The Last Detail"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 490210 327 De Mortuis (128-44) 28247 29m27s.mp3",
+   "d": 1787,
+   "t": "De Mortuis"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 510910 438 The Evil of Adelaide Winters (140-44) 30482 29m40s.mp3",
+   "d": 1780,
+   "t": "The Evil of Adelaide Winters"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 540930 565 A Little Matter of Memory (64-44) 12453 25m12s.mp3",
+   "d": 1553,
+   "t": "A Little Matter of Memory"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 550913 615 A Story of Poison (128-44) 23666 24m54s.mp3",
+   "d": 1473,
+   "t": "A Story of Poison"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 570519 699 Death and Miss Turner (64-44) 12275 24m49s.mp3",
+   "d": 1530,
+   "t": "Death and Miss Turner"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 580817 764 The Bridge (128-44) 23408 24m37s.mp3",
+   "d": 1457,
+   "t": "The Bridge"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 600410 848 Two Horse Parlay (128-44) 23062 24m15s.mp3",
+   "d": 1435,
+   "t": "Two Horse Parlay"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 620225 914 Date Night (128-44) 22892 23m43s.mp3",
+   "d": 1444,
+   "t": "Date Night"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep07_What_Was_It.mp3",
+   "d": 1498,
+   "t": "What Was It"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep20_The_Lifted_Veil.mp3",
+   "d": 1489,
+   "t": "The Lifted Veil"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep33The_Cask_of_Amontillado.mp3",
+   "d": 1587,
+   "t": "The Cask of Amontillado"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep46_The_Queer_Client.mp3",
+   "d": 1569,
+   "t": "The Queer Client"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep59_The_Duel_Without_Honor.mp3",
+   "d": 1562,
+   "t": "The Duel Without Honor"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Weird_Circle_Singles",
+   "f": "Weird_Circle_4x-xx-xx_ep72_The_Shadow.mp3",
+   "d": 1483,
+   "t": "The Shadow"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_43-05-15_ep052_The_Man_Who_Waited.mp3",
+   "d": 1771,
+   "t": "The Man Who Waited"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_45-07-23_ep165_Let_George_Do_It.mp3",
+   "d": 1771,
+   "t": "Let George Do It"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_46-11-11_ep233_The_Deadly_Penny.mp3",
+   "d": 1773,
+   "t": "The Deadly Penny"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_48-02-11_ep298_Money_Is_The_Root_Of_All_Evil.mp3",
+   "d": 1773,
+   "t": "Money Is The Root Of All Evil"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_49-04-10_ep357_Murder_at_Twin_Pines.mp3",
+   "d": 1531,
+   "t": "Murder at Twin Pines"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_50-05-07_ep414_Fatal_Error.mp3",
+   "d": 1768,
+   "t": "Fatal Error"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_51-07-08_ep475_The_Witness.mp3",
+   "d": 1767,
+   "t": "The Witness"
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_54-03-07_ep612_Hudson_Bay_Incident.mp3",
+   "d": 1388,
+   "t": "Hudson Bay Incident"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "abou_hunt_py_64kb.mp3",
+   "d": 109,
+   "t": "Abou Ben Adhem"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "artilleryman_whitman_64kb.mp3",
+   "d": 209,
+   "t": "The Artilleryman"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "as_kingfishers_catch_fire_hopkins_dhf_64kb.mp3",
+   "d": 100,
+   "t": "As Kingfishers Catch Fire"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "because_I_could_not_stop_for_death_dickinson_64kb.mp3",
+   "d": 47,
+   "t": "Because I Could Not Stop For Death"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "casabianca_hemans_jh_64kb.mp3",
+   "d": 113,
+   "t": "Casabianca"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "christmas_bells_longfellow_pmk_64kb.mp3",
+   "d": 101,
+   "t": "Christmas Bells"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "daffodils_wordsworth_64kb.mp3",
+   "d": 109,
+   "t": "Daffodils"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "dead_boche_graves_sm_64kb.mp3",
+   "d": 37,
+   "t": "A Dead Boche"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "dover_beach_arnold_ce_64kb.mp3",
+   "d": 154,
+   "t": "Dover Beach"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "dulce_et_decorum_owen_af_64kb.mp3",
+   "d": 142,
+   "t": "Dulce et Decorum"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "familiar_faces_lamb_py_64kb.mp3",
+   "d": 121,
+   "t": "The Old Familiar Faces"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "for_annie_poe_ac_64kb.mp3",
+   "d": 263,
+   "t": "For Annie"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "good_news_from_ghent_browning_ks_64kb.mp3",
+   "d": 271,
+   "t": "How they Brought the Good News from Ghent to Aix"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "heat_doolittle_ac_64kb.mp3",
+   "d": 49,
+   "t": "Heat"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "i_died_for_beauty_dickinson_ac_64kb.mp3",
+   "d": 70,
+   "t": "I Died for Beauty"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "irish_emigrant_selina_py_64kb.mp3",
+   "d": 221,
+   "t": "Lament of the Irish Emigrant"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "jenny_hunt_py_64kb.mp3",
+   "d": 57,
+   "t": "Jenny Kissed Me"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "kublai_khan_coleridge_py_64kb.mp3",
+   "d": 219,
+   "t": "Kublai Khan"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "last_rose_moore_py_64kb.mp3",
+   "d": 90,
+   "t": "The Last Rose of Summer"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "laughing_corn_sandburg_blb_64kb.mp3",
+   "d": 98,
+   "t": "Laughing Corn"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "love_age_peacock_py_64kb.mp3",
+   "d": 219,
+   "t": "Love and Age"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "ode314_rumi_64kb.mp3",
+   "d": 87,
+   "t": "Ode 314"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "queen_of_hearts_rossetti_blb_64kb.mp3",
+   "d": 102,
+   "t": "The Queen of Hearts"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "road_not_taken_frost_ac_64kb.mp3",
+   "d": 114,
+   "t": "The Road Not Taken"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "shadow_stevenson_hf_64kb.mp3",
+   "d": 96,
+   "t": "My Shadow"
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "thou_art_not_lovelier_than_lilacs_no_millay_ac_64kb.mp3",
+   "d": 89,
+   "t": "Thou Art not Lovelier than Lilacs No"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "annabel_lee_eap_jc_64kb.mp3",
+   "d": 121,
+   "t": "Annabel Lee"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "childs_nightmare_rg_jc_64kb.mp3",
+   "d": 140,
+   "t": "A Child's Nightmare"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "dora_teb_kas_64kb.mp3",
+   "d": 97,
+   "t": "Dora"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "jabberwocky_lc_jc_64kb.mp3",
+   "d": 81,
+   "t": "Jabberwocky"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "loveliest_of_trees_eah_ah_64kb.mp3",
+   "d": 66,
+   "t": "Loveliest of trees, the cherry now"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "matrix_lowell_blb_64kb.mp3",
+   "d": 59,
+   "t": "The Matrix"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "nobody_dickinson_rkb_64kb.mp3",
+   "d": 40,
+   "t": "I'm Nobody"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "ode_to_spring_rb_jc_64kb.mp3",
+   "d": 63,
+   "t": "Ode to Spring"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "poison_tree_wb_jc_64kb.mp3",
+   "d": 47,
+   "t": "A Poison Tree"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "shivering_beggar_rg_jc_64kb.mp3",
+   "d": 124,
+   "t": "The Shivering Beggar"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_dawn_patrol_pb_pdc_64kb.mp3",
+   "d": 131,
+   "t": "The Dawn Patrol"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_lake_isle_of_innisfree_wy_ah_64kb.mp3",
+   "d": 88,
+   "t": "The Lake Isle of Innisfree"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_lamb_wb_ah_64kb.mp3",
+   "d": 82,
+   "t": "The Lamb"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_red_cross_nurses_masson_t_pdc_64kb.mp3",
+   "d": 55,
+   "t": "The Red Cross Nurses"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_red_cross_spirit_speaks_finley_j_pdc_64kb.mp3",
+   "d": 99,
+   "t": "The Red Cross Spirit Speaks"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_tiger_wb_ah_64kb.mp3",
+   "d": 103,
+   "t": "The Tiger"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "the_tyger_wb_jc_64kb.mp3",
+   "d": 69,
+   "t": "The Tyger"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "tinternabbey_ww_wcd_64kb.mp3",
+   "d": 83,
+   "t": "From Lines Composed a Few Miles Above Tintern Abbey"
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "walrus_and_carpenter_lc_jc_64kb.mp3",
+   "d": 234,
+   "t": "The Walrus and the Carpenter"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-04-29__04_NoContact.mp3",
+   "d": 1467,
+   "t": "No Contact"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-05-20__07_TheLostRace.mp3",
+   "d": 1779,
+   "t": "The Lost Race"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-06-24__12_DestinationMoon.mp3",
+   "d": 1704,
+   "t": "Destination Moon"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-07-21__16_BeyondInfinity.mp3",
+   "d": 1768,
+   "t": "Beyond Infinity"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-09-01__22_TheRoadsMustRoll.mp3",
+   "d": 1782,
+   "t": "The Roads Must Roll"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-09-15__24_HelloTomorrow.mp3",
+   "d": 1741,
+   "t": "Hello Tomorrow"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1950-11-19__30_Competition.mp3",
+   "d": 1758,
+   "t": "Competition"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-01-07__33_MarsIsHeaven.mp3",
+   "d": 1520,
+   "t": "Mars Is Heaven"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-06-10__36_Nightmare.mp3",
+   "d": 1494,
+   "t": "Nightmare"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-07-12__39_TimeAndTimeAgain.mp3",
+   "d": 1777,
+   "t": "Time And Time Again"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-07-26__41_Courtesy.mp3",
+   "d": 1763,
+   "t": "Courtesy"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Dimension_X_Singles",
+   "f": "Dimension_X_1951-09-08__47_FirstContact.mp3",
+   "d": 1353,
+   "t": "First Contact"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep02_Orbit_the_Moon.mp3",
+   "d": 702,
+   "t": "Orbit the Moon"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep03_Cosmic_Communicator.mp3",
+   "d": 721,
+   "t": "Cosmic Communicator"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep05_Marston_to_Attack_Earth.mp3",
+   "d": 724,
+   "t": "Marston to Attack Earth"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep06_Discussing_Marston.mp3",
+   "d": 726,
+   "t": "Discussing Marston"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep07_Kidnapping_Order.mp3",
+   "d": 722,
+   "t": "Kidnapping Order"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep08_Billy_and_Jane_Need_Help.mp3",
+   "d": 723,
+   "t": "Billy and Jane Need Help"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep09_Hoping_for_a_Miracle.mp3",
+   "d": 708,
+   "t": "Hoping for a Miracle"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep10_Billy_and_Jane_in_Ship.mp3",
+   "d": 710,
+   "t": "Billy and Jane in Ship"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep11_Three_D_Dantro.mp3",
+   "d": 708,
+   "t": "Three D Dantro"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep12_Marston_Dead.mp3",
+   "d": 720,
+   "t": "Marston Dead"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep13_On_a_Scout_Ship.mp3",
+   "d": 703,
+   "t": "On a Scout Ship"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep14_Preparing_to_Blast_Off.mp3",
+   "d": 717,
+   "t": "Preparing to Blast Off"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_52-12-13_011_The_Search_for_Asteroid_X.mp3",
+   "d": 1702,
+   "t": "The Search for Asteroid X"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_53-03-07_023_The_Seed_Crystals_of_Zeldabran.mp3",
+   "d": 1756,
+   "t": "The Seed Crystals of Zeldabran"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_53-06-20_038_The_Indestructible_Germ.mp3",
+   "d": 1761,
+   "t": "The Indestructible Germ"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_53-10-10_054_On_the_Ice_Cap_of_Planet_X.mp3",
+   "d": 1783,
+   "t": "On the Ice Cap of Planet X"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-01-02_066_The_Wistful_Wizard_of_Neptunes_Moon.mp3",
+   "d": 1730,
+   "t": "The Wistful Wizard of Neptune's Moon"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-03-13_076_Test_for_Survival.mp3",
+   "d": 1770,
+   "t": "Test for Survival"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-05-29_087_The_Red_Demon_of_Venus.mp3",
+   "d": 1764,
+   "t": "The Red Demon of Venus"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-08-21_099_Formula_for_Crime.mp3",
+   "d": 1737,
+   "t": "Formula for Crime"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_54-11-06_110_The_Watchman_of_Wormak.mp3",
+   "d": 1516,
+   "t": "The Watchman of Wormak"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Space_Patrol_Singles",
+   "f": "Space_Patrol_55-02-12_124_The_Hermit_of_Pluto.mp3",
+   "d": 1716,
+   "t": "The Hermit of Pluto"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne55-05-22005Knock.mp3",
+   "d": 1705,
+   "t": "Knock"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne55-08-11013AlmostHuman.mp3",
+   "d": 1431,
+   "t": "Almost Human"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne55-10-27022Requiem.mp3",
+   "d": 1425,
+   "t": "Requiem"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne55-12-28031ALogicNamedJoe.mp3",
+   "d": 1627,
+   "t": "A Logic Named Joe"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-02-22039Junkyard.mp3",
+   "d": 1768,
+   "t": "Junkyard"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-05-01049SeaLegs.mp3",
+   "d": 1708,
+   "t": "Sea Legs"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-07-03058MrCostelloHero.mp3",
+   "d": 1668,
+   "t": "Mr Costello, Hero"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-09-04066TunnelUnderTheWorld.mp3",
+   "d": 1746,
+   "t": "Tunnel Under the World"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne56-11-21076ChainOfCommand.mp3",
+   "d": 1707,
+   "t": "Chain of Command"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-01-30086Caretaker.mp3",
+   "d": 1328,
+   "t": "Caretaker"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-03-27094AtThePost.mp3",
+   "d": 1323,
+   "t": "At the Post"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-07-18103TheMerchantsOfVenus.mp3",
+   "d": 1310,
+   "t": "The Merchants of Venus"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-10-03114AWindIsRising.mp3",
+   "d": 1274,
+   "t": "A Wind Is Rising"
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-12-19122DoubleDare.mp3",
+   "d": 1202,
+   "t": "Double Dare"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-01-29_ep02_Boatwrights_Story.mp3",
+   "d": 1784,
+   "t": "Boatwright's Story"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-02-19_ep05_Boredom.mp3",
+   "d": 1773,
+   "t": "Boredom"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-03-11_ep08_Hattie_Pelfrey.mp3",
+   "d": 1746,
+   "t": "Hattie Pelfrey"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-06-17_ep21_Winter_Soldier.mp3",
+   "d": 1789,
+   "t": "Winter Soldier"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-08-19_ep30_Goodbye_Willa.mp3",
+   "d": 1789,
+   "t": "Goodbye Willa"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-09-30_ep36_A_Small_Beginning.mp3",
+   "d": 1779,
+   "t": "A Small Beginning"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-10-21_ep39_Indian_Scout.mp3",
+   "d": 1491,
+   "t": "Indian Scout"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep04_Marie.mp3",
+   "d": 1702,
+   "t": "Marie"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep12_Return_of_the_Badmen.mp3",
+   "d": 1690,
+   "t": "Return of the Badmen"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep20_Valley_of_the_Varmints.mp3",
+   "d": 1708,
+   "t": "Valley of the Varmints"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep28_The_Coach_That_Arrived_Missing.mp3",
+   "d": 1708,
+   "t": "The Coach That Arrived Missing"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep36_Bullets_for_Boot_Hill.mp3",
+   "d": 1707,
+   "t": "Bullets for Boot Hill"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep44_The_Badlands.mp3",
+   "d": 1711,
+   "t": "The Badlands"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 53-02-28 (045) Trojan War.mp3",
+   "d": 1779,
+   "t": "Trojan War"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 54-02-13 (095) The Killer.mp3",
+   "d": 1501,
+   "t": "The Killer"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 54-10-09 (130) Love of a Good Woman.mp3",
+   "d": 1735,
+   "t": "Love of a Good Woman"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 55-09-17 (179) Thoroughbreds.mp3",
+   "d": 1789,
+   "t": "Thoroughbreds"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 56-04-29 (212) Doc's Reward.mp3",
+   "d": 1464,
+   "t": "Doc's Reward"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 56-12-09 (244) Braggart's Boy.mp3",
+   "d": 1492,
+   "t": "Braggart's Boy"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 57-12-15 (297) Ugly.mp3",
+   "d": 1496,
+   "t": "Ugly"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 59-02-01 (356) The Bobsy Twins.mp3",
+   "d": 1438,
+   "t": "The Bobsy Twins"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 59-10-04 (391) Hinka-Do.mp3",
+   "d": 1423,
+   "t": "Hinka-Do"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 60-05-29 (425) Bad Seed.mp3",
+   "d": 1668,
+   "t": "Bad Seed"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 61-02-19 (463) Kitty Love.mp3",
+   "d": 1499,
+   "t": "Kitty Love"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1958-12-28 (006) No Visitors.mp3",
+   "d": 1468,
+   "t": "No Visitors"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1959-03-15 (017) Death of a Young Gunfighter.mp3",
+   "d": 1469,
+   "t": "Death of a Young Gunfighter"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1959-06-14 (030) Bitter Wine.mp3",
+   "d": 1468,
+   "t": "Bitter Wine"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1959-09-13 (043) Treasure Hunt.mp3",
+   "d": 1468,
+   "t": "Treasure Hunt"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1959-11-29 (054) Assignment in Stone's Crossing.mp3",
+   "d": 1468,
+   "t": "Assignment in Stone's Crossing"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs.mp3",
+   "d": 1468,
+   "t": "The Dollhouse in Diamond Springs"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-05-01 (076) Dressed to Kill.mp3",
+   "d": 1469,
+   "t": "Dressed to Kill"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-07-24 (088) Way for the Delta Queen.mp3",
+   "d": 1468,
+   "t": "Way for the Delta Queen"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-10-23 (101) Stardust.mp3",
+   "d": 1469,
+   "t": "Stardust"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1950-08-12 (06) The Broken Spur.mp3",
+   "d": 1775,
+   "t": "The Broken Spur"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1950-11-12 (19) Blood Relative.mp3",
+   "d": 1760,
+   "t": "Blood Relative"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1951-02-11 (31) The Hatchet.mp3",
+   "d": 1765,
+   "t": "The Hatchet"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1951-05-20 (44) Square Dance.mp3",
+   "d": 1774,
+   "t": "Square Dance"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1951-11-25 (54) The Blow Off.mp3",
+   "d": 1782,
+   "t": "The Blow Off"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1952-02-10 (65) Hitchhiker.mp3",
+   "d": 1775,
+   "t": "Hitchhiker"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1952-05-25 (79) Jailbird.mp3",
+   "d": 1782,
+   "t": "Jailbird"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Tales_of_the_Texas_Rangers_Single",
+   "f": "Tales of the Texas Rangers 1952-08-10 (90) Last Stop.mp3",
+   "d": 1780,
+   "t": "Last Stop"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1953-09-27 Ep 02 The Coward.mp3",
+   "d": 1771,
+   "t": "The Coward"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1953-11-08 Ep 08 The Capture Of Stacy Gault.mp3",
+   "d": 1723,
+   "t": "The Capture Of Stacy Gault"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1953-12-13 Ep 13 More Than Kin.mp3",
+   "d": 1697,
+   "t": "More Than Kin"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-01-24 Ep 19 Helen Bricker.mp3",
+   "d": 1694,
+   "t": "Helen Bricker"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-03-07 Ep 24 Cheyenne Express.mp3",
+   "d": 1736,
+   "t": "Cheyenne Express"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-04-22 Ep 30 Johnny Springer.mp3",
+   "d": 1788,
+   "t": "Johnny Springer"
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-06-10 Ep 37 The New Sheriff.mp3",
+   "d": 1737,
+   "t": "The New Sheriff"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t01.mp3",
+   "d": 220,
+   "t": "tunin/intro"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t02.mp3",
+   "d": 304,
+   "t": "Feel Like Rockin'"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t03.mp3",
+   "d": 485,
+   "t": "Jack of Diamonds>Make it thru the World"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t04.mp3",
+   "d": 493,
+   "t": "Dreamin Out Loud"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t05.mp3",
+   "d": 199,
+   "t": "UFO's Exactly>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t06.mp3",
+   "d": 49,
+   "t": "I Got Loaded>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t07.mp3",
+   "d": 174,
+   "t": "UFO's"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t08.mp3",
+   "d": 218,
+   "t": "Brokedown Ehgine"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t09.mp3",
+   "d": 401,
+   "t": "Don't Cry 4 Me"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t10.mp3",
+   "d": 298,
+   "t": "U Can't Do That (w/ Darcy Malone)"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t11.mp3",
+   "d": 681,
+   "t": "#2 Pencil"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t12.mp3",
+   "d": 441,
+   "t": "Whole Lotta Love>Smokestack Lightning"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t13.mp3",
+   "d": 472,
+   "t": "Tomworrow Never Knows"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d1t14.mp3",
+   "d": 45,
+   "t": "outro"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t01.mp3",
+   "d": 67,
+   "t": "tunin/intro"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t02.mp3",
+   "d": 480,
+   "t": "Cisco Kid"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t03.mp3",
+   "d": 373,
+   "t": "Salty Jane"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t04.mp3",
+   "d": 53,
+   "t": "I Got the Twitch>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t05.mp3",
+   "d": 232,
+   "t": "Danang"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t06.mp3",
+   "d": 331,
+   "t": "Rub It In"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t07.mp3",
+   "d": 338,
+   "t": "Kickin Mule"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t08.mp3",
+   "d": 345,
+   "t": "Hardcore>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t09.mp3",
+   "d": 90,
+   "t": "Pump It Up>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t10.mp3",
+   "d": 63,
+   "t": "No Way 2 the Lake>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t11.mp3",
+   "d": 112,
+   "t": "Dance Shout>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t12.mp3",
+   "d": 102,
+   "t": "Hardcore"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t13.mp3",
+   "d": 358,
+   "t": "Hey Joe"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t14.mp3",
+   "d": 92,
+   "t": "U Say It's Your Birthday>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t15.mp3",
+   "d": 88,
+   "t": "Ride the Pony>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t16.mp3",
+   "d": 265,
+   "t": "Let It Bleed"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t17.mp3",
+   "d": 62,
+   "t": "callin em back"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t18.mp3",
+   "d": 391,
+   "t": "Psychotic Reaction>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t19.mp3",
+   "d": 46,
+   "t": "Maggie's Farm tease>"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t20.mp3",
+   "d": 315,
+   "t": "Soul Kitchen"
+  },
+  {
+   "pool": "shows",
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t21.mp3",
+   "d": 106,
+   "t": "outro"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t01.mp3",
+   "d": 24,
+   "t": "Intro"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t02.mp3",
+   "d": 304,
+   "t": "If There's Love"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t03.mp3",
+   "d": 412,
+   "t": "Salvation"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t04.mp3",
+   "d": 354,
+   "t": "Hurricane Waters"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t05.mp3",
+   "d": 373,
+   "t": "Fame"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t06.mp3",
+   "d": 317,
+   "t": "Bullet and A Target"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t07.mp3",
+   "d": 306,
+   "t": "Nite Becomes Day"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t08.mp3",
+   "d": 299,
+   "t": "Mistaken I.D."
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t09.mp3",
+   "d": 213,
+   "t": "Penitentiary"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t10.mp3",
+   "d": 438,
+   "t": "D'Artagnan's Theme"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t11.mp3",
+   "d": 255,
+   "t": "My Way Home"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t12.mp3",
+   "d": 279,
+   "t": "Son's Gonna Rise"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t13.mp3",
+   "d": 384,
+   "t": "Sideways"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t14.mp3",
+   "d": 253,
+   "t": "Pablo Picasso"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t15.mp3",
+   "d": 167,
+   "t": "Is This Love That I'm Feeling? (Bob Marley)"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t16.mp3",
+   "d": 140,
+   "t": "$200,000 (In Counterfeit 50 Dollar Bills)"
+  },
+  {
+   "pool": "shows",
+   "id": "ccope2005-09-20",
+   "f": "ccope2005-09-20t17.mp3",
+   "d": 188,
+   "t": "Every Waking Moment"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t01.mp3",
+   "d": 325,
+   "t": "Minglewood Blues"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t02.mp3",
+   "d": 474,
+   "t": "Loser"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t03.mp3",
+   "d": 281,
+   "t": "El Paso"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t04.mp3",
+   "d": 469,
+   "t": "They Love Each Other"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t05.mp3",
+   "d": 389,
+   "t": "Jack Straw"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t06.mp3",
+   "d": 438,
+   "t": "Deal"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t07.mp3",
+   "d": 520,
+   "t": "Lazy Lightning > Supplication"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t08.mp3",
+   "d": 370,
+   "t": "Brown Eyed Women"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t09.mp3",
+   "d": 214,
+   "t": "Mama Tried"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d1t10.mp3",
+   "d": 678,
+   "t": "Row Jimmy"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d2t01.mp3",
+   "d": 996,
+   "t": "Dancin' In The Streets"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d2t02.mp3",
+   "d": 164,
+   "t": "Take A Step Back"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d2t03.mp3",
+   "d": 539,
+   "t": "Scarlet Begonias"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d2t04.mp3",
+   "d": 1076,
+   "t": "Fire On The Mountain"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d2t05.mp3",
+   "d": 535,
+   "t": "Estimated Prophet"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d3t01.mp3",
+   "d": 292,
+   "t": "Saint Stephen"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d3t02.mp3",
+   "d": 995,
+   "t": "Not Fade Away"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d3t03.mp3",
+   "d": 113,
+   "t": "Saint Stephen"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d3t04.mp3",
+   "d": 847,
+   "t": "Morning Dew"
+  },
+  {
+   "pool": "shows",
+   "id": "gd77-05-08.maizner.hicks.5002.sbeok.shnf",
+   "f": "gd77-05-08aud-d3t05.mp3",
+   "d": 344,
+   "t": "One More Saturday Night"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t01.mp3",
+   "d": 23,
+   "t": "Intro"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t02.mp3",
+   "d": 256,
+   "t": "All At Once"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t03.mp3",
+   "d": 258,
+   "t": "Better Together"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t04.mp3",
+   "d": 240,
+   "t": "Hope Your Not Alone"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t05.mp3",
+   "d": 253,
+   "t": "Taylor"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t06.mp3",
+   "d": 288,
+   "t": "Flake"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t07.mp3",
+   "d": 312,
+   "t": "Sleep Through The Static"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t08.mp3",
+   "d": 247,
+   "t": "Staple It Together $"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t09.mp3",
+   "d": 247,
+   "t": "Monsoon"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d1t10.mp3",
+   "d": 235,
+   "t": "Sitting, Waiting, Wishing"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t01.mp3",
+   "d": 312,
+   "t": "Go On"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t02.mp3",
+   "d": 313,
+   "t": "Bubble Toes"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t03.mp3",
+   "d": 346,
+   "t": "Wasting Time"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t04.mp3",
+   "d": 241,
+   "t": "Constellations *"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t05.mp3",
+   "d": 262,
+   "t": "Breakdown"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t06.mp3",
+   "d": 213,
+   "t": "Banana Pancakes"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t07.mp3",
+   "d": 148,
+   "t": "Same Girl"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t08.mp3",
+   "d": 173,
+   "t": "Horizon Has Been Defeated >"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t09.mp3",
+   "d": 89,
+   "t": "Mother and Child Reunion >"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t10.mp3",
+   "d": 204,
+   "t": "Good People"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t11.mp3",
+   "d": 233,
+   "t": "Inaudible Melodies"
+  },
+  {
+   "pool": "shows",
+   "id": "jj2008-06-14.mk4",
+   "f": "jj2008-06-14d2t12.mp3",
+   "d": 316,
+   "t": "If I Had Eyes"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t01.mp3",
+   "d": 38,
+   "t": "Intro>"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t02.mp3",
+   "d": 221,
+   "t": "Waiting on the World to Change"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t03.mp3",
+   "d": 295,
+   "t": "Why Georgia"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t04.mp3",
+   "d": 342,
+   "t": "Crossroads"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t05.mp3",
+   "d": 687,
+   "t": "I Don't Trust Myself (With Loving You)"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t06.mp3",
+   "d": 964,
+   "t": "Wheel > I Still Haven't Found What I'm Looking For > Wheel"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t07.mp3",
+   "d": 341,
+   "t": "Bigger Than My Body"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t08.mp3",
+   "d": 666,
+   "t": "Mercy"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t09.mp3",
+   "d": 332,
+   "t": "Free Falling"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t10.mp3",
+   "d": 336,
+   "t": "Good Love Is On The Way"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t11.mp3",
+   "d": 246,
+   "t": "Find Another You"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t12.mp3",
+   "d": 518,
+   "t": "Stitched Up"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t13.mp3",
+   "d": 527,
+   "t": "Belief"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t14.mp3",
+   "d": 442,
+   "t": "Gravity"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t15.mp3",
+   "d": 134,
+   "t": "Encore Break >"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t16.mp3",
+   "d": 481,
+   "t": "Vultures"
+  },
+  {
+   "pool": "shows",
+   "id": "johnmayer2008-08-02.DPA4023.flac16",
+   "f": "John_Mayer_2008-08-02_t17.mp3",
+   "d": 318,
+   "t": "Say"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track01.mp3",
+   "d": 229,
+   "t": "Rock n' Roll Doctor"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track02.mp3",
+   "d": 250,
+   "t": "Two Trains"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track03.mp3",
+   "d": 378,
+   "t": "The Fan"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track04.mp3",
+   "d": 389,
+   "t": "On Your Way Down"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track05.mp3",
+   "d": 252,
+   "t": "Spanish Moon >"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track06.mp3",
+   "d": 328,
+   "t": "Skin It Back >"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track07.mp3",
+   "d": 290,
+   "t": "Fat Man In The Bath Tub"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track08.mp3",
+   "d": 219,
+   "t": "Oh Atlanta"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track09.mp3",
+   "d": 215,
+   "t": "Willin'"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track10.mp3",
+   "d": 301,
+   "t": "Cold Cold Cold >"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track11.mp3",
+   "d": 352,
+   "t": "Dixie Chicken >"
+  },
+  {
+   "pool": "shows",
+   "id": "lf1974-09-19.shnf",
+   "f": "Track12.mp3",
+   "d": 277,
+   "t": "Tripe Face Boogie"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt01.mp3",
+   "d": 504,
+   "t": "Rastaman Chant"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt02.mp3",
+   "d": 286,
+   "t": "Candle"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt03.mp3",
+   "d": 279,
+   "t": "Chop 'em Down"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt04.mp3",
+   "d": 618,
+   "t": "Warrior"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt05.mp3",
+   "d": 367,
+   "t": "King Without A Crown"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt06.mp3",
+   "d": 229,
+   "t": "Refuge"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt07.mp3",
+   "d": 260,
+   "t": "Lord, Raise Me Up"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt08.mp3",
+   "d": 232,
+   "t": "Beatbox"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt09.mp3",
+   "d": 407,
+   "t": "Rappers improv w/Drez from Black Shee"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt10.mp3",
+   "d": 89,
+   "t": "Drez & Matisyahu improv"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt11.mp3",
+   "d": 459,
+   "t": "Close My Eyes"
+  },
+  {
+   "pool": "shows",
+   "id": "matisyahu2004-12-25",
+   "f": "matisyahu2004-12-25sbdt12.mp3",
+   "d": 589,
+   "t": "Tzama L'Chol Nafshi"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t01.mp3",
+   "d": 142,
+   "t": "Intro/Tuning"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t02.mp3",
+   "d": 340,
+   "t": "It"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t03.mp3",
+   "d": 437,
+   "t": "Crab Eyes"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t04.mp3",
+   "d": 270,
+   "t": "She Sends Me"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t05.mp3",
+   "d": 376,
+   "t": "Good Trip"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t06.mp3",
+   "d": 1138,
+   "t": "Four* ->"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set1t07.mp3",
+   "d": 930,
+   "t": "Plane Crash"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t01.mp3",
+   "d": 83,
+   "t": "Intro/Tuning"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t02.mp3",
+   "d": 840,
+   "t": "Y.O.Y. ->"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t03.mp3",
+   "d": 468,
+   "t": "Puttin the Boy Down"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t04.mp3",
+   "d": 926,
+   "t": "Bullet ->"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t05.mp3",
+   "d": 372,
+   "t": "Biblical"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t06.mp3",
+   "d": 1016,
+   "t": "Seat of My Pants ->"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t07.mp3",
+   "d": 882,
+   "t": "Waiting for the Punchline"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t08.mp3",
+   "d": 203,
+   "t": "Crowd"
+  },
+  {
+   "pool": "shows",
+   "id": "moe2004-10-29.at4051a.flac",
+   "f": "moe2004-10-29set2t09.mp3",
+   "d": 998,
+   "t": "Rebubula"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t01.mix.mp3",
+   "d": 97,
+   "t": "Introduction"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t02.mix.mp3",
+   "d": 541,
+   "t": "52-50"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t03.mix.mp3",
+   "d": 432,
+   "t": "Right on Time"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t04.mix.mp3",
+   "d": 225,
+   "t": "Love and Memories"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t05.mix.mp3",
+   "d": 663,
+   "t": "59th Street Bridge Song > City on Down"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t06.mix.mp3",
+   "d": 336,
+   "t": "The Wanderer"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t07.mix.mp3",
+   "d": 598,
+   "t": "Black Rock"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t08.mix.mp3",
+   "d": 391,
+   "t": "Revisited"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t09.mix.mp3",
+   "d": 302,
+   "t": "Lay Down"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t10.mix.mp3",
+   "d": 314,
+   "t": "One Shot"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d1t11.mix.mp3",
+   "d": 601,
+   "t": "Hey Girl"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t01.mix.mp3",
+   "d": 350,
+   "t": "Heard The World"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t02.mix.mp3",
+   "d": 319,
+   "t": "Dakota"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t03.mix.mp3",
+   "d": 243,
+   "t": "Wonderful Day"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t04.mix.mp3",
+   "d": 265,
+   "t": "Daylight the Dog *"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t05.mix.mp3",
+   "d": 554,
+   "t": "Delicate Few"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t06.mix.mp3",
+   "d": 572,
+   "t": "Missing Pieces"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t07.mix.mp3",
+   "d": 390,
+   "t": "I Feel Home"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t08.mix.mp3",
+   "d": 410,
+   "t": "About Mr. Brown"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t09.mix.mp3",
+   "d": 592,
+   "t": "Program Director #"
+  },
+  {
+   "pool": "shows",
+   "id": "oar2006-01-14.mix.flac16",
+   "f": "oar2006-01-14d2t10.mix.mp3",
+   "d": 733,
+   "t": "This Was a Crazy Game of Poker"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t01.mp3",
+   "d": 806,
+   "t": "Anyday >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t02.mp3",
+   "d": 463,
+   "t": "The Storm >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t03.mp3",
+   "d": 429,
+   "t": "Anyhow"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t04.mp3",
+   "d": 273,
+   "t": "It's So Heavy"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t05.mp3",
+   "d": 305,
+   "t": "Get What You Deserve"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t06.mp3",
+   "d": 271,
+   "t": "Ball and Chain"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t07.mp3",
+   "d": 186,
+   "t": "drums >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t08.mp3",
+   "d": 504,
+   "t": "Let Me Get By"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t09.mp3",
+   "d": 488,
+   "t": "Leaving Trunk >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t10.mp3",
+   "d": 227,
+   "t": "Volunteered Slavery"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t11.mp3",
+   "d": 437,
+   "t": "I Pity the Fool"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t12.mp3",
+   "d": 505,
+   "t": "I Want More >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t13.mp3",
+   "d": 160,
+   "t": "Soul Sacrifice"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t14.mp3",
+   "d": 146,
+   "t": "Encore break"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t15.mp3",
+   "d": 384,
+   "t": "Ain't Wastin' Time No More >"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t16.mp3",
+   "d": 252,
+   "t": "Will the Circle Be Unbroken"
+  },
+  {
+   "pool": "shows",
+   "id": "ttb2017-07-03.akgck2261-24",
+   "f": "ttb2017-07-03akgck2261-24d1t17.mp3",
+   "d": 529,
+   "t": "Made Up Mind > Happy Birthday"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t01.mp3",
+   "d": 130,
+   "t": "Intro"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t02.mp3",
+   "d": 288,
+   "t": "Sidewalk Stars"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t03.mp3",
+   "d": 365,
+   "t": "East Nashville Easter"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t04.mp3",
+   "d": 392,
+   "t": "How Bout You?"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t05.mp3",
+   "d": 323,
+   "t": "Night Out"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t06.mp3",
+   "d": 394,
+   "t": "Angel"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t07.mp3",
+   "d": 290,
+   "t": "Classic Situation"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t08.mp3",
+   "d": 374,
+   "t": "Wind's On Fire"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t09.mp3",
+   "d": 240,
+   "t": "Troubled Mind"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t10.mp3",
+   "d": 291,
+   "t": "Pan American"
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t11.mp3",
+   "d": 220,
+   "t": "Holdin'"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "beyond_the_bayou_chopin_as_64kb.mp3",
+   "d": 904,
+   "t": "Beyond the bayou"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "cats_of_ulthar_hp_lovecraft_cnc_64kb.mp3",
+   "d": 509,
+   "t": "The Cats of Ulthar"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "erich_zann_lovecraft_gmh_64kb.mp3",
+   "d": 1217,
+   "t": "The Music of Erich Zann"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "jug_of_sirup_bierce_km_64kb.mp3",
+   "d": 1132,
+   "t": "A Jug of Sirup"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "little_french_and_his_water_lots_morris_as_64kb.mp3",
+   "d": 874,
+   "t": "the little frenchman and his water lots"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "nighingale_andersen_sdw_64kb.mp3",
+   "d": 1407,
+   "t": "The Nightingale"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "occurrence_owl_creek_bridge_bierce_szp_64kb.mp3",
+   "d": 1318,
+   "t": "An Occurrence at Owl Creek Bridge"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "romeoandjuliet_hazlitt_db_64kb.mp3",
+   "d": 1947,
+   "t": "Romeo and Juliet [Essay]"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "sorrow_chekhov_pl_64kb.mp3",
+   "d": 986,
+   "t": "Sorrow"
+  },
+  {
+   "pool": "stories",
+   "id": "short_story_007",
+   "f": "warprayer_twain_jg_64kb.mp3",
+   "d": 565,
+   "t": "The War Prayer"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "black_cat_poe_ty_64kb.mp3",
+   "d": 1618,
+   "t": "The Black Cat"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "children_zodiac_kipling_ce_64kb.mp3",
+   "d": 2536,
+   "t": "The Children of the Zodiac"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "duplicity_of_hargraves_henry_wsc_64kb.mp3",
+   "d": 1806,
+   "t": "Duplicity of Hargraves"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "markheim_stevenson_wsc_64kb.mp3",
+   "d": 2636,
+   "t": "Markheim"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "nice_people_bunner_wsc_64kb.mp3",
+   "d": 1187,
+   "t": "The Nice People"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "pigs_is_pigs_butler_blb_64kb.mp3",
+   "d": 1393,
+   "t": "Pigs Is Pigs"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "pit_and_the_pendulum_64kb.mp3",
+   "d": 2348,
+   "t": "The Pit and the Pendulum"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "taming_the_bicycle_twain_ep_64kb.mp3",
+   "d": 1692,
+   "t": "Taming The Bicycle"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "telltale_heart_poe_dm_64kb.mp3",
+   "d": 1088,
+   "t": "The Telltale Heart"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "baby_tramp_bierce_py_64kb.mp3",
+   "d": 794,
+   "t": "A Baby Tramp"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "cask_of_amontillado_poe_zw-rh_64kb.mp3",
+   "d": 945,
+   "t": "The Cask of Amontillado"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "diamond_necklace_maupassant_aa_64kb.mp3",
+   "d": 1165,
+   "t": "The Diamond Necklace"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "esme_saki_ib_64kb.mp3",
+   "d": 779,
+   "t": "Esme"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "last_leaf_henry_jtm_64kb.mp3",
+   "d": 997,
+   "t": "The Last Leaf"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "little_match_girl_anderson_th_64kb.mp3",
+   "d": 414,
+   "t": "The Little Match Girl"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "toys_of_peace_saki_tyj_64kb.mp3",
+   "d": 691,
+   "t": "The Toys of Peace"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "young_goodman_brown_hawthorne_btr_64kb.mp3",
+   "d": 2384,
+   "t": "Young Goodman Brown"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "dalyrimple_goes_wrong_fitzgerald_wsc_64kb.mp3",
+   "d": 2403,
+   "t": "Dalyrimple Goes Wrong"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "danger_of_lying_in_bed_twain_km_64kb.mp3",
+   "d": 470,
+   "t": "The Danger of Lying in Bed"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "god_sees_the_truth_and_waits_tolstoy_wsc_64kb.mp3",
+   "d": 1095,
+   "t": "God Sees the Truth, But Waits"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "great_french_duel_twain_btr_64kb.mp3",
+   "d": 1606,
+   "t": "The Great French Duel"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "leopard_mans_story_london_km_64kb.mp3",
+   "d": 553,
+   "t": "The Leopard Man"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "monkeys_paw_jacobs_64kb.mp3",
+   "d": 1552,
+   "t": "The Monkey's Paw"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "open_window_saki_mh_64kb.mp3",
+   "d": 389,
+   "t": "The Open Window"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "quest_saki_ianish_64kb.mp3",
+   "d": 754,
+   "t": "The Quest"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "story_of_an_hour_chopin_ho_64kb.mp3",
+   "d": 469,
+   "t": "The Story of an Hour"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "to_build_a_fire_london_blb_64kb.mp3",
+   "d": 2403,
+   "t": "To Build a Fire"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "adventure_dying_detective_doyle_zfbg_64kb.mp3",
+   "d": 2084,
+   "t": "The Adventure of the Dying Detective"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "after_twenty_years_henry_dr_64kb.mp3",
+   "d": 431,
+   "t": "After Twenty Years"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "childs_dream_of_a_star_dickens_sc_64kb.mp3",
+   "d": 405,
+   "t": "A Child's Dream of a Star"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "damned_thing_bierce_ge_64kb.mp3",
+   "d": 1278,
+   "t": "The Damned Thing"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "facts_concerning_arthur_jermyn_lovecraft_sj_64kb.mp3",
+   "d": 1292,
+   "t": "Facts Concerning The Late Arthur Jermyn and His Family"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "last_lesson_daudet_dp_64kb.mp3",
+   "d": 674,
+   "t": "The Last Lesson"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "leopard_man_story_london_slk_64kb.mp3",
+   "d": 541,
+   "t": "The Leopard Man's Story"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "maddened_by_mystery_leacock_wsc_64kb.mp3",
+   "d": 985,
+   "t": "Maddened by Mystery"
+  },
+  {
+   "pool": "stories",
+   "id": "stories_006_librivox",
+   "f": "mountain_woman_peattie_blb_64kb.mp3",
+   "d": 2166,
+   "t": "A Mountain Woman"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "balder_mabie_bd_64kb.mp3",
+   "d": 1226,
+   "t": "Balder"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "d": 1852,
+   "t": "Beauty and the Beast"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "celebrated_jumping_frog_of_calaveras_county_twain_rgn_64kb.mp3",
+   "d": 846,
+   "t": "The Celebrated Jumping Frog of Calaveras County"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "coopers_offenses2_twain_lf_64kb.mp3",
+   "d": 2086,
+   "t": "Fenimore Cooper's Literary Offenses"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "deacon_lampton_cs_64kb.mp3",
+   "d": 1041,
+   "t": "The Deacon"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "furnished_room_henry_wsc_64kb.mp3",
+   "d": 1018,
+   "t": "The Furnished Room"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "mother_goose_04_baum_sdw_64kb.mp3",
+   "d": 597,
+   "t": "The Cat and the Fiddle"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "mother_goose_05_baum_sdw_64kb.mp3",
+   "d": 597,
+   "t": "The Black Sheep"
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "rikki_tikki_tavi_kipling_mrb_64kb.mp3",
+   "d": 1967,
+   "t": "Rikki Tikki Tavi"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (04) Actor's Alibi.mp3",
+   "d": 1575,
+   "t": "Actor's Alibi"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (10) The Great Torino.mp3",
+   "d": 1598,
+   "t": "The Great Torino"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (17) The Haunted Artist.mp3",
+   "d": 1610,
+   "t": "The Haunted Artist"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (23) Three To Die.mp3",
+   "d": 1584,
+   "t": "Three To Die"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (30) Death Is A Doll.mp3",
+   "d": 1591,
+   "t": "Death Is A Doll"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (36) Find Me, Find Death.mp3",
+   "d": 1591,
+   "t": "Find Me, Find Death"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (43) The Dead Man Walks.mp3",
+   "d": 1593,
+   "t": "The Dead Man Walks"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Box_13_Singles",
+   "f": "Box 13 4x-xx-xx (49) The Perfect Crime.mp3",
+   "d": 1593,
+   "t": "The Perfect Crime"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 49-08-25 (007) The Val Dane Murder Case.mp3",
+   "d": 1771,
+   "t": "The Val Dane Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 50-03-31 (028) The Hope Anderson Murder Case.mp3",
+   "d": 1773,
+   "t": "The Hope Anderson Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 50-10-13 (049) The Helen Carrol Murder Case.mp3",
+   "d": 1769,
+   "t": "The Helen Carrol Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 51-06-16 (067) The Frank Dunn Murder Case.mp3",
+   "d": 1771,
+   "t": "The Frank Dunn Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 51-11-17 (087) The Alex Raymond Murder Case.mp3",
+   "d": 1683,
+   "t": "The Alex Raymond Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 52-06-16 (117) The Lila Hunter Murder Case.mp3",
+   "d": 1510,
+   "t": "The Lila Hunter Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 53-02-14 (152) The Artie Blanchard Case.mp3",
+   "d": 1757,
+   "t": "The Artie Blanchard Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Broadway_Is_My_Beat_Singles",
+   "f": "BIMB 53-06-27 (171) The Sophie Brettin Murder Case.mp3",
+   "d": 1734,
+   "t": "The Sophie Brettin Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1953-06-29 (003) The Checkered Life and Sudden Death of Colonel James Fisk, Jr..mp3",
+   "d": 1780,
+   "t": "The Checkered Life and Sudden Death of Colonel James Fisk, Jr."
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1953-08-17 (010) The Incredible Trial of Laura D. Fair (AFRTS).mp3",
+   "d": 1780,
+   "t": "The Incredible Trial of Laura D. Fair"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1953-10-14 (016) The Seven-layered Arsenic Cake of Madame Lafarge.mp3",
+   "d": 1782,
+   "t": "The Seven-layered Arsenic Cake of Madame Lafarge"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1953-12-09 (024) The Assassination of Abraham Lincoln (AFRTS).mp3",
+   "d": 1782,
+   "t": "The Assassination of Abraham Lincoln"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay.mp3",
+   "d": 1771,
+   "t": "How Supan Got the Hook Outside Bombay"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-02-24 (034) The Good Ship Jane, Why She Became Flotsam.mp3",
+   "d": 1785,
+   "t": "The Good Ship Jane, Why She Became Flotsam"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-06-09 (048) The Assassination of Leon Trotsky.mp3",
+   "d": 1766,
+   "t": "The Assassination of Leon Trotsky"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "LGDI 48-05-03 (086) Under the River (aka Tunnel Project).mp3",
+   "d": 1776,
+   "t": "Under the River (aka Tunnel Project)"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "LGDI 49-06-13 (144) Serenade to the Southern Star.mp3",
+   "d": 1774,
+   "t": "Serenade to the Southern Star"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "LGDI 50-07-17 (201) Eleven O'clock.mp3",
+   "d": 1760,
+   "t": "Eleven O'Clock"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "LGDI 52-01-21 (280) A Matter of Honor.mp3",
+   "d": 1781,
+   "t": "A Matter of Honor"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1948-07-26 (098) The Lie That Came True.mp3",
+   "d": 1778,
+   "t": "The Lie That Came True"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1949-12-19 (171) Follow That Train!.mp3",
+   "d": 1710,
+   "t": "Follow That Train!"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1952-02-18 (284) The Symbol Three.mp3",
+   "d": 1773,
+   "t": "The Symbol Three"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 49-07-02 (011) The Bloody Hat Case.mp3",
+   "d": 1770,
+   "t": "The Bloody Hat Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 49-10-22 (026) Rene Bennet Protection Case.mp3",
+   "d": 1772,
+   "t": "Rene Bennet Protection Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 50-01-15 (038) Mr Victor's Daughter.mp3",
+   "d": 1772,
+   "t": "Mr Victor's Daughter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 50-04-26 (051) The Ralph Baxter Case.mp3",
+   "d": 1771,
+   "t": "The Ralph Baxter Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 50-09-13 (064) The George Lexington Murder Case.mp3",
+   "d": 1771,
+   "t": "The George Lexington Murder Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 51-01-26 (080) The Rawlins Case.mp3",
+   "d": 1770,
+   "t": "The Rawlins Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 52-01-11 (117) The White Cow Case.mp3",
+   "d": 1766,
+   "t": "The White Cow Case"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 53-08-02 (150) Lt. Levinson Kidnapped (AFRTS).mp3",
+   "d": 1486,
+   "t": "Lt. Levinson Kidnapped"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1949-11-05 024 The Island of Tin-Yutan (The South Sea Adventure).mp3",
+   "d": 1780,
+   "t": "The Island of Tin-Yutan (The South Sea Adventure)"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1951-12-29 125 The Alma Scott Matter.mp3",
+   "d": 1682,
+   "t": "The Alma Scott Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1953-08-25 177 The Nelson Matter.mp3",
+   "d": 1777,
+   "t": "The Nelson Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1954-06-08 218 The Sara Dearing Matter [AFRTS].mp3",
+   "d": 1710,
+   "t": "The Sara Dearing Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1957-07-28 545 The Confederate Coinage Matter [AFRTS].mp3",
+   "d": 1788,
+   "t": "The Confederate Coinage Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1958-08-10 599 The Two Faced Matter.mp3",
+   "d": 1420,
+   "t": "The Two Faced Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1960-01-31 674 The Merry-Go-Round Matter.mp3",
+   "d": 1498,
+   "t": "The Merry-Go-Round Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1961-01-15 721 The Very Fishy Matter.mp3",
+   "d": 1484,
+   "t": "The Very Fishy Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1961-10-08 759 The Medium Rare Matter.mp3",
+   "d": 1447,
+   "t": "The Medium Rare Matter"
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_YoursTrulyJohnnyDollar_Singles",
+   "f": "YTJD 1962-06-17 794 The All Too Easy Matter.mp3",
+   "d": 1399,
+   "t": "The All Too Easy Matter"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-01-GoldbergVariationsBwv.988-Aria.mp3",
+   "d": 292,
+   "t": "Aria"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-02-GoldbergVariationsBwv.988-Variation1.mp3",
+   "d": 114,
+   "t": "Variation 1"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-03-GoldbergVariationsBwv.988-Variation2.mp3",
+   "d": 87,
+   "t": "Variation 2"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-04-GoldbergVariationsBwv.988-Variation3.CanonOnTheUnison.mp3",
+   "d": 113,
+   "t": "Variation 3. Canon on the unison"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-05-GoldbergVariationsBwv.988-Variation4.mp3",
+   "d": 53,
+   "t": "Variation 4"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-06-GoldbergVariationsBwv.988-Variation5.mp3",
+   "d": 77,
+   "t": "Variation 5"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-07-GoldbergVariationsBwv.988-Variation6.CanonOnTheSecond.mp3",
+   "d": 62,
+   "t": "Variation 6. Canon on the second"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-08-GoldbergVariationsBwv.988-Variation7.mp3",
+   "d": 174,
+   "t": "Variation 7"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-09-GoldbergVariationsBwv.988-Variation8.mp3",
+   "d": 103,
+   "t": "Variation 8"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-10-GoldbergVariationsBwv.988-Variation9.CanonOnTheThird.mp3",
+   "d": 99,
+   "t": "Variation 9. Canon on the third"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-11-GoldbergVariationsBwv.988-Variation10.Fughetta.mp3",
+   "d": 86,
+   "t": "Variation 10. Fughetta"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-12-GoldbergVariationsBwv.988-Variation11.mp3",
+   "d": 94,
+   "t": "Variation 11"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-13-GoldbergVariationsBwv.988-Variation12.CanonOnTheFourth.mp3",
+   "d": 153,
+   "t": "Variation 12. Canon on the fourth"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-14-GoldbergVariationsBwv.988-Variation13.mp3",
+   "d": 338,
+   "t": "Variation 13"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-15-GoldbergVariationsBwv.988-Variation14.mp3",
+   "d": 121,
+   "t": "Variation 14"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-16-GoldbergVariationsBwv.988-Variation15.CanonOnTheFifth.mp3",
+   "d": 286,
+   "t": "Variation 15. Canon on the fifth"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-17-GoldbergVariationsBwv.988-Variation16.Overture.mp3",
+   "d": 106,
+   "t": "Variation 16. Overture"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-18-GoldbergVariationsBwv.988-Variation17.mp3",
+   "d": 95,
+   "t": "Variation 17"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-19-GoldbergVariationsBwv.988-Variation18.CanonOnTheSixth.mp3",
+   "d": 88,
+   "t": "Variation 18. Canon on the sixth"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-20-GoldbergVariationsBwv.988-Variation19.mp3",
+   "d": 71,
+   "t": "Variation 19"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-21-GoldbergVariationsBwv.988-Variation20.mp3",
+   "d": 106,
+   "t": "Variation 20"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-22-GoldbergVariationsBwv.988-Variation21.CanonOnTheSeventh.mp3",
+   "d": 97,
+   "t": "Variation 21. Canon on the seventh"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-23-GoldbergVariationsBwv.988-Variation22.mp3",
+   "d": 137,
+   "t": "Variation 22"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-24-GoldbergVariationsBwv.988-Variation23.mp3",
+   "d": 125,
+   "t": "Variation 23"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-25-GoldbergVariationsBwv.988-Variation24.CanonOnTheOctave.mp3",
+   "d": 165,
+   "t": "Variation 24. Canon on the octave"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-26-GoldbergVariationsBwv.988-Variation25.mp3",
+   "d": 410,
+   "t": "Variation 25"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-27-GoldbergVariationsBwv.988-Variation26.mp3",
+   "d": 110,
+   "t": "Variation 26"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-28-GoldbergVariationsBwv.988-Variation27.CanonOnTheNinth.mp3",
+   "d": 93,
+   "t": "Variation 27. Canon on the ninth"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-29-GoldbergVariationsBwv.988-Variation28.mp3",
+   "d": 136,
+   "t": "Variation 28"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-30-GoldbergVariationsBwv.988-Variation29.mp3",
+   "d": 118,
+   "t": "Variation 29"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-31-GoldbergVariationsBwv.988-Variation30.Quodlibet.mp3",
+   "d": 102,
+   "t": "Variation 30. Quodlibet"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo.mp3",
+   "d": 340,
+   "t": "Aria Da Capo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_CoriolanOverture/LudwigVanBeethoven-CoriolanOverture.mp3",
+   "d": 498,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_EgmontOvertureOp.84/LudwigVanBeethoven-EgmontOvertureOp.84.mp3",
+   "d": 540,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-01-AllegroConBrio.mp3",
+   "d": 281,
+   "t": "Allegro con brio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-02-AdagioMaNonTroppo.mp3",
+   "d": 421,
+   "t": "Adagio ma non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-03-ScherzoAllegro.mp3",
+   "d": 252,
+   "t": "Scherzo Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-04-adagioLaMalinconia.mp3",
+   "d": 492,
+   "t": "(Adagio) La Malinconia"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_SymphonyNo.3Eroica/LudwigVanBeethoven-SymphonyNo.3InEFlatMajorEroicaOp.55-01-AllegroConBrio.mp3",
+   "d": 911,
+   "t": "Allegro con brio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_SymphonyNo.3Eroica/LudwigVanBeethoven-SymphonyNo.3InEFlatMajorEroicaOp.55-02-MarciaFunebreAdagioAssai.mp3",
+   "d": 928,
+   "t": "Marcia funebre Adagio assai"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_SymphonyNo.3Eroica/LudwigVanBeethoven-SymphonyNo.3InEFlatMajorEroicaOp.55-03-ScherzoAllegroVivace.mp3",
+   "d": 349,
+   "t": "Scherzo Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_SymphonyNo.3Eroica/LudwigVanBeethoven-SymphonyNo.3InEFlatMajorEroicaOp.55-04-FinaleAllegroMolto.mp3",
+   "d": 704,
+   "t": "Finale Allegro molto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_InTheSteppesOfCentralAsia/AlexanderBorodin-InTheSteppesOfCentralAsia.mp3",
+   "d": 458,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.1inAMajor/AlexanderBorodin-StringQuartetNo.1InAMajor-01-Moderato-Allegro.mp3",
+   "d": 887,
+   "t": "Moderato - Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.1inAMajor/AlexanderBorodin-StringQuartetNo.1InAMajor-02-AndanteConMoto.mp3",
+   "d": 517,
+   "t": "Andante con moto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.1inAMajor/AlexanderBorodin-StringQuartetNo.1InAMajor-03-ScherzoPrestissimo.mp3",
+   "d": 114,
+   "t": "Scherzo Prestissimo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.1inAMajor/AlexanderBorodin-StringQuartetNo.1InAMajor-04-Andante-AllegroRisoluto.mp3",
+   "d": 533,
+   "t": "Andante - Allegro risoluto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.2inDMajor/AlexanderBorodin-StringQuartetNo.2InDMajor-01-AllegroModerato.mp3",
+   "d": 541,
+   "t": "Allegro moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.2inDMajor/AlexanderBorodin-StringQuartetNo.2InDMajor-02-ScherzoAllegro.mp3",
+   "d": 336,
+   "t": "Scherzo Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.2inDMajor/AlexanderBorodin-StringQuartetNo.2InDMajor-03-NocturneAndante.mp3",
+   "d": 547,
+   "t": "Nocturne Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Borodin_StringQuartetNo.2inDMajor/AlexanderBorodin-StringQuartetNo.2InDMajor-04-FinaleAndante-Vivace.mp3",
+   "d": 434,
+   "t": "Finale Andante - Vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.1inCMinor/JohannesBrahms-SymphonyNo.1InCMinorOp.68-01-UnPocoSostenuto-Allegro.mp3",
+   "d": 909,
+   "t": "Un poco sostenuto - Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.1inCMinor/JohannesBrahms-SymphonyNo.1InCMinorOp.68-02-AndanteSostenuto.mp3",
+   "d": 517,
+   "t": "Andante sostenuto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.1inCMinor/JohannesBrahms-SymphonyNo.1InCMinorOp.68-03-UnPocoAllegrettoEGrazioso.mp3",
+   "d": 295,
+   "t": "Un poco allegretto e grazioso"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.1inCMinor/JohannesBrahms-SymphonyNo.1InCMinorOp.68-04-Adagio-PiAndante-AllegroNonTroppoMaConBrio.mp3",
+   "d": 1016,
+   "t": "Adagio - Più andante - Allegro non troppo, ma con brio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.2inDMajor/JohannesBrahms-SymphonyNo.2InDMajorOp.73-01-AllegroNonTroppo.mp3",
+   "d": 1000,
+   "t": "Allegro non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.2inDMajor/JohannesBrahms-SymphonyNo.2InDMajorOp.73-02-AdagioNonToppo.mp3",
+   "d": 556,
+   "t": "Adagio non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.2inDMajor/JohannesBrahms-SymphonyNo.2InDMajorOp.73-03-AllegrettoGraziosotake1.mp3",
+   "d": 302,
+   "t": "Allegretto grazioso"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.2inDMajor/JohannesBrahms-SymphonyNo.2InDMajorOp.73-04-AllegroConSpirito.mp3",
+   "d": 585,
+   "t": "Allegro Con Spirito"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.3inFMajor/JohannesBrahms-SymphonyNo.3InFMajorOp.90-01-AllegroConBrio.mp3",
+   "d": 605,
+   "t": "Allegro con brio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.3inFMajor/JohannesBrahms-SymphonyNo.3InFMajorOp.90-02-Andante.mp3",
+   "d": 529,
+   "t": "Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.3inFMajor/JohannesBrahms-SymphonyNo.3InFMajorOp.90-03-PocoAllegretto.mp3",
+   "d": 370,
+   "t": "Poco allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.3inFMajor/JohannesBrahms-SymphonyNo.3InFMajorOp.90-04-Allegro.mp3",
+   "d": 586,
+   "t": "Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.4inEMinor/JohannesBrahms-SymphonyNo.4InEMinorOp.98-01-AllegroNonTroppo.mp3",
+   "d": 760,
+   "t": "Allegro Non Troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.4inEMinor/JohannesBrahms-SymphonyNo.4InEMinorOp.98-02-AndanteModerato.mp3",
+   "d": 674,
+   "t": "Andante Moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.4inEMinor/JohannesBrahms-SymphonyNo.4InEMinorOp.98-03-AllegroGiocoso.mp3",
+   "d": 379,
+   "t": "Allegro Giocoso"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_SymphonyNo.4inEMinor/JohannesBrahms-SymphonyNo.4InEMinorOp.98-04-AllegroEnergicoEPassionato.mp3",
+   "d": 667,
+   "t": "Allegro Energico e Passionato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Brahms_TragicOverture/JohannesBrahms-TragicOverture.mp3",
+   "d": 829,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.10inEFlatOp.51/AntonnDvorak-StringQuartetNo.10InEFlatOp.51-01-AllegroMaNonTroppo.mp3",
+   "d": 675,
+   "t": "Allegro Ma Non Troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.10inEFlatOp.51/AntonnDvorak-StringQuartetNo.10InEFlatOp.51-02-Dumka.mp3",
+   "d": 465,
+   "t": "Dumka"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.10inEFlatOp.51/AntonnDvorak-StringQuartetNo.10InEFlatOp.51-03-Romanza.mp3",
+   "d": 367,
+   "t": "Romanza"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.10inEFlatOp.51/AntonnDvorak-StringQuartetNo.10InEFlatOp.51-04-FinaleAllegroAssai.mp3",
+   "d": 434,
+   "t": "Finale Allegro Assai"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-01-AllegroMaNonTroppo.mp3",
+   "d": 475,
+   "t": "Allegro ma non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-02-Lento.mp3",
+   "d": 471,
+   "t": "Lento"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-03-MoltoVivace.mp3",
+   "d": 250,
+   "t": "Molto Vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-04-Finale-VivaceMaNonTroppo.mp3",
+   "d": 351,
+   "t": "Finale - Vivace ma non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Greig_PeerGynt/EdvardGrieg-PeerGyntSuiteNo.1Op.46-01-Morning.mp3",
+   "d": 229,
+   "t": "Morning"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Greig_PeerGynt/EdvardGrieg-PeerGyntSuiteNo.1Op.46-02-AasesDeath.mp3",
+   "d": 273,
+   "t": "Aase's Death"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Greig_PeerGynt/EdvardGrieg-PeerGyntSuiteNo.1Op.46-03-AnitrasDream.mp3",
+   "d": 239,
+   "t": "Anitra's Dream"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Greig_PeerGynt/EdvardGrieg-PeerGyntSuiteNo.1Op.46-04-InTheHallOfTheMountainKing.mp3",
+   "d": 154,
+   "t": "In the Hall of the Mountain King"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Haydn_StringQuartetInDMajorOp.64/JosephHaydn-StringQuartetInDOp.645H363Lark-01-AllegroModerato.mp3",
+   "d": 371,
+   "t": "Allegro Moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Haydn_StringQuartetInDMajorOp.64/JosephHaydn-StringQuartetInDOp.645H363Lark-02-AdagioCantabile.mp3",
+   "d": 291,
+   "t": "Adagio, Cantabile"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Haydn_StringQuartetInDMajorOp.64/JosephHaydn-StringQuartetInDOp.645H363Lark-03-MenuettoAllegretto.mp3",
+   "d": 226,
+   "t": "Menuetto Allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Haydn_StringQuartetInDMajorOp.64/JosephHaydn-StringQuartetInDOp.645H363Lark-04-FinaleVivace.mp3",
+   "d": 91,
+   "t": "Finale Vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_Hebrides/FelixMendelssohn-HebridesOvertureFingalsCave.mp3",
+   "d": 682,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ItalianSymphony/FelixMendelssohn-SymphonyNo.4InAMajorOp.90italian-01-AllegroVivace.mp3",
+   "d": 463,
+   "t": "Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ItalianSymphony/FelixMendelssohn-SymphonyNo.4InAMajorOp.90italian-02-AndanteConMoto.mp3",
+   "d": 347,
+   "t": "Andante con moto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ItalianSymphony/FelixMendelssohn-SymphonyNo.4InAMajorOp.90italian-03-ConMotoModerato.mp3",
+   "d": 425,
+   "t": "Con moto moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ItalianSymphony/FelixMendelssohn-SymphonyNo.4InAMajorOp.90italian-04-Saltarellopresto.mp3",
+   "d": 367,
+   "t": "Saltarello (Presto)"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ScottishSymphony/FelixMendelssohn-SymphonyNo.3InAMinorscottishOp.56-01-AndanteConMoto.mp3",
+   "d": 845,
+   "t": "Andante con moto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ScottishSymphony/FelixMendelssohn-SymphonyNo.3InAMinorscottishOp.56-02-VivaceNonTroppo.mp3",
+   "d": 264,
+   "t": "Vivace non troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ScottishSymphony/FelixMendelssohn-SymphonyNo.3InAMinorscottishOp.56-03-Adagio.mp3",
+   "d": 571,
+   "t": "Adagio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_ScottishSymphony/FelixMendelssohn-SymphonyNo.3InAMinorscottishOp.56-04-AllegroVivacissimo.mp3",
+   "d": 682,
+   "t": "Allegro vivacissimo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_StringQuartetNo.6inFMinorOp.80/FelixMendelssohn-StringQuartetNo.6InFMinorOp.80-01-AllegroVivaceAssai.mp3",
+   "d": 461,
+   "t": "Allegro vivace assai"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_StringQuartetNo.6inFMinorOp.80/FelixMendelssohn-StringQuartetNo.6InFMinorOp.80-02-AllegroAssai.mp3",
+   "d": 298,
+   "t": "Allegro assai"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_StringQuartetNo.6inFMinorOp.80/FelixMendelssohn-StringQuartetNo.6InFMinorOp.80-03-Adagio.mp3",
+   "d": 486,
+   "t": "Adagio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mendelssohn_StringQuartetNo.6inFMinorOp.80/FelixMendelssohn-StringQuartetNo.6InFMinorOp.80-04-Fuga.mp3",
+   "d": 374,
+   "t": "Fuga"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_MagicFluteOverture/WolfgangAmadeusMozart-MagicFluteOverture.mp3",
+   "d": 400,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_MarriageOfFigaro/WolfgangAmadeusMozart-MarriageOfFigaro.mp3",
+   "d": 241,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.15inDMinorK421/WolfgangAmadeusMozart-StringQuartetNo.15InDMinorK421-01-AllegroModerato.mp3",
+   "d": 460,
+   "t": "Allegro Moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.15inDMinorK421/WolfgangAmadeusMozart-StringQuartetNo.15InDMinorK421-02-Andante.mp3",
+   "d": 315,
+   "t": "Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.15inDMinorK421/WolfgangAmadeusMozart-StringQuartetNo.15InDMinorK421-03-Minuetto.mp3",
+   "d": 252,
+   "t": "Minuetto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.15inDMinorK421/WolfgangAmadeusMozart-StringQuartetNo.15InDMinorK421-04-AllegroMaNonTroppo.mp3",
+   "d": 397,
+   "t": "Allegro Ma Non Troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.19inCMajorK465/WolfgangAmadeusMozart-StringQuartetNo.19InCK465Dissonance-01-AdagioAllegro.mp3",
+   "d": 513,
+   "t": "Adagio Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.19inCMajorK465/WolfgangAmadeusMozart-StringQuartetNo.19InCK465Dissonance-02-AndanteCantabile.mp3",
+   "d": 461,
+   "t": "Andante Cantabile"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.19inCMajorK465/WolfgangAmadeusMozart-StringQuartetNo.19InCK465Dissonance-03-MinuettoAllegretto.mp3",
+   "d": 323,
+   "t": "Minuetto Allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_StringQuartetNo.19inCMajorK465/WolfgangAmadeusMozart-StringQuartetNo.19InCK465Dissonance-04-AllegroVolto.mp3",
+   "d": 351,
+   "t": "Allegro molto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_SymphonyNo.40inGMinor/WolfgangAmadeusMozart-SymphonyNo.40InGMinorK.550-01-MoltoAllegro.mp3",
+   "d": 358,
+   "t": "Molto Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_SymphonyNo.40inGMinor/WolfgangAmadeusMozart-SymphonyNo.40InGMinorK.550-02-Andante.mp3",
+   "d": 456,
+   "t": "Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_SymphonyNo.40inGMinor/WolfgangAmadeusMozart-SymphonyNo.40InGMinorK.550-03-MenuettoAllegretto.mp3",
+   "d": 272,
+   "t": "Menuetto Allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Mozart_SymphonyNo.40inGMinor/WolfgangAmadeusMozart-SymphonyNo.40InGMinorK.550-04-AllegroAssai.mp3",
+   "d": 284,
+   "t": "Allegro assai"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Rimsky-Korsakov_RussianOverture/NikolaiRimsky-korsakov-RussianEasterFestivalOvertureOp.36.mp3",
+   "d": 936,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMajorD.664/FranzSchubert-SonataInAMajorD.664-01-AllegroModerato.mp3",
+   "d": 466,
+   "t": "Allegro moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMajorD.664/FranzSchubert-SonataInAMajorD.664-02-Andante.mp3",
+   "d": 290,
+   "t": "Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMajorD.664/FranzSchubert-SonataInAMajorD.664-03-Allegro.mp3",
+   "d": 347,
+   "t": "Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-01-AllegroGiusto.mp3",
+   "d": 529,
+   "t": "Allegro giusto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-02-Andante.mp3",
+   "d": 229,
+   "t": "Andante"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-03-AllegroVivace.mp3",
+   "d": 371,
+   "t": "Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-01-Moderato.mp3",
+   "d": 696,
+   "t": "Moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-02-AndantePocoMosso.mp3",
+   "d": 784,
+   "t": "Andante poco mosso"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-03-Scherzo.AllegroVivace-Trio.UnPocoPiuLento.mp3",
+   "d": 475,
+   "t": "Scherzo. Allegro vivace - Trio. Un poco piu lento"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-04-Rondo.AllegroVivace.mp3",
+   "d": 362,
+   "t": "Rondo. Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-01-Allegro.mp3",
+   "d": 690,
+   "t": "Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-02-Andantino.mp3",
+   "d": 546,
+   "t": "Andantino"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-03-Scherzo.AllegroVivace.mp3",
+   "d": 325,
+   "t": "Scherzo. Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-04-Rondo.Allegretto.mp3",
+   "d": 714,
+   "t": "Rondo. Allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-01-Allegro.mp3",
+   "d": 710,
+   "t": "Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-02-Adagio.mp3",
+   "d": 468,
+   "t": "Adagio"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-03-MenuettoAllegro.mp3",
+   "d": 194,
+   "t": "Menuetto Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-04-Allegro.mp3",
+   "d": 655,
+   "t": "Allegro"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-01-AllegroVivace.mp3",
+   "d": 578,
+   "t": "Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-02-ConMoto.mp3",
+   "d": 726,
+   "t": "Con moto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-03-Scherzo.AllegroVivace.mp3",
+   "d": 629,
+   "t": "Scherzo. Allegro vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato.mp3",
+   "d": 556,
+   "t": "Rondo. Allegro moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-01-AllegroModerato.mp3",
+   "d": 647,
+   "t": "Allegro moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-02-AndanteMolto.mp3",
+   "d": 417,
+   "t": "Andante molto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-03-MenuettoAllegretto.mp3",
+   "d": 307,
+   "t": "Menuetto Allegretto"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-04-AllegroModerato.mp3",
+   "d": 499,
+   "t": "Allegro moderato"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Smetana_Vltava/BedichSmetana-MVlast-Vltava.mp3",
+   "d": 770,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Suk_Meditation/JosefSuk-Meditation.mp3",
+   "d": 405,
+   "t": ""
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Tchaikovsky_SymphonyPathetique/PyotrIlyichTchaikovsky-SymphonyNo.6InBMinorOp.74pathtique-01-AdagioAllegroNonTroppo.mp3",
+   "d": 1051,
+   "t": "Adagio, Allegro Non Troppo"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Tchaikovsky_SymphonyPathetique/PyotrIlyichTchaikovsky-SymphonyNo.6InBMinorOp.74pathtique-02-AllegroConGracia.mp3",
+   "d": 496,
+   "t": "Allegro con gracia"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Tchaikovsky_SymphonyPathetique/PyotrIlyichTchaikovsky-SymphonyNo.6InBMinorOp.74pathtique-03-AllegroMoltoVivace.mp3",
+   "d": 593,
+   "t": "Allegro molto vivace"
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Tchaikovsky_SymphonyPathetique/PyotrIlyichTchaikovsky-SymphonyNo.6InBMinorOp.74pathtique-04-FinaleAdagioLamentoso.mp3",
+   "d": 619,
+   "t": "Finale Adagio lamentoso"
+  }
+ ]
+}
