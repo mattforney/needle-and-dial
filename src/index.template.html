@@ -93,6 +93,32 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .row .rc{font-family:Oswald,sans-serif}.row .rc b{font-size:18px;color:var(--glass-hot);font-weight:600}.row .rc span{display:block;font-size:13px;color:var(--muted)}
 .slot small{display:block;font-family:Oswald,sans-serif;font-size:13px;color:var(--muted);white-space:nowrap}
 .slot div{font-size:15px;line-height:1.3}
+.radiolog{margin-top:34px}
+.radiolog h2{font-family:Oswald,sans-serif;font-weight:500;font-size:clamp(24px,3vw,32px);line-height:1.05;margin:0 0 4px}
+.radiolog .note{color:var(--muted);font-size:15px;margin:0 0 14px}
+.paper{background:#efe6d1;color:#2a2018;border-radius:12px;padding:14px 18px 18px;font-family:Georgia,'Times New Roman',serif;box-shadow:inset 0 0 0 1px #cbbd9c}
+.rl-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;border-bottom:3px double #2a2018;padding-bottom:10px;margin-bottom:10px}
+.rl-days{display:flex;flex-wrap:wrap;gap:6px}
+.rl-days button{font:inherit;font-size:14px;line-height:1.1;min-height:44px;padding:4px 10px;border:1px solid #8c7a5a;border-radius:6px;background:transparent;color:#2a2018;cursor:pointer;text-align:left}
+.rl-days button small{display:block;font-size:12px;color:#5d4e38}
+.rl-days button[aria-pressed="true"]{background:#2a2018;color:#efe6d1;border-color:#2a2018}.rl-days button[aria-pressed="true"] small{color:#d8cbb0}
+.rl-pick{font-size:14px;display:flex;gap:8px;align-items:center}
+.rl-pick select{font:inherit;font-size:15px;min-height:40px;padding:4px 8px;border:1px solid #8c7a5a;border-radius:6px;background:#f7f0e0;color:#2a2018}
+.rl-body{column-width:300px;column-gap:28px;column-rule:1px solid #cbbd9c}
+.rl-hour{break-inside:avoid;margin:0 0 12px}
+.rl-hour h3{font-size:13px;font-variant:small-caps;letter-spacing:.08em;font-weight:700;border-bottom:1px solid #2a2018;margin:0 0 4px;padding-bottom:2px}
+.rl-hour ul{list-style:none;margin:0;padding:0}
+.rl-hour li{display:grid;grid-template-columns:3.3em 3.5em minmax(0,1fr);gap:0 6px;align-items:baseline;padding:3px 0;font-size:15px;line-height:1.3}
+.rl-hour time{font-variant-numeric:tabular-nums;color:#5d4e38}
+.rl-call{font:inherit;font-weight:700;font-size:13px;letter-spacing:.04em;border:0;background:none;color:#2a2018;padding:0;min-height:24px;text-align:left;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.rl-hour a{color:#2a2018;text-decoration:none}.rl-hour a:hover,.rl-hour a:focus-visible{text-decoration:underline}
+.rl-hour .rl-t{display:block;min-width:0}.rl-hour .rl-len{display:block;font-size:12px;color:#6b5b42}
+.rl-early{font:inherit;font-size:14px;min-height:40px;padding:4px 12px;margin:0 0 10px;border:1px solid #8c7a5a;border-radius:6px;background:transparent;color:#2a2018;cursor:pointer;column-span:all}
+.rl-hour li.past{opacity:.55}
+.rl-hour li.now{background:#e3d6b8;box-shadow:-6px 0 0 #e3d6b8,6px 0 0 #e3d6b8}
+.rl-hour li.now .rl-len::before{content:'On now · '}
+.rl-music{font-size:14px;margin:0 0 10px;color:#4a3d2b}
+.rl-empty{font-style:italic;color:#5d4e38}
 .band-h{font-family:Oswald,sans-serif;color:var(--muted);font-size:15px;margin:14px 2px 2px}
 .about{margin-top:38px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 32px}
 .about h2{grid-column:1/-1}
@@ -148,6 +174,18 @@ body.has-dbg .wrap{padding-bottom:42vh}
   <h2 id="logh">On the dial</h2>
   <p class="note" id="lognote">Times are in your time zone. Choose a station to tune in.</p>
   <div class="rows" id="rows"></div>
+</section>
+
+<section class="radiolog" aria-labelledby="rlh">
+  <h2 id="rlh">Radio Log</h2>
+  <p class="note">Every program on every station for the week ahead, in your time zone. Press a station's call letters to tune in, or a title for its Archive item.</p>
+  <div class="paper">
+    <div class="rl-bar">
+      <div class="rl-days" id="rlDays" role="group" aria-label="Day"></div>
+      <label class="rl-pick">Station <select id="rlStation"></select></label>
+    </div>
+    <div class="rl-body" id="rlBody"></div>
+  </div>
 </section>
 
 <section class="about">
@@ -404,7 +442,20 @@ function makeScheduler(P) {
   const isStart = (S, g) => S.type === 'music' ? (g.k === 'music') : (g.k === 'prog' && !g.pi);
   const upcoming = (S, now, n) => { const out = []; const c = at(S, now); let segs = c.segs, i = c.i + 1, base = c.base, week = c.week, guard = 0; while (out.length < n && guard++ < 60000) { if (i >= segs.length) { week++; base += WEEK; segs = forWeek(S, week); i = 0; } const g = segs[i]; if (isStart(S, g)) out.push({ at: base + g.s, seg: g }); i++; } return out; };
   const current = (S, now) => { const c = at(S, now); if (S.type === 'music' || c.seg.k === 'prog') { let j = c.i; while (j > 0 && c.segs[j].pi) j--; const g = c.segs[j]; return { seg: c.seg, head: g, at: c.base + g.s, inProg: c.seg.k === 'prog' }; } return { seg: c.seg, head: null, at: c.start, inProg: false }; };
-  return { at, upcoming, current, forWeek, catalog: Pfor };
+  // Every start upcoming() would list in [from, to), each with the time its program ends.
+  const between = (S, from, to) => {
+    const out = []; let { segs, i, base, week } = at(S, from), cur = null;
+    if (base + segs[i].s < from) i++;
+    for (let guard = 0; guard < 200000; guard++, i++) {
+      if (i >= segs.length) { week++; base += WEEK; segs = forWeek(S, week); i = 0; }
+      const g = segs[i], t = base + g.s;
+      if (cur && (g.pi > 0 || g.pi === -1)) { cur.end = t + g.d; continue; } // the same program goes on
+      if (t >= to) break;
+      cur = null; if (isStart(S, g)) out.push(cur = { at: t, seg: g, end: t + g.d });
+    }
+    return out;
+  };
+  return { at, upcoming, current, between, forWeek, catalog: Pfor };
 }
 // ==/ENGINE==
 
@@ -870,6 +921,33 @@ function renderLog() {
       ${up.map((u, i) => `<span class="slot${i ? ' later' : ''}"><small>${fmtTime(u.at)}</small><div>${esc(progLabel(S, u.seg))}</div></span>`).join('')}</button>`); }); });
   $('#rows').innerHTML = rows.join('');
 }
+/* ---------- Radio Log: the week ahead, by day and hour, like a newspaper's radio column ---------- */
+const RL = { day: 0, key: '', today: 0, early: false };
+function dayStart(k) { const d = new Date(nowS() * 1000); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + k); return d.getTime() / 1000; }
+function renderRadioLog() {
+  RL.today = dayStart(0);
+  const from = dayStart(RL.day), to = dayStart(RL.day + 1), sel = RL.key ? STATIONS.find((S) => S.key === RL.key) : null;
+  $('#rlDays').innerHTML = [0, 1, 2, 3, 4, 5, 6].map((k) => { const d = new Date(dayStart(k) * 1000); return `<button type="button" data-day="${k}" aria-pressed="${RL.day === k}">${k === 0 ? 'Today' : k === 1 ? 'Tomorrow' : d.toLocaleDateString([], { weekday: 'long' })}<small>${d.toLocaleDateString([], { month: 'short', day: 'numeric' })}</small></button>`; }).join('');
+  $('#rlStation').innerHTML = `<option value="">All stations</option>` + STATIONS.map((S) => `<option value="${S.key}"${S.key === RL.key ? ' selected' : ''}>${S.call} ${esc(S.fLabel)} · ${esc(S.name)}</option>`).join('');
+  const shows = (sel ? [sel] : STATIONS.filter((S) => S.type !== 'music')).flatMap((S) => SCH.between(S, from, to).map((u) => Object.assign(u, { S })))
+    .sort((a, b) => a.at - b.at || STATIONS.indexOf(a.S) - STATIONS.indexOf(b.S));
+  const hours = new Map();
+  for (const u of shows) { const h = new Date(u.at * 1000).getHours(); if (!hours.has(h)) hours.set(h, []); hours.get(h).push(u); }
+  const music = sel ? '' : `<p class="rl-music">Records around the clock on ${STATIONS.filter((S) => S.type === 'music').map((S) => `<b>${S.call} ${esc(S.fLabel)}</b>, ${esc(S.name)} (${esc(S.fmt.charAt(0).toLowerCase() + S.fmt.slice(1))})`).join(' and ')}; choose one above for its playlist.</p>`;
+  const item = (u) => `<li data-at="${u.at}" data-end="${u.end}"><time datetime="${new Date(u.at * 1000).toISOString()}">${fmtTime(u.at).replace(/\s?[AP]M$/i, '')}</time><button type="button" class="rl-call" data-tune="${u.S.key}" aria-label="Tune to ${u.S.call} ${esc(u.S.fLabel)}">${u.S.call}</button><span class="rl-t"><a href="${details(u.seg.id)}" target="_blank" rel="noopener">${esc(progLabel(u.S, u.seg))}</a><span class="rl-len">${Math.max(1, Math.round((u.end - u.at) / 60))} min</span></span></li>`;
+  // Today starts at what's on now; the hours already over fold away behind a button.
+  const now = nowS(), groups = [...hours].map(([h, list]) => ({ list, over: RL.day === 0 && list.every((u) => u.end <= now) }));
+  const over = groups.filter((g) => g.over), hourOf = (u) => new Date(u.at * 1000).toLocaleTimeString([], { hour: 'numeric' });
+  const early = over.length ? `<button type="button" class="rl-early" aria-expanded="${RL.early}">${RL.early ? 'Hide' : 'Show'} earlier today (${hourOf(over[0].list[0])} to ${hourOf(over[over.length - 1].list[0])})</button>` : '';
+  $('#rlBody').innerHTML = music + early + (groups.map((g) => `<section class="rl-hour"${g.over && !RL.early ? ' hidden' : ''}><h3>${hourOf(g.list[0])}</h3><ul>${g.list.map(item).join('')}</ul></section>`).join('') || '<p class="rl-empty">Nothing listed.</p>');
+  updateRadioLog();
+}
+// Marks what's over and what's on now, without redrawing (so keyboard focus stays put).
+function updateRadioLog() {
+  if (dayStart(0) !== RL.today) return renderRadioLog(); // past midnight: Today is a new day
+  const now = nowS();
+  for (const li of $('#rlBody').querySelectorAll('li')) { const at = +li.dataset.at, end = +li.dataset.end; li.classList.toggle('now', at <= now && now < end); li.classList.toggle('past', end <= now); if (at <= now && now < end) li.setAttribute('aria-current', 'time'); else li.removeAttribute('aria-current'); }
+}
 $('#rightsList').innerHTML = STATIONS.map(S => `<li><b>${S.call} ${esc(S.name)}:</b> ${esc(S.rights)}${S.note ? ' ' + esc(S.note) : ''}</li>`).join('') + '<li><b>Commercials:</b> from the Archive’s Old Time Radio Advertisements collection.</li>';
 
 /* ---------- Events ---------- */
@@ -881,6 +959,9 @@ $('#tAm').addEventListener('click', () => setTone('am'));
 $('#seekUp').addEventListener('click', () => seek(1));
 $('#seekDn').addEventListener('click', () => seek(-1));
 $('#presets').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const S = STATIONS[+b.dataset.i]; if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); });
+$('#rlDays').addEventListener('click', (e) => { const b = e.target.closest('button[data-day]'); if (!b) return; RL.day = +b.dataset.day; RL.early = false; renderRadioLog(); $(`#rlDays button[data-day="${RL.day}"]`).focus(); });
+$('#rlStation').addEventListener('change', (e) => { RL.key = e.target.value; renderRadioLog(); });
+$('#rlBody').addEventListener('click', (e) => { if (e.target.closest('.rl-early')) { RL.early = !RL.early; renderRadioLog(); $('#rlBody .rl-early').focus(); return; } const b = e.target.closest('.rl-call'); if (!b) return; const S = STATIONS.find((x) => x.key === b.dataset.tune); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 $('#rows').addEventListener('click', e => { const b = e.target.closest('.row'); if (!b) return; const S = STATIONS.find(x => x.key === b.dataset.key); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 (() => { const dial = $('#dial'); let drag = false; const set = (e) => { const r = dial.getBoundingClientRect(); cancelAnimationFrame(SWEEP); R.f[R.band] = clampF(R.band, xf(R.band, e.clientX - r.left, r.width)); drawNeedle(); }; dial.addEventListener('pointerdown', e => { drag = true; dial.setPointerCapture(e.pointerId); set(e); }); dial.addEventListener('pointermove', e => { if (drag) set(e); }); const end = () => { if (drag) { drag = false; afc(); renderPresets(); } }; dial.addEventListener('pointerup', end); dial.addEventListener('pointercancel', end); dial.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { nudge(tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { nudge(-tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } }); })();
 knobDrag($('#tuneKnob'), (d, done) => { if (done) { afc(); return; } nudge(d * tuneStep()); });
@@ -920,7 +1001,8 @@ new ResizeObserver(() => drawDial()).observe($('#dial'));
 
 setBand(R.band === 'FM' ? 'FM' : 'AM', true);
 setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDial(); drawEye(0); render(); renderLog();
-setInterval(render, 500); setInterval(renderLog, 15000);
+renderRadioLog();
+setInterval(render, 500); setInterval(renderLog, 15000); setInterval(updateRadioLog, 30000);
 if (DBG.on) {
   $('#dbg').hidden = false; document.body.classList.add('has-dbg');
   const report = () => 'Needle & Dial ' + BUILD + '\n' + navigator.userAgent + '\n' + DBG.lines.join('\n');

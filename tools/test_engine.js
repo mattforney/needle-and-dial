@@ -102,6 +102,15 @@ for (const S of STATIONS) { const w1 = buildStation(S, 1, P); const same = w1.le
 const SCH = makeScheduler(P);
 const now = Date.UTC(2026, 10, 25, 5, 40) / 1000;
 for (const S of STATIONS) { const c = SCH.at(S, now); const up = SCH.upcoming(S, now, 3); const cur = SCH.current(S, now); if (!(c.off >= 0 && c.off < c.seg.d)) bad(S.key + ' bad offset'); if (up.length !== 3 || up.some((u, i) => i && u.at <= up[i - 1].at)) bad(S.key + ' upcoming not increasing'); console.log(`${S.call}: now=[${c.seg.k}] ${c.seg.t || ''} (+${Math.round(c.off)}s/${Math.round(c.seg.d)}s); next ${up.map(u => new Date(u.at * 1000).toISOString().slice(11, 16) + 'Z ' + (u.seg.t || '')).join(' | ')}`); }
+// between(): every start in a stretch, in order, across a week boundary, each with its program's end.
+for (const S of STATIONS) {
+  const from = EPOCH + WEEK - 3 * 3600, to = EPOCH + WEEK + 3 * 3600, list = SCH.between(S, from, to);
+  if (!list.length) bad(S.key + ' between: nothing listed');
+  if (list.some((u, i) => u.at < from || u.at >= to || !(u.end > u.at) || (i && u.at < list[i - 1].end - 1e-6))) bad(S.key + ' between: out of order, out of range, or overlapping');
+  if (!list.some((u) => u.at < EPOCH + WEEK) || !list.some((u) => u.at >= EPOCH + WEEK)) bad(S.key + ' between: should list both weeks');
+  const up = SCH.upcoming(S, from, 3).filter((u) => u.at < to);
+  if (up.some((u, i) => !list[i] || Math.abs(u.at - list[i].at) > 1e-6)) bad(S.key + ' between: disagrees with upcoming');
+}
 // week boundary continuity
 for (const S of STATIONS) { const b = EPOCH + WEEK; const c1 = SCH.at(S, b - 0.5), c2 = SCH.at(S, b + 0.5); if (c1.week + 1 !== c2.week || c2.seg.s !== 0) bad(S.key + ' week boundary'); }
 // Snapshots: every frozen week builds a clean schedule for that week.
