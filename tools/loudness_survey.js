@@ -14,7 +14,8 @@
 // two channels as RMS in dBFS, so a full-scale sine is -3 dB), the quiet stretch at each end, two ways:
 //   silent: blocks below -50 dBFS (digital silence, quiet tape hiss)
 //   quiet:  blocks more than 25 dB below the file's program level (the median of its blocks above
-//           -50 dBFS), which also catches needle noise and room tone that are well above -50 dBFS
+//           -50 dBFS), or silent, whichever threshold is higher; this also catches needle noise and
+//           room tone well above -50 dBFS
 // A stretch ends where at least 3 of 5 blocks in a row are louder, so a lone click doesn't end it.
 // Also the longest silent stretch between the two ends (dead air in the middle).
 'use strict';
@@ -73,7 +74,7 @@ function ends(db) {
     let b = on.length - 1; while (b >= 0 && !(on[b] && count(b - 4, b + 1) >= 3)) b--;
     return a > b ? null : [a, b];
   };
-  const s = span(SILENT), q = prog == null ? null : span(prog - QUIET);
+  const s = span(SILENT), q = prog == null ? null : span(Math.max(SILENT, prog - QUIET)); // never stricter than silent
   let gap = 0;
   if (s) for (let i = s[0], run = 0; i <= s[1]; i++) { run = db[i] > SILENT ? 0 : run + 1; gap = Math.max(gap, run); }
   return {
