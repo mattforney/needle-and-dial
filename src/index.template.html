@@ -312,7 +312,7 @@ let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
 const BUILD = '__BUILD__';
-const DBG = { on: QS.get('debug') === '1', lines: [], hb: 0, paint: 0 };
+const DBG = { on: QS.get('debug') === '1' || (__DEBUG__ && QS.get('debug') !== '0'), lines: [], hb: 0, paint: 0 };
 if (DBG.on) { try { DBG.lines = JSON.parse(localStorage.getItem('needle-dial.debug') || '[]'); } catch (e) {} }
 function dlog(msg) {
   const d = new Date();

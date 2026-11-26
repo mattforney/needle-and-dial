@@ -33,7 +33,7 @@ node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PA
 
 One audio element, the carrier, plays everything: programs, station IDs, interval signals and silence. It changes source between segments but never stops, and a second element loops silence underneath, so a phone never sees the page stop playing. Phone browsers can refuse to start a new player with the screen locked; this design gives them nothing new to start. While the page is hidden, the schedule runs off the players' progress events rather than timers. On iPhone and iPad the carrier plays directly instead of through Web Audio, because Web Audio stops when the screen locks there.
 
-Add `?debug=1` to the address to show an event log at the bottom of the page. It survives reloads, and its Copy button puts the whole log on the clipboard for a bug report. `?audio=direct` or `?audio=webaudio` forces either audio path for testing.
+Add `?debug=1` to the address to show an event log at the bottom of the page. It survives reloads, and its Copy button puts the whole log on the clipboard for a bug report. `python3 tools/build.py --debug` also writes `dist/index-debug.html`, which shows the log without the address change, for phones. `?audio=direct` or `?audio=webaudio` forces either audio path for testing.
 
 ## Roadmap
 

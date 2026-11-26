@@ -1,4 +1,4 @@
-import datetime, hashlib, json, pathlib, subprocess
+import datetime, hashlib, json, pathlib, subprocess, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ORDER = ['ads', 'gramophone', 'whodunit', 'midnight', 'rocket', 'saddle', 'laugh', 'storytime', 'tapers', 'freeform', 'nocturne']
@@ -20,8 +20,12 @@ def build_id():
 
 
 tpl = (ROOT / 'src' / 'index.template.html').read_text(encoding='utf-8')
-assert tpl.count('__CATALOG__') == 1 and tpl.count('__BUILD__') == 1
+assert tpl.count('__CATALOG__') == 1 and tpl.count('__BUILD__') == 1 and tpl.count('__DEBUG__') == 1
 html = tpl.replace('__CATALOG__', blob.replace('</', '<\\/')).replace('__BUILD__', build_id())
-(ROOT / 'dist' / 'index.html').write_text(html, encoding='utf-8')
+(ROOT / 'dist' / 'index.html').write_text(html.replace('__DEBUG__', 'false'), encoding='utf-8')
+# --debug also writes dist/index-debug.html, with the event log on unless the address says ?debug=0:
+# for testing on a phone, where adding ?debug=1 to the address is awkward.
+if '--debug' in sys.argv[1:]:
+    (ROOT / 'dist' / 'index-debug.html').write_text(html.replace('__DEBUG__', 'true'), encoding='utf-8')
 print('catalog bytes', len(blob.encode()), 'sha256', hashlib.sha256(blob.encode()).hexdigest()[:16])
 print('html bytes', len(html.encode()))
