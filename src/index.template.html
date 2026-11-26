@@ -478,7 +478,7 @@ function warmNext(c) {
   for (let j = c.i + 1; j < Math.min(c.segs.length, c.i + 4); j++) {
     const nx = c.segs[j];
     // Warm the connection (and archive.org's redirect) for the next file, the way the carrier will ask for it.
-    if (isMedia(nx)) { try { fetch(ia(nx.id, nx.f), { method: 'HEAD', mode: 'no-cors', credentials: ROUTE ? 'omit' : 'include' }).catch(() => {}); } catch (e) {} return; }
+    if (isMedia(nx)) { const u = ia(nx.id, nx.f); if (u !== A.warmed) { A.warmed = u; try { fetch(u, { method: 'HEAD', mode: 'no-cors', credentials: ROUTE ? 'omit' : 'include' }).catch(() => {}); } catch (e) {} } return; }
   }
 }
 function maintain(S, c) {
