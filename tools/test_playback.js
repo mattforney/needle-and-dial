@@ -269,6 +269,62 @@ async function tuneInLead(browser) {
   return finish(t, 'tuning in starts in step with the schedule', problems);
 }
 
+// The Report link: it should fill in the issue form's fields with what's playing when it's pressed
+// (not when the card was drawn), open that in a new tab, and be gone between stations.
+const FORM_IDS = new Set(require('yaml').parse(fs.readFileSync(path.join(__dirname, '..', '.github', 'ISSUE_TEMPLATE', 'report.yml'), 'utf8')).body.map((x) => x.id).filter(Boolean));
+const BUILD = (/const BUILD = '([^']*)'/.exec(HTML) || [])[1];
+const secs = (m) => m.split(':').reduce((s, x) => s * 60 + +x, 0);
+function lastRec(St, t) { for (let k = 0; k < 8; k++) { const p = SCH.at(St, t - 0.5); if (media(p)) return p; t = p.start; } return null; }
+function checkReport(St, href, now, problems) {
+  const u = new URL(href), q = Object.fromEntries(u.searchParams), who = St.call + ': ';
+  if (u.origin + u.pathname !== 'https://github.com/mattforney/needle-and-dial/issues/new' || q.template !== 'report.yml') problems.push(who + 'not the report form: ' + href.slice(0, 90));
+  for (const k of Object.keys(q)) if (k !== 'template' && k !== 'title' && !FORM_IDS.has(k)) problems.push(`${who}fills in "${k}", which the form doesn't have`);
+  if (!(q.title || '').startsWith('Report: ' + St.call + ' · ')) problems.push(who + 'title is ' + q.title);
+  if (q.station !== `${St.call} ${St.fLabel} · ${St.name}`) problems.push(who + 'station is ' + q.station);
+  if (q.build !== BUILD) problems.push(`${who}build is ${q.build}, page is ${BUILD}`);
+  const c = SCH.at(St, now), aired = Date.parse((/(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)$/.exec(q.aired || '') || [])[1]) / 1000;
+  if (!(Math.abs(aired - now) <= 1.5)) problems.push(`${who}aired "${q.aired}", ${(aired - now).toFixed(1)} s from the page's time`);
+  if (q.recording !== (media(c) ? url(c.seg) : 'None: a station sound the page makes itself')) problems.push(`${who}recording ${q.recording}, playing ${media(c) ? url(c.seg) : c.seg.k}`);
+  const pos = /^(\d+(?::\d\d)+) of (\d+(?::\d\d)+)$/.exec(q.position || '');
+  if (!pos || Math.abs(secs(pos[1]) - (now - c.start)) > 1.5 || Math.abs(secs(pos[2]) - c.seg.d) > 1) problems.push(`${who}position "${q.position}", expected ${(now - c.start).toFixed(0)} s of ${c.seg.d.toFixed(0)}`);
+  const p = lastRec(St, c.start), recent = p && now - (p.start + p.seg.d) < 600;
+  if (recent ? !(q.before || '').endsWith(' · ' + url(p.seg)) : q.before) problems.push(`${who}before is "${(q.before || '').slice(0, 80)}"`);
+  return pos ? secs(pos[1]) : NaN;
+}
+async function reportLink(browser) {
+  const sc = { at: end(a.c), first: a.c, lead: 40, len: {} };
+  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page, ctx } = t, problems = [], name = 'report link: what is playing when pressed';
+  await ctx.route('https://github.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>Report a broadcast</title>' }));
+  const press = () => page.evaluate(() => { const l = document.querySelector('#card a.report'); if (!l) return null; l.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); return { href: l.href, now: Date.now() / 1000 }; });
+  // WGRM, a record (the card shows "Warming up" for a moment after power on)
+  for (let i = 0; i < 20 && !(await page.evaluate(() => !!document.querySelector('#card a.report'))); i++) await sleep(150);
+  const r1 = await press();
+  if (!r1) { problems.push('no Report link on the card'); return finish(t, name, problems); }
+  const p1 = checkReport(S, r1.href, r1.now, problems);
+  await sleep(3000);
+  const r2 = await press(), p2 = checkReport(S, r2.href, r2.now, problems);
+  if (!(p2 - p1 >= 2 && p2 - p1 <= 4.5)) problems.push(`pressed 3 s later, the time into the record went from ${p1} to ${p2} s`);
+  // a real click opens the form in a new tab, with what's playing at the click
+  const [tab] = await Promise.all([ctx.waitForEvent('page', { timeout: 5000 }), page.click('#card a.report')]);
+  const at = await pageNow(page);
+  await tab.waitForLoadState('domcontentloaded').catch(() => {});
+  checkReport(S, tab.url(), at, problems);
+  await tab.close();
+  // WHOD, a program station
+  await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1));
+  let r3 = null;
+  for (let i = 0; i < 40 && !r3; i++) { await sleep(150); r3 = await page.evaluate(() => (window.SKY.TUNED && window.SKY.TUNED.call === 'WHOD' && /WHOD/.test(document.querySelector('#card .call').textContent) ? true : null)); }
+  if (!r3) problems.push('never tuned WHOD');
+  else { const r = await press(); checkReport(WHOD, r.href, r.now, problems); }
+  // between stations, nothing to report
+  await page.evaluate(() => window.SKY.sweepTo('AM', 700, 1));
+  await sleep(2200);
+  if (await page.evaluate(() => !!document.querySelector('#card a.report'))) problems.push('a Report link between stations');
+  return finish(t, name, problems);
+}
+
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
 // slowMs holds the page's time check that long before the server stamps its answer: a slow uplink, or a busy server.
 async function clockSync(browser, skewMs, slowMs = 0) {
@@ -298,7 +354,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.

@@ -17,13 +17,14 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `snapshots/` | The frozen catalog each schedule week uses, one file per Monday it starts (`tools/snapshot.py` drafts them; `tools/test_snapshot.py` tests it) |
 | `catalog/review/stream-only.json` | Stream-only Archive items you've approved to keep, each with a one-line reason |
 | `tools/test_playback.js` | Plays the built page in headless Chrome across record changes, with the screen "locked" and a browser that is strict about background audio |
+| `.github/ISSUE_TEMPLATE/report.yml` | The form behind the Report link on the radio's card (`tools/test_report_form.js` checks it against GitHub's form schema and against the fields the page fills in) |
 | `tools/analyze.js` | Lists every media URL in the catalog (`dist/urls.txt`) and prints break statistics |
 | `tools/hashcheck.py` | Prints a size and hash for each station catalog |
 | `research/ia-survey/` | The survey of Internet Archive audio that future stations draw on |
 
 ## Build and test
 
-Needs Python 3 and Node 18 or later. The playback test also needs Google Chrome and `npm install` (one dev package, `playwright-core`).
+Needs Python 3 and Node 18 or later. The playback test also needs Google Chrome, and it and the report form check need `npm install` (two dev packages, `playwright-core` and `yaml`).
 
 ```
 python3 tools/build.py       # writes dist/index.html and dist/catalog.json
@@ -32,6 +33,7 @@ node tools/test_archive_check.js  # the Archive check's logic, against a fake ar
 python3 tools/test_snapshot.py    # the snapshot tool
 node tools/test_check_log.js      # the log checker
 node tools/check_log.js log.txt   # check a phone's debug log (Share or Copy from ?debug=1, pasted through a chat app is fine) against Gate B; the screen may wake for up to a minute (--wake) without ending the run
+node tools/test_report_form.js    # the Report link's issue form
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names match
 ```
@@ -51,6 +53,12 @@ To run it by hand: Actions, then Weekly Archive check, then Run workflow. Give i
 Each week's schedule comes from a frozen copy of the catalog, so the program guide never shifts mid-week. `snapshots/2026-11-30.json` is the catalog in effect from Monday 30 November, 00:00 Central, until the next snapshot's Monday; a week without a file of its own keeps the one before. Edits to `catalog/` therefore reach the air the following Monday.
 
 After the Sunday Archive check, the same workflow drafts next week's snapshot from `catalog/`, holding out files the check found broken and stream-only items not yet approved (files that only changed length, or couldn't be checked, stay in). If that differs from what the week would otherwise use, it commits the file and republishes the site. To draft one by hand: `python3 tools/snapshot.py`. A snapshot is fixed once its week starts; to change what is on air this week anyway, edit that week's file directly, knowing it reshuffles that station from that moment.
+
+## Reports
+
+The Report link on the radio's card opens a GitHub issue form, `.github/ISSUE_TEMPLATE/report.yml`, with what was playing when the link was pressed already filled in: the station, what the card showed, the Archive file and the time into it, when it aired (the listener's time and UTC), the recording just before it if that ended within ten minutes, and the site version. The listener picks a reason and may add a note. Filing one needs a free GitHub account, and reports are public issues labelled `report`; the form itself only takes effect once it is on `main`.
+
+Nothing comes off the air on a report alone. To act on one, take the file out of its station's catalog, which holds it out from the next Monday's snapshot, or, to take it off this week, add its `item/file` to the `exclude` list of the snapshot in effect (this reshuffles that station from that moment). Then close the issue, saying what was done.
 
 ## How the schedule works
 

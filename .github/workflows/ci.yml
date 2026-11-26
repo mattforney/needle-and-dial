@@ -26,6 +26,8 @@ jobs:
         run: node tools/test_check_log.js
       - name: Install test tools
         run: npm ci
+      - name: Report form
+        run: node tools/test_report_form.js
       - name: Playback checks
         run: node tools/test_playback.js
         env:

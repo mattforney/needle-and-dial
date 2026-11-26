@@ -7,7 +7,8 @@
     "build": "python3 tools/build.py",
     "test": "node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js",
     "test:playback": "node tools/test_playback.js",
-    "check": "python3 tools/build.py && node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js && node tools/test_playback.js",
+    "test:form": "node tools/test_report_form.js",
+    "check": "python3 tools/build.py && node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js && node tools/test_report_form.js && node tools/test_playback.js",
     "check-log": "node tools/check_log.js",
     "archive-check": "node tools/archive_check.js",
     "analyze": "node tools/analyze.js",
@@ -17,6 +18,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "playwright-core": "1.63.0"
+    "playwright-core": "1.63.0",
+    "yaml": "2.9.1"
   }
 }

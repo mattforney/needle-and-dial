@@ -58,6 +58,7 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .bar{flex:1;height:6px;border-radius:3px;background:#2e231a;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brass),var(--glass-hot))}
 .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px}
 .rights{font-size:13px;color:var(--faint)}
+.links .report{color:var(--muted)}.links .report:hover,.links .report:focus-visible{color:var(--glass-hot)}
 .trouble{color:#ff9b7a}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .controls{display:grid;grid-template-columns:repeat(3,auto);gap:10px 16px;align-items:start;justify-items:center;border-radius:12px;padding:12px 14px;background:linear-gradient(#2d1d10,#1d1209);box-shadow:inset 0 0 0 2px var(--brass-d)}
@@ -921,6 +922,36 @@ function pressPreset(k) {
   sweepTo(R.band, pf, 700);
 }
 
+/* ---------- Report: a listener flags what's on, for review ---------- */
+// The Report link on the card opens an issue form on GitHub (.github/ISSUE_TEMPLATE/report.yml) with
+// what's playing filled in, read at the moment the link is pressed; the listener picks a reason and
+// may add a note. Nothing comes off the air on a report alone: each one is reviewed by hand.
+const REPORT_FORM = 'https://github.com/mattforney/needle-and-dial/issues/new';
+const said = (S, seg) => { const d = describe(S, seg); return [d.kick, d.title, d.line].filter(Boolean).join(' · '); };
+function lastRecording(S, t) { // the last recording on S's schedule that started before t, and when it ended
+  for (let k = 0; k < 8; k++) { const p = SCH.at(S, t - 0.5); if (isMedia(p.seg)) return { seg: p.seg, end: p.start + p.seg.d }; t = p.start; }
+  return null;
+}
+function reportURL() {
+  const S = TUNED, q = { template: 'report.yml' };
+  if (S) {
+    const now = nowS(), c = SCH.at(S, now), F = filling() && PLAY.S === S ? FILL.cur : null, seg = F ? F.it : c.seg, off = F ? now - F.at : c.off;
+    const d = describe(S, seg), when = new Date(now * 1000);
+    const prev = F && FILL.i >= 2 ? { seg: FILL.items[FILL.i - 2], end: F.at } : lastRecording(S, c.start);
+    Object.assign(q, {
+      title: ('Report: ' + S.call + ' · ' + (isMedia(seg) ? d.title : d.kick || d.title)).slice(0, 120),
+      station: `${S.call} ${S.fLabel} · ${S.name}`,
+      playing: said(S, seg) + (F ? ` (filler, in place of “${c.seg.t || 'the scheduled recording'}”, which wouldn’t play)` : ''),
+      recording: isMedia(seg) ? ia(seg.id, seg.f) : 'None: a station sound the page makes itself',
+      position: fmtDur(off) + ' of ' + fmtDur(seg.d),
+      aired: when.toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit', timeZoneName: 'short' }) + ' · ' + when.toISOString().slice(0, 19) + 'Z',
+      before: prev && now - prev.end < 600 ? `${said(S, prev.seg)} · ended ${fmtDur(now - prev.end)} before this report · ${ia(prev.seg.id, prev.seg.f)}` : '',
+      build: BUILD,
+    });
+  }
+  return REPORT_FORM + '?' + new URLSearchParams(Object.entries(q).filter(([, v]) => v)).toString();
+}
+
 /* ---------- Rendering ---------- */
 function render() {
   const now = nowS(); $('#clock').textContent = new Date(now * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -938,11 +969,12 @@ function render() {
   if (card.dataset.key !== key) {
     card.dataset.key = key;
     const link = isMedia(seg) ? `<a href="${details(seg.id)}" target="_blank" rel="noopener">Archive item &#8599;</a>` : '';
+    const report = `<a class="report" href="${esc(reportURL())}" target="_blank" rel="noopener" title="Flag this for review: opens a form on GitHub with what’s playing filled in">Report &#8599;</a>`;
     card.innerHTML = `<div class="st-line"><span class="call">${TUNED.call}</span><span class="st-name">${esc(TUNED.fLabel)} · ${esc(TUNED.name)}</span><span class="st-fmt">${esc(TUNED.fmt)}</span></div>
     <div class="kicker">${esc(d.kick || '')}${buffering ? ' · tuning in…' : ''}</div><div class="ptitle">${esc(d.title)}</div><div class="pline">${esc(d.line)}</div>
     ${warn ? `<div class="trouble">${esc(warn)}</div>` : ''}
     <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d)}</span></div>
-    <div class="links">${link}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
+    <div class="links">${link}${report}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
   }
   $('#pEl').textContent = fmtDur(off); $('#pBar').style.width = Math.min(100, off / seg.d * 100).toFixed(1) + '%';
   drawEye(s);
@@ -1004,6 +1036,8 @@ $('#presets').addEventListener('click', (e) => { const b = e.target.closest('but
 $('#rlDays').addEventListener('click', (e) => { const b = e.target.closest('button[data-day]'); if (!b) return; RL.day = +b.dataset.day; RL.early = false; renderRadioLog(); $(`#rlDays button[data-day="${RL.day}"]`).focus(); });
 $('#rlStation').addEventListener('change', (e) => { RL.key = e.target.value; renderRadioLog(); });
 $('#rlBody').addEventListener('click', (e) => { if (e.target.closest('.rl-early')) { RL.early = !RL.early; renderRadioLog(); $('#rlBody .rl-early').focus(); return; } const b = e.target.closest('.rl-call'); if (!b) return; const S = STATIONS.find((x) => x.key === b.dataset.tune); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+// The Report link reports what's playing when it's pressed, not when the card was drawn.
+for (const ev of ['pointerdown', 'focusin', 'click']) $('#card').addEventListener(ev, (e) => { const a = e.target.closest && e.target.closest('a.report'); if (a) a.href = reportURL(); }, true);
 $('#rows').addEventListener('click', e => { const b = e.target.closest('.row'); if (!b) return; const S = STATIONS.find(x => x.key === b.dataset.key); if (!R.on) power(true); sweepTo(S.band, S.f, S.band === R.band ? 700 : 1); $('#radio').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 (() => { const dial = $('#dial'); let drag = false; const set = (e) => { const r = dial.getBoundingClientRect(); cancelAnimationFrame(SWEEP); R.f[R.band] = clampF(R.band, xf(R.band, e.clientX - r.left, r.width)); drawNeedle(); }; dial.addEventListener('pointerdown', e => { drag = true; dial.setPointerCapture(e.pointerId); set(e); }); dial.addEventListener('pointermove', e => { if (drag) set(e); }); const end = () => { if (drag) { drag = false; afc(); renderPresets(); } }; dial.addEventListener('pointerup', end); dial.addEventListener('pointercancel', end); dial.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { nudge(tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { nudge(-tuneStep() * (e.shiftKey ? 10 : 1)); e.preventDefault(); } }); })();
 knobDrag($('#tuneKnob'), (d, done) => { if (done) { afc(); return; } nudge(d * tuneStep()); });

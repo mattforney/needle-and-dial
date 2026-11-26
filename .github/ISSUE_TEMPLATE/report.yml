@@ -1,0 +1,68 @@
+# The form behind the Report link on the radio's card. The link fills in every field from station
+# down with what was playing when it was pressed; the listener picks a reason and may add a note.
+# The page fills fields by their ids (reportURL in src/index.template.html), so keep the two in step;
+# tools/test_report_form.js and the playback checks test that.
+name: Report a broadcast
+description: Flag something that played on Needle & Dial for review, such as offensive content, a rights problem or a broken recording.
+title: "Report: "
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for flagging this. The Report link filled in what was playing below, so please leave those details as they are: they say exactly which recording it was, and where in it.
+
+        A person reads every report, and nothing comes off the air automatically. Reports are public, so please don't include personal details.
+  - type: dropdown
+    id: reason
+    attributes:
+      label: What's wrong?
+      options:
+        - Offensive or harmful content
+        - Rights problem (it may not be free to share)
+        - Broken recording (silence, cut off, skips or noise)
+        - Wrong title or details
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: Anything else? (optional)
+      description: What you heard, or roughly where in the recording, helps.
+  - type: input
+    id: station
+    attributes:
+      label: Station
+    validations:
+      required: true
+  - type: input
+    id: playing
+    attributes:
+      label: Playing
+      description: What the radio's card showed.
+  - type: input
+    id: recording
+    attributes:
+      label: Recording
+      description: The Internet Archive file that was playing.
+  - type: input
+    id: position
+    attributes:
+      label: Time into the recording
+  - type: input
+    id: aired
+    attributes:
+      label: When
+      description: The time on your device, and in UTC.
+    validations:
+      required: true
+  - type: input
+    id: before
+    attributes:
+      label: Just before
+      description: The recording before it, in case that's the one you meant.
+  - type: input
+    id: build
+    attributes:
+      label: Site version
