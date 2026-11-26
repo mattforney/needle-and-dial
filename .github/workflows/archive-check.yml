@@ -1,0 +1,49 @@
+name: Weekly Archive check
+
+on:
+  schedule:
+    - cron: '17 14 * * 0' # Sundays 14:17 UTC (8:17 AM Central), the day before each new schedule week
+  workflow_dispatch:
+    inputs:
+      items:
+        description: Only these Archive identifiers, comma-separated (blank checks everything)
+        required: false
+        default: ''
+      report:
+        description: File the results in the GitHub issue (full checks only)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: archive-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Build the catalog
+        run: python3 tools/build.py
+      - name: Check every Archive file
+        id: check
+        env:
+          ITEMS: ${{ inputs.items }}
+        run: node tools/archive_check.js --items "$ITEMS"
+      - name: File the results in an issue
+        if: steps.check.outcome == 'success' && !inputs.items && (github.event_name == 'schedule' || inputs.report)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROBLEMS: ${{ steps.check.outputs.problems }}
+          HASH: ${{ steps.check.outputs.hash }}
+          TITLE: ${{ steps.check.outputs.title }}
+          FILES: ${{ steps.check.outputs.files }}
+        run: bash tools/archive_check_issue.sh

@@ -12,6 +12,8 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `catalog/` | One JSON file per station, listing the Archive items it plays |
 | `tools/build.py` | Builds `dist/index.html`, with the catalog inlined, plus `dist/catalog.json` |
 | `tools/test_engine.js` | Audits a week of schedule for every station: no gaps or overlaps, programs on the grid, week boundaries intact |
+| `tools/archive_check.js` | The weekly Archive check: confirms every catalog file still exists, still downloads, hasn't turned stream-only and keeps its length (`tools/test_archive_check.js` tests it offline) |
+| `catalog/review/stream-only.json` | Stream-only Archive items you've approved to keep, each with a one-line reason |
 | `tools/test_playback.js` | Plays the built page in headless Chrome across record changes, with the screen "locked" and a browser that is strict about background audio |
 | `tools/analyze.js` | Lists every media URL in the catalog (`dist/urls.txt`) and prints break statistics |
 | `tools/hashcheck.py` | Prints a size and hash for each station catalog |
@@ -24,10 +26,19 @@ Needs Python 3 and Node 18 or later. The playback test also needs Google Chrome 
 ```
 python3 tools/build.py       # writes dist/index.html and dist/catalog.json
 node tools/test_engine.js    # schedule checks; exits non-zero if any fail
+node tools/test_archive_check.js  # the Archive check's logic, against a fake archive.org
 node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PATH if Chrome is elsewhere)
 ```
 
-`npm run check` runs all three. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
+`npm run check` runs all four. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
+
+## Weekly Archive check
+
+Every Sunday at 14:17 UTC (8:17 AM Central), the day before each new schedule week, GitHub Actions runs `tools/archive_check.js` against the real Archive: one metadata request per item and one download probe per file, a few requests a second, with the repository named in its user agent. It changes nothing; it reports.
+
+Results go to a single GitHub issue labelled `archive-check`. The issue always shows the latest report, and the full report is also posted as a comment, which emails you, only when the list of problems changes. When everything passes, the issue closes. Timeouts and Archive errors are listed as "couldn't check" and don't count as problems; if more than a quarter of files can't be checked, the run fails instead of reporting.
+
+To run it by hand: Actions, then Weekly Archive check, then Run workflow. Give it identifiers to check only those items (those runs don't touch the issue). To keep a stream-only item, add its identifier and a one-line reason to `catalog/review/stream-only.json`. GitHub turns scheduled workflows off in a public repository after 60 days without activity; Actions then offers a button to turn it back on.
 
 ## How playback works
 

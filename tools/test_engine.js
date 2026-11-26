@@ -34,6 +34,9 @@ for (const S of STATIONS) {
   const reps = [...titles.values()]; const maxRep = reps.length ? Math.max(...reps) : 0;
   console.log(`${S.call} ${S.key.padEnd(10)} segs=${String(segs.length).padStart(5)} prog=${pct('prog')} music=${pct('music')} ad=${pct('ad')} poem=${pct('poem')} id=${pct('id')} interval=${pct('interval')} maxInterval=${Math.round(maxInt)}s programs/wk=${progs} uniquePrograms=${titles.size} maxRepeats=${maxRep} cuts=${cuts}`);
 }
+// No filler runs past a minute: the interval signal is a station's dead air.
+const MAX_FILLER = 60;
+for (const S of STATIONS) for (const w of [0, 1]) for (const g of w ? buildStation(S, 1, P) : all[S.key]) if (g.k === 'interval' && g.d > MAX_FILLER) bad(`${S.key} week ${w}: ${Math.round(g.d)} s of interval signal at ${Math.round(g.s)} s (limit ${MAX_FILLER} s)`);
 // determinism
 for (const S of STATIONS) { const a = JSON.stringify(buildStation(S, 0, P)), b = JSON.stringify(all[S.key]); if (a !== b) bad(S.key + ' not deterministic'); }
 // week-to-week variety
