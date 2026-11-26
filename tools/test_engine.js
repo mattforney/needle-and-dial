@@ -2,8 +2,8 @@ const fs = require('fs');
 const html = fs.readFileSync(__dirname + '/../src/index.template.html', 'utf8');
 const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const CAT = JSON.parse(fs.readFileSync(__dirname + '/../dist/catalog.json', 'utf8'));
-const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, weekOf, excludeFiles, loadSnapshots };')(CAT);
-const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, weekOf, excludeFiles, loadSnapshots } = api;
+const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots };')(CAT);
+const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // The page script runs in sloppy mode, where a second function with the same name silently replaces
@@ -140,6 +140,19 @@ for (const n of snaps) {
   const [a, b] = api.loadSnapshots([full, later]);
   if (a.week !== 0 || b.week !== 1) bad('loadSnapshots: weeks');
   if (b.P.shows.length !== a.P.shows.length - 1 || b.P.whodunit.length !== a.P.whodunit.length) bad('loadSnapshots: a partial snapshot should change only the stations it lists');
+}
+// Filler for a slot whose recording can't play: the station's own, never longer than the gap, close
+// to it once the gap is a few minutes, the same for the same seed, and without the files to skip.
+for (const S of STATIONS) {
+  for (const secs of [90, 300, 900, 1700]) {
+    const a = fillerFor(S, P, secs, 7), total = a.reduce((x, it) => x + it.d, 0);
+    if (total > secs) bad(`fillerFor ${S.key} ${secs} s: ${Math.round(total)} s of filler`);
+    if (secs >= 300 && secs - total > 60) bad(`fillerFor ${S.key} ${secs} s: ${Math.round(secs - total)} s left over`);
+    if (JSON.stringify(a) !== JSON.stringify(fillerFor(S, P, secs, 7))) bad(`fillerFor ${S.key}: not the same for the same seed`);
+    if (a.some((it) => !it.f || it.k === 'prog')) bad(`fillerFor ${S.key}: something other than filler`);
+    const skip = new Set(a.map((it) => ia(it.id, it.f)));
+    if (fillerFor(S, P, secs, 7, skip).some((it) => skip.has(ia(it.id, it.f)))) bad(`fillerFor ${S.key}: played a file it was told to skip`);
+  }
 }
 // URL sanity
 console.log(ia(P.works[0].items[0].id, P.works[0].items[0].f));

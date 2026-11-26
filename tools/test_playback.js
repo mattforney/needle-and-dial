@@ -38,10 +38,12 @@ const media = (x) => !!x.seg.f;
 const from = Date.now() / 1000 + 300;
 const a = find(from, (c, n1) => media(c) && !c.seg.cut && c.seg.d > 60 && media(n1) && n1.seg.d > 60);
 const b = find(from, (c, n1, n2) => media(c) && n1.seg.k === 'id' && media(n2) && n2.seg.d > 40);
+const f = find(from, (c, n1) => media(c) && !c.seg.cut && c.seg.d > 40 && media(n1) && n1.seg.d > 150);
 const end = (x) => x.start + x.seg.d;
 const isClip = (p) => p.src.startsWith('blob:');
 const playingUrl = (u, minT = 1) => (ps) => ps.some((p) => p.src === u && p.t > minT) || 'expected ' + decodeURIComponent(u.split('/').pop()).slice(0, 40) + ' to be playing';
 const playingLoop = (ps) => ps.some((p) => isClip(p) && p.loop && p.carrier) || 'expected the carrier on a looping clip';
+const playingFiller = (bad) => (ps) => ps.some((p) => p.carrier && !isClip(p) && p.src !== bad && p.t > 1) || 'expected filler on the carrier';
 
 const SCEN = [
   { name: 'record to record', at: end(a.c), first: a.c, checks: [[a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
@@ -49,6 +51,9 @@ const SCEN = [
     checks: [[b.n1.start + 4, (ps) => ps.some((p) => p.carrier && isClip(p) && !p.loop) || 'expected the ID clip on the carrier'], [b.n2.start + 5, playingUrl(url(b.n2.seg))]] },
   { name: 'record shorter than its slot', at: end(a.c), first: a.c, len: { [url(a.c.seg)]: a.c.seg.d - 6 },
     checks: [[end(a.c) - 3, playingLoop], [a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
+  // after two retries, eight seconds apart, the station's own filler takes the rest of the slot
+  { name: 'next record never loads', at: end(f.c), first: f.c, failAlways: [url(f.n1.seg)],
+    checks: [[f.n1.start + 5, playingLoop], [f.n1.start + 30, playingFiller(url(f.n1.seg))], [f.n1.start + 60, playingFiller(url(f.n1.seg))]] },
   { name: 'next record fails to load once', at: end(a.c), first: a.c, failOnce: [url(a.n1.seg)],
     checks: [[a.n1.start + 4, playingLoop], [a.n1.start + 14, playingUrl(url(a.n1.seg), 8)]] },
 ];
@@ -56,7 +61,7 @@ const SCEN = [
 // ---- fake archive.org: a quiet tone of the right length for each file
 const WAVS = new Map();
 function wavFor(sc, u) {
-  const sec = (sc.len && sc.len[u]) || [a.c, a.n1, b.c, b.n2].filter((x) => url(x.seg) === u).map((x) => x.seg.nd || x.seg.d)[0] || 240;
+  const sec = (sc.len && sc.len[u]) || [a.c, a.n1, b.c, b.n2, f.c, f.n1].filter((x) => url(x.seg) === u).map((x) => x.seg.nd || x.seg.d)[0] || 240;
   if (WAVS.has(u + '|' + sec)) return WAVS.get(u + '|' + sec);
   const sr = 8000, n = Math.round(sec * sr), buf = Buffer.alloc(44 + n);
   buf.write('RIFF', 0); buf.writeUInt32LE(36 + n, 4); buf.write('WAVEfmt ', 8); buf.writeUInt32LE(16, 16);
@@ -111,6 +116,7 @@ async function open(browser, sc, opt) {
     const ru = route.request().url();
     if (sc.slow && (sc.slow instanceof Set ? sc.slow.has(ru) : sc.slow.test(ru))) await sleep(2500); // a slow network keeps the file loading
     const req = route.request(), u = req.url(), h = { 'content-type': 'audio/wav', 'accept-ranges': 'bytes', 'access-control-allow-origin': '*' };
+    if (sc.failAlways && sc.failAlways.includes(u)) return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' });
     if (req.method() === 'GET' && sc.failOnce && sc.failOnce.includes(u) && !failed.has(u)) { failed.add(u); return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); }
     const buf = wavFor(sc, u);
     if (req.method() === 'HEAD') return route.fulfill({ status: 200, headers: { ...h, 'content-length': String(buf.length) }, body: '' });

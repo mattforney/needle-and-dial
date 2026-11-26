@@ -378,6 +378,24 @@ function loadSnapshots(raw) {
   return raw.map(s => { const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog; prev = cat; return { from: s.from, week: weekOf(s.from), P: excludeFiles(parseCatalog(cat), s.exclude) }; }).sort((a, b) => a.week - b.week);
 }
 const schedulerFor = (snaps) => makeScheduler((w) => snaps.reduce((p, s) => (s.week <= w ? s.P : p), snaps[0].P));
+// Filler for the rest of a slot whose recording can't play (it won't load, or it ends early): the
+// station's own filler, packed like a scheduled gap, without the files in `skip` (URLs), and the same
+// choice for the same seed.
+function fillerFor(S, P, secs, seed, skip) {
+  const names = S.type === 'music' ? [S.songs] : S.fill.map(([name]) => name);
+  const items = names.flatMap((n) => P[n] || []).filter((x) => !(skip && skip.has(ia(x.id, x.f))));
+  const pool = new Pool(items, rng(seed)), long = items.reduce((m, x) => Math.max(m, x.d), 0), used = new Set(), out = [];
+  const add = (it) => { out.push(it); used.add(it.t); left -= it.d; };
+  let left = secs;
+  while (left >= 15) {
+    if (left > 2 * long) { const it = pool.take(left, 1e9, used); if (!it) break; add(it); continue; }
+    let idx = pool.fit(left, 48, used);
+    if (left - pool.span(idx) > 20) { const more = pool.most(left, 48, used); if (pool.span(more) >= pool.span(idx)) idx = more; }
+    if (!idx.length) break;
+    pool.use(idx).forEach(add);
+  }
+  return out;
+}
 // P is one parsed catalog, or a function from week number to the catalog that week uses.
 function makeScheduler(P) {
   const cache = new Map(), Pfor = typeof P === 'function' ? P : () => P;
@@ -386,7 +404,7 @@ function makeScheduler(P) {
   const isStart = (S, g) => S.type === 'music' ? (g.k === 'music') : (g.k === 'prog' && !g.pi);
   const upcoming = (S, now, n) => { const out = []; const c = at(S, now); let segs = c.segs, i = c.i + 1, base = c.base, week = c.week, guard = 0; while (out.length < n && guard++ < 60000) { if (i >= segs.length) { week++; base += WEEK; segs = forWeek(S, week); i = 0; } const g = segs[i]; if (isStart(S, g)) out.push({ at: base + g.s, seg: g }); i++; } return out; };
   const current = (S, now) => { const c = at(S, now); if (S.type === 'music' || c.seg.k === 'prog') { let j = c.i; while (j > 0 && c.segs[j].pi) j--; const g = c.segs[j]; return { seg: c.seg, head: g, at: c.base + g.s, inProg: c.seg.k === 'prog' }; } return { seg: c.seg, head: null, at: c.start, inProg: false }; };
-  return { at, upcoming, current, forWeek };
+  return { at, upcoming, current, forWeek, catalog: Pfor };
 }
 // ==/ENGINE==
 
@@ -615,7 +633,29 @@ function bridge() {
   if (TUNED && S === TUNED && left > 2) { const k = clip('interval', S); carry(k.url, 'interval', nowS(), k.len, true, 'interval signal for ' + Math.round(left) + ' s'); }
   else { const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence'); }
 }
-function onEnded() { if (!R.on) return; dlog('file ended before its slot'); bridge(); }
+function onEnded() { if (!R.on) return; if (filling()) return nextFiller(); dlog('file ended before its slot'); endedEarly(); }
+function endedEarly() { const left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0; if (left > 60 && A.kind === 'media') startFiller('it ended early'); else bridge(); }
+// When a slot's recording can't play (it won't load, or it ends a minute or more early), the station
+// fills the rest of the slot with its own filler (fillerFor) instead of the interval signal: one
+// item after another, each from its start, skipping any that won't load either.
+const filling = () => !!(FILL && FILL.key === PLAY.key && FILL.cur);
+function startFiller(why, skip) {
+  const S = PLAY.S, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
+  if (!TUNED || S !== TUNED || left < 60) { FILL = null; return bridge(); }
+  const items = fillerFor(S, SCH.catalog(PLAY.week), left - 3, hash(PLAY.key), new Set([...BAD, ...(skip || [])]));
+  if (!items.length) { FILL = null; return bridge(); }
+  FILL = { key: PLAY.key, items, i: 0, why, cur: null, done: new Set(skip || []) };
+  dlog(`filling ${Math.round(left)} s with ${items.length} item${items.length > 1 ? 's' : ''} (${why})`);
+  nextFiller();
+}
+function nextFiller() {
+  const it = FILL && FILL.items[FILL.i++];
+  if (!it) { if (FILL) FILL.cur = null; return bridge(); }
+  const u = ia(it.id, it.f), now = nowS();
+  FILL.cur = { it, at: now }; FILL.done.add(u);
+  carry(u, 'media', now, 0, false, `${PLAY.S.call} filler ${it.k}${it.t ? ' “' + it.t + '”' : ''}, ${Math.round(it.d)} s`);
+  setMediaSession(PLAY.S, it);
+}
 function onPause() {
   if (!R.on || A.el.ended || performance.now() - A.swapAt < 400) return;
   // iPhone pauses a station that is still loading when the screen locks, even with the keep-alive
@@ -633,20 +673,27 @@ function onError() {
   if (!R.on || !err) return;
   dlog(`load error ${err.code}${err.message ? ': ' + err.message : ''} (${A.kind})`);
   if (A.kind === 'silence') return;
+  if (filling() && A.src === ia(FILL.cur.it.id, FILL.cur.it.f)) { BAD.add(A.src); return startFiller(FILL.why, FILL.done); } // plan the rest again without it
   if (A.kind === 'media' && isMedia(PLAY.seg) && A.src === ia(PLAY.seg.id, PLAY.seg.f)) {
-    TROUBLE = 'Technical difficulties: this recording would not load. Please stand by.';
     const n = A.retries[PLAY.key] = (A.retries[PLAY.key] || 0) + 1;
     A.retryKey = PLAY.key; A.retryAt = n <= 2 ? nowS() + 8 : 0;
+    if (n > 2) {
+      const nx = SCH.upcoming(PLAY.S, nowS(), 1)[0];
+      TROUBLE = `${PLAY.seg.t ? '“' + PLAY.seg.t + '”' : 'This recording'} wouldn’t load, so here’s something else${nx ? ' until ' + fmtTime(nx.at) : ''}.`;
+      BAD.add(A.src); return startFiller('it would not load');
+    }
+    TROUBLE = 'Technical difficulties: this recording would not load. Please stand by.';
   }
   bridge();
 }
 
-let TUNED = null, PEND = null, DETUNE = 0, PLAY = { key: '' }, TROUBLE = '';
+let TUNED = null, PEND = null, DETUNE = 0, PLAY = { key: '' }, TROUBLE = '', FILL = null;
+const BAD = new Set(); // files that wouldn't load this visit
 const segKey = (S, c) => S.key + ':' + c.week + ':' + c.i;
 const isMedia = (seg) => seg && !!seg.f;
 function startSeg(S, c) {
   const seg = c.seg; TROUBLE = '';
-  PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false };
+  PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false, week: c.week }; FILL = null;
   stopSpeech(); A.fade = 1; if (A.g) ramp(A.g.gain, 1, 0.03);
   const what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(c.off)} of ${Math.round(seg.d)} s`;
   if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what);
@@ -670,11 +717,12 @@ function warmNext(c) {
 function maintain(S, c) {
   const seg = c.seg, el = A.el, left = seg.d - c.off;
   if (A.kind === 'media' && !A.held) {
-    const want = nowS() - c.start;
+    const want = wantPos();
     if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { dlog(`resync ${el.currentTime.toFixed(1)} → ${want.toFixed(1)} s`); try { el.currentTime = want; } catch (e) {} }
     if (seg.cut && left < 5) A.fade = 0;
     // Move on before the file runs out: a player sitting at its end is a stopped player.
-    if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { dlog('file is shorter than its slot'); bridge(); }
+    if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { if (filling()) nextFiller(); else { dlog('file is shorter than its slot'); endedEarly(); } }
+    else if (filling() && nowS() > FILL.cur.at + FILL.cur.it.d + 1) nextFiller(); // past its listed length: keep to the plan
   }
   if (el.paused && !A.held && !A.blocked && !el.ended) restartCarrier();
   if (left < 25 && !PLAY.warm) { PLAY.warm = true; warmNext(c); }
@@ -775,7 +823,7 @@ function power(on) {
   } else {
     clearInterval(power.iv); stopSpeech();
     if (A.ctx) { A.el.pause(); if (A.keep) A.keep.pause(); ramp(A.master.gain, 0, 0.05); setTimeout(() => { if (!R.on) A.ctx.suspend(); }, 300); }
-    TUNED = null; PLAY = { key: '' }; A.retryAt = 0; dlog('power off');
+    TUNED = null; PLAY = { key: '' }; FILL = null; A.retryAt = 0; dlog('power off');
   }
   setPlaybackState(); drawDial(); drawEye(0); render();
 }
@@ -794,10 +842,11 @@ function render() {
   const { S, s } = strongest();
   const warn = TROUBLE || (A.blocked ? 'Your browser stopped the radio. Tap anywhere on the page to start it again.' : A.held ? 'Paused by your phone or browser. Tap anywhere on the page to resume.' : '');
   if (!TUNED || !S || S !== TUNED) { const near = S && s > 0 ? `Getting closer to ${S.call} ${S.fLabel}.` : 'Nothing on this frequency. Keep turning, or press SEEK.'; card.dataset.key = ''; card.innerHTML = `<div class="st-line"><span class="call">${R.band} ${R.band === 'AM' ? Math.round(R.f.AM) : R.f.FM.toFixed(1)}</span><span class="st-fmt">Static</span></div><div class="ptitle">${near}</div>${warn ? `<div class="trouble">${esc(warn)}</div>` : ''}`; drawEye(s); return; }
-  const c = SCH.at(TUNED, now), seg = c.seg, d = describe(TUNED, seg), el = A.kind === 'media' && isMedia(seg) ? A.el : null;
+  const c = SCH.at(TUNED, now), F = filling() && PLAY.S === TUNED ? FILL.cur : null, seg = F ? F.it : c.seg, off = F ? now - F.at : c.off;
+  const d = describe(TUNED, seg), el = A.kind === 'media' && isMedia(seg) ? A.el : null;
   const nxt = SCH.upcoming(TUNED, now, 1)[0];
   const buffering = !!(el && (el.readyState < 3 || el.seeking) && !warn);
-  const key = [TUNED.key, c.week, c.i, warn, buffering, nxt ? nxt.at : 0].join('|');
+  const key = [TUNED.key, c.week, c.i, F ? 'filler ' + FILL.i : '', warn, buffering, nxt ? nxt.at : 0].join('|');
   if (card.dataset.key !== key) {
     card.dataset.key = key;
     const link = isMedia(seg) ? `<a href="${details(seg.id)}" target="_blank" rel="noopener">Archive item &#8599;</a>` : '';
@@ -807,7 +856,7 @@ function render() {
     <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d)}</span></div>
     <div class="links">${link}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
   }
-  $('#pEl').textContent = fmtDur(c.off); $('#pBar').style.width = Math.min(100, c.off / seg.d * 100).toFixed(1) + '%';
+  $('#pEl').textContent = fmtDur(off); $('#pBar').style.width = Math.min(100, off / seg.d * 100).toFixed(1) + '%';
   drawEye(s);
 }
 function renderLog() {
@@ -893,7 +942,7 @@ if (DBG.on) {
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>
