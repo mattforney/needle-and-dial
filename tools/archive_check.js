@@ -212,7 +212,7 @@ async function main() {
   for (const r of s.results) if (r.status !== 'ok') console.log(`  ${r.status.padEnd(9)} ${r.file.id}/${r.file.f}: ${r.note}`);
   console.log(`Done in ${Math.round((Date.now() - t0) / 1000)} s: ${s.ok} ok, ${s.broken} broken, ${s.lengthChanged} length changed, ${s.pending.length} stream-only to review, ${s.unchecked} unchecked.`);
   const title = s.problems ? `Archive check: ${plural(s.problems, 'thing', 'things')} to look at` : 'Archive check: all clear';
-  if (env.GITHUB_OUTPUT) fs.appendFileSync(env.GITHUB_OUTPUT, `problems=${s.problems}\nhash=${s.hash}\nfiles=${s.files}\ntitle=${title}\n`);
+  if (env.GITHUB_OUTPUT) fs.appendFileSync(env.GITHUB_OUTPUT, `problems=${s.problems}\nhash=${s.hash}\nfiles=${s.files.toLocaleString('en-US')}\ntitle=${title}\n`);
   if (env.GITHUB_STEP_SUMMARY) fs.appendFileSync(env.GITHUB_STEP_SUMMARY, md + '\n');
   if (s.unchecked > s.files * UNHEALTHY) { console.error(`${s.unchecked} of ${s.files} files couldn't be checked; the Archive may be down. Not reporting.`); process.exitCode = 2; }
 }
