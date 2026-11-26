@@ -163,7 +163,7 @@ body.has-dbg .wrap{padding-bottom:42vh}
 <footer>Needle &amp; Dial is a prototype, not affiliated with the Internet Archive. Station call letters are fictional. Audio and metadata: Internet Archive contributors, Old Time Radio Researchers, LibriVox, the Great 78 Project, the Live Music Archive tapers, Musopen and the netlabels credited on air.</footer>
 </div>
 
-<div class="dbg" id="dbg" hidden><div class="dbg-h"><b>Debug log</b><button id="dbgCopy" type="button">Copy</button><button id="dbgClear" type="button">Clear</button></div><pre id="dbgLog"></pre></div>
+<div class="dbg" id="dbg" hidden><div class="dbg-h"><b>Debug log</b><button id="dbgShare" type="button" hidden>Share</button><button id="dbgCopy" type="button">Copy</button><button id="dbgClear" type="button">Clear</button></div><pre id="dbgLog"></pre></div>
 
 <script id="catalog" type="application/json">__CATALOG__</script>
 <script>
@@ -686,9 +686,20 @@ setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDi
 setInterval(render, 500); setInterval(renderLog, 15000);
 if (DBG.on) {
   $('#dbg').hidden = false; document.body.classList.add('has-dbg');
-  const flash = (m) => { const b = $('#dbgCopy'); b.textContent = m; setTimeout(() => { b.textContent = 'Copy'; }, 1500); };
-  const select = () => { const r = document.createRange(); r.selectNodeContents($('#dbgLog')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); flash('Selected'); };
-  $('#dbgCopy').addEventListener('click', () => { const txt = 'Needle & Dial ' + BUILD + '\n' + navigator.userAgent + '\n' + DBG.lines.join('\n'); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => flash('Copied'), select); else select(); });
+  const report = () => 'Needle & Dial ' + BUILD + '\n' + navigator.userAgent + '\n' + DBG.lines.join('\n');
+  const flash = (b, m) => { b.textContent = m; setTimeout(() => { b.textContent = 'Copy'; }, 1800); };
+  // The Clipboard API needs a secure page; the older copy command also works on a page opened from a file.
+  const legacyCopy = (txt) => { const ta = document.createElement('textarea'); ta.value = txt; ta.readOnly = true; ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px'; document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, txt.length); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} ta.remove(); return ok; };
+  $('#dbgCopy').addEventListener('click', async (ev) => {
+    const b = ev.currentTarget, txt = report();
+    let ok = false;
+    if (window.isSecureContext && navigator.clipboard && navigator.clipboard.writeText) { try { await navigator.clipboard.writeText(txt); ok = true; } catch (e) {} }
+    if (!ok) ok = legacyCopy(txt);
+    if (ok) return flash(b, 'Copied');
+    const r = document.createRange(); r.selectNodeContents($('#dbgLog')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    flash(b, 'Selected');
+  });
+  if (navigator.share) { const sb = $('#dbgShare'); sb.hidden = false; sb.addEventListener('click', () => { navigator.share({ title: 'Needle & Dial debug log', text: report() }).catch((e) => { if (e && e.name !== 'AbortError') dlog('share failed: ' + e.name); }); }); }
   $('#dbgClear').addEventListener('click', () => { DBG.lines = []; try { localStorage.removeItem('needle-dial.debug'); } catch (e) {} paintDbg(); });
   dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
