@@ -586,7 +586,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lead: 0, cont: false, over: false, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lead: 0, cont: false, over: false, pre: null, fadedOut: false, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -660,18 +660,18 @@ function initAudio() {
   const ng = ctx.createGain(); ng.gain.value = 0; ns.connect(nf); nf.connect(ng); ng.connect(master); ns.start();
   const wo = ctx.createOscillator(); wo.frequency.value = 600; const wg = ctx.createGain(); wg.gain.value = 0; wo.connect(wg); wg.connect(master); wo.start();
   const el = new Audio(); el.preload = 'auto';
-  let g = null, lim = null, wet = null, dry = null, dcb = null;
+  let g = null, lim = null, wet = null, dry = null, dcb = null, pre = null;
   if (ROUTE) {
-    el.crossOrigin = 'anonymous'; g = ctx.createGain();
-    const media = ctx.createMediaElementSource(el);
-    try { const [b, a] = hpCoeffs(ctx.sampleRate); dcb = ctx.createIIRFilter(b, a); media.connect(dcb); dcb.connect(g); } catch (e) { dcb = null; media.connect(g); }
+    el.crossOrigin = 'anonymous'; g = ctx.createGain(); pre = ctx.createGain();
+    const media = ctx.createMediaElementSource(el); media.connect(pre);
+    try { const [b, a] = hpCoeffs(ctx.sampleRate); dcb = ctx.createIIRFilter(b, a); pre.connect(dcb); dcb.connect(g); } catch (e) { dcb = null; pre.connect(g); }
     lim = ctx.createDynamicsCompressor(); for (const k of Object.keys(LIMITER)) lim[k].value = LIMITER[k];
     wet = ctx.createGain(); dry = ctx.createGain(); g.connect(lim); lim.connect(wet); wet.connect(toneIn); g.connect(dry); dry.connect(toneIn);
     wet.gain.value = LIM.on ? Math.pow(10, -makeupDb(LIMITER) / 20) : 0; dry.gain.value = LIM.on ? 0 : 1;
   }
   const keep = QS.get('keepalive') === '0' ? null : new Audio(); // on everywhere since 26 Nov; ?keepalive=0 turns it off for testing
   if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
-  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, dcb, lim, wet, dry, keep });
+  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, dcb, pre, lim, wet, dry, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
   el.addEventListener('loadedmetadata', onMeta);
   el.addEventListener('playing', () => {
@@ -679,6 +679,7 @@ function initAudio() {
     let note = '';
     if (A.seekAt) { const s = (performance.now() - A.seekAt) / 1000, lag = wantPos() - el.currentTime; A.seekAt = 0; noteLoad(s); note = ` after ${s.toFixed(1)} s, ${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; }
     else if (A.kind === 'media' && A.shown !== A.src) note = ` from ${el.currentTime.toFixed(1)} s (start point ${A.skip.toFixed(1)} s), ${sched(el.currentTime)}`;
+    if (A.kind === 'media' && A.shown !== A.src) fadeIn();
     if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind + note); }
     else if (A.waitAt) dlog(`back after ${((performance.now() - A.waitAt) / 1000).toFixed(1)} s of buffering`); // for tools/check_log.js
     A.waitAt = 0;
@@ -745,6 +746,22 @@ const makeupDb = (L) => -0.6 * (L.threshold - L.threshold / L.ratio); // the cur
 // limiter, moving, would turn that into thumps. [feedforward, feedback] for an IIR filter at rate fs.
 const HIGHPASS = 20;
 function hpCoeffs(fs, fc = HIGHPASS) { const w = 2 * Math.PI * fc / fs, c = Math.cos(w), a = Math.sin(w) / Math.SQRT2, a0 = 1 + a; return [[(1 + c) / 2 / a0, -(1 + c) / a0, (1 + c) / 2 / a0], [1, -2 * c / a0, (1 - a) / a0]]; }
+// A recording that sits off zero steps from silence to that offset where it starts and back where it
+// stops, and the high-pass rings with the step: a thump as loud as the recording's peaks (Beauty and the
+// Beast, a third of full scale off zero). A gain before the high-pass fades each recording in as it starts
+// and out just before it stops, with a 50 ms time constant (FADE), inside the 0.3 s of quiet the levels
+// leave at each end, which takes the thump down by 24 dB to a bump below 20 Hz. Web Audio only: on an
+// iPhone the page plays the file straight, as any player would.
+const FADE = 0.05;
+function fadeTo(v) { if (!A.pre) return; const p = A.pre.gain, t = A.ctx.currentTime; p.cancelScheduledValues(t); p.setValueAtTime(p.value, t); p.setTargetAtTime(v, t, FADE); A.fadedOut = v === 0; }
+const fadeIn = () => fadeTo(1);
+// Fade out when the recording is within 0.4 s of where its sound ends (the ticks come every 0.2 s or so,
+// more slowly in the background), or of its slot's end in a week without a load gap.
+function fadeOutNearEnd(left) {
+  const it = A.it; if (!A.pre || A.fadedOut || A.kind !== 'media' || !it || A.el.paused) return;
+  const to = Math.min(fileEnd(it, A.skip) - A.el.currentTime, it.lead ? Infinity : left);
+  if (to < 0.4) fadeTo(0);
+}
 const dbOf = (it) => (!it ? 0 : LIM.on || it.gain0 == null ? it.gain || 0 : it.gain0);
 const gainOf = (it) => (dbOf(it) ? Math.pow(10, dbOf(it) / 20) : 1);
 // Where a recording's sound ends in its file: the levels' end point, or its slot's length past the skip point.
@@ -756,6 +773,8 @@ function carry(src, kind, t0, len, loop, label, it, cont) {
   el.loop = !!loop;
   if (fresh) {
     A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0; A.over = false;
+    if (A.pre) { const p = A.pre.gain, t = A.ctx.currentTime; p.cancelScheduledValues(t); p.setValueAtTime(kind === 'media' ? 0 : 1, t); A.fadedOut = false; }
+    A.shown = ''; // not started yet, even when it is the same file loaded again
     if (A.g) ramp(A.g.gain, A.fade * A.lvl, 0.03);
     el.src = src;
     const want = wantPos(), into = want - skip; // into: how far into the recording (below 0 in its lead)
@@ -898,6 +917,7 @@ function maintain(S, c) {
     const want = wantPos();
     if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { dlog(`resync ${el.currentTime.toFixed(1)} → ${want.toFixed(1)} s`); try { el.currentTime = want; } catch (e) {} }
     if (seg.cut && left < 5) A.fade = 0;
+    fadeOutNearEnd(left);
     // Move on before the file runs out: a player sitting at its end is a stopped player.
     if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { if (filling()) nextFiller(); else if (inGap()) { dlog('file ended in the gap before the next item'); bridge(); } else { dlog('file is shorter than its slot'); endedEarly(); } }
     else if (filling() && nowS() > FILL.cur.at + FILL.cur.it.d + 1) nextFiller(); // past its listed length: keep to the plan
@@ -955,6 +975,7 @@ function finishing(now) {
   if (left < 0.05 || el.ended) return false;
   if (over > 4 || el.paused) { if (left > 0.3) dlog(`cut ${PLAY.S.call} ${it.k}${it.t ? ' “' + it.t + '”' : ''} with ${left.toFixed(1)} s of it unplayed`); return false; }
   if (!A.over) { A.over = true; dlog(`letting it finish: ${left.toFixed(1)} s to go, past its slot`); }
+  fadeOutNearEnd(Infinity);
   return true;
 }
 
@@ -1265,7 +1286,7 @@ if (PREVIEW) {
         + (A.lim && LIM.on ? ` · the limiter is taking ${Math.abs(A.lim.reduction).toFixed(1)} dB off now` : '') + '.';
   }, 250);
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, FADE, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>
