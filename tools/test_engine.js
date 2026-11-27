@@ -154,10 +154,12 @@ for (const n of snaps) {
 // whole second, and carries its skip point and gain; one without plays whole; a bad entry is ignored.
 {
   const P3 = parseCatalog(CAT), ep = P3.whodunit[0].eps[0], other = P3.whodunit[0].eps[1], tr = P3.shows[0].items.find((t) => P3.vault.some((v) => v.f === t.f));
-  const LV = { [ep.id]: { [ep.f]: [-3.5, 1.2, 1700.4], [other.f]: [2, 9, 9] }, [tr.id]: { [tr.f]: [1.5, 0.4, 200] } };
+  const ep3 = P3.whodunit[0].eps[3];
+  const LV = { [ep.id]: { [ep.f]: [-3.5, 1.2, 1700.4], [other.f]: [2, 9, 9], [ep3.f]: [7.5, 0, 1000, 2.5] }, [tr.id]: { [tr.f]: [1.5, 0.4, 200] } };
   const d0 = other.d;
   applyLevels(P3, LV);
-  if (ep.d !== 1700 || ep.skip !== 1.2 || ep.gain !== -3.5) bad(`applyLevels: expected d 1700, skip 1.2, gain -3.5, got ${ep.d}, ${ep.skip}, ${ep.gain}`);
+  if (ep.d !== 1700 || ep.skip !== 1.2 || ep.gain !== -3.5 || ep.gain0 !== -3.5) bad(`applyLevels: expected d 1700, skip 1.2, gain -3.5 with or without the limiter, got ${ep.d}, ${ep.skip}, ${ep.gain}, ${ep.gain0}`);
+  if (ep3.gain !== 7.5 || ep3.gain0 !== 2.5) bad(`applyLevels: a fourth number is the gain without the limiter: expected 7.5 and 2.5, got ${ep3.gain} and ${ep3.gain0}`);
   if (other.d !== d0 || other.skip !== undefined) bad('applyLevels: an entry that ends before it starts should be ignored');
   if (P3.whodunit[0].eps[2].skip !== undefined) bad('applyLevels: a file with no entry should play whole');
   const v = P3.vault.find((x) => x.f === tr.f);

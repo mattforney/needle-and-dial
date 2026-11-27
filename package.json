@@ -5,10 +5,11 @@
   "description": "Radio stations built from the Internet Archive's audio, on a shared schedule.",
   "scripts": {
     "build": "python3 tools/build.py",
+    "preview": "python3 tools/build.py --preview",
     "test": "node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js && node tools/test_levels.js",
     "test:playback": "node tools/test_playback.js",
     "test:form": "node tools/test_report_form.js",
-    "check": "python3 tools/build.py && node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js && node tools/test_levels.js && node tools/test_report_form.js && node tools/test_playback.js",
+    "check": "python3 tools/build.py --preview && node tools/test_engine.js && node tools/test_archive_check.js && python3 tools/test_snapshot.py && node tools/test_check_log.js && node tools/test_levels.js && node tools/test_report_form.js && node tools/test_playback.js",
     "check-log": "node tools/check_log.js",
     "archive-check": "node tools/archive_check.js",
     "analyze": "node tools/analyze.js",

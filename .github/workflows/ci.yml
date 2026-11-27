@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 24
       - name: Build
-        run: python3 tools/build.py
+        run: python3 tools/build.py --preview
       - name: Schedule checks
         run: node tools/test_engine.js
       - name: Archive check logic

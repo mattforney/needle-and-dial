@@ -144,9 +144,20 @@ body.has-dbg .wrap{padding-bottom:42vh}
 /* Touch screens: no keyboard instructions. */
 @media(hover:none) and (pointer:coarse){.hint .keys{display:none}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
+/* The preview build only (tools/build.py --preview): levels not yet on air, and a switch for the limiter. */
+.pv{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;padding:8px max(4vw,14px);background:#2a1a0f;border-bottom:1px solid var(--brass-d);font-size:14px;line-height:1.4;color:var(--muted)}
+.pv[hidden]{display:none}
+.pv b{font-family:Oswald,sans-serif;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--glass-hot)}
+.pv-note{flex:1 1 320px}
+.pv-sw{display:inline-flex;gap:4px;align-items:center}.pv-sw>span{margin-right:4px;color:var(--ink)}
+.pv-sw button{border:0;border-radius:6px;min-height:32px;min-width:52px;padding:3px 12px;background:#3a2615;color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--brass-d)}
+.pv-sw button[aria-pressed="true"]{background:var(--brass);color:var(--night);font-weight:600}
+.pv-sw button:disabled{opacity:.5;cursor:default}
+.pv-now{flex:1 1 100%;color:var(--ink);font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
+<div class="pv" id="pv" hidden><b>Preview</b><span class="pv-note" id="pvNote"></span><span class="pv-sw" role="group" aria-label="Limiter"><span>Limiter</span><button type="button" data-lim="1" aria-pressed="true">On</button><button type="button" data-lim="0" aria-pressed="false">Off</button></span><span class="pv-now" id="pvNow" aria-live="off"></span></div>
 <div class="wrap">
 <header class="top">
   <div class="brand">Needle &amp; Dial</div>
@@ -561,6 +572,7 @@ let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
 const BUILD = '__BUILD__';
+const PREVIEW = __PREVIEW__; // the preview build's note (tools/build.py --preview), or null
 const DBG = { on: QS.get('debug') === '1' || (__DEBUG__ && QS.get('debug') !== '0'), lines: [], hb: 0, paint: 0 };
 if (DBG.on) { try { DBG.lines = JSON.parse(localStorage.getItem('needle-dial.debug') || '[]'); } catch (e) {} }
 function dlog(msg) {
@@ -1168,6 +1180,20 @@ if (DBG.on) {
   dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
+}
+// The preview build: a note on what it plays, the limiter switch, and what the limiter is doing now.
+if (PREVIEW) {
+  const pv = $('#pv'), btns = pv.querySelectorAll('[data-lim]'), f = (x) => (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(1) + ' dB';
+  const show = () => btns.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.lim === '1') === LIM.on)));
+  pv.hidden = false; document.title = 'Preview · ' + document.title; $('#pvNote').textContent = PREVIEW.note + (ROUTE ? '' : ' This browser plays the audio directly, so it has no limiter to switch.');
+  btns.forEach((b) => { b.disabled = !ROUTE; b.addEventListener('click', () => { setLimiter(b.dataset.lim === '1'); show(); }); });
+  show();
+  setInterval(() => {
+    const it = A.it, other = it && it.gain0 != null && it.gain0 !== it.gain ? (LIM.on ? it.gain0 : it.gain) : null;
+    $('#pvNow').textContent = !R.on ? 'Turn the radio on and tune in a station to listen.' : !TUNED || !A.src || A.kind !== 'media' ? 'Nothing from the Archive playing just now.'
+      : (it && it.gain != null ? `This recording plays at ${f(dbOf(it))}` + (other != null ? ` (${f(other)} with the limiter ${LIM.on ? 'off' : 'on'})` : ', the same either way') : 'This recording has no levels yet, so plays as it is')
+        + (A.lim && LIM.on ? ` · the limiter is taking ${Math.abs(A.lim.reduction).toFixed(1)} dB off now` : '') + '.';
+  }, 250);
 }
 window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, LIMITER, LIM, makeupDb, setLimiter, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }

@@ -376,6 +376,115 @@ async function levelsPlay(browser, qs) {
   return finish(t, name, problems);
 }
 
+// The limiter: here every 78 leans on it, +4 dB with it and +1 dB without. The page should play the
+// first gain through the limiter and the second around it when it is off, whether by ?limiter=0 or by
+// switching it while playing; direct audio has no limiter, so it takes the second gain (as far as the
+// element's volume, at most 1, allows).
+const LIM_G = 4, LIM_G0 = 1;
+const INLINE_LIM = JSON.parse(JSON.stringify(INLINE));
+if (snapshotted) {
+  const g78 = api.parseCatalog(INLINE_LIM[0].catalog).g78, LV = {};
+  for (const x of g78) (LV[x.id] = LV[x.id] || {})[x.f] = [LIM_G, SKIP, SKIP + x.d - 4, LIM_G0];
+  INLINE_LIM[0].levels = LV;
+}
+const HTML_LIM = HTML.split('<script id="catalog" type="application/json">')[0] + '<script id="catalog" type="application/json">' + JSON.stringify(INLINE_LIM).replace(/<\//g, '<\\/') + '</script>' + HTML.split('<script id="catalog" type="application/json">')[1].split('</script>').slice(1).join('</script>');
+const SCH_LIM = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_LIM)) : null;
+async function limiterPlay(browser, qs) {
+  const name = 'limiter: the gain with it and without' + (qs ? ' · ' + qs : '');
+  if (!SCH_LIM) return { name, ok: true, problems: [], log: '' };
+  const nx = (c) => SCH_LIM.at(S, c.start + c.seg.d + 0.01);
+  let c = SCH_LIM.at(S, Date.now() / 1000 + 300);
+  for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && c.seg.skip === SKIP); k++) c = nx(c);
+  const direct = qs === 'audio=direct', sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_LIM, qs, unmute: direct, len: { [url(c.seg)]: SKIP + c.seg.d + 3 } };
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [], dB = (x) => Math.pow(10, x / 20), near = (a, b, tol = 0.02) => a != null && Math.abs(a - b) < tol;
+  const st = () => page.evaluate(() => { const K = window.SKY, A = K.A; return { on: K.LIM.on, lim: !!A.lim, g: A.g ? A.g.gain.value : null, wet: A.wet ? A.wet.gain.value : null, dry: A.dry ? A.dry.gain.value : null, vol: A.el.volume, rvol: K.R.vol, back: dB(-K.makeupDb(K.LIMITER)) }; function dB(x) { return Math.pow(10, x / 20); } });
+  const expect = (s, on, when) => {
+    if (direct) { if (s.on || s.lim) problems.push(`${when}: direct audio has no limiter`); if (!near(s.vol, Math.min(1, dB(LIM_G0) * s.rvol * s.rvol))) problems.push(`${when}: direct audio volume ${s.vol.toFixed(3)}, expected the gain without the limiter: ${Math.min(1, dB(LIM_G0) * s.rvol * s.rvol).toFixed(3)}`); return; }
+    if (s.on !== on) problems.push(`${when}: limiter ${s.on ? 'on' : 'off'}, expected ${on ? 'on' : 'off'}`);
+    if (!near(s.g, dB(on ? LIM_G : LIM_G0))) problems.push(`${when}: recording gain ${s.g && s.g.toFixed(3)}, expected ${dB(on ? LIM_G : LIM_G0).toFixed(3)} (${on ? LIM_G : LIM_G0} dB)`);
+    if (!near(s.wet, on ? s.back : 0) || !near(s.dry, on ? 0 : 1)) problems.push(`${when}: through the limiter ${s.wet && s.wet.toFixed(3)}, around it ${s.dry && s.dry.toFixed(3)}; expected ${on ? s.back.toFixed(3) + ' and 0' : '0 and 1'}`);
+  };
+  await sleep(1500);
+  expect(await st(), !qs, 'tuned in');
+  if (!qs) {
+    await page.evaluate(() => window.SKY.setLimiter(false)); await sleep(400); expect(await st(), false, 'switched off');
+    await page.evaluate(() => window.SKY.setLimiter(true)); await sleep(400); expect(await st(), true, 'switched back on');
+  }
+  const log = await page.evaluate(() => window.SKY.log());
+  const want = direct ? /audio direct/ : qs ? new RegExp('limiter off[\\s\\S]*→ WGRM music .*, \\+' + LIM_G0 + ' dB$', 'm') : new RegExp('→ WGRM music .*, \\+' + LIM_G + ' dB with the limiter[\\s\\S]*limiter off: \\+' + LIM_G0 + ' dB[\\s\\S]*limiter on: \\+' + LIM_G + ' dB');
+  if (!want.test(log)) problems.push('the log does not show the gains: wanted ' + want);
+  return finish(t, name, problems);
+}
+// The limiter's settings, in this browser's own limiter (offline): unity under the threshold; a tone 6 dB
+// over it held near it; clicks 7 dB over it (as far over as the levels allow: 6 dB past -1 dBTP) held
+// under full scale; and the music under them back to its level within 200 ms.
+async function limiterSettings(browser) {
+  const name = "limiter: its settings in this browser's limiter";
+  const ctx = await browser.newContext();
+  await ctx.route(/fonts\.(googleapis|gstatic)\.com|archive\.org/, (r) => r.abort());
+  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
+  const page = await ctx.newPage();
+  await page.goto('http://nd.test/');
+  const r = await page.evaluate(async () => {
+    const L = window.SKY.LIMITER, back = Math.pow(10, -window.SKY.makeupDb(L) / 20), sr = 48000, lag = Math.round(0.006 * sr), dB = (v) => 20 * Math.log10(v);
+    const render = async (secs, fill) => {
+      const n = Math.round(secs * sr), ctx = new OfflineAudioContext(1, n, sr), b = ctx.createBuffer(1, n, sr), x = b.getChannelData(0); fill(x);
+      const s = ctx.createBufferSource(), l = ctx.createDynamicsCompressor(), g = ctx.createGain(); s.buffer = b; for (const k of Object.keys(L)) l[k].value = L[k]; g.gain.value = back;
+      s.connect(l); l.connect(g); g.connect(ctx.destination); s.start();
+      return { x, y: (await ctx.startRendering()).getChannelData(0) };
+    };
+    const tone = (a, f = 1000) => (x) => { for (let i = 0; i < x.length; i++) x[i] = a(i) * Math.sin(2 * Math.PI * f * i / sr); };
+    const peak = (y, from) => { let p = 0; for (let i = from; i < y.length; i++) p = Math.max(p, Math.abs(y[i])); return dB(p); };
+    const a = await render(2, tone(() => 0.1)); let ex = 0, ey = 0; for (let i = sr; i < 1.9 * sr; i++) { ex += a.x[i - lag] ** 2; ey += a.y[i] ** 2; }
+    const over = Math.pow(10, (L.threshold + 6) / 20), b = await render(3, tone((i) => (i < sr ? 0.01 : over)));
+    const click = Math.pow(10, (L.threshold + 7) / 20), every = Math.round(0.77 * sr);
+    const c = await render(4, (x) => { tone(() => 0.1, 440)(x); for (let k0 = sr; k0 < x.length - 100; k0 += every) for (let k = 0; k < 48; k++) x[k0 + k] += click * Math.sin(Math.PI * (k + 0.5) / 48) * (k % 2 ? 1 : -1); });
+    const at = sr + every + lag + Math.round(0.2 * sr), n = Math.round(0.02 * sr); let e = 0; for (let i = at; i < at + n; i++) e += c.y[i] ** 2;
+    return { threshold: L.threshold, unity: 10 * Math.log10(ey / ex), held: peak(b.y, sr), clicks: peak(c.y, sr), bed: dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)) };
+  });
+  await ctx.close();
+  const problems = [];
+  if (!(Math.abs(r.unity) < 0.02)) problems.push(`under the threshold the gain is ${r.unity.toFixed(3)} dB, not unity: the makeup gain isn't taken back out exactly`);
+  if (!(r.held < r.threshold + 0.6)) problems.push(`a tone 6 dB over the threshold comes out at ${r.held.toFixed(2)} dBFS`);
+  if (!(r.clicks < -0.1)) problems.push(`clicks 7 dB over the threshold come out at ${r.clicks.toFixed(2)} dBFS`);
+  if (!(r.bed > -0.5)) problems.push(`the music under a click is still ${r.bed.toFixed(2)} dB down 200 ms after it`);
+  return { name, ok: !problems.length, problems, log: `unity ${r.unity.toFixed(3)} dB; tone 6 dB over held at ${r.held.toFixed(2)} dBFS; clicks 7 dB over at ${r.clicks.toFixed(2)} dBFS; music 200 ms after a click ${r.bed.toFixed(2)} dB` };
+}
+
+// The preview build (tools/build.py --preview, beside dist/index.html): its banner, its limiter switch,
+// and the levels it applies, which are catalog/levels.json's for every week on the page.
+const PV_PATH = path.join(path.dirname(htmlPath), 'preview.html');
+const HTML_PV = fs.existsSync(PV_PATH) ? fs.readFileSync(PV_PATH, 'utf8') : null;
+const INLINE_PV = HTML_PV && JSON.parse(HTML_PV.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
+const SCH_PV = INLINE_PV && snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_PV)) : null;
+async function previewPlay(browser) {
+  const name = 'preview: the banner and the limiter switch';
+  if (!SCH_PV) return { name, ok: !snapshotted, problems: snapshotted ? ['no dist/preview.html: build with tools/build.py --preview'] : [], log: '' };
+  const problems = [];
+  if (!INLINE_PV[0].levels || !Object.keys(INLINE_PV[0].levels).length) problems.push("the preview's first week carries no levels");
+  const nx = (c) => SCH_PV.at(S, c.start + c.seg.d + 0.01);
+  let c = SCH_PV.at(S, Date.now() / 1000 + 300);
+  for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain); k++) c = nx(c);
+  if (!(c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain)) return { name, ok: false, problems: [...problems, 'no WGRM record leaning on the limiter within reach'], log: '' };
+  const sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_PV, len: { [url(c.seg)]: (c.seg.skip || 0) + c.seg.d + 3 } };
+  const t = await open(browser, sc, { strict: false, timers: 'slow' }), { page } = t, f = (x) => (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(1) + ' dB';
+  const st = () => page.evaluate(() => ({ hidden: document.getElementById('pv').hidden, note: document.getElementById('pvNote').textContent, now: document.getElementById('pvNow').textContent, on: window.SKY.LIM.on, pressed: [...document.querySelectorAll('#pv [data-lim]')].map((b) => b.getAttribute('aria-pressed')), g: window.SKY.A.g.gain.value, title: document.title }));
+  const want = (s, on, when) => {
+    const g = on ? c.seg.gain : c.seg.gain0, other = on ? c.seg.gain0 : c.seg.gain;
+    if (s.on !== on || s.pressed.join() !== (on ? 'true,false' : 'false,true')) problems.push(`${when}: limiter ${s.on ? 'on' : 'off'}, buttons pressed ${s.pressed.join('/')}`);
+    if (Math.abs(s.g - Math.pow(10, g / 20)) > 0.02) problems.push(`${when}: recording gain ${s.g.toFixed(3)}, expected ${Math.pow(10, g / 20).toFixed(3)} (${g} dB)`);
+    if (!s.now.includes(`plays at ${f(g)} (${f(other)} with the limiter ${on ? 'off' : 'on'})`)) problems.push(`${when}: the banner says “${s.now}”`);
+  };
+  await sleep(1500);
+  const s0 = await st();
+  if (s0.hidden || !/^The new levels/.test(s0.note) || !/^Preview · /.test(s0.title)) problems.push(`the banner: hidden ${s0.hidden}, note “${s0.note.slice(0, 60)}…”, title “${s0.title}”`);
+  want(s0, true, 'tuned in');
+  await page.click('#pv [data-lim="0"]'); await sleep(400); want(await st(), false, 'switched off');
+  await page.click('#pv [data-lim="1"]'); await sleep(400); want(await st(), true, 'switched back on');
+  return finish(t, name, problems);
+}
+
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
 // slowMs holds the page's time check that long before the server stamps its answer: a slow uplink, or a busy server.
 async function clockSync(browser, skewMs, slowMs = 0) {
@@ -405,7 +514,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.

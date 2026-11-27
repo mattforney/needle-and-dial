@@ -73,7 +73,7 @@ function review(m, v) {
 // One Archive item per line, so a diff shows which items changed.
 function dump(t) {
   const ids = Object.keys(t.items).sort();
-  const head = JSON.stringify({ made: t.made, target: t.target, peak: t.peak, pad: t.pad, files: t.files }).slice(0, -1);
+  const head = JSON.stringify({ made: t.made, target: t.target, peak: t.peak, limit: t.limit, pad: t.pad, files: t.files }).slice(0, -1);
   return head + ',"items":{\n' + ids.map((id, i) => JSON.stringify(id) + ':' + JSON.stringify(t.items[id]) + (i < ids.length - 1 ? ',' : '')).join('\n') + '\n}}\n';
 }
 
@@ -87,13 +87,13 @@ function main([src = path.join(__dirname, '..', 'catalog', 'measurements.json'),
     (items[m.id] = items[m.id] || {})[m.f] = v; n++;
   }
   for (const id of Object.keys(items)) items[id] = Object.fromEntries(Object.entries(items[id]).sort(([a], [b]) => (a < b ? -1 : 1)));
-  const t = { made: new Date().toISOString().slice(0, 10), target: TARGET, peak: PEAK, pad: PAD, files: n, items };
-  const old = fs.existsSync(dest) ? JSON.parse(fs.readFileSync(dest, 'utf8')) : null, same = old && JSON.stringify(old.items) === JSON.stringify(items);
+  const t = { made: new Date().toISOString().slice(0, 10), target: TARGET, peak: PEAK, limit: LIMIT, pad: PAD, files: n, items };
+  const old = fs.existsSync(dest) ? JSON.parse(fs.readFileSync(dest, 'utf8')) : null, same = old && JSON.stringify(old.items) === JSON.stringify(items) && old.limit === LIMIT;
   if (same) t.made = old.made; // nothing new: leave the file as it was
   if (!same) fs.writeFileSync(dest, dump(t));
   const all = Object.values(items).flatMap((o) => Object.values(o));
   const cut = all.reduce((s, [, skip, out], i) => s + skip, 0);
-  console.log(`${n} files → ${path.relative(process.cwd(), dest)}${same ? ', unchanged' : ''} (${parts.size} parts of programs share their program’s gain); gains ${Math.min(...all.map((v) => v[0]))} to +${Math.max(...all.map((v) => v[0]))} dB; ${all.filter((v) => v[1] > 0).length} start trimmed (${Math.round(cut)} s in all)`);
+  console.log(`${n} files → ${path.relative(process.cwd(), dest)}${same ? ', unchanged' : ''} (${parts.size} parts of programs share their program’s gain); gains ${Math.min(...all.map((v) => v[0]))} to +${Math.max(...all.map((v) => v[0]))} dB, ${all.filter((v) => v.length > 3).length} of them leaning on the limiter; ${all.filter((v) => v[1] > 0).length} start trimmed (${Math.round(cut)} s in all)`);
   if (listen.length) console.log(`Worth a listen (${listen.length}):\n  ` + listen.join('\n  '));
 }
 
