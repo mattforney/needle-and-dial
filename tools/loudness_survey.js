@@ -13,6 +13,9 @@
 // archive.org can't be reached from every machine, so the weekly Archive check workflow runs measure on
 // GitHub's servers, into catalog/measurements.json. Needs ffmpeg (with libmp3lame for the self-test).
 //
+// Every measurement is of the audio as the page plays it: through a 20 Hz high-pass (second order,
+// Butterworth, as the page's), which takes out any DC offset or rumble below hearing. Without it, a
+// recording sitting off zero shows peaks it doesn't play and no silence at its ends (hp: 20 in a record).
 // Per file: integrated loudness (LUFS), loudness range (LU) and true peak (dBTP) from ffmpeg's ebur128
 // filter; then, from the audio in 100 ms blocks (48 kHz, full bandwidth; the average power of its one or
 // two channels as RMS in dBFS, so a full-scale sine is -3 dB), the quiet stretch at each end, two ways:
@@ -31,7 +34,7 @@ const { Readable } = require('stream');
 const { pipeline } = require('stream/promises');
 
 const ROOT = path.join(__dirname, '..');
-const RATE = 48000;
+const RATE = 48000, HP = 20;
 const SILENT = -50, QUIET = 25;
 const UA = 'needle-and-dial loudness survey (+https://github.com/mattforney/needle-and-dial)';
 const ia = (id, file) => 'https://archive.org/download/' + encodeURIComponent(id) + '/' + file.split('/').map(encodeURIComponent).join('/');
@@ -46,7 +49,7 @@ function probe(file) {
 function measure(file) {
   return new Promise((resolve, reject) => {
     const info = probe(file), CH = info.channels === 1 ? 1 : 2, BLOCK = (RATE / 10) * CH; // mono stays mono: ffmpeg's upmix would lower each channel 3 dB
-    const ff = spawn('ffmpeg', ['-hide_banner', '-nostats', '-i', file, '-filter_complex', '[0:a:0]asplit=2[a][b];[a]ebur128=peak=true:framelog=quiet[x]',
+    const ff = spawn('ffmpeg', ['-hide_banner', '-nostats', '-i', file, '-filter_complex', `[0:a:0]highpass=f=${HP}:poles=2,asplit=2[a][b];[a]ebur128=peak=true:framelog=quiet[x]`,
       '-map', '[x]', '-f', 'null', '-', '-map', '[b]', '-ac', String(CH), '-ar', String(RATE), '-f', 's16le', 'pipe:1'], { stdio: ['ignore', 'pipe', 'pipe'] });
     const ms = []; let acc = 0, n = 0, carry = null, err = '';
     ff.stdout.on('data', (buf) => {
@@ -63,7 +66,7 @@ function measure(file) {
       if (n >= BLOCK / 2) ms.push(acc / n);
       const sum = err.slice(at), num = (re) => { const m = re.exec(sum); return m && m[1] !== '-inf' ? +m[1] : null; };
       const db = ms.map((x) => (x > 0 ? 10 * Math.log10(x / 32768 / 32768) : -120));
-      resolve(Object.assign(info, { I: num(/\bI:\s+(-inf|-?[\d.]+) LUFS/), LRA: num(/\bLRA:\s+(-inf|-?[\d.]+) LU\b/), TP: num(/\bPeak:\s+(-inf|-?[\d.]+) dBFS/) }, ends(db)));
+      resolve(Object.assign(info, { I: num(/\bI:\s+(-inf|-?[\d.]+) LUFS/), LRA: num(/\bLRA:\s+(-inf|-?[\d.]+) LU\b/), TP: num(/\bPeak:\s+(-inf|-?[\d.]+) dBFS/) }, ends(db), { hp: HP }));
     });
   });
 }
@@ -203,6 +206,9 @@ async function selftest() {
     ['eight seconds of dead air in the middle', `if(between(t,5,13),0,${tone(0.1)})`, 18, { gap_silent: [8, 0.1], lead_silent: [0, 0.05], tail_silent: [0, 0.05] }],
     ['steady tone in stereo', tone(0.1), 10, { I: [-20.0, 0.2], prog: [-23.0, 0.2], lead_silent: [0, 0.05] }, 'stereo'],
     ['silence at both ends, through MP3', `if(between(t,3,13),${tone(0.1)},0)`, 18, { I: [-23.6, 0.6], lead_silent: [3, 0.15], tail_silent: [5, 0.25] }, 'mp3'],
+    // A third of full scale below zero (faded in over 1 s, so the high-pass makes no click), then a tone: the
+    // peak, the program level and the silent lead-in are the tone's and the lead-in's, not the offset's.
+    ['a tone riding a DC offset', `-0.33*min(t,1)+if(gte(t,4),${tone(0.1)},0)`, 14, { TP: [-20.0, 0.3], prog: [-23.0, 0.3], lead_silent: [4, 0.15] }],
   ];
   let bad = 0;
   for (const [name, expr, d, want, codec] of cases) {
