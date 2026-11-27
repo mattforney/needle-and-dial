@@ -1,0 +1,55 @@
+# Measures every file in research/loudness/all.json (loudness, true peak, quiet at each end, true length) into
+# research/loudness/levels.json, committing every 50 files so nothing is lost if the run stops; a re-run resumes.
+# It runs only on the loudness-survey branch, so main and the site are untouched. One file at a time.
+name: Loudness survey
+
+on:
+  push:
+    branches: [loudness-survey]
+    paths: [research/loudness/all.json, tools/loudness_survey.js, .github/workflows/loudness-survey.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: loudness-survey
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install ffmpeg
+        run: |
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          ffmpeg -version | head -1
+      - name: Self-test on synthetic audio
+        run: node tools/loudness_survey.js selftest
+      - name: Measure every catalog file, committing every 50
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for round in $(seq 1 40); do
+            node tools/loudness_survey.js measure research/loudness/all.json research/loudness/levels.json --max 50
+            git add research/loudness/levels.json
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Loudness: measured files [skip ci]"
+              git push -q origin "HEAD:${GITHUB_REF_NAME}"
+            fi
+            node -e "process.exit(require('./research/loudness/levels.json').finished ? 0 : 1)" && break
+          done
+      - name: Summary
+        if: always() && hashFiles('research/loudness/levels.json') != ''
+        run: node tools/loudness_survey.js report research/loudness/levels.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit anything left over
+        if: always() && hashFiles('research/loudness/levels.json') != ''
+        run: |
+          git add research/loudness/levels.json
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Loudness: measured files [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
