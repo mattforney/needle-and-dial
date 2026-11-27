@@ -43,8 +43,14 @@ def build_id():
 
 tpl = (ROOT / 'src' / 'index.template.html').read_text(encoding='utf-8')
 assert tpl.count('__CATALOG__') == 1 and tpl.count('__BUILD__') == 1 and tpl.count('__DEBUG__') == 1
-# Later snapshots go on the page as just the stations that differ from the one before.
-slim = [page[0]] + [{'from': b['from'], 'exclude': b['exclude'], 'partial': True, 'catalog': {k: v for k, v in b['catalog'].items() if a['catalog'].get(k) != v}} for a, b in zip(page, page[1:])]
+# Later snapshots go on the page as just the stations, and the items' levels, that differ from the one
+# before; an item whose levels went away is listed as null.
+def changed_levels(a, b):
+    la, lb = a.get('levels') or {}, b.get('levels') or {}
+    return {k: lb.get(k) for k in sorted(set(la) | set(lb)) if la.get(k) != lb.get(k)}
+
+
+slim = [page[0]] + [dict({'from': b['from'], 'exclude': b['exclude'], 'partial': True, 'catalog': {k: v for k, v in b['catalog'].items() if a['catalog'].get(k) != v}}, **({'levels': changed_levels(a, b)} if changed_levels(a, b) else {})) for a, b in zip(page, page[1:])]
 inline = json.dumps(slim, ensure_ascii=False, separators=(',', ':'))
 html = tpl.replace('__CATALOG__', inline.replace('</', '<\\/')).replace('__BUILD__', build_id())
 (ROOT / 'dist' / 'index.html').write_text(html.replace('__DEBUG__', 'false'), encoding='utf-8')

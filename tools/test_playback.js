@@ -73,10 +73,10 @@ function wavFor(sc, u) {
 }
 
 // ---- runs in the page before its own scripts
-function init({ offset, strict, timers }) {
+function init({ offset, strict, timers, unmute }) {
   const realNow = Date.now.bind(Date);
   Date.now = () => realNow() + offset;
-  window.__SKY_TEST_MUTE__ = true;
+  window.__SKY_TEST_MUTE__ = !unmute; // the browser itself is muted (--mute-audio) either way
   let hidden = false;
   Object.defineProperty(Document.prototype, 'hidden', { configurable: true, get: () => hidden });
   Object.defineProperty(Document.prototype, 'visibilityState', { configurable: true, get: () => (hidden ? 'hidden' : 'visible') });
@@ -111,7 +111,7 @@ async function open(browser, sc, opt) {
   const ctx = await browser.newContext(opt.ua ? { userAgent: opt.ua } : {});
   const failed = new Set();
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
-  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
+  await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: sc.html || HTML }));
   await ctx.route('https://archive.org/download/**', async (route) => {
     const ru = route.request().url();
     if (sc.slow && (sc.slow instanceof Set ? sc.slow.has(ru) : sc.slow.test(ru))) await sleep(2500); // a slow network keeps the file loading
@@ -127,11 +127,11 @@ async function open(browser, sc, opt) {
     const s = m[1] ? +m[1] : 0, e = Math.min(m[2] ? +m[2] : Infinity, buf.length - 1, s + 524287);
     return route.fulfill({ status: 206, headers: { ...h, 'content-range': `bytes ${s}-${e}/${buf.length}` }, body: buf.subarray(s, e + 1) });
   });
-  await ctx.addInitScript(init, { offset: Math.round((sc.at - (sc.lead || 14)) * 1000 - Date.now()), strict: opt.strict, timers: opt.timers });
+  await ctx.addInitScript(init, { offset: Math.round((sc.at - (sc.lead || 14)) * 1000 - Date.now()), strict: opt.strict, timers: opt.timers, unmute: !!sc.unmute });
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  await page.goto('http://nd.test/?debug=1' + (process.env.ND_QS ? '&' + process.env.ND_QS : ''));
+  await page.goto('http://nd.test/?debug=1' + (sc.qs ? '&' + sc.qs : '') + (process.env.ND_QS ? '&' + process.env.ND_QS : ''));
   await page.click(`#presets button[data-i="${PRESET}"]`);
   const firstUrl = url(sc.first.seg);
   let started = false;
@@ -199,8 +199,13 @@ async function presetBanks(browser) {
   await page.click('#bFM'); await sleep(800);
   const fm = await bank();
   if (fm.join() !== 'WNOC,KFRE,KTPR,4,5,6') problems.push('FM bank is ' + fm.join());
-  const box = await page.locator('#presets button[data-slot="3"]').boundingBox();
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2); await page.mouse.down(); await sleep(900); await page.mouse.up(); await sleep(200);
+  // The hold is a real press at the button's spot on screen: bring the bank to the top, above the debug
+  // panel pinned to the bottom of the window (whether it covered the button depended on the card's height).
+  await page.evaluate(() => document.querySelector('#presets').scrollIntoView({ block: 'start' })); await sleep(100);
+  const box = await page.locator('#presets button[data-slot="3"]').boundingBox(), cx = box.x + box.width / 2, cy = box.y + box.height / 2;
+  const under = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return e && e.closest('#presets button[data-slot="3"]') ? '' : (e ? e.id || e.className || e.tagName : 'nothing'); }, [cx, cy]);
+  if (under) problems.push('something covers preset 4: ' + under);
+  await page.mouse.move(cx, cy); await page.mouse.down(); await sleep(900); await page.mouse.up(); await sleep(200);
   await page.keyboard.press('Shift+Digit5'); await sleep(200);
   const saved = await bank();
   if (saved[3] !== 'KFRE' || saved[4] !== 'KFRE') problems.push('hold and Shift+5 did not save KFRE: ' + saved.join());
@@ -238,6 +243,8 @@ async function lockWhileLoading(browser, ua) {
   if (s.held) problems.push('the page gave up and held the station');
   if (!/paused as the screen locked while loading; restarting/.test(s.log)) problems.push('no restart in the log');
   if (ua && !/audio direct, with keep-alive/.test(s.log)) problems.push('expected direct audio with the keep-alive on iPhone');
+  const knob = await page.evaluate(() => ({ hidden: document.querySelector('#volKnob').hidden, note: !!document.querySelector('.volnote') }));
+  if (ua ? !(knob.hidden && knob.note) : knob.hidden || knob.note) problems.push(ua ? 'the volume knob should give way to a note on iPhone' : 'the volume knob should show');
   return finish(t, name, problems);
 }
 
@@ -285,8 +292,8 @@ function checkReport(St, href, now, problems) {
   const c = SCH.at(St, now), aired = Date.parse((/(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ)$/.exec(q.aired || '') || [])[1]) / 1000;
   if (!(Math.abs(aired - now) <= 1.5)) problems.push(`${who}aired "${q.aired}", ${(aired - now).toFixed(1)} s from the page's time`);
   if (q.recording !== (media(c) ? url(c.seg) : 'None: a station sound the page makes itself')) problems.push(`${who}recording ${q.recording}, playing ${media(c) ? url(c.seg) : c.seg.k}`);
-  const pos = /^(\d+(?::\d\d)+) of (\d+(?::\d\d)+)$/.exec(q.position || '');
-  if (!pos || Math.abs(secs(pos[1]) - (now - c.start)) > 1.5 || Math.abs(secs(pos[2]) - c.seg.d) > 1) problems.push(`${who}position "${q.position}", expected ${(now - c.start).toFixed(0)} s of ${c.seg.d.toFixed(0)}`);
+  const pos = /^(\d+(?::\d\d)+) of (\d+(?::\d\d)+)$/.exec(q.position || ''), sk = c.seg.skip || 0;
+  if (!pos || Math.abs(secs(pos[1]) - (sk + now - c.start)) > 1.5 || Math.abs(secs(pos[2]) - (sk + c.seg.d)) > 1) problems.push(`${who}position "${q.position}", expected ${(sk + now - c.start).toFixed(0)} s of ${(sk + c.seg.d).toFixed(0)}`);
   const p = lastRec(St, c.start), recent = p && now - (p.start + p.seg.d) < 600;
   if (recent ? !(q.before || '').endsWith(' · ' + url(p.seg)) : q.before) problems.push(`${who}before is "${(q.before || '').slice(0, 80)}"`);
   return pos ? secs(pos[1]) : NaN;
@@ -325,6 +332,46 @@ async function reportLink(browser) {
   return finish(t, name, problems);
 }
 
+// Levels: the same page with a levels table for every 78 (start 3 s in, -6 dB), as a snapshot would carry
+// it. A tune-in lands at the skip point plus the time into the slot, the next record starts at its skip
+// point, the gain reaches the carrier, and the page schedules the trimmed lengths the engine says.
+const SKIP = 3, GAIN = -6;
+const INLINE_LV = JSON.parse(JSON.stringify(INLINE));
+if (snapshotted) {
+  const g78 = api.parseCatalog(INLINE_LV[0].catalog).g78, LV = {};
+  for (const x of g78) (LV[x.id] = LV[x.id] || {})[x.f] = [GAIN, SKIP, SKIP + x.d - 4];
+  INLINE_LV[0].levels = LV;
+}
+const HTML_LV = HTML.split('<script id="catalog" type="application/json">')[0] + '<script id="catalog" type="application/json">' + JSON.stringify(INLINE_LV).replace(/<\//g, '<\\/') + '</script>' + HTML.split('<script id="catalog" type="application/json">')[1].split('</script>').slice(1).join('</script>');
+const SCH_LV = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_LV)) : null;
+async function levelsPlay(browser, qs) {
+  const name = 'levels: skip point and gain' + (qs ? ' · direct audio' : '');
+  if (!SCH_LV) return { name, ok: true, problems: [], log: '' };
+  const nx = (c) => SCH_LV.at(S, c.start + c.seg.d + 0.01);
+  let c = SCH_LV.at(S, Date.now() / 1000 + 300), n1 = nx(c);
+  for (let k = 0; k < 5000 && !(media(c) && media(n1) && c.seg.d > 60 && n1.seg.d > 60 && c.seg.skip === SKIP && n1.seg.skip === SKIP); k++) { c = n1; n1 = nx(c); }
+  const sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_LV, qs, unmute: !!qs, len: { [url(c.seg)]: SKIP + c.seg.d + 3, [url(n1.seg)]: SKIP + n1.seg.d + 3 } }; // direct audio's volume is the thing to read
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [];
+  const st = () => page.evaluate(() => { const A = window.SKY.A; return { src: A.src, t: A.el.currentTime, now: Date.now() / 1000, gain: A.g ? A.g.gain.value : null, vol: A.el.volume, rvol: window.SKY.R.vol, lvl: A.lvl, skip: A.skip }; });
+  await sleep(1500);
+  const s1 = await st(), want1 = SKIP + s1.now - c.start;
+  if (s1.skip !== SKIP) problems.push(`tuned in with skip ${s1.skip}, expected ${SKIP}`);
+  if (!(s1.t - want1 > -1.5 && s1.t - want1 < 4.5)) problems.push(`tuned in at ${s1.t.toFixed(1)} s into the file, expected about ${want1.toFixed(1)} (${SKIP} s skip + ${(s1.now - c.start).toFixed(1)} s into the slot)`);
+  const g = Math.pow(10, GAIN / 20);
+  if (qs) { if (!(Math.abs(s1.vol / (s1.rvol * s1.rvol) - g) < 0.06)) problems.push(`direct audio volume ${s1.vol.toFixed(3)}, expected about ${(g * s1.rvol * s1.rvol).toFixed(3)}`); }
+  else if (!(Math.abs(s1.gain - g) < 0.05)) problems.push(`carrier gain ${s1.gain && s1.gain.toFixed(3)}, expected ${g.toFixed(3)} (${GAIN} dB)`);
+  const sched = await page.evaluate((at) => { const x = window.SKY.SCH.at(window.SKY.STATIONS.find((y) => y.key === 'gramophone'), at).seg; return { d: x.d, skip: x.skip, gain: x.gain }; }, n1.start + 1);
+  if (sched.d !== n1.seg.d || sched.skip !== SKIP || sched.gain !== GAIN) problems.push(`the page schedules ${JSON.stringify(sched)}, the engine ${JSON.stringify({ d: n1.seg.d, skip: SKIP, gain: GAIN })}`);
+  await until(page, n1.start + 3);
+  const s2 = await st(), into = s2.now - n1.start;
+  if (s2.src !== url(n1.seg)) problems.push('the next record did not start');
+  else if (!(s2.t - into > SKIP - 1.5 && s2.t - into < SKIP + 0.5)) problems.push(`the next record is at ${s2.t.toFixed(1)} s, ${into.toFixed(1)} s into its slot: expected about ${(SKIP + into).toFixed(1)}`);
+  const log = await page.evaluate(() => window.SKY.log());
+  if (!new RegExp('→ WGRM music .*, from ' + SKIP.toFixed(1) + ' s, ' + GAIN + ' dB').test(log)) problems.push('no skip point and gain in the log');
+  return finish(t, name, problems);
+}
+
 // Clock sync: the page should adopt the server's time when the device is clearly off, and not otherwise.
 // slowMs holds the page's time check that long before the server stamps its answer: a slow uplink, or a busy server.
 async function clockSync(browser, skewMs, slowMs = 0) {
@@ -354,7 +401,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.

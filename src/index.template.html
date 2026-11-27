@@ -67,6 +67,7 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .knob::before{content:"";position:absolute;inset:9px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#7a5a28 0 6deg,#a47c3a 6deg 12deg);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
 .knob .ind{position:absolute;left:50%;top:50%;width:4px;height:26px;margin:-26px 0 0 -2px;transform-origin:50% 100%;border-radius:2px;background:#2a1a08}
 .kcol{display:flex;flex-direction:column;align-items:center;gap:6px}
+.volnote{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.2;color:var(--muted);box-shadow:inset 0 0 0 1px var(--brass-d)}
 .sw{display:flex;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 2px var(--brass-d)}
 .sw button{border:0;background:transparent;white-space:nowrap;padding:8px 12px;min-height:40px;font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);cursor:pointer}
 .sw button[aria-pressed="true"]{background:var(--brass);color:#22160a}
@@ -139,7 +140,7 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 .dbg pre{margin:0;padding:0 10px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
 body.has-dbg .wrap{padding-bottom:42vh}
 @media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
-@media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.presets button b{font-size:15px}.presets button span{font-size:11px}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
+@media(max-width:600px){.volnote{width:60px;height:60px;font-size:11px}.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.presets button b{font-size:15px}.presets button span{font-size:11px}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
 /* Touch screens: no keyboard instructions. */
 @media(hover:none) and (pointer:coarse){.hint .keys{display:none}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
@@ -338,19 +339,24 @@ function buildStation(S, week, P) {
   // cut short to make the break. Whatever can't be filled plays the interval signal.
   const packTo = (T, pools) => {
     const used = new Set();
-    const from = (pl, max) => {
+    const from = (pl, max, wide) => { // wide: the whole pool, not just the next pl.look in rotation
       for (let n = 0; T - t >= 15 && n < max; ) {
         if (T - t > 2 * pl.long) { const it = pl.pool.take(T - t, 1e9, used); if (!it) return; used.add(it.t); push(it); n++; }
         else {
           const R = T - t, pool = pl.pool;
-          let idx = pool.fit(R, pl.look, used);
-          if (R - pool.span(idx) > 20) { const more = pool.most(R, pl.look, used); if (pool.span(more) >= pool.span(idx)) idx = more; }
+          const look = wide ? pool.a.length : pl.look;
+          let idx = pool.fit(R, look, used);
+          if (R - pool.span(idx) > 20) { const more = pool.most(R, look, used); if (pool.span(more) >= pool.span(idx)) idx = more; }
           if (!idx.length) return;
           pool.use(idx).forEach((it) => { used.add(it.t); push(it); }); n += idx.length;
         }
       }
     };
     pools.forEach((pl) => from(pl, pl.max)); pools.forEach((pl) => from(pl, pl.max));
+    // Rarely, every item next in rotation is too long for what's left (the short ones were used lately).
+    // Rather than over a minute of interval signal, look through the whole pool. A week that never gets
+    // here schedules exactly as before.
+    if (T - t > 60) pools.forEach((pl) => from(pl, pl.max, true));
     if (T - t > 0) push({ k: 'interval' }, T - t);
   };
   const poolOf = (name, max, look) => ({ pool: new Pool(P[name], r), max, look, long: P[name].reduce((m, x) => Math.max(m, x.d), 0) });
@@ -415,10 +421,30 @@ function excludeFiles(P, ex) {
   for (const k of Object.keys(P)) P[k] = P[k].filter(keep).map(o => { for (const c of ['eps', 'items']) if (Array.isArray(o[c])) o = Object.assign({}, o, { [c]: o[c].filter(keep) }); return o; }).filter(o => !(Array.isArray(o.eps) && !o.eps.length) && !(Array.isArray(o.items) && !o.items.length));
   return P;
 }
-// The page carries this week's snapshot whole; later ones list only the stations that change.
+// Per-file levels a snapshot carries (catalog/levels.json, from tools/levels.js), by Archive item:
+// [gain dB toward one loudness, seconds of silence to skip at the start, where the file ends on air].
+// The schedule uses the trimmed length, rounded up to a whole second; the player starts each file at
+// its skip point and applies the gain. A file with no entry plays whole, as before.
+function applyLevels(P, LV) {
+  if (!LV) return P;
+  const vis = new Set();
+  const walk = (o) => {
+    if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o);
+    if (Array.isArray(o)) return o.forEach(walk);
+    if (typeof o.id === 'string' && typeof o.f === 'string') { const v = LV[o.id] && LV[o.id][o.f]; if (v && v[2] > v[1]) Object.assign(o, { gain: v[0], skip: v[1], d: Math.max(1, Math.ceil(v[2] - v[1])) }); return; }
+    for (const k of ['eps', 'items']) if (o[k]) walk(o[k]);
+  };
+  for (const k of Object.keys(P)) walk(P[k]);
+  return P;
+}
+// The page carries this week's snapshot whole; later ones list only the stations, and the items' levels, that change.
 function loadSnapshots(raw) {
-  let prev = {};
-  return raw.map(s => { const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog; prev = cat; return { from: s.from, week: weekOf(s.from), P: excludeFiles(parseCatalog(cat), s.exclude) }; }).sort((a, b) => a.week - b.week);
+  let prev = {}, prevLv = {};
+  return raw.map(s => {
+    const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog, lv = s.partial ? Object.assign({}, prevLv, s.levels) : (s.levels || {});
+    prev = cat; prevLv = lv;
+    return { from: s.from, week: weekOf(s.from), P: excludeFiles(applyLevels(parseCatalog(cat), lv), s.exclude) };
+  }).sort((a, b) => a.week - b.week);
 }
 const schedulerFor = (snaps) => makeScheduler((w) => snaps.reduce((p, s) => (s.week <= w ? s.P : p), snaps[0].P));
 // Filler for the rest of a slot whose recording can't play (it won't load, or it ends early): the
@@ -530,7 +556,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -645,19 +671,23 @@ function noteLoad(s) { if (!(s > 0 && s < 15)) return; LOADS.push(s); if (LOADS.
 const aimPos = () => Math.max(wantPos(), A.aim); // while a seek is loading, the spot it aimed at
 // Line the player up when it is behind, or well ahead (a seek that loaded faster than expected
 // leaves it a little ahead, which is fine, and pulling it back would repeat what was just heard).
-function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if (want > 0.5 && (d < -1.2 || d > 4)) { try { A.el.currentTime = want; } catch (e) {} } }
-// Point the carrier at a source and keep it playing. t0 is the moment the source's 0:00 lines up with.
-function carry(src, kind, t0, len, loop, label) {
-  const el = A.el, fresh = src !== A.src || !!el.error;
-  Object.assign(A, { src, kind, t0, len: len || 0, loop: !!loop });
+function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if ((want > 0.5 && (d < -1.2 || d > 4)) || (A.skip > 0 && A.el.currentTime < A.skip - 0.05)) { try { A.el.currentTime = want; } catch (e) {} } }
+// Point the carrier at a source and keep it playing. t0 is the moment the slot starts; it, for a
+// recording, the catalog item, whose skip point (silence cut from the start) lines up with t0 and
+// whose gain the carrier applies.
+const gainOf = (it) => (it && it.gain ? Math.pow(10, it.gain / 20) : 1);
+function carry(src, kind, t0, len, loop, label, it) {
+  const el = A.el, fresh = src !== A.src || !!el.error, skip = (it && it.skip) || 0;
+  Object.assign(A, { src, kind, t0: t0 - skip, len: len || 0, loop: !!loop, skip, lvl: gainOf(it) });
   el.loop = !!loop;
   if (fresh) {
     A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0;
+    if (A.g) ramp(A.g.gain, A.fade * A.lvl, 0.03);
     el.src = src;
-    const want = wantPos();
-    if (want > 0.5 && kind === 'media') { A.aim = Math.max(want, Math.min(want + loadLead(), PLAY.seg ? PLAY.seg.d - 1 : Infinity)); A.seekAt = A.swapAt; }
-    if (want > 0.5) { try { el.currentTime = Math.max(want, A.aim); } catch (e) {} }
-    dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : ''));
+    const want = wantPos(), into = want - skip; // into: how far into the slot
+    if (into > 0.5 && kind === 'media') { A.aim = Math.max(want, Math.min(want + loadLead(), it ? skip + it.d - 1 : Infinity)); A.seekAt = A.swapAt; }
+    if (into > 0.5 || skip > 0) { try { el.currentTime = Math.max(want, A.aim); } catch (e) {} }
+    dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : '') + (skip ? `, from ${skip.toFixed(1)} s` : '') + (it && it.gain ? `, ${it.gain > 0 ? '+' : ''}${it.gain} dB` : ''));
   } else onMeta();
   playCarrier(kind);
 }
@@ -709,7 +739,7 @@ function nextFiller() {
   if (!it) { if (FILL) FILL.cur = null; return bridge(); }
   const u = ia(it.id, it.f), now = nowS();
   FILL.cur = { it, at: now }; FILL.done.add(u);
-  carry(u, 'media', now, 0, false, `${PLAY.S.call} filler ${it.k}${it.t ? ' “' + it.t + '”' : ''}, ${Math.round(it.d)} s`);
+  carry(u, 'media', now, 0, false, `${PLAY.S.call} filler ${it.k}${it.t ? ' “' + it.t + '”' : ''}, ${Math.round(it.d)} s`, it);
   setMediaSession(PLAY.S, it);
 }
 function onPause() {
@@ -750,9 +780,9 @@ const isMedia = (seg) => seg && !!seg.f;
 function startSeg(S, c) {
   const seg = c.seg; TROUBLE = '';
   PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false, week: c.week }; FILL = null;
-  stopSpeech(); A.fade = 1; if (A.g) ramp(A.g.gain, 1, 0.03);
+  stopSpeech(); A.fade = 1;
   const what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(c.off)} of ${Math.round(seg.d)} s`;
-  if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what);
+  if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what, seg);
   else if (seg.k === 'id' || seg.k === 'imaging') {
     // the legal ID gives the call letters; a station break between programs, the name and the dial
     const k = clip('id', S), say = seg.k === 'id' ? S.say : S.say.split('. ').slice(1).join('. ');
@@ -785,8 +815,8 @@ function maintain(S, c) {
 }
 function levels(S, s) {
   const am = R.band === 'AM', locked = !!(TUNED && S === TUNED), on = locked ? Math.pow(s, 1.5) : 0;
-  if (A.g) { ramp(A.sig.gain, on, 0.05); ramp(A.g.gain, A.fade, A.fade ? 0.05 : 1.2); }
-  else { const v = MUTE ? 0 : Math.min(1, on * A.fade * R.vol * R.vol), mu = MUTE || !locked; if (Math.abs(A.el.volume - v) > 0.005) A.el.volume = v; if (A.el.muted !== mu) A.el.muted = mu; }
+  if (A.g) { ramp(A.sig.gain, on, 0.05); ramp(A.g.gain, A.fade * A.lvl, A.fade ? 0.05 : 1.2); }
+  else { const v = MUTE ? 0 : Math.min(1, on * A.fade * A.lvl * R.vol * R.vol), mu = MUTE || !locked; if (Math.abs(A.el.volume - v) > 0.005) A.el.volume = v; if (A.el.muted !== mu) A.el.muted = mu; }
   const n = (am ? (R.tone === 'am' ? 0.035 : 0) : 0) + (am ? 0.4 : 0.28) * Math.pow(1 - s, 1.7);
   ramp(A.ng.gain, n, 0.05);
   if (am && S && s > 0.03 && s < 0.97) { ramp(A.wo.frequency, 140 + Math.abs(R.f.AM - S.f) * 150, 0.05); ramp(A.wg.gain, 0.1 * s * (1 - s), 0.05); } else ramp(A.wg.gain, 0, 0.05);
@@ -943,7 +973,7 @@ function reportURL() {
       station: `${S.call} ${S.fLabel} · ${S.name}`,
       playing: said(S, seg) + (F ? ` (filler, in place of “${c.seg.t || 'the scheduled recording'}”, which wouldn’t play)` : ''),
       recording: isMedia(seg) ? ia(seg.id, seg.f) : 'None: a station sound the page makes itself',
-      position: fmtDur(off) + ' of ' + fmtDur(seg.d),
+      position: fmtDur((seg.skip || 0) + off) + ' of ' + fmtDur((seg.skip || 0) + seg.d), // time in the Archive file
       aired: when.toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit', timeZoneName: 'short' }) + ' · ' + when.toISOString().slice(0, 19) + 'Z',
       before: prev && now - prev.end < 600 ? `${said(S, prev.seg)} · ended ${fmtDur(now - prev.end)} before this report · ${ia(prev.seg.id, prev.seg.f)}` : '',
       build: BUILD,
@@ -1075,6 +1105,9 @@ document.addEventListener('resume', () => dlog('page unfrozen'));
 document.addEventListener('keyup', e => { if (!e.target.closest('.knob,#dial') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.shiftKey) { clearTimeout(afc.t); afc.t = setTimeout(afc, 400); } });
 new ResizeObserver(() => drawDial()).observe($('#dial'));
 
+// On iPhone and iPad the carrier plays directly (Web Audio stops there when the screen locks), and a
+// page can't set the volume of audio played that way: the phone's buttons do. The knob would do nothing.
+if (IOS && !ROUTE) { const k = $('#volKnob'), n = document.createElement('div'); k.hidden = true; n.className = 'volnote'; n.textContent = 'Use the phone’s buttons'; k.after(n); }
 setBand(R.band === 'FM' ? 'FM' : 'AM', true);
 setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDial(); drawEye(0); render(); renderLog();
 renderRadioLog();

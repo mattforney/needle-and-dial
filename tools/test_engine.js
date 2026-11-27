@@ -2,8 +2,8 @@ const fs = require('fs');
 const html = fs.readFileSync(__dirname + '/../src/index.template.html', 'utf8');
 const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const CAT = JSON.parse(fs.readFileSync(__dirname + '/../dist/catalog.json', 'utf8'));
-const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots };')(CAT);
-const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots } = api;
+const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels };')(CAT);
+const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // The page script runs in sloppy mode, where a second function with the same name silently replaces
@@ -126,9 +126,9 @@ for (const n of snaps) {
   const w = weekOf(s.from);
   if (n !== s.from + '.json') bad(`${n} says it starts ${s.from}`);
   if (!Number.isInteger(w)) { bad(`${n}: ${s.from} is not a schedule Monday`); continue; }
-  const Ps = excludeFiles(parseCatalog(s.catalog), s.exclude);
+  const Ps = excludeFiles(applyLevels(parseCatalog(s.catalog), s.levels || {}), s.exclude);
   for (const S of STATIONS) { const segs = buildStation(S, w, Ps); audit(`${n} ${S.key}`, S, segs); clockAudit(`${n} ${S.key}`, S, segs); }
-  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out`);
+  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out, levels for ${Object.values(s.levels || {}).reduce((k, o) => k + Object.keys(o || {}).length, 0)} files`);
 }
 // Holding files out: they never air, emptied series and shows drop away, and the week stays whole.
 {
@@ -149,6 +149,34 @@ for (const n of snaps) {
   const [a, b] = api.loadSnapshots([full, later]);
   if (a.week !== 0 || b.week !== 1) bad('loadSnapshots: weeks');
   if (b.P.shows.length !== a.P.shows.length - 1 || b.P.whodunit.length !== a.P.whodunit.length) bad('loadSnapshots: a partial snapshot should change only the stations it lists');
+}
+// Levels (catalog/levels.json): a file with an entry is scheduled for its trimmed length, rounded up to a
+// whole second, and carries its skip point and gain; one without plays whole; a bad entry is ignored.
+{
+  const P3 = parseCatalog(CAT), ep = P3.whodunit[0].eps[0], other = P3.whodunit[0].eps[1], tr = P3.shows[0].items.find((t) => P3.vault.some((v) => v.f === t.f));
+  const LV = { [ep.id]: { [ep.f]: [-3.5, 1.2, 1700.4], [other.f]: [2, 9, 9] }, [tr.id]: { [tr.f]: [1.5, 0.4, 200] } };
+  const d0 = other.d;
+  applyLevels(P3, LV);
+  if (ep.d !== 1700 || ep.skip !== 1.2 || ep.gain !== -3.5) bad(`applyLevels: expected d 1700, skip 1.2, gain -3.5, got ${ep.d}, ${ep.skip}, ${ep.gain}`);
+  if (other.d !== d0 || other.skip !== undefined) bad('applyLevels: an entry that ends before it starts should be ignored');
+  if (P3.whodunit[0].eps[2].skip !== undefined) bad('applyLevels: a file with no entry should play whole');
+  const v = P3.vault.find((x) => x.f === tr.f);
+  if (tr.d !== 200 || v.d !== 200 || v.gain !== 1.5) bad('applyLevels: a concert track and its vault copy should both take the levels');
+  // On the page: a later snapshot lists only the items whose levels change, and null for levels that went away.
+  const [a, b, c] = api.loadSnapshots([{ from: '2026-11-23', exclude: [], catalog: CAT, levels: LV }, { from: '2026-11-30', exclude: [], partial: true, catalog: {}, levels: { [tr.id]: null } }, { from: '2026-12-07', exclude: [], partial: true, catalog: {} }]);
+  const find = (Px) => Px.whodunit[0].eps.find((x) => x.f === ep.f), tfind = (Px) => Px.shows[0].items.find((x) => x.f === tr.f);
+  if (find(a.P).skip !== 1.2 || find(b.P).skip !== 1.2 || find(c.P).skip !== 1.2) bad('loadSnapshots: levels should carry into later partial snapshots');
+  if (tfind(a.P).skip !== 0.4 || tfind(b.P).skip !== undefined || tfind(c.P).skip !== undefined) bad('loadSnapshots: levels set to null should go away, and stay gone');
+  // The real table: every station, several weeks, audits clean with its trimmed lengths.
+  const lvPath = __dirname + '/../catalog/levels.json';
+  if (fs.existsSync(lvPath)) {
+    const T = JSON.parse(fs.readFileSync(lvPath, 'utf8')), PL = applyLevels(parseCatalog(CAT), T.items);
+    let n = 0, cut = 0;
+    for (const S of STATIONS) for (const w of [0, 1, 2]) { const segs = buildStation(S, w, PL); audit(`levels ${S.key} week ${w}`, S, segs); clockAudit(`levels ${S.key} week ${w}`, S, segs); }
+    const vis = new Set(), seen = new Set(); const walk = (o) => { if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o); if (Array.isArray(o)) return o.forEach(walk); if (o.f && o.skip !== undefined && !seen.has(o.id + '/' + o.f)) { seen.add(o.id + '/' + o.f); n++; cut += o.skip; } for (const k of ['eps', 'items']) if (o[k]) walk(o[k]); };
+    Object.values(PL).forEach(walk);
+    console.log(`levels: ${T.files} files in catalog/levels.json, ${n} in this catalog; every station audits clean over weeks 0–2`);
+  }
 }
 // Filler for a slot whose recording can't play: the station's own, never longer than the gap, close
 // to it once the gap is a few minutes, the same for the same seed, and without the files to skip.

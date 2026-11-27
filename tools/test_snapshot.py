@@ -38,8 +38,11 @@ with tempfile.TemporaryDirectory() as tmp:
         {'id': 'c', 'f': '1.mp3', 'status': 'unchecked'}, {'id': 'so', 'f': 'x.mp3', 'status': 'ok'}]}))
     check(snapshot.exclusions(report) == ['a/2.mp3', 'a/3.mp3', 'b/1.mp3', 'b/2.mp3', 'so/x.mp3'], 'exclusions: ' + repr(snapshot.exclusions(report)))
 
-# The tool end to end, against a scratch snapshots/ folder and a stand-in catalog.
+# The tool end to end, against a scratch snapshots/ folder and a stand-in catalog, levels table and hold list.
 cat = {'one': {'k': 1}}
+LEVELS, HELD = {}, []
+snapshot.catalog_levels = lambda c: json.loads(json.dumps(LEVELS))
+snapshot.held = lambda: list(HELD)
 with tempfile.TemporaryDirectory() as tmp:
     snapshot.SNAPSHOTS = ndlib.SNAPSHOTS = pathlib.Path(tmp, 'snapshots')
     snapshot.head_catalog = lambda: json.loads(json.dumps(cat))
@@ -72,6 +75,32 @@ with tempfile.TemporaryDirectory() as tmp:
     except SystemExit:
         pass
     check(ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'catalog': {'a': 1, 'b': {'c': '|'}}}).count('\n') == 4, 'one station per line')
+
+# Levels and the hold list in drafts: carried, compared, and written one Archive item per line.
+with tempfile.TemporaryDirectory() as tmp:
+    snapshot.SNAPSHOTS = ndlib.SNAPSHOTS = pathlib.Path(tmp, 'snapshots')
+    snapshot.head_catalog = lambda: {'one': {'i': 'item-a', 'e': ['x.mp3|60']}}
+    LEVELS.update({'item-a': {'x.mp3': [-2.5, 0.4, 59.1]}})
+    HELD.extend(['item-b/held.mp3'])
+    report = pathlib.Path(tmp, 'check.json')
+    report.write_text(json.dumps({'pending': [], 'results': [{'id': 'item-a', 'f': 'gone.mp3', 'status': 'gone'}]}))
+    check(run('--exclude-from', str(report)) == 'snapshots/2026-11-30.json', 'a draft with levels and held files')
+    d = json.loads(pathlib.Path(tmp, 'snapshots/2026-11-30.json').read_text())
+    check(d.get('levels') == {'item-a': {'x.mp3': [-2.5, 0.4, 59.1]}}, 'the draft carries the levels: ' + repr(d.get('levels')))
+    check(d['exclude'] == ['item-a/gone.mp3', 'item-b/held.mp3'], 'held files join what the Archive check holds out: ' + repr(d['exclude']))
+    check(run('--exclude-from', str(report)) == '', 'unchanged levels write nothing')
+    LEVELS['item-a']['x.mp3'] = [-3.0, 0.4, 59.1]
+    check(run('--exclude-from', str(report)) == 'snapshots/2026-11-30.json', 'changed levels update the draft')
+    text = ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'catalog': {'a': 1}, 'levels': {'i1': {'f': [1, 2, 3]}, 'i2': {'g': [0, 0, 9]}}})
+    check(json.loads(text)['levels']['i2'] == {'g': [0, 0, 9]} and text.count('\n') == 6, 'levels one item per line, and the file still parses')
+    # The real helpers, on scratch files: levels only for items the catalog plays; the hold list's files.
+    lv = pathlib.Path(tmp, 'levels.json')
+    lv.write_text(json.dumps({'items': {'item-a': {'x.mp3': [1, 0, 9]}, 'item-z': {'y.mp3': [1, 0, 9]}}}))
+    check(ndlib.catalog_levels({'one': {'i': 'item-a', 'e': ['x.mp3|60']}}, lv) == {'item-a': {'x.mp3': [1, 0, 9]}}, 'catalog_levels keeps only the items the catalog plays')
+    check(ndlib.catalog_levels({}, pathlib.Path(tmp, 'none.json')) == {}, 'no levels table, no levels')
+    hp = pathlib.Path(tmp, 'held.json')
+    hp.write_text(json.dumps({'files': {'b/2.mp3': 'damaged', 'a/1.mp3': 'upheld report'}}))
+    check(ndlib.held(hp) == ['a/1.mp3', 'b/2.mp3'] and ndlib.held(pathlib.Path(tmp, 'none.json')) == [], 'held reads the hold list')
 
 print(f'{len(fails)} FAILURES' if fails else 'ALL SNAPSHOT TESTS PASSED')
 sys.exit(1 if fails else 0)

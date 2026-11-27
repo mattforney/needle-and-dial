@@ -55,8 +55,29 @@ def in_effect(snaps, k):
 
 
 def dump_snapshot(snap):
-    """One station per line, so a diff shows which stations changed."""
+    """One station per line, and one Archive item's levels per line, so a diff shows what changed."""
     cat = snap['catalog']
     lines = [json.dumps({'from': snap['from'], 'exclude': snap['exclude']}, ensure_ascii=False, separators=(',', ':'))[:-1] + ',"catalog":{']
     lines += [json.dumps(k, ensure_ascii=False) + ':' + json.dumps(cat[k], ensure_ascii=False, separators=(',', ':')) + (',' if i < len(cat) - 1 else '') for i, k in enumerate(cat)]
-    return '\n'.join(lines) + '\n}}\n'
+    out = '\n'.join(lines) + '\n}'
+    lv = snap.get('levels')
+    if lv:
+        ids = sorted(lv)
+        out += ',"levels":{\n' + '\n'.join(json.dumps(i, ensure_ascii=False) + ':' + json.dumps(lv[i], ensure_ascii=False, separators=(',', ':')) + (',' if n < len(ids) - 1 else '') for n, i in enumerate(ids)) + '\n}'
+    return out + '}\n'
+
+
+def catalog_levels(cat, path=None):
+    """The rows of catalog/levels.json (tools/levels.js) for the Archive items this catalog plays."""
+    p = path or ROOT / 'catalog' / 'levels.json'
+    if not p.exists():
+        return {}
+    items = json.loads(p.read_text(encoding='utf-8'))['items']
+    text = json.dumps(cat, ensure_ascii=False)
+    return {i: items[i] for i in sorted(items) if json.dumps(i, ensure_ascii=False)[1:-1] in text}
+
+
+def held(path=None):
+    """Files kept off the air by hand (catalog/review/held.json): an upheld report, a damaged file."""
+    p = path or ROOT / 'catalog' / 'review' / 'held.json'
+    return sorted(json.loads(p.read_text(encoding='utf-8'))['files']) if p.exists() else []
