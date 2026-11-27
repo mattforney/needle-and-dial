@@ -398,10 +398,11 @@ async function limiterPlay(browser, qs) {
   const direct = qs === 'audio=direct', sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_LIM, qs, unmute: direct, len: { [url(c.seg)]: SKIP + c.seg.d + 3 } };
   const t = await open(browser, sc, { strict: false, timers: 'slow' });
   const { page } = t, problems = [], dB = (x) => Math.pow(10, x / 20), near = (a, b, tol = 0.02) => a != null && Math.abs(a - b) < tol;
-  const st = () => page.evaluate(() => { const K = window.SKY, A = K.A; return { on: K.LIM.on, lim: !!A.lim, g: A.g ? A.g.gain.value : null, wet: A.wet ? A.wet.gain.value : null, dry: A.dry ? A.dry.gain.value : null, vol: A.el.volume, rvol: K.R.vol, back: dB(-K.makeupDb(K.LIMITER)) }; function dB(x) { return Math.pow(10, x / 20); } });
+  const st = () => page.evaluate(() => { const K = window.SKY, A = K.A; return { on: K.LIM.on, lim: !!A.lim, dcb: !!A.dcb, g: A.g ? A.g.gain.value : null, wet: A.wet ? A.wet.gain.value : null, dry: A.dry ? A.dry.gain.value : null, vol: A.el.volume, rvol: K.R.vol, back: dB(-K.makeupDb(K.LIMITER)) }; function dB(x) { return Math.pow(10, x / 20); } });
   const expect = (s, on, when) => {
     if (direct) { if (s.on || s.lim) problems.push(`${when}: direct audio has no limiter`); if (!near(s.vol, Math.min(1, dB(LIM_G0) * s.rvol * s.rvol))) problems.push(`${when}: direct audio volume ${s.vol.toFixed(3)}, expected the gain without the limiter: ${Math.min(1, dB(LIM_G0) * s.rvol * s.rvol).toFixed(3)}`); return; }
     if (s.on !== on) problems.push(`${when}: limiter ${s.on ? 'on' : 'off'}, expected ${on ? 'on' : 'off'}`);
+    if (!s.dcb) problems.push(`${when}: no high-pass before the gain`);
     if (!near(s.g, dB(on ? LIM_G : LIM_G0))) problems.push(`${when}: recording gain ${s.g && s.g.toFixed(3)}, expected ${dB(on ? LIM_G : LIM_G0).toFixed(3)} (${on ? LIM_G : LIM_G0} dB)`);
     if (!near(s.wet, on ? s.back : 0) || !near(s.dry, on ? 0 : 1)) problems.push(`${when}: through the limiter ${s.wet && s.wet.toFixed(3)}, around it ${s.dry && s.dry.toFixed(3)}; expected ${on ? s.back.toFixed(3) + ' and 0' : '0 and 1'}`);
   };
@@ -418,7 +419,9 @@ async function limiterPlay(browser, qs) {
 }
 // The limiter's settings, in this browser's own limiter (offline): unity under the threshold; a tone 6 dB
 // over it held near it; clicks 7 dB over it (as far over as the levels allow: 6 dB past -1 dBTP) held
-// under full scale; and the music under them back to its level within 200 ms.
+// under full scale; and the music under them back to its level within 200 ms. And the high-pass before the
+// gain: a tone riding a DC offset a third of full scale (as one LibriVox reading does), turned up 6 dB,
+// comes through centred and untouched by the limiter, and 1 kHz passes at unity.
 async function limiterSettings(browser) {
   const name = "limiter: its settings in this browser's limiter";
   const ctx = await browser.newContext();
@@ -441,7 +444,18 @@ async function limiterSettings(browser) {
     const click = Math.pow(10, (L.threshold + 7) / 20), every = Math.round(0.77 * sr);
     const c = await render(4, (x) => { tone(() => 0.1, 440)(x); for (let k0 = sr; k0 < x.length - 100; k0 += every) for (let k = 0; k < 48; k++) x[k0 + k] += click * Math.sin(Math.PI * (k + 0.5) / 48) * (k % 2 ? 1 : -1); });
     const at = sr + every + lag + Math.round(0.2 * sr), n = Math.round(0.02 * sr); let e = 0; for (let i = at; i < at + n; i++) e += c.y[i] ** 2;
-    return { threshold: L.threshold, unity: 10 * Math.log10(ey / ex), held: peak(b.y, sr), clicks: peak(c.y, sr), bed: dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)) };
+    // high-pass, then gain, then limiter, as the page has them
+    const hpRender = async (fill, gain) => {
+      const n2 = 2 * sr, ctx = new OfflineAudioContext(1, n2, sr), b2 = ctx.createBuffer(1, n2, sr), x = b2.getChannelData(0); fill(x);
+      const s = ctx.createBufferSource(), [ff, fb] = window.SKY.hpCoeffs(sr), hp = ctx.createIIRFilter(ff, fb), g = ctx.createGain(), l = ctx.createDynamicsCompressor(), back2 = ctx.createGain();
+      s.buffer = b2; g.gain.value = gain; for (const k of Object.keys(L)) l[k].value = L[k]; back2.gain.value = back; s.connect(hp); hp.connect(g); g.connect(l); l.connect(back2); back2.connect(ctx.destination); s.start();
+      return (await ctx.startRendering()).getChannelData(0);
+    };
+    const yd = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = -0.33 + 0.1 * Math.sin(2 * Math.PI * 440 * i / sr); }, 2);
+    let mean = 0, pd = 0; for (let i = sr; i < 2 * sr; i++) { mean += yd[i]; pd = Math.max(pd, Math.abs(yd[i])); } mean /= sr;
+    const yk = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = 0.1 * Math.sin(2 * Math.PI * 1000 * i / sr); }, 1);
+    let ek = 0; for (let i = sr; i < 2 * sr; i++) ek += yk[i] ** 2;
+    return { threshold: L.threshold, unity: 10 * Math.log10(ey / ex), held: peak(b.y, sr), clicks: peak(c.y, sr), bed: dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)), dcMean: mean, dcPeak: dB(pd), hpUnity: 10 * Math.log10(ek / sr / (0.01 / 2)) };
   });
   await ctx.close();
   const problems = [];
@@ -449,7 +463,9 @@ async function limiterSettings(browser) {
   if (!(r.held < r.threshold + 0.6)) problems.push(`a tone 6 dB over the threshold comes out at ${r.held.toFixed(2)} dBFS`);
   if (!(r.clicks < -0.1)) problems.push(`clicks 7 dB over the threshold come out at ${r.clicks.toFixed(2)} dBFS`);
   if (!(r.bed > -0.5)) problems.push(`the music under a click is still ${r.bed.toFixed(2)} dB down 200 ms after it`);
-  return { name, ok: !problems.length, problems, log: `unity ${r.unity.toFixed(3)} dB; tone 6 dB over held at ${r.held.toFixed(2)} dBFS; clicks 7 dB over at ${r.clicks.toFixed(2)} dBFS; music 200 ms after a click ${r.bed.toFixed(2)} dB` };
+  if (!(Math.abs(r.dcMean) < 0.002 && Math.abs(r.dcPeak - 20 * Math.log10(0.2)) < 0.3)) problems.push(`a tone on a DC offset, turned up 6 dB, comes out averaging ${r.dcMean.toFixed(4)} with peaks at ${r.dcPeak.toFixed(2)} dBFS: the offset isn't removed, or the limiter acts`);
+  if (!(Math.abs(r.hpUnity) < 0.02)) problems.push(`the high-pass changes 1 kHz by ${r.hpUnity.toFixed(3)} dB`);
+  return { name, ok: !problems.length, problems, log: `unity ${r.unity.toFixed(3)} dB; tone 6 dB over held at ${r.held.toFixed(2)} dBFS; clicks 7 dB over at ${r.clicks.toFixed(2)} dBFS; music 200 ms after a click ${r.bed.toFixed(2)} dB; a tone on a DC offset comes out averaging ${r.dcMean.toFixed(4)}, peaks ${r.dcPeak.toFixed(2)} dBFS; 1 kHz through the high-pass ${r.hpUnity.toFixed(3)} dB` };
 }
 
 // The preview build (tools/build.py --preview, beside dist/index.html): its banner, its limiter switch,

@@ -10,9 +10,10 @@
 //   node tools/limiter_check.js selftest         the same on synthetic recordings whose answers are known
 //   node tools/limiter_check.js report OUT       a summary, as Markdown
 //   node tools/limiter_check.js clips LIST DIR [N] [SECS]   for listening: in each listed file, the N spots
-//       of SECS seconds (default 3 of 12) where the limiter works hardest, each as two 16-bit WAVs: a, the
-//       file at its gain without the limiter (as the station plays it with the limiter off), and b, with
-//       the limiter, turned back down by the difference between the gains. The two are then at the same
+//       of SECS seconds (default 3 of 12) where the limiter works hardest, or the ones a file lists in
+//       spots (seconds into it), each as three 16-bit WAVs: a, the file at its gain without the limiter
+//       (as the station plays it with the limiter off); b, with the limiter, turned back down by the
+//       difference between the gains; c, as b but without the high-pass. a and b are then at the same
 //       level, so anything heard in b and not in a is the limiter's doing. DIR/clips.json lists them.
 //
 // archive.org can't be reached from every machine, so the run happens on GitHub's servers (the Limiter
@@ -21,6 +22,8 @@
 // Each file is decoded at 48 kHz from its skip point to its end point (its first 30 minutes at most) and
 // limited in 60 s pieces, each with the 2 s before it so the limiter has settled by the piece's start
 // (it starts each time with its gain near nothing, as it does when the page's audio starts).
+// As on the page, the audio first goes through its high-pass (20 Hz), which takes out any DC offset and
+// rumble below hearing; each piece's filter starts from rest at the start of its 2 s run-up.
 // What the limiter does is read exactly: beside the recording runs a second channel holding a constant
 // far too quiet to sway it, and the limiter's gain comes out on that channel. (Chrome's limiter acts on
 // whichever channel is loudest at each instant, so a stereo file goes in as that channel, and the gain
@@ -52,14 +55,29 @@ const r4 = (x) => (x == null || !isFinite(x) ? null : Math.round(x * 10000) / 10
 const db = (v) => 20 * Math.log10(v);
 
 // The page's limiter, read from the page itself, and the settings it is compared with.
+const PAGE_SRC = () => fs.readFileSync(path.join(ROOT, 'src', 'index.template.html'), 'utf8');
 function pageLimiter() {
-  const m = fs.readFileSync(path.join(ROOT, 'src', 'index.template.html'), 'utf8').match(/const LIMITER = (\{[^}]*\});/);
+  const m = PAGE_SRC().match(/const LIMITER = (\{[^}]*\});/);
   if (!m) throw new Error('no LIMITER in src/index.template.html');
   return Function('return ' + m[1])();
 }
+// The page's high-pass before the gain, from the page too: its corner and its coefficients at a rate.
+function pageHighpass() {
+  const src = PAGE_SRC(), m = src.match(/const HIGHPASS = (\d+(?:\.\d+)?);/), f = src.match(/function hpCoeffs\(fs, fc = HIGHPASS\) \{([^\n]*)\}\n/);
+  if (!m || !f) throw new Error('no HIGHPASS or hpCoeffs in src/index.template.html');
+  return { fc: +m[1], coeffs: Function('HIGHPASS', 'return function (fs, fc = HIGHPASS) {' + f[1] + '}')(+m[1]) };
+}
+// That filter on interleaved samples, in place, from rest, in double precision as an IIR filter node runs it.
+function highpass(x, CH, [b, a]) {
+  for (let c = 0; c < CH; c++) {
+    let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+    for (let i = c; i < x.length; i += CH) { const v = x[i], y = b[0] * v + b[1] * x1 + b[2] * x2 - a[1] * y1 - a[2] * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; x[i] = y; }
+  }
+  return x;
+}
 const makeupDb = (L) => -0.6 * (L.threshold - L.threshold / L.ratio); // as the page: the spec's makeup gain, with no knee
 function settings() {
-  const page = pageLimiter(), alt = [['release 0.05 s', { release: 0.05 }], ['release 0.2 s', { release: 0.2 }], ['threshold -1 dBFS', { threshold: -1 }]];
+  const page = Object.assign(pageLimiter(), { highpass: pageHighpass().fc }), alt = [['release 0.05 s', { release: 0.05 }], ['release 0.2 s', { release: 0.2 }], ['threshold -1 dBFS', { threshold: -1 }]];
   const all = [['page', page], ...alt.map(([n, o]) => [n, Object.assign({}, page, o)])];
   return all.filter(([, c], i) => i === 0 || JSON.stringify(c) !== JSON.stringify(page)).map(([name, c]) => Object.assign({ name }, c, { makeup: makeupDb(c) }));
 }
@@ -142,6 +160,13 @@ window.clip = async (frames, ch, c) => {
   await fetch('/out', { method: 'POST', body });
   return true;
 };
+// One channel from /in through an IIR filter node with these coefficients; back to /out.
+window.iir = async (frames, ff, fb) => {
+  const x = new Float32Array(await (await fetch('/in')).arrayBuffer()), ctx = new OfflineAudioContext(1, frames, ${RATE}), buf = ctx.createBuffer(1, frames, ${RATE});
+  buf.copyToChannel(x, 0); const src = ctx.createBufferSource(), f = ctx.createIIRFilter(ff, fb); src.buffer = buf; src.connect(f); f.connect(ctx.destination); src.start();
+  await fetch('/out', { method: 'POST', body: (await ctx.startRendering()).getChannelData(0) });
+  return true;
+};
 // The limiter's delay: where an impulse well under its threshold comes out. Half a second in, since
 // Chrome's limiter starts with its gain near nothing and takes about its release time to come up.
 window.lag = async (c) => {
@@ -174,6 +199,7 @@ async function browser() {
   return {
     limit: async (input, frames, cfgs, a, n, lag) => { IN = input; OUT = null; const stats = await page.evaluate((v) => window.limit(...v), [frames, cfgs, a, n, lag, PROBE]); return { stats, envs: OUT }; },
     lag: (c) => page.evaluate((x) => window.lag(x), c),
+    iir: async (input, ff, fb) => { IN = input; OUT = null; await page.evaluate((v) => window.iir(...v), [input.length, ff, fb]); return OUT; },
     clip: async (input, frames, ch, c) => { IN = input; OUT = null; await page.evaluate((v) => window.clip(...v), [frames, ch, c]); return OUT; },
     close: async () => { await chrome.close(); server.close(); },
   };
@@ -199,7 +225,7 @@ function decode(file, it) {
 }
 async function limitFile(B, cfgs, LAG, file, it, D = null) {
   const own = !D; D = D || decode(file, it);
-  const { CH, N, from, read } = D, g = Math.pow(10, it.gain / 20), K = cfgs.length;
+  const { CH, N, from } = D, g = Math.pow(10, it.gain / 20), K = cfgs.length, HP = pageHighpass().coeffs(RATE), read = (a, b) => highpass(D.read(a, b), CH, HP);
   const inM = new Meter(CH), st = cfgs.map(() => ({ m: new Meter(CH), c1: 0, c3: 0, c6: 0, min: 1, peak: 0, bIn: 0, bOut: 0, sub: [], subMax: [] }));
   for (let s = 0; s < N; s += PIECE) {
     const L = Math.min(PIECE, N - s), F = PRE + L + LAG, x = read(s - PRE, s + L + LAG), input = new Float32Array(2 * F);
@@ -287,10 +313,11 @@ async function selftest() {
   const click = (t) => { const p = t % 1 - 0.5; return p >= 0 && p < 0.001 ? Math.sin(Math.PI * p / 0.001) * ((Math.floor(p * RATE) % 2) ? 1 : -1) : 0; };
   const over = (dB) => dB * (1 - 1 / cfg.ratio); // the steady reduction for a tone dB over the threshold
   const cases = [ // name, channels, seconds, sample function, the file's levels, expected values [value, tolerance] or checks
-    ['tone well under the threshold', 1, 20, (t) => 0.1 * sin(1000, t), { gain: 6 }, { gr1: [0, 0], grMax: [0, 0.05], peak: [-14, 0.05], dI: [0, 0.02] }],
+    ['tone well under the threshold', 1, 20, (t) => 0.1 * sin(1000, t), { gain: 6 }, { gr1: [0, 0], grMax: [0, 0.05], peak: [-14, 0.3], dI: [0, 0.02] }], // the high-pass overshoots a little as the tone starts
     ['tone 4 dB over the threshold', 1, 20, (t) => 0.1 * sin(1000, t), { gain: 20 + T + 4 }, { gr3: [1, 0.02], gr6: [0, 0], grMax: [over(4), 0.2], peak: (v) => v > T - 0.2 && v < T + 0.75, dI: [-over(4), 0.2] }],
     ['stereo, the same tone on the left only', 2, 20, (t, c) => (c ? 0 : 0.1 * sin(1000, t)), { gain: 20 + T + 4 }, { gr3: [1, 0.02], grMax: [over(4), 0.2], dI: [-over(4), 0.2] }],
     ['clicks 7 dB over the threshold, on quiet music', 1, 20, (t) => 0.03 * sin(440, t) + 0.56 * click(t), { gain: 10 }, { peak: (v) => v < 0 && v > T - 0.5, gr1: (v) => v > 0.01 && v < 0.12, gr6: (v) => v < 0.01, dBed: (v) => v > -0.3 && v <= 0 }],
+    ['tone on a DC offset a third of full scale', 1, 20, (t) => -0.33 + 0.1 * sin(440, t), { gain: 6 }, { gr1: (v) => v < 0.002, dBed: (v) => v > -0.05, dI: (v) => v > -0.05 }],
     ['skip and end points', 1, 14, (t) => (t < 2 || t > 12 ? 0 : 0.1 * sin(1000, t)), { gain: 0, skip: 2, out: 12 }, { secs: [10, 0.05], gr1: [0, 0] }],
   ];
   const list = { files: cases.map(([name, ch, secs, fn, lv], i) => { const p = path.join(tmp, `case${i}.wav`); wav(p, ch, secs, fn); return Object.assign({ pool: 'test', id: 'case' + i, f: name, path: p, gain0: lv.gain, skip: 0, out: secs }, lv); }) };
@@ -309,6 +336,15 @@ async function selftest() {
     if (probs.length) bad++;
     console.log(`${probs.length ? 'FAIL' : 'ok  '} ${name}${probs.length ? ': ' + probs.join('; ') : ''}  ${p ? JSON.stringify({ gr1: p.gr1, gr3: p.gr3, gr6: p.gr6, grMax: p.grMax, peak: p.peak, dI: p.dI, dBed: p.dBed }) : ''}`);
   });
+  // The tool's high-pass against the browser's IIR filter node with the page's coefficients.
+  {
+    const n = 2 * RATE, x = new Float32Array(n); let seed = 7;
+    for (let i = 0; i < n; i++) { seed = seed * 16807 % 2147483647; x[i] = -0.3 + 0.2 * (seed / 2147483647 - 0.5) + 0.1 * sin(55, i / RATE); }
+    const [ff, fb] = pageHighpass().coeffs(RATE), B2 = await browser();
+    let want; try { want = await B2.iir(x, ff, fb); } finally { await B2.close(); }
+    const got = highpass(Float32Array.from(x), 1, [ff, fb]); let d = 0; for (let i = 0; i < n; i++) d = Math.max(d, Math.abs(got[i] - want[i]));
+    if (!(d < 1e-5)) { bad++; console.log(`FAIL high-pass: the tool's differs from the browser's by up to ${d.toExponential(2)}`); } else console.log(`ok   high-pass: the tool's matches the browser's IIR filter to ${d.toExponential(1)}`);
+  }
   // Clips: the clicks file at +10 dB with the limiter and +3 dB without. Its clips should have the music
   // at the same level either way and the clicks lower with the limiter.
   const cdir = path.join(tmp, 'clips'), ci = list.files[3], cl = path.join(tmp, 'clips.json');
@@ -318,7 +354,7 @@ async function selftest() {
   if (sp.length !== 2) probs.push(`${sp.length} spots, expected 2`);
   for (const p of sp) {
     const A = pcm(p.a), Bc = pcm(p.b), rms = (x, a0, n) => { let e = 0; for (let i = a0; i < a0 + n; i++) e += x[i] * x[i]; return Math.sqrt(e / n); }, pk = (x) => x.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
-    if (A.length !== 4 * RATE || Bc.length !== A.length) probs.push(`clip lengths ${A.length} and ${Bc.length}, expected ${4 * RATE}`);
+    if (A.length !== 4 * RATE || Bc.length !== A.length || pcm(p.c).length !== A.length) probs.push(`clip lengths ${A.length}, ${Bc.length} and ${pcm(p.c).length}, expected ${4 * RATE}`);
     // the music just before each click (0.5 s into each second of the file, so at whole seconds plus 0.5 from the clip's start, less its offset)
     const off = Math.round(((0.5 - (p.at % 1)) + 1) % 1 * RATE), quiet = Math.max(0, off - Math.round(0.2 * RATE)), dbBed = 20 * Math.log10(rms(Bc, quiet, Math.round(0.15 * RATE)) / rms(A, quiet, Math.round(0.15 * RATE)));
     if (!(Math.abs(dbBed) < 0.3)) probs.push(`at ${p.at} s the music is ${dbBed.toFixed(2)} dB apart between the clips`);
@@ -327,7 +363,7 @@ async function selftest() {
   if (probs.length) bad++;
   console.log(`${probs.length ? 'FAIL' : 'ok  '} clips: the music level-matched, the clicks lower with the limiter${probs.length ? ': ' + probs.join('; ') : ''}`);
   fs.rmSync(tmp, { recursive: true, force: true });
-  console.log(bad ? `${bad} self-tests failed` : `all ${cases.length + 2} self-tests passed`);
+  console.log(bad ? `${bad} self-tests failed` : `all ${cases.length + 3} self-tests passed`);
   process.exitCode = bad ? 1 : 0;
 }
 
@@ -340,35 +376,45 @@ function wav16(file, x, ch) { // 16-bit PCM WAV at RATE from interleaved floats
   fs.writeFileSync(file, Buffer.concat([h, data]));
 }
 async function clips(listPath, outDir, N = 3, SECS = 12) {
-  const list = JSON.parse(fs.readFileSync(listPath, 'utf8')), cfg = settings()[0], W = SECS * 10, L = SECS * RATE, EDGE = Math.round(0.01 * RATE);
+  const list = JSON.parse(fs.readFileSync(listPath, 'utf8')), cfg = settings()[0], W = SECS * 10, L = SECS * RATE, EDGE = Math.round(0.01 * RATE), HP = pageHighpass().coeffs(RATE);
   fs.mkdirSync(outDir, { recursive: true });
-  const B = await browser(), tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nd-clips-')), index = { made: new Date().toISOString(), setting: cfg, secs: SECS, files: [] };
+  const B = await browser(), tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nd-clips-')), index = { made: new Date().toISOString(), setting: cfg, secs: SECS, versions: { a: 'without the limiter, at the lower gain', b: 'with the limiter, turned back down by the difference', c: 'with the limiter, without the high-pass: as before 27 Nov' }, files: [] };
   try {
     const LAG = (await B.lag(cfg)).lag;
     for (const [i, it] of list.files.entries()) {
       const file = it.path || path.join(tmp, 'a' + (path.extname(it.f).toLowerCase() || '.mp3'));
       if (!it.path) await download(ia(it.id, it.f), file);
       const D = decode(file, it), res = await limitFile(B, [cfg], LAG, file, it, D), { sub, subMax } = res.subs[0];
-      // The spots: most 0.1 s blocks with more than 3 dB off, then the most reduction overall; none overlapping.
-      const score = (j) => { let s = 0; for (let k = j; k < j + W; k++) s += (subMax[k] >= 3 ? 1000 : 0) + sub[k]; return s; };
-      const cand = []; for (let j = 0; j + W <= sub.length; j += 5) cand.push([score(j), j]);
-      cand.sort((a, b) => b[0] - a[0]);
-      const picks = []; for (const [s, j] of cand) { if (s <= 0 || picks.length >= N) break; if (picks.every((p) => Math.abs(p - j) >= W)) picks.push(j); }
-      picks.sort((a, b) => a - b);
+      let picks;
+      if (it.spots) picks = it.spots.map((t) => Math.max(0, Math.round((t - D.from) * 10)));
+      else { // the spots: most 0.1 s blocks with more than 3 dB off, then the most reduction overall; none overlapping
+        const score = (j) => { let s = 0; for (let k = j; k < j + W; k++) s += (subMax[k] >= 3 ? 1000 : 0) + sub[k]; return s; };
+        const cand = []; for (let j = 0; j + W <= sub.length; j += 5) cand.push([score(j), j]);
+        cand.sort((a, b) => b[0] - a[0]);
+        picks = []; for (const [s, j] of cand) { if (s <= 0 || picks.length >= N) break; if (picks.every((p) => Math.abs(p - j) >= W)) picks.push(j); }
+        picks.sort((a, b) => a - b);
+      }
       const CH = D.CH, g = Math.pow(10, it.gain / 20), g0 = Math.pow(10, it.gain0 / 20), back = Math.pow(10, (it.gain0 - it.gain) / 20);
       const rec = { pool: it.pool, id: it.id, f: it.f, title: it.title || null, gain: it.gain, gain0: it.gain0, channels: CH, gr1: res.limits.page.gr1, spots: [] };
-      for (const [k, j] of picks.entries()) {
-        const start = j * RATE / 10, F = PRE + L + LAG, x = D.read(start - PRE, start + L + LAG), input = new Float32Array(CH * F);
+      const limited = async (x) => { // the limiter's output over a stretch read with its run-up, at full gain, aligned
+        const F = PRE + L + LAG, input = new Float32Array(CH * F);
         for (let n = 0; n < F; n++) for (let c = 0; c < CH; c++) input[c * F + n] = x[n * CH + c] * g;
-        const out = await B.clip(input, F, CH, cfg), a = new Float32Array(L * CH), b = new Float32Array(L * CH);
+        const out = await B.clip(input, F, CH, cfg), y = new Float32Array(L * CH);
+        for (let n = 0; n < L; n++) for (let c = 0; c < CH; c++) y[n * CH + c] = out[c * F + PRE + LAG + n];
+        return y;
+      };
+      for (const [k, j] of picks.entries()) {
+        const start = j * RATE / 10, raw = D.read(start - PRE, start + L + LAG), hp = highpass(Float32Array.from(raw), CH, HP);
+        const yb = await limited(hp), yc = await limited(raw), out = { a: new Float32Array(L * CH), b: new Float32Array(L * CH), c: new Float32Array(L * CH) };
         for (let n = 0; n < L; n++) {
           const fade = Math.min(1, n / EDGE, (L - 1 - n) / EDGE); // 10 ms in and out, so the clip's own edges don't click
-          for (let c = 0; c < CH; c++) { a[n * CH + c] = x[(PRE + n) * CH + c] * g0 * fade; b[n * CH + c] = out[c * F + PRE + LAG + n] * back * fade; }
+          for (let c = 0; c < CH; c++) { const q = n * CH + c; out.a[q] = hp[(PRE + n) * CH + c] * g0 * fade; out.b[q] = yb[q] * back * fade; out.c[q] = yc[q] * back * fade; }
         }
-        const name = `${i + 1}-${k + 1}`;
-        wav16(path.join(outDir, name + 'a.wav'), a, CH); wav16(path.join(outDir, name + 'b.wav'), b, CH);
-        let mx = 0, o3 = 0; for (let q = j; q < j + W; q++) { mx = Math.max(mx, subMax[q]); if (subMax[q] >= 3) o3++; }
-        rec.spots.push({ at: r1(D.from + j / 10), a: name + 'a.wav', b: name + 'b.wav', grMax: r1(mx), over3: o3 });
+        const name = `${i + 1}-${k + 1}`, spot = { at: r1(D.from + j / 10) };
+        for (const v of ['a', 'b', 'c']) { wav16(path.join(outDir, name + v + '.wav'), out[v], CH); spot[v] = name + v + '.wav'; }
+        let mx = 0, o3 = 0; for (let q = j; q < Math.min(j + W, subMax.length); q++) { mx = Math.max(mx, subMax[q]); if (subMax[q] >= 3) o3++; }
+        Object.assign(spot, { grMax: r1(mx), over3: o3 });
+        rec.spots.push(spot);
       }
       D.close(); if (!it.path) fs.rmSync(file, { force: true });
       index.files.push(rec);

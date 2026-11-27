@@ -641,16 +641,18 @@ function initAudio() {
   const ng = ctx.createGain(); ng.gain.value = 0; ns.connect(nf); nf.connect(ng); ng.connect(master); ns.start();
   const wo = ctx.createOscillator(); wo.frequency.value = 600; const wg = ctx.createGain(); wg.gain.value = 0; wo.connect(wg); wg.connect(master); wo.start();
   const el = new Audio(); el.preload = 'auto';
-  let g = null, lim = null, wet = null, dry = null;
+  let g = null, lim = null, wet = null, dry = null, dcb = null;
   if (ROUTE) {
-    el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g);
+    el.crossOrigin = 'anonymous'; g = ctx.createGain();
+    const media = ctx.createMediaElementSource(el);
+    try { const [b, a] = hpCoeffs(ctx.sampleRate); dcb = ctx.createIIRFilter(b, a); media.connect(dcb); dcb.connect(g); } catch (e) { dcb = null; media.connect(g); }
     lim = ctx.createDynamicsCompressor(); for (const k of Object.keys(LIMITER)) lim[k].value = LIMITER[k];
     wet = ctx.createGain(); dry = ctx.createGain(); g.connect(lim); lim.connect(wet); wet.connect(toneIn); g.connect(dry); dry.connect(toneIn);
     wet.gain.value = LIM.on ? Math.pow(10, -makeupDb(LIMITER) / 20) : 0; dry.gain.value = LIM.on ? 0 : 1;
   }
   const keep = QS.get('keepalive') === '0' ? null : new Audio(); // on everywhere since 26 Nov; ?keepalive=0 turns it off for testing
   if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
-  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, lim, wet, dry, keep });
+  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, dcb, lim, wet, dry, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
   el.addEventListener('loadedmetadata', onMeta);
   el.addEventListener('playing', () => {
@@ -716,6 +718,11 @@ function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if ((wan
 const LIMITER = { threshold: -2, knee: 0, ratio: 20, attack: 0.001, release: 0.1 };
 const LIM = { on: ROUTE && QS.get('limiter') !== '0' };
 const makeupDb = (L) => -0.6 * (L.threshold - L.threshold / L.ratio); // the curve at 0 dBFS, with no knee: threshold + (0 - threshold) / ratio
+// Before the gain, a high-pass at 20 Hz (second order, Butterworth): some recordings sit well off zero (one
+// LibriVox reading a third of full scale below it) or carry rumble below hearing, and the gain and the
+// limiter, moving, would turn that into thumps. [feedforward, feedback] for an IIR filter at rate fs.
+const HIGHPASS = 20;
+function hpCoeffs(fs, fc = HIGHPASS) { const w = 2 * Math.PI * fc / fs, c = Math.cos(w), a = Math.sin(w) / Math.SQRT2, a0 = 1 + a; return [[(1 + c) / 2 / a0, -(1 + c) / a0, (1 + c) / 2 / a0], [1, -2 * c / a0, (1 - a) / a0]]; }
 const dbOf = (it) => (!it ? 0 : LIM.on || it.gain0 == null ? it.gain || 0 : it.gain0);
 const gainOf = (it) => (dbOf(it) ? Math.pow(10, dbOf(it) / 20) : 1);
 function carry(src, kind, t0, len, loop, label, it) {
@@ -1195,7 +1202,7 @@ if (PREVIEW) {
         + (A.lim && LIM.on ? ` · the limiter is taking ${Math.abs(A.lim.reduction).toFixed(1)} dB off now` : '') + '.';
   }, 250);
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, LIMITER, LIM, makeupDb, setLimiter, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>
