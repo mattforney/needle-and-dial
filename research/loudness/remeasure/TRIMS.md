@@ -1,5 +1,18 @@
 # Trims the filtered measurement would change (27 Nov 2026)
 
+## Review (27 Nov 2026)
+
+Matt listened to the 64 files whose filtered trim cuts 0.5 s or more at an end, as now-vs-proposed clips (the `trim-clips` branch renders them; research/loudness/remeasure/clips/). 58 were fine and now carry the filtered measurement (`hp: 20` in catalog/measurements.json). Six cut something and keep the unfiltered trims:
+
+- WNOC JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo (end 6.7 s more cut)
+- WHOD Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay (end 1.1 s more cut)
+- KPRY Gunsmoke 54-10-09 (130) Love of a Good Woman (end 1.0 s, start 1 s more cut)
+- WNOC FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato (end 0.7 s more cut)
+- KPRY Fort Laramie 56-08-19 ep30 Goodbye Willa (start 0.5 s more cut)
+- KPRY Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs (end 0.5 s more cut)
+
+Since six of the 64 cut something, the 59 smaller changes (under 0.5 s) were not applied unheard either.
+
 Through the 20 Hz high-pass, the quiet stretch at the ends of some files measures as silence where rumble or hum below hearing kept it above −50 dBFS before. Taken whole, the remeasure (`measurements.json` here) would change the trims of 123 files: 158 s more cut in all, 0.2 s less. These wait for a listen before they air, since for the quietest transfers −50 dBFS is close to the program, and a cut could take a quiet fade rather than silence. Until then the levels keep the trims from the unfiltered measurement, which cuts less. Quietest program first; a positive figure is more cut.
 
 | Pool | File | Start cut changes by | End cut changes by | Program level, dBFS (before → through the high-pass) |
