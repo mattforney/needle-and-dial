@@ -2,7 +2,7 @@
 // in Playwright's WebKit, and records whether 'ended' fires long before the end.
 // node research/safari-cbs/repro.js [reps]   → research/safari-cbs/results-<os>.json
 const http = require('http'), fs = require('fs'), path = require('path'), os = require('os');
-const { webkit } = require('playwright');
+const { webkit } = require('playwright-core');
 const DIR = path.join(__dirname, 'files'), REPS = +process.argv[2] || 6;
 const FILES = ['OldRadio_Adv--CBS_Radio3.mp3', 'OldRadio_Adv--Camel5.mp3', 'OldRadio_Adv--Blue_Coal1.mp3', 'OldRadio_Adv--Anacin.mp3', 'OldRadio_Adv--Cream_Of_Wheat.mp3', 'OldRadio_Adv--DelMonte_Catsup2.mp3'];
 const SEEKS = [0, 3, 6, 9, 15, 25];

@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-      - run: npm ci && npx playwright install --with-deps webkit
+      - run: npm ci && npx playwright-core install --with-deps webkit
       - run: node research/safari-cbs/repro.js 5
       - uses: actions/upload-artifact@v4
         with:
