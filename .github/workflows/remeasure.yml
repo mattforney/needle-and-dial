@@ -1,0 +1,63 @@
+# Measures every catalog file again, now through the page's 20 Hz high-pass (tools/loudness_survey.js),
+# into research/loudness/remeasure/measurements.json, committing every 50 files. It runs only on the
+# remeasure branch, so main and the site are untouched; the new measurements replace
+# catalog/measurements.json on the levels branch once they're compared with the old ones.
+name: Remeasure with the high-pass
+
+on:
+  push:
+    branches: [remeasure]
+    paths: [tools/loudness_survey.js, .github/workflows/remeasure.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remeasure
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install ffmpeg
+        run: |
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          ffmpeg -version | head -1
+      - name: Build the catalog and list every file
+        run: |
+          python3 tools/build.py
+          node tools/loudness_survey.js pick all dist/all.json
+      - name: Self-test on synthetic audio
+        run: node tools/loudness_survey.js selftest
+      - name: Measure every file again, committing every 50
+        timeout-minutes: 320
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          mkdir -p research/loudness/remeasure
+          for round in $(seq 1 40); do
+            node tools/loudness_survey.js measure dist/all.json research/loudness/remeasure/measurements.json --max 50
+            git add research/loudness/remeasure/measurements.json
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Remeasure: files [skip ci]"
+              git push -q origin "HEAD:${GITHUB_REF_NAME}"
+            fi
+            node -e "process.exit(require('./research/loudness/remeasure/measurements.json').finished ? 0 : 1)" && break
+          done
+          node tools/loudness_survey.js measure dist/all.json research/loudness/remeasure/measurements.json --retry-errors
+      - name: Summary
+        if: always() && hashFiles('research/loudness/remeasure/measurements.json') != ''
+        run: node tools/loudness_survey.js report research/loudness/remeasure/measurements.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit anything left over
+        if: always() && hashFiles('research/loudness/remeasure/measurements.json') != ''
+        run: |
+          git add research/loudness/remeasure/measurements.json
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Remeasure: files [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
