@@ -2,6 +2,15 @@
 
 132 files sampled from the catalog's 1,069 (method in [README.md](README.md); figures below, from `node research/loudness/analyze.js`). Two more were sampled twice, as a concert track and as a vault track, and measured identically on separate downloads.
 
+## Update: the whole catalog
+
+All 1,069 files were measured on 26 Nov ([figures](FINDINGS-catalog.md), from `node research/loudness/analyze.js research/loudness/levels.json`), none failed. The sample's conclusions hold, with larger numbers in places:
+
+- Files span 37 LU (−43.8 to −6.4 LUFS); the middle 90% span 16.5 LU. On nine stations 44–67% of changes jump over 3 LU, and on KTPR 31%: within a concert, tracks vary more than the sample's nine pairs suggested.
+- One gain per file, capped at the headroom, brings changes over 3 LU to 14% or fewer on eight stations. WGRM (56%) and WPGE (39%) keep more than the sample suggested: 254 files (24%) can't be raised to −20 LUFS without a limiter, mostly 78s and LibriVox readings. A limiter on the Web Audio path is the next improvement for those two stations.
+- 58 files (5.4%) differ from the catalog's length by more than 2 s: 13 old-time radio episodes run longer than listed (their endings are cut today) and 45 shorter, 38 of them KFRE tracks (gaps today). Quiet at the ends adds up to more than 5 s on 183 files.
+- What was built (`tools/levels.js`): one gain per file, except that a program in parts (a work's movements, a concert's tracks) shares one gain for the whole of it, so a quiet movement stays quiet (the Goldberg Variations' parts run from −37.3 to −18.1 LUFS); silence is cut only at a program's very start and end.
+
 ## What it means
 
 1. **Level matching is worth doing, and it has to be per file.** Files span 25 LU (−32.9 to −7.4 LUFS); the middle 90% span 14.9 LU. At a change of recording, the jump is over 3 LU on 32–74% of changes on nine of the ten stations, and over 6 LU on 15–49%. WGRM is worst: one 78 differs from the next by a median 5.8 LU. KTPR is the exception (9% over 3 LU), because its concerts' tracks follow one another and differ by a median 1.1 LU. One gain per pool would fix the old-time radio stations' main jump (the ads run 4.5 LU louder than the programs, −16.0 against −20.5 LUFS, as commercials did on real radio) but nothing within a pool, so WGRM, KFRE and WNOC would stay as they are. One gain per file, aiming at −20 LUFS and boosting no file past −1 dBTP true peak, brings the changes over 3 LU down to 15% or fewer on eight of the ten stations.
