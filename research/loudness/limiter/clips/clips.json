@@ -1,0 +1,114 @@
+{
+ "made": "2026-11-27T04:08:54.986Z",
+ "setting": {
+  "name": "page",
+  "threshold": -2,
+  "knee": 0,
+  "ratio": 20,
+  "attack": 0.001,
+  "release": 0.1,
+  "makeup": 1.14
+ },
+ "secs": 12,
+ "files": [
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "esme_saki_ib_64kb.mp3",
+   "title": "Esmé (Saki)",
+   "gain": 6.5,
+   "gain0": 0.6,
+   "channels": 2,
+   "gr1": 0.0013,
+   "spots": [
+    {
+     "at": 666,
+     "a": "1-1a.wav",
+     "b": "1-1b.wav",
+     "grMax": 4.2,
+     "over3": 2
+    },
+    {
+     "at": 707,
+     "a": "1-2a.wav",
+     "b": "1-2b.wav",
+     "grMax": 5.7,
+     "over3": 2
+    },
+    {
+     "at": 734,
+     "a": "1-3a.wav",
+     "b": "1-3b.wav",
+     "grMax": 5.9,
+     "over3": 2
+    }
+   ]
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "title": "Beauty and the Beast (Beaumont)",
+   "gain": 6,
+   "gain0": 0,
+   "channels": 1,
+   "gr1": 0.0467,
+   "spots": [
+    {
+     "at": 532.5,
+     "a": "2-1a.wav",
+     "b": "2-1b.wav",
+     "grMax": 4.9,
+     "over3": 11
+    },
+    {
+     "at": 644,
+     "a": "2-2a.wav",
+     "b": "2-2b.wav",
+     "grMax": 5.6,
+     "over3": 15
+    },
+    {
+     "at": 1527,
+     "a": "2-3a.wav",
+     "b": "2-3b.wav",
+     "grMax": 3.7,
+     "over3": 10
+    }
+   ]
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "walrus_and_carpenter_lc_jc_64kb.mp3",
+   "title": "The Walrus and the Carpenter (Carroll)",
+   "gain": 4.8,
+   "gain0": 1,
+   "channels": 1,
+   "gr1": 0.0053,
+   "spots": [
+    {
+     "at": 135.2,
+     "a": "3-1a.wav",
+     "b": "3-1b.wav",
+     "grMax": 4.1,
+     "over3": 2
+    },
+    {
+     "at": 161.2,
+     "a": "3-2a.wav",
+     "b": "3-2b.wav",
+     "grMax": 4.2,
+     "over3": 1
+    },
+    {
+     "at": 176.7,
+     "a": "3-3a.wav",
+     "b": "3-3b.wav",
+     "grMax": 3.1,
+     "over3": 1
+    }
+   ]
+  }
+ ]
+}
