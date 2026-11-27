@@ -1,0 +1,1516 @@
+{
+ "rendered": "2026-11-27 21:54 UTC",
+ "items": [
+  {
+   "n": 1,
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t21.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/01-end-a.mp3",
+      "secs": 13.0
+     },
+     "b": {
+      "file": "audio/01-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 106.09,
+   "dc": 0.004742
+  },
+  {
+   "n": 2,
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/02-end-a.mp3",
+      "secs": 11.8
+     },
+     "b": {
+      "file": "audio/02-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/02-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/02-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1852.21,
+   "dc": -0.313817
+  },
+  {
+   "n": 3,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/03-end-a.mp3",
+      "secs": 11.7
+     },
+     "b": {
+      "file": "audio/03-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 339.97,
+   "dc": 8.1e-05
+  },
+  {
+   "n": 4,
+   "id": "short_story_007",
+   "f": "occurrence_owl_creek_bridge_bierce_szp_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/04-end-a.mp3",
+      "secs": 11.2
+     },
+     "b": {
+      "file": "audio/04-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/04-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/04-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1318.16,
+   "dc": 0.062539
+  },
+  {
+   "n": 5,
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 61-02-19 (463) Kitty Love.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/05-end-a.mp3",
+      "secs": 9.96
+     },
+     "b": {
+      "file": "audio/05-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1499.1,
+   "dc": -0.014071
+  },
+  {
+   "n": 6,
+   "id": "78_wedding-march_mendelssohn_gbia0414052a",
+   "f": "WEDDING MARCH - Mendelssohn.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/06-start-a.mp3",
+      "secs": 9.3
+     },
+     "b": {
+      "file": "audio/06-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 267.27,
+   "dc": -1.5e-05
+  },
+  {
+   "n": 7,
+   "id": "stories_006_librivox",
+   "f": "last_lesson_daudet_dp_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/07-end-a.mp3",
+      "secs": 9.19
+     },
+     "b": {
+      "file": "audio/07-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/07-start-a.mp3",
+      "secs": 5.9
+     },
+     "b": {
+      "file": "audio/07-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 674.09,
+   "dc": 0.005022
+  },
+  {
+   "n": 8,
+   "id": "story_5_librivox",
+   "f": "deacon_lampton_cs_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/08-end-a.mp3",
+      "secs": 9.0
+     },
+     "b": {
+      "file": "audio/08-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1040.93,
+   "dc": 0.028932
+  },
+  {
+   "n": 9,
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep12_Return_of_the_Badmen.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/09-end-a.mp3",
+      "secs": 8.3
+     },
+     "b": {
+      "file": "audio/09-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/09-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/09-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1689.86,
+   "dc": -1.3e-05
+  },
+  {
+   "n": 10,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "6-A_Sister_For_Clare.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/10-end-a.mp3",
+      "secs": 7.7
+     },
+     "b": {
+      "file": "audio/10-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/10-start-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/10-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 142.45,
+   "dc": 0.012665
+  },
+  {
+   "n": 11,
+   "id": "badpanda018",
+   "f": "RidingAloneForThousandsOfMiles-BrickCityLoveSong.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/11-start-a.mp3",
+      "secs": 7.5
+     },
+     "b": {
+      "file": "audio/11-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 440.69,
+   "dc": -0.002376
+  },
+  {
+   "n": 12,
+   "id": "short_poetry_001_librivox",
+   "f": "love_age_peacock_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/12-end-a.mp3",
+      "secs": 7.5
+     },
+     "b": {
+      "file": "audio/12-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/12-start-a.mp3",
+      "secs": 6.9
+     },
+     "b": {
+      "file": "audio/12-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 218.91,
+   "dc": 0.111078
+  },
+  {
+   "n": 13,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "5-Mosquito.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/13-end-a.mp3",
+      "secs": 7.4
+     },
+     "b": {
+      "file": "audio/13-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/13-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/13-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 168.81,
+   "dc": 0.012558
+  },
+  {
+   "n": 14,
+   "id": "short_poetry_001_librivox",
+   "f": "for_annie_poe_ac_64kb.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/14-start-a.mp3",
+      "secs": 7.4
+     },
+     "b": {
+      "file": "audio/14-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 263.18,
+   "dc": -0.000215
+  },
+  {
+   "n": 15,
+   "id": "short_poetry_001_librivox",
+   "f": "kublai_khan_coleridge_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/15-end-a.mp3",
+      "secs": 7.1
+     },
+     "b": {
+      "file": "audio/15-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/15-start-a.mp3",
+      "secs": 7.3
+     },
+     "b": {
+      "file": "audio/15-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 219.2,
+   "dc": 0.078747
+  },
+  {
+   "n": 16,
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1949-12-19 (171) Follow That Train!.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/16-end-a.mp3",
+      "secs": 6.16
+     },
+     "b": {
+      "file": "audio/16-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/16-start-a.mp3",
+      "secs": 7.2
+     },
+     "b": {
+      "file": "audio/16-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1710.37,
+   "dc": -0.023918
+  },
+  {
+   "n": 17,
+   "id": "short_poetry_001_librivox",
+   "f": "familiar_faces_lamb_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/17-end-a.mp3",
+      "secs": 7.07
+     },
+     "b": {
+      "file": "audio/17-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/17-start-a.mp3",
+      "secs": 7.1
+     },
+     "b": {
+      "file": "audio/17-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 121.07,
+   "dc": 0.080214
+  },
+  {
+   "n": 18,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-04-Rondo.AllegroVivace.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/18-end-a.mp3",
+      "secs": 7.0
+     },
+     "b": {
+      "file": "audio/18-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 362.68,
+   "dc": 4.5e-05
+  },
+  {
+   "n": 19,
+   "id": "short_poetry_001_librivox",
+   "f": "abou_hunt_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/19-end-a.mp3",
+      "secs": 6.5
+     },
+     "b": {
+      "file": "audio/19-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/19-start-a.mp3",
+      "secs": 6.9
+     },
+     "b": {
+      "file": "audio/19-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 108.93,
+   "dc": -0.032795
+  },
+  {
+   "n": 20,
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep20_Valley_of_the_Varmints.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/20-end-a.mp3",
+      "secs": 6.7
+     },
+     "b": {
+      "file": "audio/20-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1707.36,
+   "dc": -1.2e-05
+  },
+  {
+   "n": 21,
+   "id": "short_poetry_001_librivox",
+   "f": "jenny_hunt_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/21-start-a.mp3",
+      "secs": 6.7
+     },
+     "b": {
+      "file": "audio/21-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 57.0,
+   "dc": -0.032977
+  },
+  {
+   "n": 22,
+   "id": "short_poetry_001_librivox",
+   "f": "irish_emigrant_selina_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/22-end-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/22-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/22-start-a.mp3",
+      "secs": 6.5
+     },
+     "b": {
+      "file": "audio/22-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 221.63,
+   "dc": 0.111631
+  },
+  {
+   "n": 23,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "2-Twenty_Squares_Of_Light.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/23-end-a.mp3",
+      "secs": 6.4
+     },
+     "b": {
+      "file": "audio/23-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/23-start-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/23-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 207.65,
+   "dc": 0.012663
+  },
+  {
+   "n": 24,
+   "id": "short_poetry_001_librivox",
+   "f": "last_rose_moore_py_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/24-end-a.mp3",
+      "secs": 6.4
+     },
+     "b": {
+      "file": "audio/24-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/24-start-a.mp3",
+      "secs": 6.4
+     },
+     "b": {
+      "file": "audio/24-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 89.92,
+   "dc": -0.03446
+  },
+  {
+   "n": 25,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-04-AllegroModerato.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/25-end-a.mp3",
+      "secs": 6.3
+     },
+     "b": {
+      "file": "audio/25-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 499.56,
+   "dc": -1e-06
+  },
+  {
+   "n": 26,
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 56-12-09 (244) Braggart's Boy.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/26-end-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/26-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/26-start-a.mp3",
+      "secs": 6.3
+     },
+     "b": {
+      "file": "audio/26-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1491.69,
+   "dc": 5e-06
+  },
+  {
+   "n": 27,
+   "id": "stories_002_librivox",
+   "f": "young_goodman_brown_hawthorne_btr_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/27-end-a.mp3",
+      "secs": 6.3
+     },
+     "b": {
+      "file": "audio/27-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 2384.33,
+   "dc": -1e-05
+  },
+  {
+   "n": 28,
+   "id": "78_pretty-little-baby_phil-bakers-bad-boys-sid-silvers-phil-baker-ben-bernie_gbia0527224a",
+   "f": "PRETTY LITTLE BABY - PHIL BAKER'S BAD BOYS.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/28-start-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/28-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 237.57,
+   "dc": -1.6e-05
+  },
+  {
+   "n": 29,
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 60-05-29 (425) Bad Seed.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/29-start-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/29-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1668.12,
+   "dc": -0.007854
+  },
+  {
+   "n": 30,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "1-Winter_Flowers.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/30-end-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/30-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/30-start-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/30-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 173.09,
+   "dc": 0.012625
+  },
+  {
+   "n": 31,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "7-Metal_For_Blue_Sky_Thinkers.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/31-start-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/31-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 184.98,
+   "dc": 0.011251
+  },
+  {
+   "n": 32,
+   "id": "short_poetry_001_librivox",
+   "f": "as_kingfishers_catch_fire_hopkins_dhf_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/32-end-a.mp3",
+      "secs": 5.9
+     },
+     "b": {
+      "file": "audio/32-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/32-start-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/32-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 100.32,
+   "dc": -0.104958
+  },
+  {
+   "n": 33,
+   "id": "story_5_librivox",
+   "f": "balder_mabie_bd_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/33-end-a.mp3",
+      "secs": 6.2
+     },
+     "b": {
+      "file": "audio/33-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1225.93,
+   "dc": 0.04907
+  },
+  {
+   "n": 34,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-03-AllegroVivace.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/34-end-a.mp3",
+      "secs": 6.1
+     },
+     "b": {
+      "file": "audio/34-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 371.44,
+   "dc": 6e-06
+  },
+  {
+   "n": 35,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-04-Rondo.Allegretto.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/35-end-a.mp3",
+      "secs": 6.1
+     },
+     "b": {
+      "file": "audio/35-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 714.88,
+   "dc": -4e-06
+  },
+  {
+   "n": 36,
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/36-end-a.mp3",
+      "secs": 6.1
+     },
+     "b": {
+      "file": "audio/36-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1770.48,
+   "dc": -0.000116
+  },
+  {
+   "n": 37,
+   "id": "78_adios-pilar_roberto-firpo-orquesta-tipica-m-joves-orq-tipica-roberto-firpo-max-gl_gbia0054506a",
+   "f": "Adios Pilar - Roberto Firpo - Orquesta Tipica.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/37-end-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/37-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 174.93,
+   "dc": -1.8e-05
+  },
+  {
+   "n": 38,
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 54-10-09 (130) Love of a Good Woman.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/38-end-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/38-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/38-start-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/38-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1734.65,
+   "dc": -1e-06
+  },
+  {
+   "n": 39,
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "3-Theory_Of_Colour.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/39-end-a.mp3",
+      "secs": 6.0
+     },
+     "b": {
+      "file": "audio/39-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/39-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/39-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 227.53,
+   "dc": 0.012577
+  },
+  {
+   "n": 40,
+   "id": "78_maria-mari_beniamino-gigli-vincenzo-russo-eduardo-di-capua_gbia0042759a",
+   "f": "Maria, Mari - Beniamino Gigli - Vincenzo Russo.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/40-end-a.mp3",
+      "secs": 5.9
+     },
+     "b": {
+      "file": "audio/40-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 212.21,
+   "dc": -1.4e-05
+  },
+  {
+   "n": 41,
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep44_The_Badlands.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/41-start-a.mp3",
+      "secs": 5.9
+     },
+     "b": {
+      "file": "audio/41-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1710.83,
+   "dc": -8e-06
+  },
+  {
+   "n": 42,
+   "id": "78_ride-of-the-valkyries_american-symphony-orchestra-wagner_gbia0078143b",
+   "f": "Ride of the Valkyries - American Symphony Orchestra.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/42-end-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/42-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 263.23,
+   "dc": -1.7e-05
+  },
+  {
+   "n": 43,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-04-Allegro.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/43-end-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/43-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 655.52,
+   "dc": -0.0
+  },
+  {
+   "n": 44,
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep28_The_Coach_That_Arrived_Missing.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/44-end-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/44-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/44-start-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/44-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1707.33,
+   "dc": -1e-05
+  },
+  {
+   "n": 45,
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris52-03-16207ChoosingWhereToGoOnVacation.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/45-start-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/45-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1765.53,
+   "dc": 0.00205
+  },
+  {
+   "n": 46,
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-04-22 Ep 30 Johnny Springer.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/46-start-a.mp3",
+      "secs": 5.8
+     },
+     "b": {
+      "file": "audio/46-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1787.65,
+   "dc": 0.004757
+  },
+  {
+   "n": 47,
+   "id": "78_afterwards_reed-miller-john-w-mullen_gbia0083079b",
+   "f": "Afterwards - Reed Miller - John W. Mullen.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/47-end-a.mp3",
+      "secs": 5.66
+     },
+     "b": {
+      "file": "audio/47-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 286.26,
+   "dc": -1.5e-05
+  },
+  {
+   "n": 48,
+   "id": "78_cuarto-lagrimas_francisco-canaro-y-su-orquesta-tipica-lito-bayardo-alberto-arenas_gbia0072729b",
+   "f": "Cuarto Lagrimas - Francisco Canaro y su Orquesta Tipica.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/48-end-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/48-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 172.43,
+   "dc": -1.8e-05
+  },
+  {
+   "n": 49,
+   "id": "78_of-all-the-wrongs-you-done-to-me_clarence-williams-blue-five-eva-taylor-len-payton_gbia0100514b",
+   "f": "Of all the Wrongs You Done  - Clarence Williams' Blue Five.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/49-end-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/49-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 183.96,
+   "dc": -2e-05
+  },
+  {
+   "n": 50,
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/50-end-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/50-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 556.05,
+   "dc": 4.6e-05
+  },
+  {
+   "n": 51,
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris50-12-03157TheMissingBaby.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/51-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/51-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1772.79,
+   "dc": 0.002282
+  },
+  {
+   "n": 52,
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-01-24 Ep 19 Helen Bricker.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/52-end-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/52-end-b.mp3",
+      "secs": 5.0
+     }
+    },
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/52-start-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/52-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1694.24,
+   "dc": 0.00436
+  },
+  {
+   "n": 53,
+   "id": "stories_003_librivox",
+   "f": "story_of_an_hour_chopin_ho_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/53-end-a.mp3",
+      "secs": 5.7
+     },
+     "b": {
+      "file": "audio/53-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 469.34,
+   "dc": -0.000221
+  },
+  {
+   "n": 54,
+   "id": "78_entry-of-the-gladiators-march_julius-fucik_gbia0083119a",
+   "f": "Entry of the Gladiators March - Julius Fucik.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/54-end-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/54-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 251.02,
+   "dc": -1.5e-05
+  },
+  {
+   "n": 55,
+   "id": "78_my-bird-of-paradise-medley_jaudas-society-orchestra_gbia0082906a",
+   "f": "My Bird of Paradise Medley - Jaudas' Society Orchestra.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/55-end-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/55-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 288.52,
+   "dc": -1.6e-05
+  },
+  {
+   "n": 56,
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep36_Bullets_for_Boot_Hill.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/56-start-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/56-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1706.42,
+   "dc": -1.2e-05
+  },
+  {
+   "n": 57,
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1949-12-25 (072) The Magic Christmas Tree.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/57-end-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/57-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1768.79,
+   "dc": -0.000141
+  },
+  {
+   "n": 58,
+   "id": "stories_002_librivox",
+   "f": "diamond_necklace_maupassant_aa_64kb.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/58-start-a.mp3",
+      "secs": 5.6
+     },
+     "b": {
+      "file": "audio/58-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1165.75,
+   "dc": 0.061799
+  },
+  {
+   "n": 59,
+   "id": "78_whispering-flowers_fr-von-blon_gbia0083337a",
+   "f": "Whispering Flowers - Fr. von Blon.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/59-end-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/59-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 251.83,
+   "dc": -1.5e-05
+  },
+  {
+   "n": 60,
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-08-19_ep30_Goodbye_Willa.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/60-start-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/60-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1788.55,
+   "dc": -0.002319
+  },
+  {
+   "n": 61,
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 55-09-17 (179) Thoroughbreds.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/61-start-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/61-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1789.06,
+   "dc": 1e-05
+  },
+  {
+   "n": 62,
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/62-end-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/62-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1468.02,
+   "dc": 0.00791
+  },
+  {
+   "n": 63,
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 600410 848 Two Horse Parlay (128-44) 23062 24m15s.mp3",
+   "clips": [
+    {
+     "end": "start",
+     "a": {
+      "file": "audio/63-start-a.mp3",
+      "secs": 5.5
+     },
+     "b": {
+      "file": "audio/63-start-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 1434.76,
+   "dc": 0.026453
+  },
+  {
+   "n": 64,
+   "id": "stories_002_librivox",
+   "f": "toys_of_peace_saki_tyj_64kb.mp3",
+   "clips": [
+    {
+     "end": "end",
+     "a": {
+      "file": "audio/64-end-a.mp3",
+      "secs": 5.45
+     },
+     "b": {
+      "file": "audio/64-end-b.mp3",
+      "secs": 5.0
+     }
+    }
+   ],
+   "decoded": 691.25,
+   "dc": -0.000103
+  }
+ ]
+}
