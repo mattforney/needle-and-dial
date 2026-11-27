@@ -41,7 +41,7 @@ def dc(path):
 
 def clip(src, a, b, gain, dest):
     af = f'highpass=f=20:poles=2,atrim=start={a}:end={b},asetpts=PTS-STARTPTS,volume={gain}dB,alimiter=limit=0.891:attack=1:release=100:level=false'
-    r = run(['ffmpeg', '-hide_banner', '-v', 'error', '-y', '-i', src, '-af', af, '-c:a', 'libmp3lame', '-q:a', '5', dest])
+    r = run(['ffmpeg', '-hide_banner', '-v', 'error', '-y', '-i', src, '-map', '0:a:0', '-map_metadata', '-1', '-af', af, '-c:a', 'libmp3lame', '-q:a', '5', dest])  # audio only: some files carry cover art
     if r.returncode:
         print(r.stderr[-400:], file=sys.stderr)
         return None
