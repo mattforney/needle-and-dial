@@ -280,6 +280,35 @@ async function tuneInLead(browser) {
   return finish(t, 'tuning in starts in step with the schedule', problems);
 }
 
+// A false end: Safari once fired 'ended' the moment a file began playing after a seek into its middle.
+// The page should load the file again, once, at the right spot; a second end in the same slot stands.
+async function falseEnd(browser) {
+  const name = 'a file reported ended early is loaded again, once';
+  const sc = { at: end(a.c), first: a.c, lead: 40, len: { [url(a.c.seg)]: a.c.seg.d } };
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [], u = url(a.c.seg);
+  const playing = () => page.evaluate((u) => { const A = window.SKY.A; return A.src === u && A.shown === u && !A.el.paused && A.el.readyState >= 3; }, u);
+  let ok = false;
+  for (let i = 0; i < 60 && !ok; i++) { await sleep(150); ok = await playing(); }
+  if (!ok) { problems.push('the record never started'); return finish(t, name, problems); }
+  await sleep(1000);
+  await page.evaluate(() => window.SKY.A.el.dispatchEvent(new Event('ended')));
+  await sleep(300);
+  ok = false;
+  for (let i = 0; i < 60 && !ok; i++) { await sleep(150); ok = await playing(); }
+  const s = await page.evaluate(() => { const A = window.SKY.A; return { kind: A.kind, t: A.el.currentTime, now: Date.now() / 1000, log: window.SKY.log() }; });
+  if (!/file reported ended at \d+\.\d of \d+ s; loading it again/.test(s.log)) problems.push('no reload in the log');
+  if (/file ended before its slot/.test(s.log)) problems.push('the slot was filled on the first false end');
+  if (!ok) problems.push(`the record did not play again (playing ${s.kind})`);
+  else { const want = s.now - a.c.start; if (!(s.t - want > -1.5 && s.t - want < 4.5)) problems.push(`played again at ${s.t.toFixed(1)} s, the schedule is at ${want.toFixed(1)} s`); }
+  await page.evaluate(() => window.SKY.A.el.dispatchEvent(new Event('ended')));
+  await sleep(500);
+  const s2 = await page.evaluate(() => ({ kind: window.SKY.A.kind, log: window.SKY.log() }));
+  if (!/file ended before its slot/.test(s2.log)) problems.push('a second end in the slot was retried again');
+  if (s2.kind === 'media') problems.push('still playing the record after a second end');
+  return finish(t, name, problems);
+}
+
 // The Report link: it should fill in the issue form's fields with what's playing when it's pressed
 // (not when the card was drawn), open that in a new tab, and be gone between stations.
 const FORM_IDS = new Set(require('yaml').parse(fs.readFileSync(path.join(__dirname, '..', '.github', 'ISSUE_TEMPLATE', 'report.yml'), 'utf8')).body.map((x) => x.id).filter(Boolean));
@@ -530,7 +559,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['a file reported ended early is loaded again, once', () => falseEnd(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.

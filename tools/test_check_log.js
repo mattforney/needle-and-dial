@@ -49,6 +49,11 @@ const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).s
   const r = check(synth({ start: 23 * 3600 + 30 * 60 }));
   expect('past midnight: still two hours', r.ok && r.stretch.dur > 7200, r);
 }
+// A false end on Safari, loaded again (build from 27 Nov on): counted, and not a failure.
+{
+  const r = check(synth({}).replace(/\n(\d\d:\d\d:\d\d\.\d{3}) \[bg\] still here/, (m, t) => `\n${t} [bg] file reported ended at 9.1 of 34 s; loading it again${m}`));
+  expect('false end: counted', r.ok && /1 file reported ended early \(loaded again\)/.test(r.report), r);
+}
 // Too short.
 {
   const r = check(synth({ hours: 1.5 }));

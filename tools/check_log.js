@@ -179,7 +179,7 @@ function check(text, opt = {}) {
   }
 
   const count = (re) => inS.filter((L) => re.test(L.msg)).length;
-  const other = [[/^network stalled/, 'network stall', 'network stalls'], [/^file (ended before|is shorter than) its slot/, 'file ran short of its slot (filled)', 'files ran short of their slot (filled)'], [/^resync/, 'resync', 'resyncs'], [/^scheduler was asleep/, 'scheduler nap', 'scheduler naps'], [/^trying the recording again/, 'retry', 'retries']].map(([re, one, many]) => [count(re), one, many]).filter(([k]) => k).map(([k, one, many]) => n(k, one, many));
+  const other = [[/^network stalled/, 'network stall', 'network stalls'], [/^file (ended before|is shorter than) its slot/, 'file ran short of its slot (filled)', 'files ran short of their slot (filled)'], [/^file reported ended at /, 'file reported ended early (loaded again)', 'files reported ended early (loaded again)'], [/^resync/, 'resync', 'resyncs'], [/^scheduler was asleep/, 'scheduler nap', 'scheduler naps'], [/^trying the recording again/, 'retry', 'retries']].map(([re, one, many]) => [count(re), one, many]).filter(([k]) => k).map(([k, one, many]) => n(k, one, many));
   if (other.length) out.push(`  Also             ${other.join(', ')}`);
   for (const n of notes) out.push(`  Note             ${n}`);
 

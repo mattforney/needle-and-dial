@@ -768,7 +768,20 @@ function bridge() {
   if (TUNED && S === TUNED && left > 2) { const k = clip('interval', S); carry(k.url, 'interval', nowS(), k.len, true, 'interval signal for ' + Math.round(left) + ' s'); }
   else { const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence'); }
 }
-function onEnded() { if (!R.on) return; if (filling()) return nextFiller(); dlog('file ended before its slot'); endedEarly(); }
+// Safari once reported a file ended the moment it began playing, after a seek into its middle (an
+// iPhone, 26 Nov: the CBS ad, 33.7 s long, "ended" at 9 s). The page knows each file's length, so an
+// end well before it is loaded again, once per slot, before the slot is filled; a second one stands.
+function onEnded() {
+  if (!R.on) return; if (filling()) return nextFiller();
+  const it = A.it, at = A.el.currentTime, len = it ? A.skip + it.d : 0, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
+  if (A.kind === 'media' && it && it === PLAY.seg && at < len - 3 && left > 3 && A.endRetry !== PLAY.key) {
+    A.endRetry = PLAY.key; const src = A.src;
+    dlog(`file reported ended at ${at.toFixed(1)} of ${Math.round(len)} s; loading it again`);
+    A.src = ''; carry(src, 'media', PLAY.start, 0, false, `${PLAY.S.call} ${it.k}${it.t ? ' “' + it.t + '”' : ''} again, at ${Math.round(nowS() - PLAY.start)} of ${Math.round(it.d)} s`, it);
+    return;
+  }
+  dlog('file ended before its slot'); endedEarly();
+}
 function endedEarly() { const left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0; if (left > 60 && A.kind === 'media') startFiller('it ended early'); else bridge(); }
 // When a slot's recording can't play (it won't load, or it ends a minute or more early), the station
 // fills the rest of the slot with its own filler (fillerFor) instead of the interval signal: one
