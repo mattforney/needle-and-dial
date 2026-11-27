@@ -23,7 +23,7 @@ Clips at three spots in each of three readings from that evening (`wpge-spots.js
 ## What's left
 
 - The quietest 78s and readings still come out short of −20 LUFS: a median 1.8 LU for the 78s (the worst 6.6), 1.9 for stories and 1.3 for poems. Matt listened on 26 Nov: the 78s sound fine as they are.
-- True peaks are still measured without the high-pass, so the seven readings with an offset or rumble have less headroom on paper than they play with, and less gain than they could take (*Beauty and the Beast* comes out about 3 LU short). Measuring after the same high-pass, and measuring those seven again, would fix it.
+- Measured through the high-pass (27 Nov): every file was measured again the way the page plays it. Loudness and true peaks now come from that measurement, which raises the gains the offset and rumble were holding down: *Beauty and the Beast* from +6 to +7.8 dB, *Deacon Lampton* +6.1 to +7.7, *Kubla Khan* +8.7 to +9.7. 62 files' gains changed in all, most by 0.1 dB. Bass-heavy music shows higher true peaks through the filter (up to 4 dB on the Free Form netlabel tracks), which changes nothing on air, since those tracks are turned down. The same measurement would also trim 123 quiet files further (158 s in all), where rumble had hidden silence; those trims wait for a listen (`../remeasure/TRIMS.md`), and until then the trims stay as they were.
 
 ## The run in full
 

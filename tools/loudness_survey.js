@@ -150,7 +150,7 @@ const changedLength = (checkPath) => new Set(JSON.parse(fs.readFileSync(checkPat
 async function survey(samplePath, outPath, { max = Infinity, retryErrors = false, redoFrom = null } = {}) {
   const sample = JSON.parse(fs.readFileSync(samplePath, 'utf8')), existed = fs.existsSync(outPath);
   const out = existed ? JSON.parse(fs.readFileSync(outPath, 'utf8'))
-    : { started: new Date().toISOString(), ffmpeg: execFileSync('ffmpeg', ['-version']).toString().split('\n')[0], method: { block_ms: 100, rate: RATE, silent_dbfs: SILENT, quiet_db_below_program: QUIET }, files: [] };
+    : { started: new Date().toISOString(), ffmpeg: execFileSync('ffmpeg', ['-version']).toString().split('\n')[0], method: { block_ms: 100, rate: RATE, silent_dbfs: SILENT, quiet_db_below_program: QUIET, highpass_hz: HP }, files: [] };
   const dropped = prune(out, { retryErrors, redo: redoFrom ? changedLength(redoFrom) : null });
   if (dropped) console.log(`measuring ${dropped} again`);
   const done = new Set(out.files.map((x) => x.id + '/' + x.f));
