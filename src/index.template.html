@@ -659,6 +659,7 @@ function initAudio() {
     A.lockRetry = 0;
     let note = '';
     if (A.seekAt) { const s = (performance.now() - A.seekAt) / 1000, lag = wantPos() - el.currentTime; A.seekAt = 0; noteLoad(s); note = ` after ${s.toFixed(1)} s, ${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; }
+    else if (A.kind === 'media' && A.shown !== A.src) note = ` from ${el.currentTime.toFixed(1)} s (start point ${A.skip.toFixed(1)} s), ${sched(el.currentTime)}`;
     if (A.shown !== A.src) { A.shown = A.src; dlog('playing ' + A.kind + note); }
     else if (A.waitAt) dlog(`back after ${((performance.now() - A.waitAt) / 1000).toFixed(1)} s of buffering`); // for tools/check_log.js
     A.waitAt = 0;
@@ -891,13 +892,18 @@ function strongest() { const f = R.f[R.band]; let best = null, s = 0; for (const
 // events, which keep coming when a locked phone slows timers down or stops them.
 let lastTick = 0;
 const TK = { timer: 0, media: 0 };
+// How far the player is from the schedule: positive when behind it. A record that is behind when its
+// slot ends loses that much of its ending; one that jumped ahead to keep the schedule lost its opening.
+const sched = (p) => { const lag = wantPos() - p; return `${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; };
+// The debug log's heartbeat, every 30 s while the radio is on (tools/check_log.js reads it).
+function beat() { const el = A.el, k = A.keep; dlog(`still here: ${A.kind} at ${el.currentTime.toFixed(1)} s${A.kind === 'media' ? ', ' + sched(el.currentTime) : ''}, ${el.paused ? 'PAUSED' : 'playing'}, ready ${el.readyState}${k ? ', keep-alive ' + (k.paused ? 'PAUSED' : 'on') : ''}, engine ${A.ctx.state}, ticks ${TK.timer}/${TK.media}`); }
 function tick(src) {
   if (!R.on || !A.ctx) return;
   const t = performance.now();
   if (src === 'media' && t - lastTick < 180) return;
   if (lastTick && t - lastTick > 3000) dlog('scheduler was asleep for ' + ((t - lastTick) / 1000).toFixed(1) + ' s');
   lastTick = t; TK[src === 'media' ? 'media' : 'timer']++;
-  if (DBG.on && t - DBG.hb > 30000) { DBG.hb = t; const el = A.el, k = A.keep; dlog(`still here: ${A.kind} at ${el.currentTime.toFixed(1)} s, ${el.paused ? 'PAUSED' : 'playing'}, ready ${el.readyState}${k ? ', keep-alive ' + (k.paused ? 'PAUSED' : 'on') : ''}, engine ${A.ctx.state}, ticks ${TK.timer}/${TK.media}`); }
+  if (DBG.on && t - DBG.hb > 30000) { DBG.hb = t; beat(); }
   const now = nowS(); const { S, s } = strongest(); sigNow = s;
   if (S && s > 0.15) {
     DETUNE = 0;
@@ -1215,7 +1221,7 @@ if (PREVIEW) {
         + (A.lim && LIM.on ? ` · the limiter is taking ${Math.abs(A.lim.reduction).toFixed(1)} dB off now` : '') + '.';
   }, 250);
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>

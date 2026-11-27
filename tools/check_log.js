@@ -9,7 +9,8 @@
 // --hours is how long the screen must stay locked, --start how many seconds a program change or a
 // recovery may take, --wake the longest the screen may light up (a notification, a glance) without
 // ending the locked run; each wake is listed. Prints what happened while locked and a verdict; exit
-// code 0 pass, 1 fail, 2 when the file has no log lines. A log pasted through a chat app, with a
+// code 0 pass, 1 fail, 2 when the file has no log lines. Logs from builds of 27 Nov on also get a
+// verdict on record timing: start points missed, or records running well behind the schedule. A log pasted through a chat app, with a
 // "[11/26/2026 2:31 PM] Name: " header on each message and lines cut between messages, is fine.
 'use strict';
 const fs = require('fs');
@@ -178,6 +179,34 @@ function check(text, opt = {}) {
     else if (/keep-alive PAUSED/.test(L.msg)) notes.push(`${L.at} the heartbeat found the keep-alive paused`);
   }
 
+  // Where each record started and how it kept to the schedule (builds from 27 Nov on). A record that
+  // loads slowly at its slot jumps ahead to keep the schedule, skipping that much of its opening past
+  // the 0.3 s the levels leave before the first sound; one that runs behind loses as much of its ending;
+  // a start point that doesn't take plays the silent lead-in the levels cut.
+  const PAD = 0.3, recs = [], starts = [];
+  let rec = null;
+  for (const L of inS) {
+    if (L.msg.startsWith('→ ')) { rec = { L, name: what(L.msg), beats: [] }; recs.push(rec); continue; }
+    const m = /^playing media from ([\d.]+) s \(start point ([\d.]+) s\), ([\d.]+) s (behind|ahead of) the schedule/.exec(L.msg);
+    if (m && rec && rec.from == null) { starts.push(Object.assign(rec, { from: +m[1], sp: +m[2], lag: (m[4] === 'behind' ? 1 : -1) * +m[3], skipped: Math.max(0, +m[1] - +m[2] - PAD) })); continue; }
+    const h = /^still here: media at [\d.]+ s, ([\d.]+) s (behind|ahead of) the schedule, playing, ready [34]/.exec(L.msg);
+    if (h && rec) rec.beats.push({ at: L.at, lag: (h[2] === 'behind' ? 1 : -1) * +h[1] });
+  }
+  const timing = [];
+  if (starts.length) {
+    const jumped = starts.filter((r) => r.skipped > 0.2), late = starts.filter((r) => r.skipped <= 0.2 && r.lag > 0.5), sk = jumped.map((r) => r.skipped).sort((a, b) => a - b);
+    const onTime = starts.length - jumped.length - late.length, withSp = starts.filter((r) => r.sp >= 0.1), missed = starts.filter((r) => r.from < r.sp - 0.3);
+    out.push(`  Record starts    ${starts.length} at their slot: ${onTime} on time from their start point${jumped.length ? `, ${jumped.length} jumped ahead to keep the schedule, skipping ${sk[0].toFixed(1) === sk[sk.length - 1].toFixed(1) ? sk[0].toFixed(1) + ' s' : `${sk[0].toFixed(1)}–${sk[sk.length - 1].toFixed(1)} s`} of the opening${sk[0].toFixed(1) === sk[sk.length - 1].toFixed(1) ? '' : ` (median ${sk[sk.length >> 1].toFixed(1)} s)`}` : ''}${late.length ? `, ${late.length} started behind it (up to ${Math.max(...late.map((r) => r.lag)).toFixed(1)} s)` : ''}`);
+    if (withSp.length) out.push(`  Start points     ${n(withSp.length, 'record', 'records')} began past a silent lead-in: ${missed.length ? `${missed.length} missed it` : withSp.length > 1 ? 'all taken' : 'taken'}`);
+    for (const r of missed) timing.push(`${r.L.at} ${r.name} started at ${r.from.toFixed(1)} s, before its ${r.sp.toFixed(1)} s start point`);
+  }
+  const lagged = recs.filter((r) => r.beats.length);
+  if (lagged.length) {
+    const worst = lagged.map((r) => ({ r, b: r.beats.reduce((a, b) => (b.lag > a.lag ? b : a)) })).reduce((a, b) => (b.b.lag > a.b.lag ? b : a));
+    out.push(`  Mid-record       ${worst.b.lag > 0.5 ? `furthest ${worst.b.lag.toFixed(1)} s behind the schedule, at ${worst.b.at} (${worst.r.name})` : 'within 0.5 s of the schedule'}`);
+    for (const r of lagged) { const b = r.beats.reduce((a, x) => (x.lag > a.lag ? x : a)); if (b.lag > 1.5) timing.push(`${b.at} ${r.name} was ${b.lag.toFixed(1)} s behind the schedule, so it loses about that much of its ending`); }
+  }
+
   const count = (re) => inS.filter((L) => re.test(L.msg)).length;
   const other = [[/^network stalled/, 'network stall', 'network stalls'], [/^file (ended before|is shorter than) its slot/, 'file ran short of its slot (filled)', 'files ran short of their slot (filled)'], [/^file reported ended at /, 'file reported ended early (loaded again)', 'files reported ended early (loaded again)'], [/^resync/, 'resync', 'resyncs'], [/^scheduler was asleep/, 'scheduler nap', 'scheduler naps'], [/^trying the recording again/, 'retry', 'retries']].map(([re, one, many]) => [count(re), one, many]).filter(([k]) => k).map(([k, one, many]) => n(k, one, many));
   if (other.length) out.push(`  Also             ${other.join(', ')}`);
@@ -186,7 +215,9 @@ function check(text, opt = {}) {
   if (dur < need) problems.unshift(`locked for ${fmtDur(dur)}, short of ${fmtDur(need)}`);
   const ok = !problems.length;
   out.push('', `Gate B, locked phone: ${ok ? 'PASS' : 'FAIL'}`, ...problems.map((p) => '  - ' + p));
-  return { ok, report: out.join('\n'), problems, stretch: { from: S.from, to: S.to, dur, wakes: S.wakes.length, longest: S.longest }, changes: changes.length, stops: stops.length };
+  const timed = starts.length > 0 || lagged.length > 0;
+  if (timed) out.push('', `Record timing: ${timing.length ? 'FAIL' : 'PASS'}`, ...timing.map((p) => '  - ' + p));
+  return { ok, report: out.join('\n'), problems, timing: timed ? { ok: !timing.length, problems: timing, starts: starts.length } : null, stretch: { from: S.from, to: S.to, dur, wakes: S.wakes.length, longest: S.longest }, changes: changes.length, stops: stops.length };
 }
 
 module.exports = { parse, check };
@@ -197,5 +228,5 @@ if (require.main === module) {
   const text = opt.file ? fs.readFileSync(opt.file, 'utf8') : fs.readFileSync(0, 'utf8');
   const r = check(text, opt);
   console.log(r.report);
-  process.exitCode = r.unreadable ? 2 : r.ok ? 0 : 1;
+  process.exitCode = r.unreadable ? 2 : r.ok && (!r.timing || r.timing.ok) ? 0 : 1;
 }

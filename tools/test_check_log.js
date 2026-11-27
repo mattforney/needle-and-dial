@@ -49,6 +49,34 @@ const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).s
   const r = check(synth({ start: 23 * 3600 + 30 * 60 }));
   expect('past midnight: still two hours', r.ok && r.stretch.dur > 7200, r);
 }
+// Record timing (builds from 27 Nov on): each record's start against its start point, and the heartbeat's
+// distance from the schedule.
+const timed = (from, lag = 0.1, beat = lag) => (ev) => {
+  let k = 0;
+  for (const e of ev) {
+    if (e.msg === 'playing media') { const f = typeof from === 'function' ? from(++k) : from; e.msg = `playing media from ${f.from.toFixed(1)} s (start point ${f.sp.toFixed(1)} s), ${Math.abs(f.lag ?? lag).toFixed(1)} s ${(f.lag ?? lag) >= 0 ? 'behind' : 'ahead of'} the schedule`; e.k = k; }
+  }
+  for (const e of ev) if (/^still here: media at/.test(e.msg)) { const b = typeof beat === 'function' ? beat(e) : beat; e.msg = e.msg.replace(/(media at [\d.]+ s)/, `$1, ${Math.abs(b).toFixed(1)} s ${b >= 0 ? 'behind' : 'ahead of'} the schedule`); }
+};
+{
+  const r = check(synth({ edit: timed({ from: 2.4, sp: 2.4 }) }));
+  expect('timing: clean', r.ok && r.timing && r.timing.ok && /Record timing: PASS/.test(r.report), r);
+  expect('timing: starts on time', /Record starts\s+\d+ at their slot: \d+ on time from their start point$/m.test(r.report), r);
+  expect('timing: start points taken', /Start points\s+\d+ records began past a silent lead-in: all taken/.test(r.report) && /Mid-record\s+within 0\.5 s of the schedule/.test(r.report), r);
+}
+{
+  const r = check(synth({ edit: timed((k) => (k % 3 ? { from: 2.4, sp: 2.4 } : { from: 4.6, sp: 2.4, lag: 0 })) }));
+  expect('timing: jumps ahead are counted, not failed', r.timing.ok && /\d+ jumped ahead to keep the schedule, skipping 1\.9 s of the opening$/m.test(r.report), r);
+}
+{
+  const r = check(synth({ edit: timed((k) => (k === 5 ? { from: 0, sp: 2.4, lag: 2.4 } : { from: 2.4, sp: 2.4 }), 0.1, (e) => (e.t > 14 * 3600 + 30 * 60 + 10 + 60 + 4 * 180 && e.t < 14 * 3600 + 30 * 60 + 10 + 60 + 5 * 180 ? 2.4 : 0.1)) }));
+  expect('timing: a missed start point fails', !r.timing.ok && /Record timing: FAIL/.test(r.report) && /Song 5” started at 0\.0 s, before its 2\.4 s start point/.test(r.report), r);
+  expect('timing: running behind fails', /Song 5” was 2\.4 s behind the schedule, so it loses about that much of its ending/.test(r.report) && r.ok, r);
+}
+{
+  const r = check(synth());
+  expect('timing: older logs have no verdict', r.timing === null && !/Record timing/.test(r.report), r);
+}
 // A false end on Safari, loaded again (build from 27 Nov on): counted, and not a failure.
 {
   const r = check(synth({}).replace(/\n(\d\d:\d\d:\d\d\.\d{3}) \[bg\] still here/, (m, t) => `\n${t} [bg] file reported ended at 9.1 of 34 s; loading it again${m}`));

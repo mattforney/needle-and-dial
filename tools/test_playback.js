@@ -400,8 +400,15 @@ async function levelsPlay(browser, qs) {
   const s2 = await st(), into = s2.now - n1.start;
   if (s2.src !== url(n1.seg)) problems.push('the next record did not start');
   else if (!(s2.t - into > SKIP - 1.5 && s2.t - into < SKIP + 0.5)) problems.push(`the next record is at ${s2.t.toFixed(1)} s, ${into.toFixed(1)} s into its slot: expected about ${(SKIP + into).toFixed(1)}`);
+  await page.evaluate(() => window.SKY.beat());
   const log = await page.evaluate(() => window.SKY.log());
   if (!new RegExp('→ WGRM music .*, from ' + SKIP.toFixed(1) + ' s, ' + GAIN + ' dB').test(log)) problems.push('no skip point and gain in the log');
+  // the record that started at its slot says where it started, against its start point (tools/check_log.js)
+  const sp = [...log.matchAll(/playing media from ([\d.]+) s \(start point ([\d.]+) s\), ([\d.]+) s (behind|ahead of) the schedule/g)].pop();
+  if (!sp) problems.push('no start position for the record that started at its slot');
+  else if (+sp[2] !== SKIP || !(+sp[1] >= SKIP - 0.2 && +sp[1] <= SKIP + 1.5) || +sp[3] > 1.5) problems.push('start position: ' + sp[0]);
+  const hb = /still here: media at [\d.]+ s, ([\d.]+) s (behind|ahead of) the schedule, playing, ready [34]/.exec(log.split('\n').pop());
+  if (!hb || +hb[1] > 1) problems.push('heartbeat: ' + log.split('\n').pop());
   return finish(t, name, problems);
 }
 
