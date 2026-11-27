@@ -1,36 +1,47 @@
-# Fetches the Old_Radio_Adverts_01 ads, with the Archive's response headers, and commits
-# them to this branch for inspection (Safari reported the CBS ad ended the moment it began).
-# It runs only on the safari-cbs branch, so main and the site are untouched.
+# Tries to reproduce, in Playwright's WebKit on Linux and macOS (Apple's media stack), Safari
+# reporting the CBS ad ended the moment it began after a mid-item seek; commits the results to
+# this branch. Runs only on the safari-cbs branch, so main and the site are untouched.
 name: Safari CBS ad
 
 on:
   push:
     branches: [safari-cbs]
-    paths: [.github/workflows/safari-cbs.yml]
+    paths: [.github/workflows/safari-cbs.yml, research/safari-cbs/repro.js]
 
 permissions:
   contents: write
 
 jobs:
-  fetch:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+  repro:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
-      - name: Fetch the ads
-        run: |
-          mkdir -p research/safari-cbs/files
-          cd research/safari-cbs
-          python3 -c "import json;[print(x['f']) for x in json.load(open('../../catalog/measurements.json'))['files'] if isinstance(x,dict) and x.get('id')=='Old_Radio_Adverts_01']" > list.txt
-          while read -r f; do
-            u="https://archive.org/download/Old_Radio_Adverts_01/$f"
-            curl -sSL -m 60 --retry 3 -o "files/$f" "$u"
-            echo "== $f" >> headers.txt
-            curl -sSIL -m 30 -H 'Range: bytes=0-1' "$u" | tr -d '\r' >> headers.txt
-          done < list.txt
-          ls -l files | wc -l
-      - name: Commit
-        run: |
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm ci && npx playwright install --with-deps webkit
+      - run: node research/safari-cbs/repro.js 5
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ matrix.os }}
+          path: research/safari-cbs/results-*.json
+  commit:
+    needs: repro
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          path: dl
+      - run: |
+          cp dl/*/results-*.json research/safari-cbs/ || true
           git add research/safari-cbs
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Safari CBS ad: the ads and their headers [skip ci]"
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Safari CBS ad: WebKit results [skip ci]"
           git push -q origin "HEAD:${GITHUB_REF_NAME}"
