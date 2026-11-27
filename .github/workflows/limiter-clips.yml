@@ -1,0 +1,35 @@
+# Renders listening clips (tools/limiter_check.js clips) for the files in
+# research/loudness/limiter/wpge-readings.json and keeps them as a workflow artifact for a week.
+# It runs only on the limiter-clips branch, so main and the site are untouched.
+name: Limiter clips
+
+on:
+  push:
+    branches: [limiter-clips]
+    paths: [research/loudness/limiter/wpge-readings.json, tools/limiter_check.js, .github/workflows/limiter-clips.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  clips:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install the test tools and ffmpeg
+        run: |
+          npm ci
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+      - name: Render the clips
+        run: node tools/limiter_check.js clips research/loudness/limiter/wpge-readings.json dist/clips 3 12
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - uses: actions/upload-artifact@v4
+        with:
+          name: limiter-clips
+          path: dist/clips
+          retention-days: 7

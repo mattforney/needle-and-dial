@@ -1,0 +1,36 @@
+{
+ "made": "2026-11-27",
+ "why": "WPGE readings that played in the preview on the evening of 26 Nov, when Matt heard popping; the three that lean on the limiter most",
+ "files": [
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "esme_saki_ib_64kb.mp3",
+   "title": "Esmé (Saki)",
+   "gain": 6.5,
+   "skip": 0,
+   "out": 779.6,
+   "gain0": 0.6
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "title": "Beauty and the Beast (Beaumont)",
+   "gain": 6,
+   "skip": 0,
+   "out": 1852.2,
+   "gain0": 0
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "walrus_and_carpenter_lc_jc_64kb.mp3",
+   "title": "The Walrus and the Carpenter (Carroll)",
+   "gain": 4.8,
+   "skip": 0.2,
+   "out": 232.9,
+   "gain0": 1
+  }
+ ]
+}
