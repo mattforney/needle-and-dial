@@ -1,0 +1,51 @@
+# Runs the files in research/loudness/limiter/files.json through Chrome's limiter (tools/limiter_check.js)
+# into research/loudness/limiter/results.json, and commits that. It runs only on the limiter-check
+# branch, so main and the site are untouched. One file at a time.
+name: Limiter check
+
+on:
+  push:
+    branches: [limiter-check]
+    paths: [research/loudness/limiter/files.json, tools/limiter_check.js, .github/workflows/limiter-check.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: limiter-check
+  cancel-in-progress: false
+
+jobs:
+  limit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install the test tools and ffmpeg
+        run: |
+          npm ci
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+          ffmpeg -version | head -1
+          /usr/bin/google-chrome --version
+      - name: Self-test on synthetic recordings
+        run: node tools/limiter_check.js selftest
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Limit every listed file
+        timeout-minutes: 120
+        run: node tools/limiter_check.js run research/loudness/limiter/files.json research/loudness/limiter/results.json
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Summary
+        if: always() && hashFiles('research/loudness/limiter/results.json') != ''
+        run: node tools/limiter_check.js report research/loudness/limiter/results.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit the results
+        if: always() && hashFiles('research/loudness/limiter/results.json') != ''
+        run: |
+          git add research/loudness/limiter/results.json
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Limiter check: results [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
