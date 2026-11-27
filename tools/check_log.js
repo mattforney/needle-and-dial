@@ -200,12 +200,18 @@ function check(text, opt = {}) {
     if (withSp.length) out.push(`  Start points     ${n(withSp.length, 'record', 'records')} began past a silent lead-in: ${missed.length ? `${missed.length} missed it` : withSp.length > 1 ? 'all taken' : 'taken'}`);
     for (const r of missed) timing.push(`${r.L.at} ${r.name} started at ${r.from.toFixed(1)} s, before its ${r.sp.toFixed(1)} s start point`);
   }
+  // From the week of 30 Nov each recording has a load gap before it: a late one finishes past its slot
+  // (up to 4 s) and the next gap takes up the delay, so running behind costs nothing unless it is cut.
+  const gap = lines.some((L) => /^schedule: this week has a [\d.]+ s load gap/.test(L.msg));
   const lagged = recs.filter((r) => r.beats.length);
   if (lagged.length) {
     const worst = lagged.map((r) => ({ r, b: r.beats.reduce((a, b) => (b.lag > a.lag ? b : a)) })).reduce((a, b) => (b.b.lag > a.b.lag ? b : a));
     out.push(`  Mid-record       ${worst.b.lag > 0.5 ? `furthest ${worst.b.lag.toFixed(1)} s behind the schedule, at ${worst.b.at} (${worst.r.name})` : 'within 0.5 s of the schedule'}`);
-    for (const r of lagged) { const b = r.beats.reduce((a, x) => (x.lag > a.lag ? x : a)); if (b.lag > 1.5) timing.push(`${b.at} ${r.name} was ${b.lag.toFixed(1)} s behind the schedule, so it loses about that much of its ending`); }
+    if (!gap) for (const r of lagged) { const b = r.beats.reduce((a, x) => (x.lag > a.lag ? x : a)); if (b.lag > 1.5) timing.push(`${b.at} ${r.name} was ${b.lag.toFixed(1)} s behind the schedule, so it loses about that much of its ending`); }
   }
+  const late = inS.map((L) => /^letting it finish: ([\d.]+) s to go/.exec(L.msg)).filter(Boolean).map((m) => +m[1]);
+  if (late.length) out.push(`  Late finishes    ${n(late.length, 'record', 'records')} finished past ${late.length === 1 ? 'its' : 'their'} slot, by up to ${Math.max(...late).toFixed(1)} s; the next gap took up the delay`);
+  for (const L of inS) { const m = /^cut (.+) with ([\d.]+) s of it unplayed/.exec(L.msg); if (m) timing.push(`${L.at} ${m[1]} was cut with ${(+m[2]).toFixed(1)} s of it unplayed`); }
 
   const count = (re) => inS.filter((L) => re.test(L.msg)).length;
   const other = [[/^network stalled/, 'network stall', 'network stalls'], [/^file (ended before|is shorter than) its slot/, 'file ran short of its slot (filled)', 'files ran short of their slot (filled)'], [/^file reported ended at /, 'file reported ended early (loaded again)', 'files reported ended early (loaded again)'], [/^resync/, 'resync', 'resyncs'], [/^scheduler was asleep/, 'scheduler nap', 'scheduler naps'], [/^trying the recording again/, 'retry', 'retries']].map(([re, one, many]) => [count(re), one, many]).filter(([k]) => k).map(([k, one, many]) => n(k, one, many));
@@ -215,7 +221,7 @@ function check(text, opt = {}) {
   if (dur < need) problems.unshift(`locked for ${fmtDur(dur)}, short of ${fmtDur(need)}`);
   const ok = !problems.length;
   out.push('', `Gate B, locked phone: ${ok ? 'PASS' : 'FAIL'}`, ...problems.map((p) => '  - ' + p));
-  const timed = starts.length > 0 || lagged.length > 0;
+  const timed = starts.length > 0 || lagged.length > 0 || timing.length > 0;
   if (timed) out.push('', `Record timing: ${timing.length ? 'FAIL' : 'PASS'}`, ...timing.map((p) => '  - ' + p));
   return { ok, report: out.join('\n'), problems, timing: timed ? { ok: !timing.length, problems: timing, starts: starts.length } : null, stretch: { from: S.from, to: S.to, dur, wakes: S.wakes.length, longest: S.longest }, changes: changes.length, stops: stops.length };
 }

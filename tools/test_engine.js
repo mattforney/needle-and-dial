@@ -2,8 +2,8 @@ const fs = require('fs');
 const html = fs.readFileSync(__dirname + '/../src/index.template.html', 'utf8');
 const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const CAT = JSON.parse(fs.readFileSync(__dirname + '/../dist/catalog.json', 'utf8'));
-const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels };')(CAT);
-const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels } = api;
+const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap };')(CAT);
+const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // The page script runs in sloppy mode, where a second function with the same name silently replaces
@@ -42,7 +42,7 @@ function clockAudit(label, S, segs, stats) {
   const fails = [], progs = [];
   for (let i = 0; i < segs.length; i++) {
     if (segs[i].k !== 'prog' || segs[i].pi !== 0) continue;
-    const p = { i0: i, start: segs[i].s, d: 0, ids: [], bounds: [] };
+    const lead = segs[i].lead || 0, p = { i0: i, start: segs[i].s + lead, d: -lead, lead, ids: [], bounds: [] }; // a load gap's lead comes out of the break
     let j = i;
     let prev = null; // natural breaks: between items, but not after a track that runs into the next
     for (; j < segs.length && (j === i || segs[j].pi > 0 || segs[j].pi === -1); j++) { if (segs[j].pi === -1) p.ids.push(j); else { p.d += segs[j].d; if (j > i && !/>\s*$/.test(prev.t || '')) p.bounds.push(segs[j].s); prev = segs[j]; } }
@@ -65,7 +65,7 @@ function clockAudit(label, S, segs, stats) {
   segs.forEach((g, i) => { if (g.k === 'id' && !legal.has(i)) fails.push(`legal ID away from the top of the hour at ${fmtT(g.s)}`); });
   for (const p of progs) {
     const br = segs[p.i0 - 1];
-    if (!br || (br.k !== 'id' && br.k !== 'imaging') || br.d !== ID) fails.push(`program at ${fmtT(p.start)} has no station break before it`);
+    if (!br || (br.k !== 'id' && br.k !== 'imaging') || br.d !== ID - p.lead) fails.push(`program at ${fmtT(p.start)} has no station break before it`);
     if (!canStart(S, p.d, p.start - ID)) fails.push(`${Math.round(p.d / 60)}-minute program starts at ${fmtT(p.start)}`);
     if (!p.long && Math.floor((p.start - ID) / HOUR) !== Math.floor((p.end - 1) / HOUR)) fails.push(`program at ${fmtT(p.start)} runs through the top of the hour`);
   }
@@ -126,9 +126,25 @@ for (const n of snaps) {
   const w = weekOf(s.from);
   if (n !== s.from + '.json') bad(`${n} says it starts ${s.from}`);
   if (!Number.isInteger(w)) { bad(`${n}: ${s.from} is not a schedule Monday`); continue; }
-  const Ps = excludeFiles(applyLevels(parseCatalog(s.catalog), s.levels || {}), s.exclude);
+  const Ps = excludeFiles(applyGap(applyLevels(parseCatalog(s.catalog), s.levels || {}), s.gap || 0), s.exclude);
   for (const S of STATIONS) { const segs = buildStation(S, w, Ps); audit(`${n} ${S.key}`, S, segs); clockAudit(`${n} ${S.key}`, S, segs); }
-  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out, levels for ${Object.values(s.levels || {}).reduce((k, o) => k + Object.keys(o || {}).length, 0)} files`);
+  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out, levels for ${Object.values(s.levels || {}).reduce((k, o) => k + Object.keys(o || {}).length, 0)} files, ${s.gap ? s.gap + ' s load gap' : 'no load gap'}`);
+}
+// The load gap: every recording's slot opens with it (lead), its length grows by it, station sounds and
+// the program objects themselves don't, and a partial snapshot keeps the gap of the one before it.
+{
+  const PG = applyGap(applyLevels(parseCatalog(CAT), {}), 2), P0 = parseCatalog(CAT);
+  const ep = PG.whodunit[0].eps[0], ep0 = P0.whodunit[0].eps[0], tr = PG.shows[0].items[0], tr0 = P0.shows[0].items[0];
+  if (ep.lead !== 2 || ep.d !== ep0.d + 2) bad(`applyGap: an episode should get a 2 s lead and 2 s more slot, got lead ${ep.lead}, d ${ep.d} from ${ep0.d}`);
+  if (tr.lead !== 2 || tr.d !== tr0.d + 2) bad('applyGap: a concert track should get the lead');
+  if (PG.g78[0].lead !== 2 || PG.ads[0].lead !== 2 || PG.vault[0].lead !== 2) bad('applyGap: records, ads and vault copies should all get the lead');
+  if (PG.whodunit[0].lead !== undefined || PG.shows[0].lead !== undefined) bad('applyGap: a series or a show is not a recording');
+  if (applyGap(parseCatalog(CAT), 0).g78[0].lead !== undefined) bad('applyGap: no gap, no lead');
+  const [a, b, c] = api.loadSnapshots([{ from: '2026-11-23', exclude: [], catalog: CAT }, { from: '2026-11-30', exclude: [], gap: 2, catalog: CAT }, { from: '2026-12-07', exclude: [], partial: true, catalog: {} }]);
+  if (a.gap !== 0 || b.gap !== 2 || c.gap !== 2) bad(`loadSnapshots: gaps ${a.gap}, ${b.gap}, ${c.gap}; expected 0, 2 and 2`);
+  if (a.P.g78[0].lead !== undefined || b.P.g78[0].lead !== 2 || c.P.g78[0].lead !== 2) bad('loadSnapshots: the lead should follow each week\'s gap');
+  // In a week with the gap, a recording never starts less than its lead after the slot before it ends: the scheduler packs whole slots.
+  for (const S of STATIONS) { const segs = buildStation(S, 1, b.P); for (let i = 1; i < segs.length; i++) { const g = segs[i]; if (g.f && g.lead !== 2) { bad(`gap week: ${S.key} plays ${g.f} with lead ${g.lead}`); break; } } }
 }
 // Holding files out: they never air, emptied series and shows drop away, and the week stays whole.
 {
@@ -175,6 +191,9 @@ for (const n of snaps) {
     const T = JSON.parse(fs.readFileSync(lvPath, 'utf8')), PL = applyLevels(parseCatalog(CAT), T.items);
     let n = 0, cut = 0;
     for (const S of STATIONS) for (const w of [0, 1, 2]) { const segs = buildStation(S, w, PL); audit(`levels ${S.key} week ${w}`, S, segs); clockAudit(`levels ${S.key} week ${w}`, S, segs); }
+    // and with the load gap, as weeks from 30 Nov have it
+    const PG = applyGap(applyLevels(parseCatalog(CAT), T.items), 2);
+    for (const S of STATIONS) for (const w of [0, 1, 2, 3]) { const segs = buildStation(S, w, PG); audit(`levels and gap ${S.key} week ${w}`, S, segs); clockAudit(`levels and gap ${S.key} week ${w}`, S, segs); }
     const vis = new Set(), seen = new Set(); const walk = (o) => { if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o); if (Array.isArray(o)) return o.forEach(walk); if (o.f && o.skip !== undefined && !seen.has(o.id + '/' + o.f)) { seen.add(o.id + '/' + o.f); n++; cut += o.skip; } for (const k of ['eps', 'items']) if (o[k]) walk(o[k]); };
     Object.values(PL).forEach(walk);
     console.log(`levels: ${T.files} files in catalog/levels.json, ${n} in this catalog; every station audits clean over weeks 0–2`);

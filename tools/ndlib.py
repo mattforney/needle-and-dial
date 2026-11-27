@@ -12,6 +12,9 @@ ORDER = ['ads', 'gramophone', 'whodunit', 'midnight', 'rocket', 'saddle', 'laugh
 EPOCH = datetime.datetime(2026, 11, 23, 6, tzinfo=datetime.timezone.utc)
 WEEK = datetime.timedelta(days=7)
 SNAPSHOTS = ROOT / 'snapshots'
+# Seconds of quiet before each recording, in which a phone loads it (the page's applyGap): snapshots drafted
+# from 27 Nov 2026 carry it, so it takes effect with the week of 30 Nov; earlier weeks have none.
+GAP = 2
 
 
 def head_catalog():
@@ -57,7 +60,8 @@ def in_effect(snaps, k):
 def dump_snapshot(snap):
     """One station per line, and one Archive item's levels per line, so a diff shows what changed."""
     cat = snap['catalog']
-    lines = [json.dumps({'from': snap['from'], 'exclude': snap['exclude']}, ensure_ascii=False, separators=(',', ':'))[:-1] + ',"catalog":{']
+    head = {'from': snap['from'], 'exclude': snap['exclude'], **({'gap': snap['gap']} if snap.get('gap') else {})}
+    lines = [json.dumps(head, ensure_ascii=False, separators=(',', ':'))[:-1] + ',"catalog":{']
     lines += [json.dumps(k, ensure_ascii=False) + ':' + json.dumps(cat[k], ensure_ascii=False, separators=(',', ':')) + (',' if i < len(cat) - 1 else '') for i, k in enumerate(cat)]
     out = '\n'.join(lines) + '\n}'
     lv = snap.get('levels')

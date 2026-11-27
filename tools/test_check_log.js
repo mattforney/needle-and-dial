@@ -77,6 +77,17 @@ const timed = (from, lag = 0.1, beat = lag) => (ev) => {
   const r = check(synth());
   expect('timing: older logs have no verdict', r.timing === null && !/Record timing/.test(r.report), r);
 }
+// Weeks with a load gap: a late record finishing past its slot is counted, running behind mid-record
+// is not a failure, and a record cut with some of it unplayed is.
+{
+  const gapLine = (ev) => { ev.push({ t: 14 * 3600 + 30 * 60 + 0.5, msg: 'schedule: this week has a 2 s load gap before each recording', bg: false }); };
+  const late = (ev) => { gapLine(ev); timed((k) => (k === 5 ? { from: 2.4, sp: 2.4, lag: 0.7 } : { from: 2.4, sp: 2.4, lag: -1.8 }), -1.8, (e) => (e.t > 14 * 3600 + 30 * 60 + 10 + 60 + 4 * 180 && e.t < 14 * 3600 + 30 * 60 + 10 + 60 + 5 * 180 ? 1.7 : -1.8))(ev);
+    const c6 = changeAt(ev, 6); ev.push({ t: c6.t - 0.01, msg: 'letting it finish: 0.6 s to go, past its slot', bg: true }); };
+  let r = check(synth({ edit: late }));
+  expect('gap: a late finish is counted, behind mid-record is fine', r.timing.ok && /Late finishes\s+1 record finished past its slot, by up to 0\.6 s/.test(r.report) && /Mid-record\s+furthest 1\.7 s behind/.test(r.report), r);
+  r = check(synth({ edit: (ev) => { late(ev); const c9 = changeAt(ev, 9); ev.push({ t: c9.t - 0.01, msg: 'cut WGRM music “Song 8” with 2.2 s of it unplayed', bg: true }); } }));
+  expect('gap: a cut record fails', !r.timing.ok && /Song 8” was cut with 2\.2 s of it unplayed/.test(r.report), r);
+}
 // A false end on Safari, loaded again (build from 27 Nov on): counted, and not a failure.
 {
   const r = check(synth({}).replace(/\n(\d\d:\d\d:\d\d\.\d{3}) \[bg\] still here/, (m, t) => `\n${t} [bg] file reported ended at 9.1 of 34 s; loading it again${m}`));

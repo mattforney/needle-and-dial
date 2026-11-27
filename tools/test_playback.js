@@ -8,7 +8,8 @@
 //
 //   node tools/test_playback.js [path/to/index.html]
 //   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string;
-//   ND_ONLY=<part of a check's name> runs just the checks that match; ND_PAR=n runs n at a time (6).
+//   ND_ONLY=<part of a check's name> runs just the checks that match; ND_PAR=n runs n at a time (6);
+//   ND_DAYS=n runs them n days on, against the week the page schedules then.
 //
 // Needs Chrome (CHROME_PATH, or /usr/bin/google-chrome) and playwright-core.
 const fs = require('fs');
@@ -18,12 +19,24 @@ try { pw = require('playwright-core'); } catch (e) { pw = require('playwright');
 
 const htmlPath = process.argv.slice(2).find((x) => !x.startsWith('--')) || path.join(__dirname, '..', 'dist', 'index.html');
 const HTML = fs.readFileSync(htmlPath, 'utf8');
+// ND_DAYS=n runs every check n days on, against the schedule the page has for then (a drafted week, say).
+const SHIFT = (+process.env.ND_DAYS || 0) * 86400, tnow = () => Date.now() / 1000 + SHIFT;
 const code = HTML.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const INLINE = JSON.parse(HTML.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
 const snapshotted = Array.isArray(INLINE); // pages built before weekly snapshots inline one catalog
-const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor' : ''} };`)(null);
+const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor, EPOCH, WEEK, weekOf' : ''} };`)(null);
 const SCH = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE)) : api.makeScheduler(api.parseCatalog(INLINE));
 const S = api.STATIONS.find((s) => s.key === 'gramophone');
+// This week's snapshot on its own and whole (the page carries this week's and later weeks' drafts, the
+// later ones partial), with the levels or gap a check sets: such a check tests the same thing whichever
+// week it runs in, with or without the load gap that weeks from 30 Nov have.
+function thisWeek(extra) {
+  const w = Math.floor((tnow() - api.EPOCH) / api.WEEK);
+  let cat = INLINE[0].catalog, ex = INLINE[0].exclude || [];
+  for (const s of INLINE.slice(1)) { if (api.weekOf(s.from) > w) break; cat = s.partial ? Object.assign({}, cat, s.catalog) : s.catalog; ex = s.exclude || ex; }
+  return [Object.assign({ from: new Date((api.EPOCH + w * api.WEEK) * 1000).toISOString().slice(0, 10), exclude: ex, catalog: JSON.parse(JSON.stringify(cat)) }, extra)];
+}
+const inlined = (snaps) => HTML.split('<script id="catalog" type="application/json">')[0] + '<script id="catalog" type="application/json">' + JSON.stringify(snaps).replace(/<\//g, '<\\/') + '</script>' + HTML.split('<script id="catalog" type="application/json">')[1].split('</script>').slice(1).join('</script>');
 const PRESET = api.STATIONS.indexOf(S);
 const url = (seg) => api.ia(seg.id, seg.f);
 
@@ -35,7 +48,7 @@ function find(from, pred) {
   throw new Error('pattern not found');
 }
 const media = (x) => !!x.seg.f;
-const from = Date.now() / 1000 + 300;
+const from = tnow() + 300;
 const a = find(from, (c, n1) => media(c) && !c.seg.cut && c.seg.d > 60 && media(n1) && n1.seg.d > 60);
 const b = find(from, (c, n1, n2) => media(c) && n1.seg.k === 'id' && media(n2) && n2.seg.d > 40);
 const f = find(from, (c, n1) => media(c) && !c.seg.cut && c.seg.d > 40 && media(n1) && n1.seg.d > 150);
@@ -302,7 +315,7 @@ async function falseEnd(browser) {
   if (!/file reported ended at \d+\.\d of \d+ s; loading it again/.test(s.log)) problems.push('no reload in the log');
   if (/file ended before its slot/.test(s.log)) problems.push('the slot was filled on the first false end');
   if (!ok) problems.push(`the record did not play again (playing ${s.kind})`);
-  else { const want = s.now - a.c.start; if (!(s.t - want > -1.5 && s.t - want < 4.5)) problems.push(`played again at ${s.t.toFixed(1)} s, the schedule is at ${want.toFixed(1)} s`); }
+  else { const want = (a.c.seg.skip || 0) + Math.max(0, s.now - a.c.start - (a.c.seg.lead || 0)); if (!(s.t - want > -1.5 && s.t - want < 4.5)) problems.push(`played again at ${s.t.toFixed(1)} s, the schedule is at ${want.toFixed(1)} s`); }
   await page.evaluate(() => window.SKY.A.el.dispatchEvent(new Event('ended')));
   await sleep(500);
   const s2 = await page.evaluate(() => ({ kind: window.SKY.A.kind, log: window.SKY.log() }));
@@ -328,7 +341,8 @@ function checkReport(St, href, now, problems) {
   if (!(Math.abs(aired - now) <= 1.5)) problems.push(`${who}aired "${q.aired}", ${(aired - now).toFixed(1)} s from the page's time`);
   if (q.recording !== (media(c) ? url(c.seg) : 'None: a station sound the page makes itself')) problems.push(`${who}recording ${q.recording}, playing ${media(c) ? url(c.seg) : c.seg.k}`);
   const pos = /^(\d+(?::\d\d)+) of (\d+(?::\d\d)+)$/.exec(q.position || ''), sk = c.seg.skip || 0;
-  if (!pos || Math.abs(secs(pos[1]) - (sk + now - c.start)) > 1.5 || Math.abs(secs(pos[2]) - (sk + c.seg.d)) > 1) problems.push(`${who}position "${q.position}", expected ${(sk + now - c.start).toFixed(0)} s of ${(sk + c.seg.d).toFixed(0)}`);
+  const ld = c.seg.lead || 0, inF = sk + Math.max(0, now - c.start - ld), ofF = sk + c.seg.d - ld; // in weeks with a load gap, past the lead
+  if (!pos || Math.abs(secs(pos[1]) - inF) > 1.5 || Math.abs(secs(pos[2]) - ofF) > 1) problems.push(`${who}position "${q.position}", expected ${inF.toFixed(0)} s of ${ofF.toFixed(0)}`);
   const p = lastRec(St, c.start), recent = p && now - (p.start + p.seg.d) < 600;
   if (recent ? !(q.before || '').endsWith(' · ' + url(p.seg)) : q.before) problems.push(`${who}before is "${(q.before || '').slice(0, 80)}"`);
   return pos ? secs(pos[1]) : NaN;
@@ -371,19 +385,61 @@ async function reportLink(browser) {
 // it. A tune-in lands at the skip point plus the time into the slot, the next record starts at its skip
 // point, the gain reaches the carrier, and the page schedules the trimmed lengths the engine says.
 const SKIP = 3, GAIN = -6;
-const INLINE_LV = JSON.parse(JSON.stringify(INLINE));
+const INLINE_LV = snapshotted ? thisWeek({ gap: 0 }) : null;
 if (snapshotted) {
   const g78 = api.parseCatalog(INLINE_LV[0].catalog).g78, LV = {};
   for (const x of g78) (LV[x.id] = LV[x.id] || {})[x.f] = [GAIN, SKIP, SKIP + x.d - 4];
   INLINE_LV[0].levels = LV;
 }
-const HTML_LV = HTML.split('<script id="catalog" type="application/json">')[0] + '<script id="catalog" type="application/json">' + JSON.stringify(INLINE_LV).replace(/<\//g, '<\\/') + '</script>' + HTML.split('<script id="catalog" type="application/json">')[1].split('</script>').slice(1).join('</script>');
+const HTML_LV = snapshotted ? inlined(INLINE_LV) : HTML;
 const SCH_LV = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_LV)) : null;
+// The load gap (weeks from 30 Nov): this week with a 2 s gap and every 78 cut to 20 s of sound from 3 s
+// in, so each record's slot is 22 s. A record that follows on loads in its lead and starts from its skip
+// point, ahead of the schedule; one whose file ends in the gap waits in silence, not the interval signal;
+// one that loads slower than the gap starts late from its skip point without jumping into it, finishes
+// past its slot, and the next one, loading quickly, is on time again.
+const INLINE_GAP = snapshotted ? thisWeek({ gap: 2 }) : null;
+if (snapshotted) {
+  const g78 = api.parseCatalog(INLINE_GAP[0].catalog).g78, LV = {};
+  for (const x of g78) (LV[x.id] = LV[x.id] || {})[x.f] = [0, SKIP, SKIP + 20];
+  INLINE_GAP[0].levels = LV;
+}
+const HTML_GAP = snapshotted ? inlined(INLINE_GAP) : HTML;
+const SCH_GAP = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_GAP)) : null;
+async function gapPlay(browser) {
+  const name = 'load gap: start points, late loads, the gap';
+  if (!SCH_GAP) return { name, ok: true, problems: [], log: '' };
+  const nx = (c) => SCH_GAP.at(S, c.start + c.seg.d + 0.01), rec = (c) => c.seg.k === 'music' && c.seg.lead === 2;
+  let c = SCH_GAP.at(S, tnow() + 90), n1 = nx(c), n2 = nx(n1), n3 = nx(n2);
+  for (let k = 0; k < 2000 && !(rec(c) && rec(n1) && rec(n2) && rec(n3)); k++) { c = n1; n1 = n2; n2 = n3; n3 = nx(n3); }
+  const sc = { at: n1.start, first: c, lead: 12, html: HTML_GAP, slow: new Set([url(n2.seg)]),
+    len: { [url(c.seg)]: SKIP + 23, [url(n1.seg)]: SKIP + 20.5, [url(n2.seg)]: SKIP + 23, [url(n3.seg)]: SKIP + 23 } };
+  const t = await open(browser, sc, { strict: false, timers: 'slow' });
+  const { page } = t, problems = [];
+  await until(page, n3.start + 5);
+  const log = await page.evaluate(() => window.SKY.log());
+  const starts = [...log.matchAll(/playing media from ([\d.]+) s \(start point ([\d.]+) s\), ([\d.]+) s (behind|ahead of) the schedule/g)].map((m) => ({ from: +m[1], sp: +m[2], lag: (m[4] === 'behind' ? 1 : -1) * +m[3] }));
+  if (starts.length !== 3) problems.push(`${starts.length} records started at their slots, expected 3`);
+  else {
+    if (starts.some((x) => x.sp !== SKIP || Math.abs(x.from - SKIP) > 0.2)) problems.push('a record did not start from its skip point: ' + JSON.stringify(starts));
+    if (!(starts[0].lag < -1 && starts[0].lag > -2.1)) problems.push(`the first record, loading quickly, started ${starts[0].lag.toFixed(1)} s from the schedule; expected 1–2 s ahead`);
+    if (!(starts[1].lag > 0.1 && starts[1].lag < 1.5)) problems.push(`the slow record started ${starts[1].lag.toFixed(1)} s from the schedule; expected a little behind`);
+    if (!(starts[2].lag < 0.5)) problems.push(`the record after it started ${starts[2].lag.toFixed(1)} s behind the schedule`);
+  }
+  if (!new RegExp('file ended in the gap before the next item\\n[^\\n]*→ silence').test(log)) problems.push('a file ending in the gap should wait in silence');
+  const fin = /letting it finish: ([\d.]+) s to go/.exec(log);
+  if (!fin || !(+fin[1] > 0.1 && +fin[1] < 1.5)) problems.push('the slow record should finish past its slot: ' + (fin ? fin[0] : 'no line'));
+  if (/^.* cut .* unplayed/m.test(log)) problems.push('a record was cut: ' + /^.* cut .* unplayed/m.exec(log)[0]);
+  if (/resync|interval signal/.test(log)) problems.push('unexpected: ' + /.*(resync|interval signal).*/.exec(log)[0]);
+  if (!new RegExp('→ WGRM music .* at 0 of 20 s, from ' + SKIP.toFixed(1) + ' s').test(log)) problems.push('the record lines should give the time in the recording, without the lead');
+  if (!/schedule: this week has a 2 s load gap/.test(log)) problems.push('no load gap line in the log');
+  return finish(t, name, problems);
+}
 async function levelsPlay(browser, qs) {
   const name = 'levels: skip point and gain' + (qs ? ' · direct audio' : '');
   if (!SCH_LV) return { name, ok: true, problems: [], log: '' };
   const nx = (c) => SCH_LV.at(S, c.start + c.seg.d + 0.01);
-  let c = SCH_LV.at(S, Date.now() / 1000 + 300), n1 = nx(c);
+  let c = SCH_LV.at(S, tnow() + 300), n1 = nx(c);
   for (let k = 0; k < 5000 && !(media(c) && media(n1) && c.seg.d > 60 && n1.seg.d > 60 && c.seg.skip === SKIP && n1.seg.skip === SKIP); k++) { c = n1; n1 = nx(c); }
   const sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_LV, qs, unmute: !!qs, len: { [url(c.seg)]: SKIP + c.seg.d + 3, [url(n1.seg)]: SKIP + n1.seg.d + 3 } }; // direct audio's volume is the thing to read
   const t = await open(browser, sc, { strict: false, timers: 'slow' });
@@ -419,19 +475,19 @@ async function levelsPlay(browser, qs) {
 // switching it while playing; direct audio has no limiter, so it takes the second gain (as far as the
 // element's volume, at most 1, allows).
 const LIM_G = 4, LIM_G0 = 1;
-const INLINE_LIM = JSON.parse(JSON.stringify(INLINE));
+const INLINE_LIM = snapshotted ? thisWeek({ gap: 0 }) : null;
 if (snapshotted) {
   const g78 = api.parseCatalog(INLINE_LIM[0].catalog).g78, LV = {};
   for (const x of g78) (LV[x.id] = LV[x.id] || {})[x.f] = [LIM_G, SKIP, SKIP + x.d - 4, LIM_G0];
   INLINE_LIM[0].levels = LV;
 }
-const HTML_LIM = HTML.split('<script id="catalog" type="application/json">')[0] + '<script id="catalog" type="application/json">' + JSON.stringify(INLINE_LIM).replace(/<\//g, '<\\/') + '</script>' + HTML.split('<script id="catalog" type="application/json">')[1].split('</script>').slice(1).join('</script>');
+const HTML_LIM = snapshotted ? inlined(INLINE_LIM) : HTML;
 const SCH_LIM = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_LIM)) : null;
 async function limiterPlay(browser, qs) {
   const name = 'limiter: the gain with it and without' + (qs ? ' · ' + qs : '');
   if (!SCH_LIM) return { name, ok: true, problems: [], log: '' };
   const nx = (c) => SCH_LIM.at(S, c.start + c.seg.d + 0.01);
-  let c = SCH_LIM.at(S, Date.now() / 1000 + 300);
+  let c = SCH_LIM.at(S, tnow() + 300);
   for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && c.seg.skip === SKIP); k++) c = nx(c);
   const direct = qs === 'audio=direct', sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_LIM, qs, unmute: direct, len: { [url(c.seg)]: SKIP + c.seg.d + 3 } };
   const t = await open(browser, sc, { strict: false, timers: 'slow' });
@@ -518,7 +574,7 @@ async function previewPlay(browser) {
   const problems = [];
   if (!INLINE_PV[0].levels || !Object.keys(INLINE_PV[0].levels).length) problems.push("the preview's first week carries no levels");
   const nx = (c) => SCH_PV.at(S, c.start + c.seg.d + 0.01);
-  let c = SCH_PV.at(S, Date.now() / 1000 + 300);
+  let c = SCH_PV.at(S, tnow() + 300);
   for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain); k++) c = nx(c);
   if (!(c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain)) return { name, ok: false, problems: [...problems, 'no WGRM record leaning on the limiter within reach'], log: '' };
   const sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_PV, len: { [url(c.seg)]: (c.seg.skip || 0) + c.seg.d + 3 } };
@@ -568,7 +624,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['a file reported ended early is loaded again, once', () => falseEnd(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['load gap: start points, late loads, the gap', () => gapPlay(browser)], ['a file reported ended early is loaded again, once', () => falseEnd(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.

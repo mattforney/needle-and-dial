@@ -285,7 +285,9 @@ function canStart(S, d, B) {
   return B % (S.clock * 60) === 0 && (d > HOUR - ID || B + ID + d <= (Math.floor(B / HOUR) + 1) * HOUR);
 }
 // When a program whose break is at B ends: a legal ID joins it for each top of the hour it runs through.
-function endOf(B, items) { let t = B + ID, top = (Math.floor(t / HOUR) + 1) * HOUR; for (const it of items) { if (t + it.d > top) { t += ID; top += HOUR; } t += it.d; } return t; }
+// In a week with a load gap the program's first recording takes its lead out of the break before it, so
+// the program itself starts where it always would, 10 s after its break, and keeps to the same clock.
+function endOf(B, items) { let t = B + ID - (items[0].lead || 0), top = (Math.floor(t / HOUR) + 1) * HOUR; for (const it of items) { if (t + it.d > top) { t += ID; top += HOUR; } t += it.d; } return t; }
 const SEGUE = />\s*$/; // a live track that runs straight into the next
 // The first allowed break at or after t for program b. A gap too long for interval signal (a minute)
 // and too short for the station's shortest filler (`least`) can't be filled, so skip a break that
@@ -382,7 +384,7 @@ function buildStation(S, week, P) {
   const least = Math.min(...pools.map((pl) => pl.pool.a.map((x) => x.d).sort((x, y) => x - y)[Math.floor(pl.pool.a.length / 5)]));
   let last = null;
   for (;;) {
-    while (waiting.length < 6) { const pg = next(); waiting.push({ pg, d: pg.items.reduce((a, x) => a + x.d, 0), passed: 0 }); }
+    while (waiting.length < 6) { const pg = next(); waiting.push({ pg, d: pg.items.reduce((a, x) => a + x.d, 0) - (pg.items[0].lead || 0), passed: 0 }); } // d: the program, from its first sound
     // Of the next six programs, the one that can start soonest. Each series stays in order, the same
     // one doesn't run back to back unless that saves ten minutes of filler (a serial's next chapter
     // may), and every time a program is passed over it gains two minutes on the others.
@@ -402,7 +404,7 @@ function buildStation(S, week, P) {
     const b = waiting.splice(pick, 1)[0]; waiting.forEach((x) => x.passed++);
     const B = startFor(S, b, t, least);
     packTo(B, pools);
-    push({ k: B % HOUR ? 'imaging' : 'id' }, ID);
+    push({ k: B % HOUR ? 'imaging' : 'id' }, ID - (b.pg.items[0].lead || 0));
     // Through each top of the hour, the legal ID goes into the nearest natural break: between two
     // items, but not where one track runs straight into the next (a '>' after its title).
     const items = b.pg.items, flows = (i) => SEGUE.test(items[i].t || '');
@@ -442,7 +444,23 @@ function applyLevels(P, LV) {
   const walk = (o) => {
     if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o);
     if (Array.isArray(o)) return o.forEach(walk);
-    if (typeof o.id === 'string' && typeof o.f === 'string') { const v = LV[o.id] && LV[o.id][o.f]; if (v && v[2] > v[1]) Object.assign(o, { gain: v[0], gain0: v.length > 3 ? v[3] : v[0], skip: v[1], d: Math.max(1, Math.ceil(v[2] - v[1])) }); return; }
+    if (typeof o.id === 'string' && typeof o.f === 'string') { const v = LV[o.id] && LV[o.id][o.f]; if (v && v[2] > v[1]) Object.assign(o, { gain: v[0], gain0: v.length > 3 ? v[3] : v[0], skip: v[1], out: v[2], d: Math.max(1, Math.ceil(v[2] - v[1])) }); return; }
+    for (const k of ['eps', 'items']) if (o[k]) walk(o[k]);
+  };
+  for (const k of Object.keys(P)) walk(P[k]);
+  return P;
+}
+// A week's load gap (a snapshot's gap, whole seconds; from the week of 30 Nov 2026): each recording's
+// slot opens with that much quiet before the recording, its lead. A phone takes a second or more to load
+// a file, more on an iPhone; it loads in the lead, so the recording starts from its skip point on time
+// instead of jumping ahead into its opening to keep the schedule. The slot's length d includes the lead.
+function applyGap(P, gap) {
+  if (!gap) return P;
+  const vis = new Set();
+  const walk = (o) => {
+    if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o);
+    if (Array.isArray(o)) return o.forEach(walk);
+    if (typeof o.id === 'string' && typeof o.f === 'string') { o.lead = gap; o.d += gap; return; }
     for (const k of ['eps', 'items']) if (o[k]) walk(o[k]);
   };
   for (const k of Object.keys(P)) walk(P[k]);
@@ -450,11 +468,12 @@ function applyLevels(P, LV) {
 }
 // The page carries this week's snapshot whole; later ones list only the stations, and the items' levels, that change.
 function loadSnapshots(raw) {
-  let prev = {}, prevLv = {};
+  let prev = {}, prevLv = {}, prevGap = 0;
   return raw.map(s => {
     const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog, lv = s.partial ? Object.assign({}, prevLv, s.levels) : (s.levels || {});
-    prev = cat; prevLv = lv;
-    return { from: s.from, week: weekOf(s.from), P: excludeFiles(applyLevels(parseCatalog(cat), lv), s.exclude) };
+    const gap = s.gap != null ? s.gap : s.partial ? prevGap : 0;
+    prev = cat; prevLv = lv; prevGap = gap;
+    return { from: s.from, week: weekOf(s.from), gap, P: excludeFiles(applyGap(applyLevels(parseCatalog(cat), lv), gap), s.exclude) };
   }).sort((a, b) => a.week - b.week);
 }
 const schedulerFor = (snaps) => makeScheduler((w) => snaps.reduce((p, s) => (s.week <= w ? s.P : p), snaps[0].P));
@@ -567,7 +586,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lead: 0, cont: false, over: false, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -704,7 +723,9 @@ function noteLoad(s) { if (!(s > 0 && s < 15)) return; LOADS.push(s); if (LOADS.
 const aimPos = () => Math.max(wantPos(), A.aim); // while a seek is loading, the spot it aimed at
 // Line the player up when it is behind, or well ahead (a seek that loaded faster than expected
 // leaves it a little ahead, which is fine, and pulling it back would repeat what was just heard).
-function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if ((want > 0.5 && (d < -1.2 || d > 4)) || (A.skip > 0 && A.el.currentTime < A.skip - 0.05)) { try { A.el.currentTime = want; } catch (e) {} } }
+// A recording that follows on at its slot in a week with a load gap (A.cont) loads in its lead and starts
+// from its skip point: it jumps ahead only past 4 s behind, as the resync would, and never before its skip point.
+function onMeta() { const el = A.el, want = aimPos(), d = el.currentTime - want, behind = A.cont ? 4 : 1.2; if ((want > 0.5 && (d < -behind || d > 4 + (A.cont ? A.lead : 0))) || (A.skip > 0 && el.currentTime < A.skip - 0.05)) { try { el.currentTime = Math.max(A.skip, want); } catch (e) {} } }
 // Point the carrier at a source and keep it playing. t0 is the moment the slot starts; it, for a
 // recording, the catalog item, whose skip point (silence cut from the start) lines up with t0 and
 // whose gain the carrier applies.
@@ -726,17 +747,21 @@ const HIGHPASS = 20;
 function hpCoeffs(fs, fc = HIGHPASS) { const w = 2 * Math.PI * fc / fs, c = Math.cos(w), a = Math.sin(w) / Math.SQRT2, a0 = 1 + a; return [[(1 + c) / 2 / a0, -(1 + c) / a0, (1 + c) / 2 / a0], [1, -2 * c / a0, (1 - a) / a0]]; }
 const dbOf = (it) => (!it ? 0 : LIM.on || it.gain0 == null ? it.gain || 0 : it.gain0);
 const gainOf = (it) => (dbOf(it) ? Math.pow(10, dbOf(it) / 20) : 1);
-function carry(src, kind, t0, len, loop, label, it) {
-  const el = A.el, fresh = src !== A.src || !!el.error, skip = (it && it.skip) || 0;
-  Object.assign(A, { src, kind, t0: t0 - skip, len: len || 0, loop: !!loop, skip, it: it || null, lvl: gainOf(it) });
+// Where a recording's sound ends in its file: the levels' end point, or its slot's length past the skip point.
+const fileEnd = (it, skip) => (it.out != null ? it.out : skip + it.d - (it.lead || 0));
+// cont: the next item of the station being heard, started at its slot, in a week with a load gap.
+function carry(src, kind, t0, len, loop, label, it, cont) {
+  const el = A.el, fresh = src !== A.src || !!el.error, skip = (it && it.skip) || 0, lead = (it && it.lead) || 0;
+  Object.assign(A, { src, kind, t0: t0 + lead - skip, len: len || 0, loop: !!loop, skip, lead, cont: !!(cont && lead), it: it || null, lvl: gainOf(it) });
   el.loop = !!loop;
   if (fresh) {
-    A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0;
+    A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0; A.over = false;
     if (A.g) ramp(A.g.gain, A.fade * A.lvl, 0.03);
     el.src = src;
-    const want = wantPos(), into = want - skip; // into: how far into the slot
-    if (into > 0.5 && kind === 'media') { A.aim = Math.max(want, Math.min(want + loadLead(), it ? skip + it.d - 1 : Infinity)); A.seekAt = A.swapAt; }
-    if (into > 0.5 || skip > 0) { try { el.currentTime = Math.max(want, A.aim); } catch (e) {} }
+    const want = wantPos(), into = want - skip; // into: how far into the recording (below 0 in its lead)
+    if (into > 0.5 && kind === 'media' && !A.cont) { A.aim = Math.max(want, Math.min(want + loadLead(), it ? fileEnd(it, skip) - 1 : Infinity)); A.seekAt = A.swapAt; }
+    const pos = A.cont ? skip : Math.max(skip, want, A.aim);
+    if (pos > 0.5 || skip > 0) { try { el.currentTime = pos; } catch (e) {} }
     dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : '') + (skip ? `, from ${skip.toFixed(1)} s` : '') + (dbOf(it) ? `, ${dbOf(it) > 0 ? '+' : ''}${dbOf(it)} dB` + (LIM.on && it.gain0 != null && it.gain0 !== it.gain ? ' with the limiter' : '') : ''));
   } else onMeta();
   playCarrier(kind);
@@ -766,7 +791,7 @@ function restartCarrier() {
 // Fill the rest of a slot when its file runs out early or will not load.
 function bridge() {
   const S = PLAY.S, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
-  if (TUNED && S === TUNED && left > 2) { const k = clip('interval', S); carry(k.url, 'interval', nowS(), k.len, true, 'interval signal for ' + Math.round(left) + ' s'); }
+  if (TUNED && S === TUNED && left > 2 + ((PLAY.seg && PLAY.seg.lead) || 0)) { const k = clip('interval', S); carry(k.url, 'interval', nowS(), k.len, true, 'interval signal for ' + Math.round(left) + ' s'); }
   else { const k = clip('silence'); carry(k.url, 'silence', nowS(), k.len, true, 'silence'); }
 }
 // Safari once reported a file ended the moment it began playing, after a seek into its middle (an
@@ -774,15 +799,19 @@ function bridge() {
 // end well before it is loaded again, once per slot, before the slot is filled; a second one stands.
 function onEnded() {
   if (!R.on) return; if (filling()) return nextFiller();
-  const it = A.it, at = A.el.currentTime, len = it ? A.skip + it.d : 0, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
+  const it = A.it, at = A.el.currentTime, len = it ? fileEnd(it, A.skip) : 0, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
   if (A.kind === 'media' && it && it === PLAY.seg && at < len - 3 && left > 3 && A.endRetry !== PLAY.key) {
     A.endRetry = PLAY.key; const src = A.src;
     dlog(`file reported ended at ${at.toFixed(1)} of ${Math.round(len)} s; loading it again`);
     A.src = ''; carry(src, 'media', PLAY.start, 0, false, `${PLAY.S.call} ${it.k}${it.t ? ' “' + it.t + '”' : ''} again, at ${Math.round(nowS() - PLAY.start)} of ${Math.round(it.d)} s`, it);
     return;
   }
+  if (inGap()) { dlog('file ended in the gap before the next item'); return bridge(); }
   dlog('file ended before its slot'); endedEarly();
 }
+// Whether what's left of the slot is just the load gap: a recording that started on time ends that much
+// before its slot does, in a week with a load gap, and the page waits in silence for the next item.
+const inGap = () => { const it = A.it, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0; return !!(it && it.lead && it === PLAY.seg && left <= it.lead + 1.5); };
 function endedEarly() { const left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0; if (left > 60 && A.kind === 'media') startFiller('it ended early'); else bridge(); }
 // When a slot's recording can't play (it won't load, or it ends a minute or more early), the station
 // fills the rest of the slot with its own filler (fillerFor) instead of the interval signal: one
@@ -840,16 +869,16 @@ let TUNED = null, PEND = null, DETUNE = 0, PLAY = { key: '' }, TROUBLE = '', FIL
 const BAD = new Set(); // files that wouldn't load this visit
 const segKey = (S, c) => S.key + ':' + c.week + ':' + c.i;
 const isMedia = (seg) => seg && !!seg.f;
-function startSeg(S, c) {
+function startSeg(S, c, cont) {
   const seg = c.seg; TROUBLE = '';
   PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false, week: c.week }; FILL = null;
   stopSpeech(); A.fade = 1;
-  const what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(c.off)} of ${Math.round(seg.d)} s`;
-  if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what, seg);
+  const L = seg.lead || 0, what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(Math.max(0, c.off - L))} of ${Math.round(seg.d - L)} s`;
+  if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what, seg, cont);
   else if (seg.k === 'id' || seg.k === 'imaging') {
     // the legal ID gives the call letters; a station break between programs, the name and the dial
     const k = clip('id', S), say = seg.k === 'id' ? S.say : S.say.split('. ').slice(1).join('. ');
-    carry(k.url, seg.k, c.start, k.len, false, what);
+    carry(k.url, seg.k, cont && c.off > 0.5 ? nowS() : c.start, k.len, false, what); // after a recording that ran late, from the start
     if (c.off < 4 && sigNow > 0.55 && !document.hidden && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(say), Math.max(0, 1350 - c.off * 1000));
   } else { const k = clip('interval', S); carry(k.url, 'interval', c.start, k.len, true, what); }
   clip('id', S); clip('interval', S);
@@ -870,7 +899,7 @@ function maintain(S, c) {
     if (el.readyState >= 3 && !el.seeking && Math.abs(el.currentTime - want) > 4) { dlog(`resync ${el.currentTime.toFixed(1)} → ${want.toFixed(1)} s`); try { el.currentTime = want; } catch (e) {} }
     if (seg.cut && left < 5) A.fade = 0;
     // Move on before the file runs out: a player sitting at its end is a stopped player.
-    if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { if (filling()) nextFiller(); else { dlog('file is shorter than its slot'); endedEarly(); } }
+    if (el.duration > 0 && isFinite(el.duration) && !el.paused && el.duration - el.currentTime < 0.5 && left > 1) { if (filling()) nextFiller(); else if (inGap()) { dlog('file ended in the gap before the next item'); bridge(); } else { dlog('file is shorter than its slot'); endedEarly(); } }
     else if (filling() && nowS() > FILL.cur.at + FILL.cur.it.d + 1) nextFiller(); // past its listed length: keep to the plan
   }
   if (el.paused && !A.held && !A.blocked && !el.ended) restartCarrier();
@@ -894,7 +923,7 @@ let lastTick = 0;
 const TK = { timer: 0, media: 0 };
 // How far the player is from the schedule: positive when behind it. A record that is behind when its
 // slot ends loses that much of its ending; one that jumped ahead to keep the schedule lost its opening.
-const sched = (p) => { const lag = wantPos() - p; return `${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; };
+const sched = (p) => { const lag = (A.loop && A.len ? wantPos() : nowS() - A.t0) - p; return `${Math.abs(lag).toFixed(1)} s ${lag >= 0 ? 'behind' : 'ahead of'} the schedule`; };
 // The debug log's heartbeat, every 30 s while the radio is on (tools/check_log.js reads it).
 function beat() { const el = A.el, k = A.keep; dlog(`still here: ${A.kind} at ${el.currentTime.toFixed(1)} s${A.kind === 'media' ? ', ' + sched(el.currentTime) : ''}, ${el.paused ? 'PAUSED' : 'playing'}, ready ${el.readyState}${k ? ', keep-alive ' + (k.paused ? 'PAUSED' : 'on') : ''}, engine ${A.ctx.state}, ticks ${TK.timer}/${TK.media}`); }
 function tick(src) {
@@ -910,9 +939,23 @@ function tick(src) {
     if (TUNED !== S) { if (!PEND || PEND.S !== S) PEND = { S, at: now + 0.2 }; else if (now >= PEND.at) { TUNED = S; PEND = null; PLAY = { key: '' }; dlog('tuned to ' + S.call + ' ' + S.fLabel); } }
   } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; stopSpeech(); dlog('off station'); } } }
   if (A.retryAt && now >= A.retryAt) { A.retryAt = 0; if (PLAY.key === A.retryKey) { dlog('trying the recording again'); PLAY.key = ''; } }
-  if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) startSeg(TUNED, c); else maintain(TUNED, c); }
+  if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) { if (!finishing(now)) startSeg(TUNED, c, !!PLAY.key && PLAY.S === TUNED && gapFor(c.week) > 0); } else maintain(TUNED, c); }
   else if (A.el.paused && !A.held && !A.blocked && !A.el.ended) restartCarrier();
   levels(S, s);
+}
+
+// In a week with a load gap, a recording that started late finishes before the next item starts, up to
+// 4 s past its slot, while it is playing; the next item's lead takes up the delay. Past that it is cut,
+// and the log says how much of it went unplayed.
+const gapFor = (w) => SNAPS.reduce((g, s) => (s.week <= w ? s.gap : g), SNAPS[0].gap);
+function finishing(now) {
+  const it = A.it, el = A.el;
+  if (!(it && it.lead) || A.kind !== 'media' || it !== PLAY.seg || A.held) return false;
+  const over = now - (PLAY.start + PLAY.seg.d), left = fileEnd(it, A.skip) - el.currentTime;
+  if (left < 0.05 || el.ended) return false;
+  if (over > 4 || el.paused) { if (left > 0.3) dlog(`cut ${PLAY.S.call} ${it.k}${it.t ? ' “' + it.t + '”' : ''} with ${left.toFixed(1)} s of it unplayed`); return false; }
+  if (!A.over) { A.over = true; dlog(`letting it finish: ${left.toFixed(1)} s to go, past its slot`); }
+  return true;
 }
 
 /* ---------- Media Session ---------- */
@@ -1045,7 +1088,7 @@ function reportURL() {
       station: `${S.call} ${S.fLabel} · ${S.name}`,
       playing: said(S, seg) + (F ? ` (filler, in place of “${c.seg.t || 'the scheduled recording'}”, which wouldn’t play)` : ''),
       recording: isMedia(seg) ? ia(seg.id, seg.f) : 'None: a station sound the page makes itself',
-      position: fmtDur((seg.skip || 0) + off) + ' of ' + fmtDur((seg.skip || 0) + seg.d), // time in the Archive file
+      position: fmtDur((seg.skip || 0) + Math.max(0, off - (seg.lead || 0))) + ' of ' + fmtDur((seg.skip || 0) + seg.d - (seg.lead || 0)), // time in the Archive file
       aired: when.toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit', timeZoneName: 'short' }) + ' · ' + when.toISOString().slice(0, 19) + 'Z',
       before: prev && now - prev.end < 600 ? `${said(S, prev.seg)} · ended ${fmtDur(now - prev.end)} before this report · ${ia(prev.seg.id, prev.seg.f)}` : '',
       build: BUILD,
@@ -1075,10 +1118,10 @@ function render() {
     card.innerHTML = `<div class="st-line"><span class="call">${TUNED.call}</span><span class="st-name">${esc(TUNED.fLabel)} · ${esc(TUNED.name)}</span><span class="st-fmt">${esc(TUNED.fmt)}</span></div>
     <div class="kicker">${esc(d.kick || '')}${buffering ? ' · tuning in…' : ''}</div><div class="ptitle">${esc(d.title)}</div><div class="pline">${esc(d.line)}</div>
     ${warn ? `<div class="trouble">${esc(warn)}</div>` : ''}
-    <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d)}</span></div>
+    <div class="prog"><span id="pEl"></span><span class="bar"><i id="pBar"></i></span><span>${fmtDur(seg.d - (seg.lead || 0))}</span></div>
     <div class="links">${link}${report}${nxt ? `<span class="rights">Next at ${fmtTime(nxt.at)}: ${esc(progLabel(TUNED, nxt.seg))}</span>` : ''}</div>`;
   }
-  $('#pEl').textContent = fmtDur(off); $('#pBar').style.width = Math.min(100, off / seg.d * 100).toFixed(1) + '%';
+  const pl = seg.lead || 0, po = Math.max(0, off - pl); $('#pEl').textContent = fmtDur(po); $('#pBar').style.width = Math.min(100, po / (seg.d - pl) * 100).toFixed(1) + '%';
   drawEye(s);
 }
 function renderLog() {
@@ -1204,6 +1247,7 @@ if (DBG.on) {
   if (navigator.share) { const sb = $('#dbgShare'); sb.hidden = false; sb.addEventListener('click', () => { navigator.share({ title: 'Needle & Dial debug log', text: report() }).catch((e) => { if (e && e.name !== 'AbortError') dlog('share failed: ' + e.name); }); }); }
   $('#dbgClear').addEventListener('click', () => { DBG.lines = []; try { localStorage.removeItem('needle-dial.debug'); } catch (e) {} paintDbg(); });
   dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
+  { const w = Math.floor((nowS() - EPOCH) / WEEK), g = gapFor(w); dlog(`schedule: this week ${g ? `has a ${g} s load gap before each recording` : 'has no load gap'}`); } // for tools/check_log.js
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
 }

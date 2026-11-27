@@ -56,7 +56,7 @@ with tempfile.TemporaryDirectory() as tmp:
 
     files = lambda: sorted(p.name for p in snapshot.SNAPSHOTS.glob('*.json'))
     check(run() == 'snapshots/2026-11-30.json' and files() == ['2026-11-30.json'], 'first run drafts next week')
-    check(json.loads(pathlib.Path(tmp, 'snapshots/2026-11-30.json').read_text()) == {'from': '2026-11-30', 'exclude': [], 'catalog': cat}, 'the draft parses and holds the catalog')
+    check(json.loads(pathlib.Path(tmp, 'snapshots/2026-11-30.json').read_text()) == {'from': '2026-11-30', 'exclude': [], 'gap': ndlib.GAP, 'catalog': cat}, 'the draft parses and holds the catalog and the load gap')
     check(run() == '' and files() == ['2026-11-30.json'], 'a second run with nothing new writes nothing')
     report = pathlib.Path(tmp, 'check.json')
     report.write_text(json.dumps({'pending': [], 'results': [{'id': 'a', 'f': '1.mp3', 'status': 'gone'}]}))
@@ -87,12 +87,15 @@ with tempfile.TemporaryDirectory() as tmp:
     check(run('--exclude-from', str(report)) == 'snapshots/2026-11-30.json', 'a draft with levels and held files')
     d = json.loads(pathlib.Path(tmp, 'snapshots/2026-11-30.json').read_text())
     check(d.get('levels') == {'item-a': {'x.mp3': [-2.5, 0.4, 59.1]}}, 'the draft carries the levels: ' + repr(d.get('levels')))
+    check(d.get('gap') == ndlib.GAP, 'the draft carries the load gap: ' + repr(d.get('gap')))
     check(d['exclude'] == ['item-a/gone.mp3', 'item-b/held.mp3'], 'held files join what the Archive check holds out: ' + repr(d['exclude']))
     check(run('--exclude-from', str(report)) == '', 'unchanged levels write nothing')
     LEVELS['item-a']['x.mp3'] = [-3.0, 0.4, 59.1]
     check(run('--exclude-from', str(report)) == 'snapshots/2026-11-30.json', 'changed levels update the draft')
     text = ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'catalog': {'a': 1}, 'levels': {'i1': {'f': [1, 2, 3]}, 'i2': {'g': [0, 0, 9]}}})
     check(json.loads(text)['levels']['i2'] == {'g': [0, 0, 9]} and text.count('\n') == 6, 'levels one item per line, and the file still parses')
+    text = ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'gap': 2, 'catalog': {'a': 1}})
+    check(json.loads(text)['gap'] == 2 and json.loads(text)['catalog'] == {'a': 1}, 'a gap goes in the head line, and the file still parses')
     # The real helpers, on scratch files: levels only for items the catalog plays; the hold list's files.
     lv = pathlib.Path(tmp, 'levels.json')
     lv.write_text(json.dumps({'items': {'item-a': {'x.mp3': [1, 0, 9]}, 'item-z': {'y.mp3': [1, 0, 9]}}}))

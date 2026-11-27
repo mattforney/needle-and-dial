@@ -18,7 +18,7 @@ import os
 import subprocess
 import sys
 
-from ndlib import ROOT, catalog_levels, head_catalog, in_effect, load_snapshots, week_date, week_index
+from ndlib import GAP, ROOT, catalog_levels, head_catalog, in_effect, load_snapshots, week_date, week_index
 
 cat = head_catalog()
 blob = json.dumps(cat, ensure_ascii=False, separators=(',', ':'))
@@ -54,7 +54,7 @@ def changed_levels(a, b):
 
 
 def inline_for(weeks):
-    slim = [weeks[0]] + [dict({'from': b['from'], 'exclude': b['exclude'], 'partial': True, 'catalog': {k: v for k, v in b['catalog'].items() if a['catalog'].get(k) != v}}, **({'levels': changed_levels(a, b)} if changed_levels(a, b) else {})) for a, b in zip(weeks, weeks[1:])]
+    slim = [weeks[0]] + [dict({'from': b['from'], 'exclude': b['exclude'], 'partial': True, 'catalog': {k: v for k, v in b['catalog'].items() if a['catalog'].get(k) != v}}, **({'levels': changed_levels(a, b)} if changed_levels(a, b) else {}), **({'gap': b.get('gap', 0)} if b.get('gap', 0) != a.get('gap', 0) else {})) for a, b in zip(weeks, weeks[1:])]
     return json.dumps(slim, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
 
@@ -64,11 +64,11 @@ if '--debug' in sys.argv[1:]:
     (ROOT / 'dist' / 'index-debug.html').write_text(html.replace('__DEBUG__', 'true').replace('__PREVIEW__', 'null'), encoding='utf-8')
 if '--preview' in sys.argv[1:]:
     lv_path = ROOT / 'catalog' / 'levels.json'
-    weeks = [dict(s, levels=catalog_levels(s['catalog'])) for s in page]
+    weeks = [dict(s, levels=catalog_levels(s['catalog']), gap=GAP) for s in page]
     made = json.loads(lv_path.read_text(encoding='utf-8')).get('made') or ''
     when = datetime.date.fromisoformat(made).strftime('%-d %b') if made else ''
-    note = (f"The new levels (catalog/levels.json{' of ' + when if when else ''}) on this week's schedule. Trims change some lengths, so it "
-            "won't match the live site minute for minute. Use Chrome or Firefox on a computer: an iPhone can't set levels.")
+    note = (f"The new levels (catalog/levels.json{' of ' + when if when else ''}) and a {GAP} s load gap before each recording, on this week's schedule. "
+            "Trims and gaps change some lengths, so it won't match the live site minute for minute. Use Chrome or Firefox on a computer: an iPhone can't set levels.")
     pv = tpl.replace('__CATALOG__', inline_for(weeks)).replace('__BUILD__', build_id() + ' preview').replace('__DEBUG__', 'false')
     (ROOT / 'dist' / 'preview.html').write_text(pv.replace('__PREVIEW__', json.dumps({'note': note}, ensure_ascii=False).replace('</', '<\\/')), encoding='utf-8')
     print('preview: levels for', sum(len(v) for s in weeks for v in (s.get('levels') or {}).values()), 'files in', ', '.join(s['from'] for s in weeks))
