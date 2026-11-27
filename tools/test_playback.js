@@ -109,12 +109,14 @@ const players = (page) => page.evaluate(() => [...window.__T.players].filter((m)
 
 async function open(browser, sc, opt) {
   const ctx = await browser.newContext(opt.ua ? { userAgent: opt.ua } : {});
-  const failed = new Set();
+  const failed = new Set(), slowed = new Set();
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
   await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: sc.html || HTML }));
   await ctx.route('https://archive.org/download/**', async (route) => {
     const ru = route.request().url();
-    if (sc.slow && (sc.slow instanceof Set ? sc.slow.has(ru) : sc.slow.test(ru))) await sleep(2500); // a slow network keeps the file loading
+    // A slow network keeps the file loading: its first request waits 2.5 s. Only the first, so a load takes
+    // about as long however many range requests the browser makes for it (two or three, as it chooses).
+    if (sc.slow && route.request().method() === 'GET' && !slowed.has(ru) && (sc.slow instanceof Set ? sc.slow.has(ru) : sc.slow.test(ru))) { slowed.add(ru); await sleep(2500); }
     const req = route.request(), u = req.url(), h = { 'content-type': 'audio/wav', 'accept-ranges': 'bytes', 'access-control-allow-origin': '*' };
     if (sc.failAlways && sc.failAlways.includes(u)) return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' });
     if (req.method() === 'GET' && sc.failOnce && sc.failOnce.includes(u) && !failed.has(u)) { failed.add(u); return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); }
@@ -254,7 +256,7 @@ async function lockWhileLoading(browser, ua) {
 
 // Tuning in seeks into the middle of a file, and the player starts as far behind the schedule as the
 // seek took to load. Once one tune-in has been timed, the next should start within a second of the
-// schedule. Both stations' files load slowly here (each request waits 2.5 s).
+// schedule. Both stations' files load slowly here (the first request for each waits 2.5 s).
 const WMID = api.STATIONS.find((s) => s.call === 'WMID');
 async function tuneInLead(browser) {
   const sc = { at: end(a.c), first: a.c, lead: 60, len: {} };
