@@ -67,6 +67,12 @@ say();
 // same item for a change within one. A pool sampled one file per item can't show changes within an item: unmeasured.
 const T = -20, HEAD = -1;
 const level = { now: (x) => x.I, pool: (x) => x.I - poolMed.get(x.cpool), file: (x) => { let g = T - x.I; if (g > 0) g = Math.max(0, Math.min(g, HEAD - x.TP)); return x.I + g; } };
+// And as the page plays them, from catalog/levels.json where it exists: its gain without the limiter (the
+// fourth number, where there is one) and with it. A program's parts share one gain, so the change from one
+// movement or track to the next stays as recorded there, by design.
+const LVT = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'levels.json'), 'utf8')).items; } catch (e) { return null; } })();
+const lvOf = (x) => (LVT && LVT[x.id] && LVT[x.id][x.f]) || null;
+if (LVT) Object.assign(level, { table0: (x) => { const v = lvOf(x); return x.I + (v ? (v.length > 3 ? v[3] : v[0]) : 0); }, table: (x) => { const v = lvOf(x); return x.I + (v ? v[0] : 0); } });
 // The schedule's pools, by the catalog (a vault track belongs to its concert), not the sample's labels.
 for (const x of ok) x.cpool = poolOf.get(x.id + '/' + x.f) || x.pool;
 const cpools = [...by(ok, (x) => x.cpool).entries()];
@@ -80,10 +86,10 @@ function pairsFor(a, b, same) {
 }
 say(`## 2. The jumps a listener hears`);
 say();
-say(`Each change from one recording to the next in a week of each station's schedule (station IDs between them skipped), with the level change expected from the measured files that could make it: now, with one gain per pool, and with one gain per file aiming at ${T} LUFS but boosting no file past ${HEAD} dBTP true peak (no limiter).`);
+say(`Each change from one recording to the next in a week of each station's schedule (station IDs between them skipped), with the level change expected from the measured files that could make it: now, with one gain per pool, and with one gain per file aiming at ${T} LUFS but boosting no file past ${HEAD} dBTP true peak (no limiter)` + (LVT ? '; then as catalog/levels.json has it, where programs in parts share a gain (so a movement-to-movement change stays as recorded), without the limiter and with it.' : '.'));
 say();
-say('| Station | Changes a week | Measured | Median jump now (LU) | Over 3 LU now | Over 6 LU now | Over 3 LU, gain per pool | Over 3 LU, gain per file | Biggest kinds of change now (median jump) |');
-say('|---|---|---|---|---|---|---|---|---|');
+say('| Station | Changes a week | Measured | Median jump now (LU) | Over 3 LU now | Over 6 LU now | Over 3 LU, gain per pool | Over 3 LU, gain per file |' + (LVT ? ' Over 3 LU, levels table | With the limiter |' : '') + ' Biggest kinds of change now (median jump) |');
+say('|---|---|---|---|---|---|---|---|' + (LVT ? '---|---|' : '') + '---|');
 const jumpStats = {};
 for (const S of api.STATIONS) {
   const segs = api.buildStation(S, 0, P).filter((g) => g.f), kinds = new Map();
@@ -105,9 +111,9 @@ for (const S of api.STATIONS) {
   }
   const share = (mode, th) => { const t = W[mode].reduce((s, [, w]) => s + w, 0); return t ? W[mode].reduce((s, [d, w]) => s + (d > th ? w : 0), 0) / t : NaN; };
   const med = (mode) => { const s = W[mode].slice().sort((p, r) => p[0] - r[0]), t = s.reduce((a, [, w]) => a + w, 0); let c = 0; for (const [d, w] of s) { c += w; if (c >= t / 2) return d; } return NaN; };
-  jumpStats[S.call] = { now3: share('now', 3), now6: share('now', 6), pool3: share('pool', 3), file3: share('file', 3), med: med('now') };
+  jumpStats[S.call] = { now3: share('now', 3), now6: share('now', 6), pool3: share('pool', 3), file3: share('file', 3), med: med('now'), ...(LVT ? { table03: share('table0', 3), table3: share('table', 3) } : {}) };
   const top = per.sort((p, r) => r[1] - p[1]).slice(0, 3).map(([k, n, m]) => `${k} ×${n} (${f1(m)})`).join('; ');
-  say(`| ${S.call} | ${total} | ${pct(measured, total)} | ${f1(med('now'))} | ${pct(Math.round(share('now', 3) * 1000), 1000)} | ${pct(Math.round(share('now', 6) * 1000), 1000)} | ${pct(Math.round(share('pool', 3) * 1000), 1000)} | ${pct(Math.round(share('file', 3) * 1000), 1000)} | ${top || '–'} |`);
+  say(`| ${S.call} | ${total} | ${pct(measured, total)} | ${f1(med('now'))} | ${pct(Math.round(share('now', 3) * 1000), 1000)} | ${pct(Math.round(share('now', 6) * 1000), 1000)} | ${pct(Math.round(share('pool', 3) * 1000), 1000)} | ${pct(Math.round(share('file', 3) * 1000), 1000)} |${LVT ? ` ${pct(Math.round(share('table0', 3) * 1000), 1000)} | ${pct(Math.round(share('table', 3) * 1000), 1000)} |` : ''} ${top || '–'} |`);
 }
 say();
 const sharing = ok.filter((x, i) => ok.some((y, j) => j !== i && y.id === x.id)).length;

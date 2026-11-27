@@ -1,0 +1,3746 @@
+{
+ "started": "2026-11-27T02:02:35.802Z",
+ "settings": [
+  {
+   "name": "page",
+   "threshold": -2,
+   "knee": 0,
+   "ratio": 20,
+   "attack": 0.001,
+   "release": 0.1,
+   "makeup": 1.14
+  },
+  {
+   "name": "release 0.05 s",
+   "threshold": -2,
+   "knee": 0,
+   "ratio": 20,
+   "attack": 0.001,
+   "release": 0.05,
+   "makeup": 1.14
+  },
+  {
+   "name": "release 0.2 s",
+   "threshold": -2,
+   "knee": 0,
+   "ratio": 20,
+   "attack": 0.001,
+   "release": 0.2,
+   "makeup": 1.14
+  },
+  {
+   "name": "threshold -1 dBFS",
+   "threshold": -1,
+   "knee": 0,
+   "ratio": 20,
+   "attack": 0.001,
+   "release": 0.1,
+   "makeup": 0.57
+  }
+ ],
+ "files": [
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Mazurka Op. 17 no. 4 in A minor.mp3",
+   "gain": 6,
+   "gain0": 3.1,
+   "skip": 2.7,
+   "out": 294.6,
+   "I": -26,
+   "TP": -4.1,
+   "bytes": 5526528,
+   "channels": 2,
+   "secs": 291.9,
+   "I_in": -19.97,
+   "limits": {
+    "page": {
+     "gr1": 0.002,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 3.38,
+     "peak": -1.28,
+     "I_out": -20.09,
+     "dI": -0.12,
+     "dBed": -0.02,
+     "worst": {
+      "at": 189.6,
+      "gr": 0.38
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0015,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.38,
+     "peak": -1.07,
+     "I_out": -20.08,
+     "dI": -0.1,
+     "dBed": -0.02,
+     "worst": {
+      "at": 189.6,
+      "gr": 0.31
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0024,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 3.39,
+     "peak": -1.38,
+     "I_out": -20.11,
+     "dI": -0.14,
+     "dBed": -0.03,
+     "worst": {
+      "at": 189.6,
+      "gr": 0.44
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0009,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.49,
+     "peak": -0.4,
+     "I_out": -20.04,
+     "dI": -0.07,
+     "dBed": -0.02,
+     "worst": {
+      "at": 189.6,
+      "gr": 0.2
+     }
+    }
+   },
+   "secs_taken": 11.7
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "NocturneOp.9No.1InBFlatMinor.mp3",
+   "gain": 2.4,
+   "gain0": 0.7,
+   "skip": 0.3,
+   "out": 335.6,
+   "I": -22.4,
+   "TP": -1.7,
+   "bytes": 7463936,
+   "channels": 2,
+   "secs": 335.3,
+   "I_in": -20,
+   "limits": {
+    "page": {
+     "gr1": 0.0009,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.25,
+     "peak": -1.35,
+     "I_out": -20.04,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 203.2,
+      "gr": 0.1
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0005,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.25,
+     "peak": -1.19,
+     "I_out": -20.03,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 203.2,
+      "gr": 0.07
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0013,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.25,
+     "peak": -1.43,
+     "I_out": -20.05,
+     "dI": -0.05,
+     "dBed": -0.01,
+     "worst": {
+      "at": 203.2,
+      "gr": 0.14
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.41,
+     "peak": -0.53,
+     "I_out": -20.01,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 198.5,
+      "gr": 0.03
+     }
+    }
+   },
+   "secs_taken": 13.3
+  },
+  {
+   "pool": "chopin",
+   "id": "musopen-chopin",
+   "f": "Nocturne Op. 27 no. 1 in C sharp minor.mp3",
+   "gain": 7.7,
+   "gain0": 6.2,
+   "skip": 1.3,
+   "out": 345.2,
+   "I": -27.7,
+   "TP": -7.2,
+   "bytes": 5235712,
+   "channels": 2,
+   "secs": 343.9,
+   "I_in": -19.98,
+   "limits": {
+    "page": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.08,
+     "peak": -1.4,
+     "I_out": -20,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 164.5,
+      "gr": 0.05
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.08,
+     "peak": -1.25,
+     "I_out": -20,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 164.5,
+      "gr": 0.03
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.08,
+     "peak": -1.49,
+     "I_out": -20.01,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 164.5,
+      "gr": 0.07
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.23,
+     "peak": -0.59,
+     "I_out": -19.99,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 164.5,
+      "gr": 0.01
+     }
+    }
+   },
+   "secs_taken": 13.2
+  },
+  {
+   "pool": "free",
+   "id": "badpanda018",
+   "f": "08RidingAloneForThousandsOfMiles-Eli.mp3",
+   "gain": 1.5,
+   "gain0": 0.4,
+   "skip": 0,
+   "out": 311.2,
+   "I": -21.5,
+   "TP": -1.4,
+   "bytes": 13220575,
+   "channels": 2,
+   "secs": 311.2,
+   "I_in": -20.02,
+   "limits": {
+    "page": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.64,
+     "peak": -1.46,
+     "I_out": -20.05,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 90.7,
+      "gr": 0.07
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.64,
+     "peak": -1.33,
+     "I_out": -20.04,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 90.7,
+      "gr": 0.05
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0005,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.64,
+     "peak": -1.54,
+     "I_out": -20.06,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 90.7,
+      "gr": 0.1
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.81,
+     "peak": -0.69,
+     "I_out": -20.03,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 90.7,
+      "gr": 0.02
+     }
+    }
+   },
+   "secs_taken": 18.2
+  },
+  {
+   "pool": "g78",
+   "id": "78_hush-little-baby-dont-you-cry_frieda-hempel-and-the-lyric-male-quartet-f-belasc_gbia0423884b",
+   "f": "HUSH, LITTLE BA - FRIEDA HEMPEL and THE LYRIC MALE QUARTET.mp3",
+   "gain": 17.1,
+   "gain0": 11.1,
+   "skip": 4.5,
+   "out": 192.8,
+   "I": -43.8,
+   "TP": -12.1,
+   "bytes": 4760143,
+   "channels": 2,
+   "secs": 188.3,
+   "I_in": -26.56,
+   "limits": {
+    "page": {
+     "gr1": 0.0054,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.14,
+     "peak": -0.43,
+     "I_out": -26.64,
+     "dI": -0.08,
+     "dBed": -0.02,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.15
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0032,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.14,
+     "peak": -0.2,
+     "I_out": -26.63,
+     "dI": -0.07,
+     "dBed": -0.02,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.09
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.009,
+     "gr3": 0.001,
+     "gr6": 0,
+     "grMax": 5.14,
+     "peak": -0.54,
+     "I_out": -26.65,
+     "dI": -0.09,
+     "dBed": -0.04,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.25
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0031,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.37,
+     "peak": 0.33,
+     "I_out": -26.61,
+     "dI": -0.06,
+     "dBed": -0.02,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.1
+     }
+    }
+   },
+   "secs_taken": 8.1
+  },
+  {
+   "pool": "g78",
+   "id": "78_funiculi-funicula_vessellas-italian-band-denza_gbia3033472b",
+   "f": "Funiculi-Funicula - Vessella's Italian Band.mp3",
+   "gain": 16.5,
+   "gain0": 10.5,
+   "skip": 1.9,
+   "out": 186.9,
+   "I": -37.3,
+   "TP": -11.5,
+   "bytes": 6982008,
+   "channels": 2,
+   "secs": 185,
+   "I_in": -20.81,
+   "limits": {
+    "page": {
+     "gr1": 0.0062,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 5.64,
+     "peak": -0.66,
+     "I_out": -20.85,
+     "dI": -0.03,
+     "dBed": -0.03,
+     "worst": {
+      "at": 17.5,
+      "gr": 0.16
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0037,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5.64,
+     "peak": -0.38,
+     "I_out": -20.83,
+     "dI": -0.02,
+     "dBed": -0.02,
+     "worst": {
+      "at": 17.5,
+      "gr": 0.1
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0103,
+     "gr3": 0.0009,
+     "gr6": 0,
+     "grMax": 5.64,
+     "peak": -0.81,
+     "I_out": -20.87,
+     "dI": -0.05,
+     "dBed": -0.05,
+     "worst": {
+      "at": 17.6,
+      "gr": 0.26
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0031,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.72,
+     "peak": 0.22,
+     "I_out": -20.82,
+     "dI": -0.01,
+     "dBed": -0.01,
+     "worst": {
+      "at": 17.5,
+      "gr": 0.1
+     }
+    }
+   },
+   "secs_taken": 10.1
+  },
+  {
+   "pool": "g78",
+   "id": "78_valse-in-a-flat-op-42_sergei-rachmaninoff-chopin_gbia0307222a",
+   "f": "Valse in A Flat Op. 42 - SERGEI RACHMANINOFF.mp3",
+   "gain": 13.5,
+   "gain0": 7.5,
+   "skip": 0.3,
+   "out": 231,
+   "I": -37.6,
+   "TP": -8.5,
+   "bytes": 3818420,
+   "channels": 2,
+   "secs": 230.7,
+   "I_in": -24.07,
+   "limits": {
+    "page": {
+     "gr1": 0.0005,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.54,
+     "peak": -0.65,
+     "I_out": -24.08,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 204.6,
+      "gr": 0.06
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0003,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.54,
+     "peak": -0.39,
+     "I_out": -24.08,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 204.6,
+      "gr": 0.04
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0009,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 5.54,
+     "peak": -0.79,
+     "I_out": -24.08,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 204.7,
+      "gr": 0.1
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0004,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 4.72,
+     "peak": 0.15,
+     "I_out": -24.08,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 204.6,
+      "gr": 0.05
+     }
+    }
+   },
+   "secs_taken": 9.7
+  },
+  {
+   "pool": "g78",
+   "id": "78_pretty-little-baby_phil-bakers-bad-boys-sid-silvers-phil-baker-ben-bernie_gbia0527224a",
+   "f": "PRETTY LITTLE BABY - PHIL BAKER'S BAD BOYS.mp3",
+   "gain": 12.5,
+   "gain0": 6.5,
+   "skip": 3.2,
+   "out": 234.1,
+   "I": -35.4,
+   "TP": -7.5,
+   "bytes": 5017721,
+   "channels": 2,
+   "secs": 230.9,
+   "I_in": -22.84,
+   "limits": {
+    "page": {
+     "gr1": 0.0018,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.79,
+     "peak": -0.47,
+     "I_out": -22.85,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 49.6,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0011,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5.79,
+     "peak": -0.21,
+     "I_out": -22.85,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 49.6,
+      "gr": 0.05
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.003,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 5.79,
+     "peak": -0.61,
+     "I_out": -22.85,
+     "dI": -0.01,
+     "dBed": -0.01,
+     "worst": {
+      "at": 49.6,
+      "gr": 0.13
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0011,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5,
+     "peak": 0.3,
+     "I_out": -22.85,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 172.5,
+      "gr": 0.06
+     }
+    }
+   },
+   "secs_taken": 9.7
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-swallows_virginia-rea-bingham-cowen_gbia3004823b",
+   "f": "THE SWALLOWS - VIRGINIA REA - Bingham - Cowen.mp3",
+   "gain": 12.5,
+   "gain0": 6.5,
+   "skip": 1.5,
+   "out": 200.3,
+   "I": -32.9,
+   "TP": -7.5,
+   "bytes": 7615606,
+   "channels": 2,
+   "secs": 198.8,
+   "I_in": -20.36,
+   "limits": {
+    "page": {
+     "gr1": 0.0043,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.55,
+     "peak": -0.63,
+     "I_out": -20.38,
+     "dI": -0.02,
+     "dBed": -0.02,
+     "worst": {
+      "at": 19.8,
+      "gr": 0.17
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0026,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5.55,
+     "peak": -0.37,
+     "I_out": -20.37,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 19.8,
+      "gr": 0.11
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0072,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.55,
+     "peak": -0.76,
+     "I_out": -20.38,
+     "dI": -0.03,
+     "dBed": -0.03,
+     "worst": {
+      "at": 19.8,
+      "gr": 0.28
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.002,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.74,
+     "peak": 0.17,
+     "I_out": -20.37,
+     "dI": -0.01,
+     "dBed": -0.01,
+     "worst": {
+      "at": 19.3,
+      "gr": 0.11
+     }
+    }
+   },
+   "secs_taken": 8.5
+  },
+  {
+   "pool": "g78",
+   "id": "78_morning-noon-and-night_a-palet-gallarini-suppe_gbia0237941b",
+   "f": "MORNING, NOON AND NIGHT - A. PALET GALLARINI.mp3",
+   "gain": 10.6,
+   "gain0": 4.6,
+   "skip": 0.8,
+   "out": 188,
+   "I": -32.6,
+   "TP": -5.6,
+   "bytes": 6871597,
+   "channels": 2,
+   "secs": 187.2,
+   "I_in": -22.02,
+   "limits": {
+    "page": {
+     "gr1": 0.0053,
+     "gr3": 0.0005,
+     "gr6": 0,
+     "grMax": 5.35,
+     "peak": -0.56,
+     "I_out": -22.05,
+     "dI": -0.03,
+     "dBed": -0.02,
+     "worst": {
+      "at": 16.2,
+      "gr": 0.11
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0032,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5.35,
+     "peak": -0.32,
+     "I_out": -22.05,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 16.2,
+      "gr": 0.07
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0089,
+     "gr3": 0.0009,
+     "gr6": 0,
+     "grMax": 5.35,
+     "peak": -0.69,
+     "I_out": -22.07,
+     "dI": -0.05,
+     "dBed": -0.03,
+     "worst": {
+      "at": 16.2,
+      "gr": 0.18
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0025,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 4.53,
+     "peak": 0.22,
+     "I_out": -22.04,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 15.1,
+      "gr": 0.08
+     }
+    }
+   },
+   "secs_taken": 8.4
+  },
+  {
+   "pool": "g78",
+   "id": "78_show-me-the-way-to-go-home_harry-fay-irving-king_gbia3037986b",
+   "f": "SHOW ME THE WAY TO GO HOME - HARRY FAY - Irving King.mp3",
+   "gain": 10.1,
+   "gain0": 4.1,
+   "skip": 0.9,
+   "out": 189.3,
+   "I": -30.8,
+   "TP": -5.1,
+   "bytes": 5462164,
+   "channels": 2,
+   "secs": 188.4,
+   "I_in": -20.65,
+   "limits": {
+    "page": {
+     "gr1": 0.0041,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 5.5,
+     "peak": -0.33,
+     "I_out": -20.69,
+     "dI": -0.03,
+     "dBed": -0.02,
+     "worst": {
+      "at": 0.9,
+      "gr": 0.1
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0025,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.5,
+     "peak": -0.1,
+     "I_out": -20.68,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 0.9,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0069,
+     "gr3": 0.001,
+     "gr6": 0,
+     "grMax": 5.5,
+     "peak": -0.45,
+     "I_out": -20.7,
+     "dI": -0.04,
+     "dBed": -0.03,
+     "worst": {
+      "at": 0.9,
+      "gr": 0.15
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0022,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 4.74,
+     "peak": 0.42,
+     "I_out": -20.68,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 0.9,
+      "gr": 0.07
+     }
+    }
+   },
+   "secs_taken": 8.3
+  },
+  {
+   "pool": "g78",
+   "id": "78_tango_mischa-elman-josef-bonime-i.-albeniz-elman_gbia0010962a",
+   "f": "Tango - Mischa Elman - Josef Bonime - I. Albeniz.mp3",
+   "gain": 9.4,
+   "gain0": 3.4,
+   "skip": 0.8,
+   "out": 129.3,
+   "I": -29.7,
+   "TP": -4.4,
+   "bytes": 2826240,
+   "channels": 2,
+   "secs": 128.5,
+   "I_in": -20.26,
+   "limits": {
+    "page": {
+     "gr1": 0.0052,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 5.43,
+     "peak": -0.72,
+     "I_out": -20.3,
+     "dI": -0.03,
+     "dBed": -0.02,
+     "worst": {
+      "at": 125.9,
+      "gr": 0.17
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0032,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.43,
+     "peak": -0.46,
+     "I_out": -20.29,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 125.9,
+      "gr": 0.11
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0087,
+     "gr3": 0.0017,
+     "gr6": 0,
+     "grMax": 5.43,
+     "peak": -0.85,
+     "I_out": -20.31,
+     "dI": -0.05,
+     "dBed": -0.03,
+     "worst": {
+      "at": 125.9,
+      "gr": 0.28
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0032,
+     "gr3": 0.0005,
+     "gr6": 0,
+     "grMax": 4.61,
+     "peak": 0.09,
+     "I_out": -20.29,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 125.9,
+      "gr": 0.12
+     }
+    }
+   },
+   "secs_taken": 7.1
+  },
+  {
+   "pool": "g78",
+   "id": "78_the-volga-boatmans-song-and-the-charming-boy_russian-balalaika-ensemble_gbia0420751b",
+   "f": "THE VOLGA BOATMAN'S SONG AND  - RUSSIAN BALALAIKA ENSEMBLE.mp3",
+   "gain": 8.9,
+   "gain0": 2.9,
+   "skip": 1,
+   "out": 230.4,
+   "I": -34.8,
+   "TP": -3.9,
+   "bytes": 6171153,
+   "channels": 2,
+   "secs": 229.4,
+   "I_in": -25.87,
+   "limits": {
+    "page": {
+     "gr1": 0.0009,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.39,
+     "peak": -0.66,
+     "I_out": -25.88,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 104.8,
+      "gr": 0.06
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0005,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.39,
+     "peak": -0.4,
+     "I_out": -25.88,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 104.8,
+      "gr": 0.04
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0014,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 5.39,
+     "peak": -0.79,
+     "I_out": -25.88,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 104.9,
+      "gr": 0.1
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0005,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 4.58,
+     "peak": 0.14,
+     "I_out": -25.88,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 104.8,
+      "gr": 0.05
+     }
+    }
+   },
+   "secs_taken": 9.9
+  },
+  {
+   "pool": "g78",
+   "id": "78_la-gazza-ladra-overture_rossini_gbia0023286a",
+   "f": "La Gazza Ladra Overture - Rossini.mp3",
+   "gain": 8.1,
+   "gain0": 2.1,
+   "skip": 0.7,
+   "out": 285.6,
+   "I": -29.5,
+   "TP": -3.1,
+   "bytes": 9680896,
+   "channels": 2,
+   "secs": 284.9,
+   "I_in": -21.44,
+   "limits": {
+    "page": {
+     "gr1": 0.0032,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.36,
+     "peak": -0.58,
+     "I_out": -21.46,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 64.2,
+      "gr": 0.12
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.002,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.36,
+     "peak": -0.35,
+     "I_out": -21.46,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 64.2,
+      "gr": 0.08
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0053,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 5.36,
+     "peak": -0.71,
+     "I_out": -21.47,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 64.3,
+      "gr": 0.21
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0022,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 4.53,
+     "peak": 0.19,
+     "I_out": -21.45,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 64.2,
+      "gr": 0.09
+     }
+    }
+   },
+   "secs_taken": 12.1
+  },
+  {
+   "pool": "g78",
+   "id": "78_my-wild-irish-rose_dennis-otoole_gbia0463439a",
+   "f": "MY WILD IRISH ROSE - DENNIS O'TOOLE.mp3",
+   "gain": 7.9,
+   "gain0": 1.9,
+   "skip": 2.3,
+   "out": 193.8,
+   "I": -30.9,
+   "TP": -2.9,
+   "bytes": 5702624,
+   "channels": 2,
+   "secs": 191.5,
+   "I_in": -22.96,
+   "limits": {
+    "page": {
+     "gr1": 0.0035,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 5.78,
+     "peak": -0.5,
+     "I_out": -23,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 33.2,
+      "gr": 0.09
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0022,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.78,
+     "peak": -0.25,
+     "I_out": -22.99,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 33.2,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0058,
+     "gr3": 0.0017,
+     "gr6": 0,
+     "grMax": 5.78,
+     "peak": -0.62,
+     "I_out": -23.01,
+     "dI": -0.05,
+     "dBed": -0.02,
+     "worst": {
+      "at": 33.3,
+      "gr": 0.15
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0026,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 4.91,
+     "peak": 0.28,
+     "I_out": -22.99,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 33.2,
+      "gr": 0.07
+     }
+    }
+   },
+   "secs_taken": 8.5
+  },
+  {
+   "pool": "g78",
+   "id": "78_auld-lang-syne_auld-lang-syne_gbia0298939a",
+   "f": "AULD LANG SYNE - AULD LANG SYNE.mp3",
+   "gain": 7.7,
+   "gain0": 1.7,
+   "skip": 0.6,
+   "out": 178.9,
+   "I": -28.2,
+   "TP": -2.7,
+   "bytes": 4586935,
+   "channels": 2,
+   "secs": 178.3,
+   "I_in": -20.49,
+   "limits": {
+    "page": {
+     "gr1": 0.0029,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 5.61,
+     "peak": -0.56,
+     "I_out": -20.51,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 75,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0017,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 5.61,
+     "peak": -0.31,
+     "I_out": -20.51,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 75,
+      "gr": 0.05
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0048,
+     "gr3": 0.0005,
+     "gr6": 0,
+     "grMax": 5.61,
+     "peak": -0.69,
+     "I_out": -20.52,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 75.1,
+      "gr": 0.14
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0014,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.81,
+     "peak": 0.23,
+     "I_out": -20.5,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 75,
+      "gr": 0.06
+     }
+    }
+   },
+   "secs_taken": 8
+  },
+  {
+   "pool": "laugh",
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris51-05-27182ContractWorries.mp3",
+   "gain": 2.9,
+   "gain0": 0.8,
+   "skip": 1.5,
+   "out": 1760.6,
+   "I": -22.9,
+   "TP": -1.8,
+   "bytes": 28211224,
+   "channels": 1,
+   "secs": 1759.1,
+   "I_in": -19.98,
+   "limits": {
+    "page": {
+     "gr1": 0.0008,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.72,
+     "peak": -1.29,
+     "I_out": -20.01,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1237.2,
+      "gr": 0.07
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0005,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.72,
+     "peak": -1.12,
+     "I_out": -20,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 199.5,
+      "gr": 0.05
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0012,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.72,
+     "peak": -1.37,
+     "I_out": -20.02,
+     "dI": -0.04,
+     "dBed": -0.02,
+     "worst": {
+      "at": 1237.2,
+      "gr": 0.12
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.81,
+     "peak": -0.48,
+     "I_out": -19.99,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 1237,
+      "gr": 0.03
+     }
+    }
+   },
+   "secs_taken": 67.4
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Whistler_Singles",
+   "f": "Whistler_50-05-07_ep414_Fatal_Error.mp3",
+   "gain": 4.6,
+   "gain0": 0.1,
+   "skip": 0.2,
+   "out": 1766.1,
+   "I": -24.6,
+   "TP": -1.1,
+   "bytes": 28289213,
+   "channels": 1,
+   "secs": 1765.9,
+   "I_in": -19.96,
+   "limits": {
+    "page": {
+     "gr1": 0.0029,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 4.61,
+     "peak": -0.88,
+     "I_out": -20.09,
+     "dI": -0.13,
+     "dBed": -0.03,
+     "worst": {
+      "at": 849.6,
+      "gr": 0.55
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0022,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 4.6,
+     "peak": -0.66,
+     "I_out": -20.07,
+     "dI": -0.11,
+     "dBed": -0.02,
+     "worst": {
+      "at": 849.6,
+      "gr": 0.46
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0038,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.61,
+     "peak": -1,
+     "I_out": -20.11,
+     "dI": -0.15,
+     "dBed": -0.04,
+     "worst": {
+      "at": 849.6,
+      "gr": 0.67
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0012,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.77,
+     "peak": -0.06,
+     "I_out": -20.03,
+     "dI": -0.06,
+     "dBed": -0.01,
+     "worst": {
+      "at": 849.6,
+      "gr": 0.33
+     }
+    }
+   },
+   "secs_taken": 65
+  },
+  {
+   "pool": "midnight",
+   "id": "OTRR_Escape_Singles",
+   "f": "Escape_47-11-05_-013-_Evening_Primrose_-Elliott_Lewis-.mp3",
+   "gain": 2.9,
+   "gain0": 0,
+   "skip": 1.8,
+   "out": 1768.5,
+   "I": -22.9,
+   "TP": -0.4,
+   "bytes": 28324178,
+   "channels": 1,
+   "secs": 1766.7,
+   "I_in": -20,
+   "limits": {
+    "page": {
+     "gr1": 0.0033,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 4,
+     "peak": -1.05,
+     "I_out": -20.16,
+     "dI": -0.16,
+     "dBed": -0.04,
+     "worst": {
+      "at": 476,
+      "gr": 0.5
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0025,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 3.97,
+     "peak": -0.85,
+     "I_out": -20.14,
+     "dI": -0.14,
+     "dBed": -0.03,
+     "worst": {
+      "at": 476,
+      "gr": 0.38
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0045,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.04,
+     "peak": -1.15,
+     "I_out": -20.18,
+     "dI": -0.19,
+     "dBed": -0.05,
+     "worst": {
+      "at": 476,
+      "gr": 0.69
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0013,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.08,
+     "peak": -0.23,
+     "I_out": -20.08,
+     "dI": -0.08,
+     "dBed": -0.02,
+     "worst": {
+      "at": 476,
+      "gr": 0.29
+     }
+    }
+   },
+   "secs_taken": 64.5
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "artilleryman_whitman_64kb.mp3",
+   "gain": 8.8,
+   "gain0": 2.8,
+   "skip": 0.9,
+   "out": 207.6,
+   "I": -29.9,
+   "TP": -3.8,
+   "bytes": 1676143,
+   "channels": 1,
+   "secs": 206.7,
+   "I_in": -21.09,
+   "limits": {
+    "page": {
+     "gr1": 0.0072,
+     "gr3": 0.0023,
+     "gr6": 0,
+     "grMax": 5.99,
+     "peak": -0.69,
+     "I_out": -22.21,
+     "dI": -1.12,
+     "dBed": -0.25,
+     "worst": {
+      "at": 72.8,
+      "gr": 0.28
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0054,
+     "gr3": 0.0016,
+     "gr6": 0,
+     "grMax": 5.95,
+     "peak": -0.36,
+     "I_out": -22.05,
+     "dI": -0.96,
+     "dBed": -0.19,
+     "worst": {
+      "at": 72.8,
+      "gr": 0.23
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.01,
+     "gr3": 0.0034,
+     "gr6": 0,
+     "grMax": 6.02,
+     "peak": -0.87,
+     "I_out": -22.36,
+     "dI": -1.27,
+     "dBed": -0.32,
+     "worst": {
+      "at": 72.8,
+      "gr": 0.36
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0052,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 5.11,
+     "peak": 0.14,
+     "I_out": -21.92,
+     "dI": -0.83,
+     "dBed": -0.2,
+     "worst": {
+      "at": 72.8,
+      "gr": 0.2
+     }
+    }
+   },
+   "secs_taken": 8.3
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "casabianca_hemans_jh_64kb.mp3",
+   "gain": 6.1,
+   "gain0": 0.1,
+   "skip": 0,
+   "out": 113.6,
+   "I": -29.9,
+   "TP": -1.1,
+   "bytes": 909824,
+   "channels": 1,
+   "secs": 113.6,
+   "I_in": -23.77,
+   "limits": {
+    "page": {
+     "gr1": 0.0011,
+     "gr3": 0.0005,
+     "gr6": 0.0001,
+     "grMax": 6.57,
+     "peak": -1.21,
+     "I_out": -23.88,
+     "dI": -0.11,
+     "dBed": -0.02,
+     "worst": {
+      "at": 56.3,
+      "gr": 0.09
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0007,
+     "gr3": 0.0004,
+     "gr6": 0.0001,
+     "grMax": 6.57,
+     "peak": -0.87,
+     "I_out": -23.87,
+     "dI": -0.1,
+     "dBed": -0.01,
+     "worst": {
+      "at": 56.3,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0018,
+     "gr3": 0.0008,
+     "gr6": 0.0001,
+     "grMax": 6.57,
+     "peak": -1.39,
+     "I_out": -23.89,
+     "dI": -0.12,
+     "dBed": -0.03,
+     "worst": {
+      "at": 56.4,
+      "gr": 0.13
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0009,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.62,
+     "peak": -0.29,
+     "I_out": -23.87,
+     "dI": -0.1,
+     "dBed": -0.02,
+     "worst": {
+      "at": 56.3,
+      "gr": 0.07
+     }
+    }
+   },
+   "secs_taken": 4.8
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "tinternabbey_ww_wcd_64kb.mp3",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0.8,
+   "out": 83.7,
+   "I": -32.1,
+   "TP": -0.9,
+   "bytes": 670944,
+   "channels": 2,
+   "secs": 82.9,
+   "I_in": -26.11,
+   "limits": {
+    "page": {
+     "gr1": 0.0008,
+     "gr3": 0.0004,
+     "gr6": 0.0001,
+     "grMax": 6.6,
+     "peak": -1.16,
+     "I_out": -26.49,
+     "dI": -0.38,
+     "dBed": -0.03,
+     "worst": {
+      "at": 33.5,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0005,
+     "gr3": 0.0003,
+     "gr6": 0.0001,
+     "grMax": 6.6,
+     "peak": -0.89,
+     "I_out": -26.47,
+     "dI": -0.36,
+     "dBed": -0.02,
+     "worst": {
+      "at": 33.5,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0013,
+     "gr3": 0.0006,
+     "gr6": 0.0002,
+     "grMax": 6.59,
+     "peak": -1.3,
+     "I_out": -26.5,
+     "dI": -0.39,
+     "dBed": -0.04,
+     "worst": {
+      "at": 33.6,
+      "gr": 0.13
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0008,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.67,
+     "peak": -0.26,
+     "I_out": -26.46,
+     "dI": -0.34,
+     "dBed": -0.03,
+     "worst": {
+      "at": 33.5,
+      "gr": 0.07
+     }
+    }
+   },
+   "secs_taken": 3.9
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "kublai_khan_coleridge_py_64kb.mp3",
+   "gain": 8.7,
+   "gain0": 2.7,
+   "skip": 0,
+   "out": 219.2,
+   "I": -31.7,
+   "TP": -3.7,
+   "bytes": 1754624,
+   "channels": 2,
+   "secs": 219.2,
+   "I_in": -23.06,
+   "limits": {
+    "page": {
+     "gr1": 0.006,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 5.98,
+     "peak": -0.54,
+     "I_out": -23.34,
+     "dI": -0.27,
+     "dBed": -0.01,
+     "worst": {
+      "at": 105.4,
+      "gr": 0.22
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0045,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 5.97,
+     "peak": -0.19,
+     "I_out": -23.29,
+     "dI": -0.23,
+     "dBed": -0.01,
+     "worst": {
+      "at": 105.4,
+      "gr": 0.18
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0085,
+     "gr3": 0.0008,
+     "gr6": 0,
+     "grMax": 5.98,
+     "peak": -0.74,
+     "I_out": -23.38,
+     "dI": -0.32,
+     "dBed": -0.02,
+     "worst": {
+      "at": 105.4,
+      "gr": 0.29
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0023,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 5.12,
+     "peak": 0.28,
+     "I_out": -23.21,
+     "dI": -0.15,
+     "dBed": -0.01,
+     "worst": {
+      "at": 105.4,
+      "gr": 0.13
+     }
+    }
+   },
+   "secs_taken": 9.1
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "familiar_faces_lamb_py_64kb.mp3",
+   "gain": 10.6,
+   "gain0": 4.8,
+   "skip": 0,
+   "out": 121.1,
+   "I": -30.6,
+   "TP": -5.8,
+   "bytes": 969728,
+   "channels": 2,
+   "secs": 121.1,
+   "I_in": -20.08,
+   "limits": {
+    "page": {
+     "gr1": 0.033,
+     "gr3": 0.0057,
+     "gr6": 0,
+     "grMax": 5.75,
+     "peak": -0.61,
+     "I_out": -20.96,
+     "dI": -0.89,
+     "dBed": -0.05,
+     "worst": {
+      "at": 37.6,
+      "gr": 0.43
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0252,
+     "gr3": 0.0042,
+     "gr6": 0,
+     "grMax": 5.74,
+     "peak": -0.37,
+     "I_out": -20.82,
+     "dI": -0.75,
+     "dBed": -0.03,
+     "worst": {
+      "at": 37.6,
+      "gr": 0.33
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0456,
+     "gr3": 0.0078,
+     "gr6": 0,
+     "grMax": 5.78,
+     "peak": -0.73,
+     "I_out": -21.1,
+     "dI": -1.02,
+     "dBed": -0.07,
+     "worst": {
+      "at": 37.6,
+      "gr": 0.6
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0177,
+     "gr3": 0.0025,
+     "gr6": 0,
+     "grMax": 4.9,
+     "peak": 0.19,
+     "I_out": -20.62,
+     "dI": -0.55,
+     "dBed": -0.03,
+     "worst": {
+      "at": 37.6,
+      "gr": 0.27
+     }
+    }
+   },
+   "secs_taken": 5.4
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "irish_emigrant_selina_py_64kb.mp3",
+   "gain": 7.5,
+   "gain0": 1.8,
+   "skip": 0,
+   "out": 221.6,
+   "I": -27.5,
+   "TP": -2.8,
+   "bytes": 1774016,
+   "channels": 2,
+   "secs": 221.6,
+   "I_in": -20.09,
+   "limits": {
+    "page": {
+     "gr1": 0.022,
+     "gr3": 0.0028,
+     "gr6": 0,
+     "grMax": 5.84,
+     "peak": -0.73,
+     "I_out": -20.58,
+     "dI": -0.49,
+     "dBed": -0.03,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.41
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0167,
+     "gr3": 0.002,
+     "gr6": 0,
+     "grMax": 5.83,
+     "peak": -0.49,
+     "I_out": -20.51,
+     "dI": -0.42,
+     "dBed": -0.02,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.33
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0306,
+     "gr3": 0.0039,
+     "gr6": 0,
+     "grMax": 5.85,
+     "peak": -0.85,
+     "I_out": -20.66,
+     "dI": -0.57,
+     "dBed": -0.05,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.55
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0108,
+     "gr3": 0.0008,
+     "gr6": 0,
+     "grMax": 4.96,
+     "peak": 0.08,
+     "I_out": -20.37,
+     "dI": -0.28,
+     "dBed": -0.02,
+     "worst": {
+      "at": 4.5,
+      "gr": 0.27
+     }
+    }
+   },
+   "secs_taken": 9.3
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "love_age_peacock_py_64kb.mp3",
+   "gain": 6.9,
+   "gain0": 2.1,
+   "skip": 0,
+   "out": 218.9,
+   "I": -26.9,
+   "TP": -3.1,
+   "bytes": 1752320,
+   "channels": 2,
+   "secs": 218.9,
+   "I_in": -20.01,
+   "limits": {
+    "page": {
+     "gr1": 0.0179,
+     "gr3": 0.002,
+     "gr6": 0,
+     "grMax": 5.07,
+     "peak": -0.94,
+     "I_out": -20.42,
+     "dI": -0.41,
+     "dBed": -0.03,
+     "worst": {
+      "at": 147.4,
+      "gr": 0.35
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0137,
+     "gr3": 0.0015,
+     "gr6": 0,
+     "grMax": 5.04,
+     "peak": -0.71,
+     "I_out": -20.35,
+     "dI": -0.34,
+     "dBed": -0.02,
+     "worst": {
+      "at": 147.4,
+      "gr": 0.28
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0247,
+     "gr3": 0.0029,
+     "gr6": 0,
+     "grMax": 5.11,
+     "peak": -1.07,
+     "I_out": -20.5,
+     "dI": -0.49,
+     "dBed": -0.04,
+     "worst": {
+      "at": 147.5,
+      "gr": 0.45
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0082,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 4.18,
+     "peak": -0.12,
+     "I_out": -20.23,
+     "dI": -0.22,
+     "dBed": -0.02,
+     "worst": {
+      "at": 187.1,
+      "gr": 0.21
+     }
+    }
+   },
+   "secs_taken": 9
+  },
+  {
+   "pool": "poems",
+   "id": "short_poetry_001_librivox",
+   "f": "abou_hunt_py_64kb.mp3",
+   "gain": 5.1,
+   "gain0": 0.5,
+   "skip": 0,
+   "out": 108.9,
+   "I": -25.1,
+   "TP": -1.5,
+   "bytes": 872576,
+   "channels": 2,
+   "secs": 108.9,
+   "I_in": -20.11,
+   "limits": {
+    "page": {
+     "gr1": 0.0048,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 4.64,
+     "peak": -0.78,
+     "I_out": -20.22,
+     "dI": -0.11,
+     "dBed": -0.03,
+     "worst": {
+      "at": 19,
+      "gr": 0.07
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.003,
+     "gr3": 0.0004,
+     "gr6": 0,
+     "grMax": 4.64,
+     "peak": -0.55,
+     "I_out": -20.19,
+     "dI": -0.09,
+     "dBed": -0.02,
+     "worst": {
+      "at": 19,
+      "gr": 0.05
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0077,
+     "gr3": 0.0009,
+     "gr6": 0,
+     "grMax": 4.64,
+     "peak": -0.89,
+     "I_out": -20.25,
+     "dI": -0.14,
+     "dBed": -0.04,
+     "worst": {
+      "at": 19,
+      "gr": 0.12
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0023,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 3.82,
+     "peak": 0.02,
+     "I_out": -20.17,
+     "dI": -0.06,
+     "dBed": -0.02,
+     "worst": {
+      "at": 19,
+      "gr": 0.05
+     }
+    }
+   },
+   "secs_taken": 4.8
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_X_Minus_One_Singles",
+   "f": "XMinusOne57-07-18103TheMerchantsOfVenus.mp3",
+   "gain": 2.8,
+   "gain0": 0,
+   "skip": 0,
+   "out": 1310.1,
+   "I": -22.8,
+   "TP": -0.9,
+   "bytes": 10432706,
+   "channels": 1,
+   "secs": 1310.1,
+   "I_in": -20.04,
+   "limits": {
+    "page": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.47,
+     "peak": -1.26,
+     "I_out": -20.06,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 44.7,
+      "gr": 0.2
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.47,
+     "peak": -1.09,
+     "I_out": -20.05,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 44.7,
+      "gr": 0.13
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.47,
+     "peak": -1.35,
+     "I_out": -20.06,
+     "dI": -0.02,
+     "dBed": 0,
+     "worst": {
+      "at": 44.8,
+      "gr": 0.31
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.56,
+     "peak": -0.43,
+     "I_out": -20.05,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 44.1,
+      "gr": 0.08
+     }
+    }
+   },
+   "secs_taken": 47.6
+  },
+  {
+   "pool": "rocket",
+   "id": "OTRR_Planet_Man_Ver2_Singles",
+   "f": "Planet_Man_50-xx-xx_ep06_Discussing_Marston.mp3",
+   "gain": 1.9,
+   "gain0": 0,
+   "skip": 0,
+   "out": 718.1,
+   "I": -21.9,
+   "TP": -0.9,
+   "bytes": 2903833,
+   "channels": 1,
+   "secs": 718.1,
+   "I_in": -20.04,
+   "limits": {
+    "page": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.58,
+     "peak": -1.4,
+     "I_out": -20.06,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 540.3,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.58,
+     "peak": -1.23,
+     "I_out": -20.06,
+     "dI": -0.02,
+     "dBed": 0,
+     "worst": {
+      "at": 540.3,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0006,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.59,
+     "peak": -1.48,
+     "I_out": -20.06,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 540.3,
+      "gr": 0.11
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.69,
+     "peak": -0.55,
+     "I_out": -20.04,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 289.5,
+      "gr": 0.03
+     }
+    }
+   },
+   "secs_taken": 26.5
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs.mp3",
+   "gain": 3.2,
+   "gain0": 0,
+   "skip": 1.8,
+   "out": 1467.7,
+   "I": -23.2,
+   "TP": -0.5,
+   "bytes": 24013252,
+   "channels": 2,
+   "secs": 1465.9,
+   "I_in": -19.96,
+   "limits": {
+    "page": {
+     "gr1": 0.0012,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.07,
+     "peak": -1.15,
+     "I_out": -20.21,
+     "dI": -0.25,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1023.3,
+      "gr": 1.29
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0011,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 4.1,
+     "peak": -0.96,
+     "I_out": -20.19,
+     "dI": -0.23,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1023.3,
+      "gr": 1.19
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0013,
+     "gr3": 0.0003,
+     "gr6": 0,
+     "grMax": 4.08,
+     "peak": -1.24,
+     "I_out": -20.22,
+     "dI": -0.26,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1023.3,
+      "gr": 1.41
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0009,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.16,
+     "peak": -0.27,
+     "I_out": -20.13,
+     "dI": -0.17,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1023.3,
+      "gr": 0.84
+     }
+    }
+   },
+   "secs_taken": 57.2
+  },
+  {
+   "pool": "saddle",
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1959-09-13 (043) Treasure Hunt.mp3",
+   "gain": 2.6,
+   "gain0": 0,
+   "skip": 1.8,
+   "out": 1467.6,
+   "I": -22.6,
+   "TP": -0.5,
+   "bytes": 24007381,
+   "channels": 2,
+   "secs": 1465.8,
+   "I_in": -20.02,
+   "limits": {
+    "page": {
+     "gr1": 0.0005,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.54,
+     "peak": -1.2,
+     "I_out": -20.09,
+     "dI": -0.07,
+     "dBed": 0,
+     "worst": {
+      "at": 1146.3,
+      "gr": 0.39
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.53,
+     "peak": -1,
+     "I_out": -20.09,
+     "dI": -0.06,
+     "dBed": 0,
+     "worst": {
+      "at": 1146.3,
+      "gr": 0.35
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0006,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 3.54,
+     "peak": -1.31,
+     "I_out": -20.1,
+     "dI": -0.08,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1146.3,
+      "gr": 0.45
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.65,
+     "peak": -0.34,
+     "I_out": -20.06,
+     "dI": -0.04,
+     "dBed": 0,
+     "worst": {
+      "at": 1146.3,
+      "gr": 0.2
+     }
+    }
+   },
+   "secs_taken": 56.9
+  },
+  {
+   "pool": "shows",
+   "id": "ymsb2006-05-09.flac16",
+   "f": "ymsb2006-05-09t01.mp3",
+   "gain": 1.4,
+   "gain0": 0,
+   "skip": 0,
+   "out": 130.7,
+   "I": -30.3,
+   "TP": -5.7,
+   "bytes": 3050496,
+   "channels": 2,
+   "secs": 130.7,
+   "I_in": -28.94,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -4.35,
+     "I_out": -28.94,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 127.7,
+      "gr": 0
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -4.35,
+     "I_out": -28.94,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 127.7,
+      "gr": 0
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -4.35,
+     "I_out": -28.94,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 127.7,
+      "gr": 0
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -4.35,
+     "I_out": -28.94,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 7
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "open_window_saki_mh_64kb.mp3",
+   "gain": 6.4,
+   "gain0": 0.4,
+   "skip": 0.3,
+   "out": 385.2,
+   "I": -26.4,
+   "TP": -1.4,
+   "bytes": 3112602,
+   "channels": 1,
+   "secs": 384.9,
+   "I_in": -20.06,
+   "limits": {
+    "page": {
+     "gr1": 0.0114,
+     "gr3": 0.0025,
+     "gr6": 0,
+     "grMax": 5.95,
+     "peak": -0.43,
+     "I_out": -20.51,
+     "dI": -0.45,
+     "dBed": -0.15,
+     "worst": {
+      "at": 215.7,
+      "gr": 0.51
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0088,
+     "gr3": 0.0019,
+     "gr6": 0,
+     "grMax": 5.95,
+     "peak": -0.21,
+     "I_out": -20.45,
+     "dI": -0.39,
+     "dBed": -0.12,
+     "worst": {
+      "at": 215.7,
+      "gr": 0.4
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.016,
+     "gr3": 0.0033,
+     "gr6": 0,
+     "grMax": 5.96,
+     "peak": -0.6,
+     "I_out": -20.57,
+     "dI": -0.52,
+     "dBed": -0.18,
+     "worst": {
+      "at": 215.7,
+      "gr": 0.71
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0069,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 5.06,
+     "peak": 0.32,
+     "I_out": -20.35,
+     "dI": -0.29,
+     "dBed": -0.1,
+     "worst": {
+      "at": 215.7,
+      "gr": 0.3
+     }
+    }
+   },
+   "secs_taken": 14.7
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "cask_of_amontillado_poe_zw-rh_64kb.mp3",
+   "gain": 6.2,
+   "gain0": 0.2,
+   "skip": 2.3,
+   "out": 942.1,
+   "I": -27.1,
+   "TP": -1.2,
+   "bytes": 7560643,
+   "channels": 1,
+   "secs": 939.8,
+   "I_in": -20.99,
+   "limits": {
+    "page": {
+     "gr1": 0.0081,
+     "gr3": 0.0039,
+     "gr6": 0,
+     "grMax": 6.32,
+     "peak": -0.94,
+     "I_out": -22.21,
+     "dI": -1.23,
+     "dBed": -0.16,
+     "worst": {
+      "at": 808.2,
+      "gr": 2.48
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0071,
+     "gr3": 0.0033,
+     "gr6": 0,
+     "grMax": 6.32,
+     "peak": -0.73,
+     "I_out": -22.12,
+     "dI": -1.13,
+     "dBed": -0.14,
+     "worst": {
+      "at": 808.2,
+      "gr": 2.21
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0097,
+     "gr3": 0.0046,
+     "gr6": 0,
+     "grMax": 6.32,
+     "peak": -1.06,
+     "I_out": -22.29,
+     "dI": -1.31,
+     "dBed": -0.19,
+     "worst": {
+      "at": 808.3,
+      "gr": 2.75
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0063,
+     "gr3": 0.0019,
+     "gr6": 0,
+     "grMax": 5.38,
+     "peak": -0.07,
+     "I_out": -21.93,
+     "dI": -0.94,
+     "dBed": -0.14,
+     "worst": {
+      "at": 808.3,
+      "gr": 1.78
+     }
+    }
+   },
+   "secs_taken": 34.5
+  },
+  {
+   "pool": "stories",
+   "id": "stories_003_librivox",
+   "f": "quest_saki_ianish_64kb.mp3",
+   "gain": 6.2,
+   "gain0": 0.2,
+   "skip": 0,
+   "out": 754.5,
+   "I": -29.2,
+   "TP": -1.2,
+   "bytes": 6037266,
+   "channels": 1,
+   "secs": 754.5,
+   "I_in": -23.03,
+   "limits": {
+    "page": {
+     "gr1": 0.001,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 6.22,
+     "peak": -0.79,
+     "I_out": -23.11,
+     "dI": -0.08,
+     "dBed": -0.03,
+     "worst": {
+      "at": 136.6,
+      "gr": 0.14
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0007,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.19,
+     "peak": -0.52,
+     "I_out": -23.09,
+     "dI": -0.07,
+     "dBed": -0.02,
+     "worst": {
+      "at": 136.6,
+      "gr": 0.11
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0015,
+     "gr3": 0.0002,
+     "gr6": 0,
+     "grMax": 6.24,
+     "peak": -0.93,
+     "I_out": -23.12,
+     "dI": -0.1,
+     "dBed": -0.04,
+     "worst": {
+      "at": 624.4,
+      "gr": 0.2
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0006,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.29,
+     "peak": 0.04,
+     "I_out": -23.08,
+     "dI": -0.05,
+     "dBed": -0.02,
+     "worst": {
+      "at": 624.3,
+      "gr": 0.09
+     }
+    }
+   },
+   "secs_taken": 28.1
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "deacon_lampton_cs_64kb.mp3",
+   "gain": 6.1,
+   "gain0": 0.1,
+   "skip": 0,
+   "out": 1040.9,
+   "I": -27.7,
+   "TP": -1.1,
+   "bytes": 8328509,
+   "channels": 1,
+   "secs": 1040.9,
+   "I_in": -21.6,
+   "limits": {
+    "page": {
+     "gr1": 0.0001,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.54,
+     "peak": -1.31,
+     "I_out": -21.61,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 992.2,
+      "gr": 0.09
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0001,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.54,
+     "peak": -1.05,
+     "I_out": -21.61,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 992.2,
+      "gr": 0.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0002,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.54,
+     "peak": -1.45,
+     "I_out": -21.61,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 992.3,
+      "gr": 0.14
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 5.6,
+     "peak": -0.39,
+     "I_out": -21.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 992.2,
+      "gr": 0.07
+     }
+    }
+   },
+   "secs_taken": 38.2
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "children_zodiac_kipling_ce_64kb.mp3",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0.8,
+   "out": 2530.7,
+   "I": -26.1,
+   "TP": 0.1,
+   "bytes": 20295109,
+   "channels": 1,
+   "secs": 1800,
+   "I_in": -19.76,
+   "limits": {
+    "page": {
+     "gr1": 0.0051,
+     "gr3": 0.0011,
+     "gr6": 0.0001,
+     "grMax": 7.26,
+     "peak": -0.69,
+     "I_out": -20.14,
+     "dI": -0.38,
+     "dBed": -0.06,
+     "worst": {
+      "at": 110.6,
+      "gr": 1.25
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0039,
+     "gr3": 0.0009,
+     "gr6": 0,
+     "grMax": 7.26,
+     "peak": -0.38,
+     "I_out": -20.1,
+     "dI": -0.35,
+     "dBed": -0.04,
+     "worst": {
+      "at": 110.6,
+      "gr": 1.07
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.007,
+     "gr3": 0.0015,
+     "gr6": 0.0001,
+     "grMax": 7.3,
+     "peak": -0.85,
+     "I_out": -20.18,
+     "dI": -0.42,
+     "dBed": -0.08,
+     "worst": {
+      "at": 110.6,
+      "gr": 1.54
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0027,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 6.34,
+     "peak": 0.16,
+     "I_out": -20.02,
+     "dI": -0.26,
+     "dBed": -0.04,
+     "worst": {
+      "at": 110.1,
+      "gr": 0.99
+     }
+    }
+   },
+   "secs_taken": 65.5
+  },
+  {
+   "pool": "stories",
+   "id": "stories_001_librivox",
+   "f": "pigs_is_pigs_butler_blb_64kb.mp3",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0.3,
+   "out": 1391.8,
+   "I": -29.8,
+   "TP": -0.6,
+   "bytes": 11145554,
+   "channels": 1,
+   "secs": 1391.5,
+   "I_in": -23.83,
+   "limits": {
+    "page": {
+     "gr1": 0.0004,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.06,
+     "peak": -0.72,
+     "I_out": -23.88,
+     "dI": -0.05,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1355.2,
+      "gr": 0.3
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0003,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.08,
+     "peak": -0.44,
+     "I_out": -23.87,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1355.2,
+      "gr": 0.22
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0006,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 6.04,
+     "peak": -0.84,
+     "I_out": -23.89,
+     "dI": -0.06,
+     "dBed": -0.02,
+     "worst": {
+      "at": 1355.3,
+      "gr": 0.42
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0002,
+     "gr3": 0.0001,
+     "gr6": 0,
+     "grMax": 5.15,
+     "peak": 0.17,
+     "I_out": -23.86,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 1355.2,
+      "gr": 0.2
+     }
+    }
+   },
+   "secs_taken": 54.6
+  },
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "little_match_girl_anderson_th_64kb.mp3",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0,
+   "out": 413.9,
+   "I": -26.3,
+   "TP": -0.8,
+   "bytes": 3312385,
+   "channels": 1,
+   "secs": 413.9,
+   "I_in": -20.33,
+   "limits": {
+    "page": {
+     "gr1": 0.0085,
+     "gr3": 0.0014,
+     "gr6": 0,
+     "grMax": 6.03,
+     "peak": -0.54,
+     "I_out": -20.62,
+     "dI": -0.29,
+     "dBed": -0.11,
+     "worst": {
+      "at": 389.8,
+      "gr": 0.21
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0067,
+     "gr3": 0.001,
+     "gr6": 0,
+     "grMax": 6.02,
+     "peak": -0.27,
+     "I_out": -20.58,
+     "dI": -0.25,
+     "dBed": -0.09,
+     "worst": {
+      "at": 389.8,
+      "gr": 0.17
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0116,
+     "gr3": 0.002,
+     "gr6": 0,
+     "grMax": 6.03,
+     "peak": -0.68,
+     "I_out": -20.66,
+     "dI": -0.33,
+     "dBed": -0.14,
+     "worst": {
+      "at": 389.8,
+      "gr": 0.29
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0046,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 5.2,
+     "peak": 0.27,
+     "I_out": -20.51,
+     "dI": -0.18,
+     "dBed": -0.07,
+     "worst": {
+      "at": 389.6,
+      "gr": 0.15
+     }
+    }
+   },
+   "secs_taken": 16
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0,
+   "out": 1852.2,
+   "I": -29,
+   "TP": -0.5,
+   "bytes": 14818804,
+   "channels": 1,
+   "secs": 1800,
+   "I_in": -23.06,
+   "limits": {
+    "page": {
+     "gr1": 0.0467,
+     "gr3": 0.0029,
+     "gr6": 0,
+     "grMax": 6.79,
+     "peak": -0.66,
+     "I_out": -23.92,
+     "dI": -0.86,
+     "dBed": -0.36,
+     "worst": {
+      "at": 1529.8,
+      "gr": 0.88
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0376,
+     "gr3": 0.0022,
+     "gr6": 0,
+     "grMax": 6.79,
+     "peak": -0.42,
+     "I_out": -23.84,
+     "dI": -0.77,
+     "dBed": -0.32,
+     "worst": {
+      "at": 1529.8,
+      "gr": 0.76
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.061,
+     "gr3": 0.0038,
+     "gr6": 0,
+     "grMax": 6.79,
+     "peak": -0.79,
+     "I_out": -24.02,
+     "dI": -0.96,
+     "dBed": -0.41,
+     "worst": {
+      "at": 1529.8,
+      "gr": 1.07
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0142,
+     "gr3": 0.0007,
+     "gr6": 0,
+     "grMax": 5.87,
+     "peak": 0.15,
+     "I_out": -23.5,
+     "dI": -0.44,
+     "dBed": -0.1,
+     "worst": {
+      "at": 644.5,
+      "gr": 0.45
+     }
+    }
+   },
+   "secs_taken": 65.3
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay.mp3",
+   "gain": 3.4,
+   "gain0": 0,
+   "skip": 1.8,
+   "out": 1768.2,
+   "I": -23.4,
+   "TP": 0,
+   "bytes": 28363768,
+   "channels": 1,
+   "secs": 1766.4,
+   "I_in": -20.05,
+   "limits": {
+    "page": {
+     "gr1": 0.0066,
+     "gr3": 0.0014,
+     "gr6": 0,
+     "grMax": 4.79,
+     "peak": -0.89,
+     "I_out": -20.6,
+     "dI": -0.55,
+     "dBed": -0.1,
+     "worst": {
+      "at": 694,
+      "gr": 1.19
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0053,
+     "gr3": 0.0011,
+     "gr6": 0,
+     "grMax": 4.75,
+     "peak": -0.67,
+     "I_out": -20.55,
+     "dI": -0.5,
+     "dBed": -0.09,
+     "worst": {
+      "at": 694,
+      "gr": 1.06
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0087,
+     "gr3": 0.0018,
+     "gr6": 0,
+     "grMax": 4.82,
+     "peak": -1.01,
+     "I_out": -20.66,
+     "dI": -0.61,
+     "dBed": -0.13,
+     "worst": {
+      "at": 694,
+      "gr": 1.36
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0038,
+     "gr3": 0.0006,
+     "gr6": 0,
+     "grMax": 3.86,
+     "peak": -0.08,
+     "I_out": -20.43,
+     "dI": -0.38,
+     "dBed": -0.07,
+     "worst": {
+      "at": 693.4,
+      "gr": 0.81
+     }
+    }
+   },
+   "secs_taken": 74.2
+  },
+  {
+   "pool": "whodunit",
+   "id": "OTRR_Richard_Diamond_Private_Detective_Singles",
+   "f": "Richard Diamond 49-07-02 (011) The Bloody Hat Case.mp3",
+   "gain": 1.5,
+   "gain0": 0,
+   "skip": 1.8,
+   "out": 1768.1,
+   "I": -21.5,
+   "TP": 0,
+   "bytes": 28325964,
+   "channels": 1,
+   "secs": 1766.3,
+   "I_in": -20.02,
+   "limits": {
+    "page": {
+     "gr1": 0.0006,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.88,
+     "peak": -1.16,
+     "I_out": -20.08,
+     "dI": -0.05,
+     "dBed": -0.01,
+     "worst": {
+      "at": 274,
+      "gr": 0.22
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.88,
+     "peak": -0.99,
+     "I_out": -20.07,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 274,
+      "gr": 0.17
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.88,
+     "peak": -1.25,
+     "I_out": -20.1,
+     "dI": -0.07,
+     "dBed": -0.02,
+     "worst": {
+      "at": 274,
+      "gr": 0.3
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.05,
+     "peak": -0.36,
+     "I_out": -20.04,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 274,
+      "gr": 0.05
+     }
+    }
+   },
+   "secs_taken": 124.1
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-01-AllegroConBrio.mp3",
+   "gain": 2.4,
+   "gain0": 0,
+   "skip": 0,
+   "out": 281.1,
+   "I": -20.8,
+   "TP": -1,
+   "bytes": 5829120,
+   "channels": 2,
+   "secs": 281.1,
+   "I_in": -18.44,
+   "limits": {
+    "page": {
+     "gr1": 0.0007,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.96,
+     "peak": -1.24,
+     "I_out": -18.47,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 275.6,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0005,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.96,
+     "peak": -1.06,
+     "I_out": -18.46,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 275.6,
+      "gr": 0.07
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0011,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.97,
+     "peak": -1.34,
+     "I_out": -18.48,
+     "dI": -0.04,
+     "dBed": -0.01,
+     "worst": {
+      "at": 275.6,
+      "gr": 0.11
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.06,
+     "peak": -0.41,
+     "I_out": -18.45,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 275.5,
+      "gr": 0.04
+     }
+    }
+   },
+   "secs_taken": 11.8
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-02-AdagioMaNonTroppo.mp3",
+   "gain": 2.4,
+   "gain0": 0,
+   "skip": 0,
+   "out": 421.8,
+   "I": -24,
+   "TP": -4.5,
+   "bytes": 8419840,
+   "channels": 2,
+   "secs": 421.8,
+   "I_in": -21.61,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -2.12,
+     "I_out": -21.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -2.12,
+     "I_out": -21.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -2.12,
+     "I_out": -21.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -2.12,
+     "I_out": -21.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 17.2
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-03-ScherzoAllegro.mp3",
+   "gain": 2.4,
+   "gain0": 0,
+   "skip": 0,
+   "out": 252.6,
+   "I": -21.5,
+   "TP": -3.4,
+   "bytes": 5201408,
+   "channels": 2,
+   "secs": 252.6,
+   "I_in": -19.13,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.86,
+     "peak": -1.7,
+     "I_out": -19.13,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 143,
+      "gr": 0.01
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.86,
+     "peak": -1.59,
+     "I_out": -19.13,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 143,
+      "gr": 0.01
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.86,
+     "peak": -1.76,
+     "I_out": -19.14,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 45.3,
+      "gr": 0.01
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.03,
+     "peak": -0.98,
+     "I_out": -19.13,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 45.3,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 10.8
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Beethoven_StringQuartetNo.6inBFlatMajorOp.18/LudwigVanBeethoven-StringQuartetNo.6InBFlatMajorOp.18No.6-04-adagioLaMalinconia.mp3",
+   "gain": 2.4,
+   "gain0": 0,
+   "skip": 0,
+   "out": 490.5,
+   "I": -23,
+   "TP": -2.7,
+   "bytes": 9981952,
+   "channels": 2,
+   "secs": 490.5,
+   "I_in": -20.61,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.33,
+     "peak": -1.53,
+     "I_out": -20.62,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 486.2,
+      "gr": 0.02
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.33,
+     "peak": -1.41,
+     "I_out": -20.62,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 486.2,
+      "gr": 0.01
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0001,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.33,
+     "peak": -1.6,
+     "I_out": -20.62,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 486.2,
+      "gr": 0.03
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.51,
+     "peak": -0.77,
+     "I_out": -20.61,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 486.2,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 19.7
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-01-AllegroMaNonTroppo.mp3",
+   "gain": 2.2,
+   "gain0": 0,
+   "skip": 0,
+   "out": 475.6,
+   "I": -21.7,
+   "TP": -3.5,
+   "bytes": 9767936,
+   "channels": 2,
+   "secs": 475.6,
+   "I_in": -19.47,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.54,
+     "peak": -1.8,
+     "I_out": -19.47,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 79.9,
+      "gr": 0
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.54,
+     "peak": -1.72,
+     "I_out": -19.47,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 79.9,
+      "gr": 0
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.54,
+     "peak": -1.84,
+     "I_out": -19.47,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 79.9,
+      "gr": 0.01
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -1.35,
+     "I_out": -19.47,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 19.1
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-02-Lento.mp3",
+   "gain": 2.2,
+   "gain0": 0,
+   "skip": 0,
+   "out": 471.5,
+   "I": -23.9,
+   "TP": -3.7,
+   "bytes": 9196544,
+   "channels": 2,
+   "secs": 471.5,
+   "I_in": -21.69,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.37,
+     "peak": -1.83,
+     "I_out": -21.7,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 116.2,
+      "gr": 0
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.37,
+     "peak": -1.8,
+     "I_out": -21.7,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 116.2,
+      "gr": 0
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.37,
+     "peak": -1.86,
+     "I_out": -21.7,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 116.2,
+      "gr": 0
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -1.53,
+     "I_out": -21.69,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 18.8
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-03-MoltoVivace.mp3",
+   "gain": 2.2,
+   "gain0": 0,
+   "skip": 0,
+   "out": 250,
+   "I": -22.7,
+   "TP": -4,
+   "bytes": 5088768,
+   "channels": 2,
+   "secs": 250,
+   "I_in": -20.54,
+   "limits": {
+    "page": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.14,
+     "peak": -1.92,
+     "I_out": -20.54,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 107.4,
+      "gr": 0
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.14,
+     "peak": -1.91,
+     "I_out": -20.54,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 107.4,
+      "gr": 0
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0.14,
+     "peak": -1.94,
+     "I_out": -20.54,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 107.4,
+      "gr": 0
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 0,
+     "peak": -1.81,
+     "I_out": -20.54,
+     "dI": 0,
+     "dBed": 0,
+     "worst": {
+      "at": 0,
+      "gr": 0
+     }
+    }
+   },
+   "secs_taken": 10.4
+  },
+  {
+   "pool": "works",
+   "id": "MusopenCollectionAsFlac",
+   "f": "Dvorak_StringQuartetNo.12inFMajorOp.96/AntonnDvorak-StringQuartetNo.12InFMajorOp.96American-04-Finale-VivaceMaNonTroppo.mp3",
+   "gain": 2.2,
+   "gain0": 0,
+   "skip": 0,
+   "out": 350.3,
+   "I": -21,
+   "TP": -0.9,
+   "bytes": 7378944,
+   "channels": 2,
+   "secs": 350.3,
+   "I_in": -18.78,
+   "limits": {
+    "page": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.7,
+     "peak": -1.25,
+     "I_out": -18.8,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 342.6,
+      "gr": 0.08
+     }
+    },
+    "release 0.05 s": {
+     "gr1": 0.0003,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.7,
+     "peak": -1.11,
+     "I_out": -18.8,
+     "dI": -0.02,
+     "dBed": -0.01,
+     "worst": {
+      "at": 342.6,
+      "gr": 0.07
+     }
+    },
+    "release 0.2 s": {
+     "gr1": 0.0004,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 2.71,
+     "peak": -1.33,
+     "I_out": -18.81,
+     "dI": -0.03,
+     "dBed": -0.01,
+     "worst": {
+      "at": 342.6,
+      "gr": 0.11
+     }
+    },
+    "threshold -1 dBFS": {
+     "gr1": 0.0002,
+     "gr3": 0,
+     "gr6": 0,
+     "grMax": 1.82,
+     "peak": -0.43,
+     "I_out": -18.79,
+     "dI": -0.01,
+     "dBed": 0,
+     "worst": {
+      "at": 342.6,
+      "gr": 0.05
+     }
+    }
+   },
+   "secs_taken": 14.3
+  }
+ ],
+ "lag_frames": 288,
+ "chrome": "Google Chrome 158.0.8127.36",
+ "finished": "2026-11-27T02:23:25.347Z"
+}

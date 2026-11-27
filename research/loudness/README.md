@@ -22,3 +22,7 @@ Scoping for the roadmap's "Loudness and trims": before building level matching a
 ## Every file
 
 `all.json` lists all 1,069 files in the catalog as of 26 Nov (`node tools/loudness_survey.js pick all`), each once, under the first pool it appears in (KTPR's vault tracks are tracks of its concerts, so they're listed as concerts). A workflow measured them on 26 Nov, 50 at a time, reusing the 132 from the sample run; none failed. The measurements now live in `catalog/measurements.json`, where the weekly Archive check adds any new or changed file, and `tools/levels.js` turns them into `catalog/levels.json`.
+
+## The limiter
+
+`limiter/` checks the page's limiter on real recordings before it airs: `files.json` lists the 50 files that lean on it most (`node tools/limiter_check.js pick`), `results.json` what Chrome's own limiter did to each at its levels-table gain (`node tools/limiter_check.js run`, on GitHub's servers by the "Limiter check" workflow on its own branch, since removed), and [limiter/FINDINGS.md](limiter/FINDINGS.md) what that means (`node tools/limiter_check.js report` prints its tables). `node tools/limiter_check.js selftest` checks the method on synthetic recordings: a tone under the threshold comes through untouched, a tone over it is held near it, a click is held under full scale while the music around it loses next to nothing, and the loudness meter agrees with `tools/lufs.js`.

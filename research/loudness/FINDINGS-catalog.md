@@ -1,4 +1,4 @@
-# Loudness: figures for the whole catalog (26 Nov 2026)
+# Loudness: figures for the whole catalog (26 Nov 2026; levels-table columns added 27 Nov)
 
 1069 files measured. Measured 2026-11-26 with ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers.
 
@@ -26,20 +26,20 @@ Two files from the same Archive item differ by a median 2.6 LU (20544 pairs; 90t
 
 ## 2. The jumps a listener hears
 
-Each change from one recording to the next in a week of each station's schedule (station IDs between them skipped), with the level change expected from the measured files that could make it: now, with one gain per pool, and with one gain per file aiming at -20 LUFS but boosting no file past -1 dBTP true peak (no limiter).
+Each change from one recording to the next in a week of each station's schedule (station IDs between them skipped), with the level change expected from the measured files that could make it: now, with one gain per pool, and with one gain per file aiming at -20 LUFS but boosting no file past -1 dBTP true peak (no limiter); then as catalog/levels.json has it, where programs in parts share a gain (so a movement-to-movement change stays as recorded), without the limiter and with it.
 
-| Station | Changes a week | Measured | Median jump now (LU) | Over 3 LU now | Over 6 LU now | Over 3 LU, gain per pool | Over 3 LU, gain per file | Biggest kinds of change now (median jump) |
-|---|---|---|---|---|---|---|---|---|
-| WHOD | 774 | 100% | 3.1 | 50% | 24% | 29% | 8% | ads → same item ×197 (0.8); whodunit → ads ×186 (4.9); whodunit → whodunit ×150 (2.8) |
-| WMID | 926 | 100% | 3.2 | 52% | 28% | 33% | 10% | midnight → ads ×258 (4.4); ads → same item ×244 (0.8); ads → midnight ×188 (4.4) |
-| KRKT | 1200 | 100% | 3.5 | 55% | 18% | 18% | 11% | rocket → ads ×344 (4.4); ads → same item ×310 (0.8); ads → rocket ×245 (4.4) |
-| KPRY | 902 | 100% | 3.3 | 52% | 26% | 31% | 14% | saddle → ads ×232 (4.3); ads → same item ×214 (0.8); ads → saddle ×121 (4.3) |
-| WHAH | 525 | 100% | 2.6 | 44% | 22% | 43% | 2% | laugh → laugh ×189 (3.5); laugh → ads ×146 (2.3); ads → laugh ×136 (2.3) |
-| WGRM | 3006 | 100% | 4.9 | 67% | 41% | 67% | 56% | g78 → g78 ×3006 (4.9) |
-| WPGE | 1207 | 100% | 3.3 | 54% | 25% | 53% | 39% | stories → poems ×364 (3.2); poems → stories ×363 (3.2); poems → poems ×220 (4.0) |
-| WNOC | 1718 | 100% | 3.2 | 53% | 22% | 53% | 1% | works → same item ×874 (3.2); chopin → same item ×297 (3.2); works → chopin ×274 (3.2) |
-| KFRE | 2141 | 100% | 3.1 | 50% | 19% | 50% | 0% | free → free ×1964 (3.3); free → same item ×177 (1.4) |
-| KTPR | 1677 | 100% | 1.9 | 31% | 9% | 31% | 1% | shows → same item ×1393 (1.7); shows → shows ×284 (3.3) |
+| Station | Changes a week | Measured | Median jump now (LU) | Over 3 LU now | Over 6 LU now | Over 3 LU, gain per pool | Over 3 LU, gain per file | Over 3 LU, levels table | With the limiter | Biggest kinds of change now (median jump) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| WHOD | 774 | 100% | 3.1 | 50% | 24% | 29% | 8% | 8% | 1% | ads → same item ×197 (0.8); whodunit → ads ×186 (4.9); whodunit → whodunit ×150 (2.8) |
+| WMID | 926 | 100% | 3.2 | 52% | 28% | 33% | 10% | 10% | 1% | midnight → ads ×258 (4.4); ads → same item ×244 (0.8); ads → midnight ×188 (4.4) |
+| KRKT | 1200 | 100% | 3.5 | 55% | 18% | 18% | 11% | 11% | 2% | rocket → ads ×344 (4.4); ads → same item ×310 (0.8); ads → rocket ×245 (4.4) |
+| KPRY | 902 | 100% | 3.3 | 52% | 26% | 31% | 14% | 14% | 2% | saddle → ads ×232 (4.3); ads → same item ×214 (0.8); ads → saddle ×121 (4.3) |
+| WHAH | 525 | 100% | 2.6 | 44% | 22% | 43% | 2% | 2% | 0% | laugh → laugh ×189 (3.5); laugh → ads ×146 (2.3); ads → laugh ×136 (2.3) |
+| WGRM | 3006 | 100% | 4.9 | 67% | 41% | 67% | 56% | 56% | 12% | g78 → g78 ×3006 (4.9) |
+| WPGE | 1207 | 100% | 3.3 | 54% | 25% | 53% | 39% | 39% | 7% | stories → poems ×364 (3.2); poems → stories ×363 (3.2); poems → poems ×220 (4.0) |
+| WNOC | 1718 | 100% | 3.2 | 53% | 22% | 53% | 1% | 24% | 23% | works → same item ×874 (3.2); chopin → same item ×297 (3.2); works → chopin ×274 (3.2) |
+| KFRE | 2141 | 100% | 3.1 | 50% | 19% | 50% | 0% | 0% | 0% | free → free ×1964 (3.3); free → same item ×177 (1.4) |
+| KTPR | 1677 | 100% | 1.9 | 31% | 9% | 31% | 1% | 27% | 27% | shows → same item ×1393 (1.7); shows → shows ×284 (3.3) |
 
 A change within one Archive item (a concert's next track, a work's next movement) is measured from pairs of sampled files from the same item; 938 sampled files share an item with another. Left out for want of such a pair: nothing.
 
