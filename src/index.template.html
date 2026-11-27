@@ -593,9 +593,14 @@ function synth(sec, notes) {
   }
   return out;
 }
-const idPCM = (S) => synth(ID + 2, S.motif.flatMap((hz, i) => [[0.05 + i * 0.33, hz, 1.5, 0, 0.3], [0.05 + i * 0.33, hz * 2, 0.5, 0, 0.05]]));
+// The page's own sounds play at the loudness the levels give the programs (-20 LUFS): as synthesized, the
+// chime measures about -26 LUFS and the interval tune about -35, so they're raised by these many dB
+// (tools/test_engine.js measures every station's). Built into the sound, so it holds on iPhone too.
+const SOUND_DB = { id: 6, interval: 15.2 };
+const louder = (pcm, db) => { const k = Math.pow(10, db / 20); for (let i = 0; i < pcm.length; i++) pcm[i] *= k; return pcm; };
+const idPCM = (S) => louder(synth(ID + 2, S.motif.flatMap((hz, i) => [[0.05 + i * 0.33, hz, 1.5, 0, 0.3], [0.05 + i * 0.33, hz * 2, 0.5, 0, 0.05]])), SOUND_DB.id);
 // The interval tune repeats to at least 6 s: phones treat very short sounds as one-off effects, not playback.
-function intervalPCM(S) { const step = 0.4, loop = S.tune.length * step + 0.6, reps = Math.ceil(6 / loop), notes = []; for (let r = 0; r < reps; r++) S.tune.forEach((hz, i) => { if (hz) notes.push([r * loop + 0.1 + i * step, hz, 0.9, 1, 0.16]); }); return { pcm: synth(reps * loop, notes), len: reps * loop }; }
+function intervalPCM(S) { const step = 0.4, loop = S.tune.length * step + 0.6, reps = Math.ceil(6 / loop), notes = []; for (let r = 0; r < reps; r++) S.tune.forEach((hz, i) => { if (hz) notes.push([r * loop + 0.1 + i * step, hz, 0.9, 1, 0.16]); }); return { pcm: louder(synth(reps * loop, notes), SOUND_DB.interval), len: reps * loop }; }
 const CLIPS = {};
 function clip(kind, S) {
   const key = kind + (S ? ':' + S.key : '');

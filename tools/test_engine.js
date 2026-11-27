@@ -178,6 +178,24 @@ for (const n of snaps) {
     console.log(`levels: ${T.files} files in catalog/levels.json, ${n} in this catalog; every station audits clean over weeks 0–2`);
   }
 }
+// The page's own sounds (the ID chime, the interval tune) play at the programs' loudness, -20 LUFS, for
+// every station, without clipping. The meter (tools/lufs.js) first checks itself against BS.1770's
+// reference: a 997 Hz tone at -20 dBFS peak in one channel reads -23.0 LUFS.
+{
+  const { lufs } = require('./lufs.js');
+  const ref = new Float64Array(48000 * 10).map((_, i) => 0.1 * Math.sin(2 * Math.PI * 997 * i / 48000));
+  if (Math.abs(lufs(ref, 48000).I + 23.0) > 0.1) bad(`loudness meter: the reference tone reads ${lufs(ref, 48000).I.toFixed(2)} LUFS, not -23.0`);
+  const snd = html.slice(html.indexOf('const SR = 16000;'), html.indexOf('const CLIPS = {};')).replace(/function wavURL[\s\S]*?\n}\n/, '');
+  const sounds = new Function('CAT', code + '\n' + snd + '\nreturn { idPCM, intervalPCM, SR };')(CAT);
+  const worst = [];
+  for (const S of STATIONS) for (const [kind, pcm] of [['ID chime', sounds.idPCM(S)], ['interval tune', sounds.intervalPCM(S).pcm]]) {
+    const m = lufs(Float64Array.from(pcm), sounds.SR);
+    worst.push(m.I);
+    if (Math.abs(m.I + 20) > 1) bad(`${S.call} ${kind}: ${m.I.toFixed(1)} LUFS, not within 1 LU of -20`);
+    if (m.peak > -1) bad(`${S.call} ${kind}: peaks at ${m.peak.toFixed(1)} dBFS`);
+  }
+  console.log(`station sounds: ${STATIONS.length * 2} measured, ${Math.min(...worst).toFixed(1)} to ${Math.max(...worst).toFixed(1)} LUFS`);
+}
 // Filler for a slot whose recording can't play: the station's own, never longer than the gap, close
 // to it once the gap is a few minutes, the same for the same seed, and without the files to skip.
 for (const S of STATIONS) {
