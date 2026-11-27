@@ -1,0 +1,28 @@
+# Renders listening clips for the held trims (research/loudness/remeasure/clips/manifest.json) and
+# commits them to this branch. Runs only on the trim-clips branch, so main and the site are untouched.
+name: Trim clips
+
+on:
+  push:
+    branches: [trim-clips]
+    paths: [research/loudness/remeasure/clips/manifest.json, research/loudness/remeasure/clips/render.py, .github/workflows/trim-clips.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  clips:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install ffmpeg
+        run: command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+      - name: Render the clips
+        run: python3 research/loudness/remeasure/clips/render.py
+      - name: Commit the clips
+        run: |
+          git add research/loudness/remeasure/clips
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Trim clips [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"

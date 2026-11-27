@@ -1,0 +1,2582 @@
+{
+ "note": "Held trims (TRIMS.md) that cut 0.5 s or more at an end: now vs proposed. Times are seconds into the file, as ffmpeg decodes it.",
+ "items": [
+  {
+   "id": "Rad2006-04-21.sbd.flac",
+   "f": "Rad2006-04-21.sbd.flac.d2t21.mp3",
+   "url": "https://archive.org/download/Rad2006-04-21.sbd.flac/Rad2006-04-21.sbd.flac.d2t21.mp3",
+   "pool": "shows",
+   "station": "KTPR",
+   "title": "Rad2006-04-21.sbd.flac.d2t21",
+   "gain": -3.2,
+   "dur": 106.1,
+   "bytes": 1970688,
+   "prog": -20.6,
+   "now": [
+    0,
+    106.1
+   ],
+   "proposed": [
+    0,
+    88
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      83,
+      96
+     ],
+     "b": [
+      83,
+      88
+     ],
+     "cut": 18.1,
+     "shown": 8
+    }
+   ],
+   "n": 1
+  },
+  {
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "url": "https://archive.org/download/story_5_librivox/beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "beauty and the beast beaumont t",
+   "gain": 7.8,
+   "dur": 1852.2,
+   "bytes": 14818804,
+   "prog": -9.6,
+   "now": [
+    0,
+    1852.2
+   ],
+   "proposed": [
+    0.7,
+    1845.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1840.4,
+      1852.2
+     ],
+     "b": [
+      1840.4,
+      1845.4
+     ],
+     "cut": 6.8,
+     "shown": 6.8
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 2
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Bach_GoldbergVariations/JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Bach_GoldbergVariations/JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "JohannSebastianBach-32-GoldbergVariationsBwv.988-AriaDaCapo",
+   "gain": 3,
+   "dur": 340,
+   "bytes": 6903808,
+   "prog": -37.7,
+   "now": [
+    0,
+    320.7
+   ],
+   "proposed": [
+    0,
+    314
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      309,
+      320.7
+     ],
+     "b": [
+      309,
+      314
+     ],
+     "cut": 6.7,
+     "shown": 6.7
+    }
+   ],
+   "n": 3
+  },
+  {
+   "id": "short_story_007",
+   "f": "occurrence_owl_creek_bridge_bierce_szp_64kb.mp3",
+   "url": "https://archive.org/download/short_story_007/occurrence_owl_creek_bridge_bierce_szp_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "occurrence owl creek bridge bierce szp",
+   "gain": 5.2,
+   "dur": 1318.2,
+   "bytes": 10546424,
+   "prog": -26.9,
+   "now": [
+    0,
+    1317.9
+   ],
+   "proposed": [
+    0.7,
+    1311.7
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1306.7,
+      1317.9
+     ],
+     "b": [
+      1306.7,
+      1311.7
+     ],
+     "cut": 6.2,
+     "shown": 6.2
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 4
+  },
+  {
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 61-02-19 (463) Kitty Love.mp3",
+   "url": "https://archive.org/download/OTRR_Gunsmoke_Singles/Gunsmoke%2061-02-19%20%28463%29%20Kitty%20Love.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Gunsmoke 61-02-19 (463) Kitty Love",
+   "gain": -0.2,
+   "dur": 1499.1,
+   "bytes": 11996933,
+   "prog": -23.5,
+   "now": [
+    0,
+    1499.1
+   ],
+   "proposed": [
+    0,
+    1494.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1489.1,
+      1499.1
+     ],
+     "b": [
+      1489.1,
+      1494.1
+     ],
+     "cut": 5.0,
+     "shown": 5.0
+    }
+   ],
+   "n": 5
+  },
+  {
+   "id": "78_wedding-march_mendelssohn_gbia0414052a",
+   "f": "WEDDING MARCH - Mendelssohn.mp3",
+   "url": "https://archive.org/download/78_wedding-march_mendelssohn_gbia0414052a/WEDDING%20MARCH%20-%20Mendelssohn.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Wedding March”, Mendelssohn (1923)",
+   "gain": 13.6,
+   "dur": 267.3,
+   "bytes": 4926220,
+   "prog": -38.5,
+   "now": [
+    1,
+    261.3
+   ],
+   "proposed": [
+    5.3,
+    261.3
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      1,
+      10.3
+     ],
+     "b": [
+      5.3,
+      10.3
+     ],
+     "cut": 4.3,
+     "shown": 4.3
+    }
+   ],
+   "n": 6
+  },
+  {
+   "id": "stories_006_librivox",
+   "f": "last_lesson_daudet_dp_64kb.mp3",
+   "url": "https://archive.org/download/stories_006_librivox/last_lesson_daudet_dp_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "last lesson daudet dp",
+   "gain": 6.4,
+   "dur": 674.1,
+   "bytes": 5501952,
+   "prog": -37,
+   "now": [
+    0,
+    674.1
+   ],
+   "proposed": [
+    0.9,
+    669.9
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      664.9,
+      674.1
+     ],
+     "b": [
+      664.9,
+      669.9
+     ],
+     "cut": 4.2,
+     "shown": 4.2
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.9
+     ],
+     "b": [
+      0.9,
+      5.9
+     ],
+     "cut": 0.9,
+     "shown": 0.9
+    }
+   ],
+   "n": 7
+  },
+  {
+   "id": "story_5_librivox",
+   "f": "deacon_lampton_cs_64kb.mp3",
+   "url": "https://archive.org/download/story_5_librivox/deacon_lampton_cs_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "deacon lampton cs",
+   "gain": 7.7,
+   "dur": 1040.9,
+   "bytes": 8328509,
+   "prog": -27.2,
+   "now": [
+    0,
+    1040.9
+   ],
+   "proposed": [
+    0,
+    1036.9
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1031.9,
+      1040.9
+     ],
+     "b": [
+      1031.9,
+      1036.9
+     ],
+     "cut": 4.0,
+     "shown": 4.0
+    }
+   ],
+   "n": 8
+  },
+  {
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep12_Return_of_the_Badmen.mp3",
+   "url": "https://archive.org/download/OTRR_Frontier_Town_Singles/Frontier_Town_49-xx-xx_ep12_Return_of_the_Badmen.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Frontier Town 49-xx-xx ep12 Return of the Badmen",
+   "gain": 2.3,
+   "dur": 1689.8,
+   "bytes": 27040490,
+   "prog": -29.9,
+   "now": [
+    0,
+    1689.8
+   ],
+   "proposed": [
+    0.7,
+    1686.5
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1681.5,
+      1689.8
+     ],
+     "b": [
+      1681.5,
+      1686.5
+     ],
+     "cut": 3.3,
+     "shown": 3.3
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 9
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "6-A_Sister_For_Clare.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/6-A_Sister_For_Clare.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "6-A Sister For Clare",
+   "gain": -8.9,
+   "dur": 142.4,
+   "bytes": 7436299,
+   "prog": -14.2,
+   "now": [
+    0,
+    142.3
+   ],
+   "proposed": [
+    0.6,
+    139.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      134.6,
+      142.3
+     ],
+     "b": [
+      134.6,
+      139.6
+     ],
+     "cut": 2.7,
+     "shown": 2.7
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.6
+     ],
+     "b": [
+      0.6,
+      5.6
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 10
+  },
+  {
+   "id": "badpanda018",
+   "f": "RidingAloneForThousandsOfMiles-BrickCityLoveSong.mp3",
+   "url": "https://archive.org/download/badpanda018/RidingAloneForThousandsOfMiles-BrickCityLoveSong.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "RidingAloneForThousandsOfMiles-BrickCityLoveSong",
+   "gain": -4.4,
+   "dur": 440.7,
+   "bytes": 17758680,
+   "prog": -20.1,
+   "now": [
+    6.7,
+    431.1
+   ],
+   "proposed": [
+    9.2,
+    431.1
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      6.7,
+      14.2
+     ],
+     "b": [
+      9.2,
+      14.2
+     ],
+     "cut": 2.5,
+     "shown": 2.5
+    }
+   ],
+   "n": 11
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "love_age_peacock_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/love_age_peacock_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "love age peacock py",
+   "gain": 6.9,
+   "dur": 218.9,
+   "bytes": 1752320,
+   "prog": -18.9,
+   "now": [
+    0,
+    218.9
+   ],
+   "proposed": [
+    1.9,
+    216.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      211.4,
+      218.9
+     ],
+     "b": [
+      211.4,
+      216.4
+     ],
+     "cut": 2.5,
+     "shown": 2.5
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.9
+     ],
+     "b": [
+      1.9,
+      6.9
+     ],
+     "cut": 1.9,
+     "shown": 1.9
+    }
+   ],
+   "n": 12
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "5-Mosquito.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/5-Mosquito.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "5-Mosquito",
+   "gain": -6.4,
+   "dur": 168.8,
+   "bytes": 8490601,
+   "prog": -16.8,
+   "now": [
+    0,
+    168.7
+   ],
+   "proposed": [
+    0.7,
+    166.3
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      161.3,
+      168.7
+     ],
+     "b": [
+      161.3,
+      166.3
+     ],
+     "cut": 2.4,
+     "shown": 2.4
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 13
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "for_annie_poe_ac_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/for_annie_poe_ac_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "for annie poe ac",
+   "gain": -0.5,
+   "dur": 263.2,
+   "bytes": 2106560,
+   "prog": -25,
+   "now": [
+    0,
+    255.9
+   ],
+   "proposed": [
+    2.4,
+    255.9
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      7.4
+     ],
+     "b": [
+      2.4,
+      7.4
+     ],
+     "cut": 2.4,
+     "shown": 2.4
+    }
+   ],
+   "n": 14
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "kublai_khan_coleridge_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/kublai_khan_coleridge_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "kublai khan coleridge py",
+   "gain": 9.7,
+   "dur": 219.2,
+   "bytes": 1754624,
+   "prog": -21.9,
+   "now": [
+    0,
+    219.2
+   ],
+   "proposed": [
+    2.3,
+    217.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      212.1,
+      219.2
+     ],
+     "b": [
+      212.1,
+      217.1
+     ],
+     "cut": 2.1,
+     "shown": 2.1
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      7.3
+     ],
+     "b": [
+      2.3,
+      7.3
+     ],
+     "cut": 2.3,
+     "shown": 2.3
+    }
+   ],
+   "n": 15
+  },
+  {
+   "id": "OTRR_Let_George_Do_It_Singles",
+   "f": "Let George Do It 1949-12-19 (171) Follow That Train!.mp3",
+   "url": "https://archive.org/download/OTRR_Let_George_Do_It_Singles/Let%20George%20Do%20It%201949-12-19%20%28171%29%20Follow%20That%20Train%21.mp3",
+   "pool": "whodunit",
+   "station": "WHOD",
+   "title": "Let George Do It 1949-12-19 (171) Follow That Train!",
+   "gain": -4.6,
+   "dur": 1710.4,
+   "bytes": 68730708,
+   "prog": -22.4,
+   "now": [
+    0,
+    1710.4
+   ],
+   "proposed": [
+    2.2,
+    1709.2
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1704.2,
+      1710.4
+     ],
+     "b": [
+      1704.2,
+      1709.2
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      7.2
+     ],
+     "b": [
+      2.2,
+      7.2
+     ],
+     "cut": 2.2,
+     "shown": 2.2
+    }
+   ],
+   "n": 16
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "familiar_faces_lamb_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/familiar_faces_lamb_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "familiar faces lamb py",
+   "gain": 10.6,
+   "dur": 121.1,
+   "bytes": 969728,
+   "prog": -21.8,
+   "now": [
+    0,
+    121.1
+   ],
+   "proposed": [
+    2.1,
+    119
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      114,
+      121.1
+     ],
+     "b": [
+      114,
+      119
+     ],
+     "cut": 2.1,
+     "shown": 2.1
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      7.1
+     ],
+     "b": [
+      2.1,
+      7.1
+     ],
+     "cut": 2.1,
+     "shown": 2.1
+    }
+   ],
+   "n": 17
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-04-Rondo.AllegroVivace.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInAMinorD.845/FranzSchubert-SonataInAMinorD.845-04-Rondo.AllegroVivace.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInAMinorD.845-04-Rondo.AllegroVivace",
+   "gain": 0.3,
+   "dur": 362.7,
+   "bytes": 8128000,
+   "prog": -24.4,
+   "now": [
+    0,
+    359.4
+   ],
+   "proposed": [
+    0,
+    357.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      352.4,
+      359.4
+     ],
+     "b": [
+      352.4,
+      357.4
+     ],
+     "cut": 2.0,
+     "shown": 2.0
+    }
+   ],
+   "n": 18
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "abou_hunt_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/abou_hunt_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "abou hunt py",
+   "gain": 5.1,
+   "dur": 108.9,
+   "bytes": 872576,
+   "prog": -28.7,
+   "now": [
+    0,
+    108.9
+   ],
+   "proposed": [
+    1.9,
+    107.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      102.4,
+      108.9
+     ],
+     "b": [
+      102.4,
+      107.4
+     ],
+     "cut": 1.5,
+     "shown": 1.5
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.9
+     ],
+     "b": [
+      1.9,
+      6.9
+     ],
+     "cut": 1.9,
+     "shown": 1.9
+    }
+   ],
+   "n": 19
+  },
+  {
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep20_Valley_of_the_Varmints.mp3",
+   "url": "https://archive.org/download/OTRR_Frontier_Town_Singles/Frontier_Town_49-xx-xx_ep20_Valley_of_the_Varmints.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Frontier Town 49-xx-xx ep20 Valley of the Varmints",
+   "gain": 2.7,
+   "dur": 1707.3,
+   "bytes": 27320527,
+   "prog": -27.7,
+   "now": [
+    0,
+    1707.3
+   ],
+   "proposed": [
+    0,
+    1705.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1700.6,
+      1707.3
+     ],
+     "b": [
+      1700.6,
+      1705.6
+     ],
+     "cut": 1.7,
+     "shown": 1.7
+    }
+   ],
+   "n": 20
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "jenny_hunt_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/jenny_hunt_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "jenny hunt py",
+   "gain": 4.4,
+   "dur": 57,
+   "bytes": 457088,
+   "prog": -28.5,
+   "now": [
+    0,
+    57
+   ],
+   "proposed": [
+    1.7,
+    57
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.7
+     ],
+     "b": [
+      1.7,
+      6.7
+     ],
+     "cut": 1.7,
+     "shown": 1.7
+    }
+   ],
+   "n": 21
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "irish_emigrant_selina_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/irish_emigrant_selina_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "irish emigrant selina py",
+   "gain": 7.6,
+   "dur": 221.6,
+   "bytes": 1774016,
+   "prog": -18.9,
+   "now": [
+    0,
+    221.6
+   ],
+   "proposed": [
+    1.5,
+    220.8
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      215.8,
+      221.6
+     ],
+     "b": [
+      215.8,
+      220.8
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.5
+     ],
+     "b": [
+      1.5,
+      6.5
+     ],
+     "cut": 1.5,
+     "shown": 1.5
+    }
+   ],
+   "n": 22
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "2-Twenty_Squares_Of_Light.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/2-Twenty_Squares_Of_Light.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "2-Twenty Squares Of Light",
+   "gain": -5.7,
+   "dur": 207.6,
+   "bytes": 10044364,
+   "prog": -17.6,
+   "now": [
+    0,
+    207.3
+   ],
+   "proposed": [
+    1,
+    205.9
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      200.9,
+      207.3
+     ],
+     "b": [
+      200.9,
+      205.9
+     ],
+     "cut": 1.4,
+     "shown": 1.4
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6
+     ],
+     "b": [
+      1,
+      6
+     ],
+     "cut": 1,
+     "shown": 1
+    }
+   ],
+   "n": 23
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "last_rose_moore_py_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/last_rose_moore_py_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "last rose moore py",
+   "gain": 4.9,
+   "dur": 89.9,
+   "bytes": 720320,
+   "prog": -28.2,
+   "now": [
+    0,
+    89.9
+   ],
+   "proposed": [
+    1.4,
+    88.5
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      83.5,
+      89.9
+     ],
+     "b": [
+      83.5,
+      88.5
+     ],
+     "cut": 1.4,
+     "shown": 1.4
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.4
+     ],
+     "b": [
+      1.4,
+      6.4
+     ],
+     "cut": 1.4,
+     "shown": 1.4
+    }
+   ],
+   "n": 24
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-04-AllegroModerato.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInEFlatMajorD.568/FranzSchubert-SonataInEFlatMajorD.568-04-AllegroModerato.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInEFlatMajorD.568-04-AllegroModerato",
+   "gain": 2.1,
+   "dur": 499.6,
+   "bytes": 11665408,
+   "prog": -26,
+   "now": [
+    0,
+    496.1
+   ],
+   "proposed": [
+    0,
+    494.8
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      489.8,
+      496.1
+     ],
+     "b": [
+      489.8,
+      494.8
+     ],
+     "cut": 1.3,
+     "shown": 1.3
+    }
+   ],
+   "n": 25
+  },
+  {
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 56-12-09 (244) Braggart's Boy.mp3",
+   "url": "https://archive.org/download/OTRR_Gunsmoke_Singles/Gunsmoke%2056-12-09%20%28244%29%20Braggart%27s%20Boy.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Gunsmoke 56-12-09 (244) Braggart's Boy",
+   "gain": 2,
+   "dur": 1491.6,
+   "bytes": 11934520,
+   "prog": -29.4,
+   "now": [
+    0,
+    1491.6
+   ],
+   "proposed": [
+    1.3,
+    1490.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1485.6,
+      1491.6
+     ],
+     "b": [
+      1485.6,
+      1490.6
+     ],
+     "cut": 1.0,
+     "shown": 1.0
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.3
+     ],
+     "b": [
+      1.3,
+      6.3
+     ],
+     "cut": 1.3,
+     "shown": 1.3
+    }
+   ],
+   "n": 26
+  },
+  {
+   "id": "stories_002_librivox",
+   "f": "young_goodman_brown_hawthorne_btr_64kb.mp3",
+   "url": "https://archive.org/download/stories_002_librivox/young_goodman_brown_hawthorne_btr_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "young goodman brown hawthorne btr",
+   "gain": 2.6,
+   "dur": 2384.3,
+   "bytes": 19075501,
+   "prog": -24.1,
+   "now": [
+    1,
+    2382.8
+   ],
+   "proposed": [
+    1,
+    2381.5
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      2376.5,
+      2382.8
+     ],
+     "b": [
+      2376.5,
+      2381.5
+     ],
+     "cut": 1.3,
+     "shown": 1.3
+    }
+   ],
+   "n": 27
+  },
+  {
+   "id": "78_pretty-little-baby_phil-bakers-bad-boys-sid-silvers-phil-baker-ben-bernie_gbia0527224a",
+   "f": "PRETTY LITTLE BABY - PHIL BAKER'S BAD BOYS.mp3",
+   "url": "https://archive.org/download/78_pretty-little-baby_phil-bakers-bad-boys-sid-silvers-phil-baker-ben-bernie_gbia0527224a/PRETTY%20LITTLE%20BABY%20-%20PHIL%20BAKER%27S%20BAD%20BOYS.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Pretty Little Baby”, Phil Baker's Bad Boys (1925)",
+   "gain": 12.4,
+   "dur": 237.6,
+   "bytes": 5017721,
+   "prog": -40.3,
+   "now": [
+    3.2,
+    234.1
+   ],
+   "proposed": [
+    4.4,
+    234.1
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      3.2,
+      9.4
+     ],
+     "b": [
+      4.4,
+      9.4
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 28
+  },
+  {
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 60-05-29 (425) Bad Seed.mp3",
+   "url": "https://archive.org/download/OTRR_Gunsmoke_Singles/Gunsmoke%2060-05-29%20%28425%29%20Bad%20Seed.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Gunsmoke 60-05-29 (425) Bad Seed",
+   "gain": -0.9,
+   "dur": 1668.1,
+   "bytes": 13349031,
+   "prog": -22.6,
+   "now": [
+    0,
+    1668.1
+   ],
+   "proposed": [
+    1.2,
+    1668.1
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.2
+     ],
+     "b": [
+      1.2,
+      6.2
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 29
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "1-Winter_Flowers.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/1-Winter_Flowers.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "1-Winter Flowers",
+   "gain": -7.7,
+   "dur": 173.1,
+   "bytes": 8661964,
+   "prog": -14.6,
+   "now": [
+    0,
+    171.6
+   ],
+   "proposed": [
+    1.2,
+    170.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      165.4,
+      171.6
+     ],
+     "b": [
+      165.4,
+      170.4
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.2
+     ],
+     "b": [
+      1.2,
+      6.2
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 30
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "7-Metal_For_Blue_Sky_Thinkers.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/7-Metal_For_Blue_Sky_Thinkers.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "7-Metal For Blue Sky Thinkers",
+   "gain": -9.9,
+   "dur": 185,
+   "bytes": 9137393,
+   "prog": -11.9,
+   "now": [
+    0,
+    185
+   ],
+   "proposed": [
+    1.2,
+    185
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.2
+     ],
+     "b": [
+      1.2,
+      6.2
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 31
+  },
+  {
+   "id": "short_poetry_001_librivox",
+   "f": "as_kingfishers_catch_fire_hopkins_dhf_64kb.mp3",
+   "url": "https://archive.org/download/short_poetry_001_librivox/as_kingfishers_catch_fire_hopkins_dhf_64kb.mp3",
+   "pool": "poems",
+   "station": "WPGE",
+   "title": "as kingfishers catch fire hopkins dhf",
+   "gain": 14.3,
+   "dur": 100.3,
+   "bytes": 803456,
+   "prog": -19.4,
+   "now": [
+    0,
+    100.3
+   ],
+   "proposed": [
+    1.2,
+    99.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      94.4,
+      100.3
+     ],
+     "b": [
+      94.4,
+      99.4
+     ],
+     "cut": 0.9,
+     "shown": 0.9
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6.2
+     ],
+     "b": [
+      1.2,
+      6.2
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 32
+  },
+  {
+   "id": "story_5_librivox",
+   "f": "balder_mabie_bd_64kb.mp3",
+   "url": "https://archive.org/download/story_5_librivox/balder_mabie_bd_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "balder mabie bd",
+   "gain": 4.5,
+   "dur": 1225.9,
+   "bytes": 9808499,
+   "prog": -23.8,
+   "now": [
+    0,
+    1225.9
+   ],
+   "proposed": [
+    0,
+    1224.7
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1219.7,
+      1225.9
+     ],
+     "b": [
+      1219.7,
+      1224.7
+     ],
+     "cut": 1.2,
+     "shown": 1.2
+    }
+   ],
+   "n": 33
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-03-AllegroVivace.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInAMinorD.784/FranzSchubert-SonataInAMinorD.784-03-AllegroVivace.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInAMinorD.784-03-AllegroVivace",
+   "gain": -4.3,
+   "dur": 371.4,
+   "bytes": 8680448,
+   "prog": -21.8,
+   "now": [
+    0,
+    370.3
+   ],
+   "proposed": [
+    0,
+    369.2
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      364.2,
+      370.3
+     ],
+     "b": [
+      364.2,
+      369.2
+     ],
+     "cut": 1.1,
+     "shown": 1.1
+    }
+   ],
+   "n": 34
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-04-Rondo.Allegretto.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInAMinorD.959/FranzSchubert-SonataInAMinorD.959-04-Rondo.Allegretto.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInAMinorD.959-04-Rondo.Allegretto",
+   "gain": -3.7,
+   "dur": 714.9,
+   "bytes": 17041408,
+   "prog": -20.3,
+   "now": [
+    0,
+    712.8
+   ],
+   "proposed": [
+    0,
+    711.7
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      706.7,
+      712.8
+     ],
+     "b": [
+      706.7,
+      711.7
+     ],
+     "cut": 1.1,
+     "shown": 1.1
+    }
+   ],
+   "n": 35
+  },
+  {
+   "id": "OTRR_Crime_Classics_Singles",
+   "f": "Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay.mp3",
+   "url": "https://archive.org/download/OTRR_Crime_Classics_Singles/Crime%20Classics%201954-01-13%20%28028%29%20How%20Supan%20Got%20the%20Hook%20Outside%20Bombay.mp3",
+   "pool": "whodunit",
+   "station": "WHOD",
+   "title": "Crime Classics 1954-01-13 (028) How Supan Got the Hook Outside Bombay",
+   "gain": 3.4,
+   "dur": 1770.5,
+   "bytes": 28363768,
+   "prog": -31.2,
+   "now": [
+    1.8,
+    1768.2
+   ],
+   "proposed": [
+    1.8,
+    1767.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1762.1,
+      1768.2
+     ],
+     "b": [
+      1762.1,
+      1767.1
+     ],
+     "cut": 1.1,
+     "shown": 1.1
+    }
+   ],
+   "n": 36
+  },
+  {
+   "id": "78_adios-pilar_roberto-firpo-orquesta-tipica-m-joves-orq-tipica-roberto-firpo-max-gl_gbia0054506a",
+   "f": "Adios Pilar - Roberto Firpo - Orquesta Tipica.mp3",
+   "url": "https://archive.org/download/78_adios-pilar_roberto-firpo-orquesta-tipica-m-joves-orq-tipica-roberto-firpo-max-gl_gbia0054506a/Adios%20Pilar%20-%20Roberto%20Firpo%20-%20Orquesta%20Tipica.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Adios Pilar”, Roberto Firpo (1922)",
+   "gain": 2.1,
+   "dur": 174.9,
+   "bytes": 6161262,
+   "prog": -23.9,
+   "now": [
+    0,
+    174.1
+   ],
+   "proposed": [
+    0,
+    173.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      168.1,
+      174.1
+     ],
+     "b": [
+      168.1,
+      173.1
+     ],
+     "cut": 1.0,
+     "shown": 1.0
+    }
+   ],
+   "n": 37
+  },
+  {
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 54-10-09 (130) Love of a Good Woman.mp3",
+   "url": "https://archive.org/download/OTRR_Gunsmoke_Singles/Gunsmoke%2054-10-09%20%28130%29%20Love%20of%20a%20Good%20Woman.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Gunsmoke 54-10-09 (130) Love of a Good Woman",
+   "gain": 0.8,
+   "dur": 1734.6,
+   "bytes": 13878207,
+   "prog": -31.3,
+   "now": [
+    0,
+    1734.6
+   ],
+   "proposed": [
+    1,
+    1733.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1728.6,
+      1734.6
+     ],
+     "b": [
+      1728.6,
+      1733.6
+     ],
+     "cut": 1.0,
+     "shown": 1.0
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      6
+     ],
+     "b": [
+      1,
+      6
+     ],
+     "cut": 1,
+     "shown": 1
+    }
+   ],
+   "n": 38
+  },
+  {
+   "id": "PoodleplayArkestra-TheoryOfColour",
+   "f": "3-Theory_Of_Colour.mp3",
+   "url": "https://archive.org/download/PoodleplayArkestra-TheoryOfColour/3-Theory_Of_Colour.mp3",
+   "pool": "free",
+   "station": "KFRE",
+   "title": "3-Theory Of Colour",
+   "gain": -5.7,
+   "dur": 227.5,
+   "bytes": 10839532,
+   "prog": -17.9,
+   "now": [
+    0,
+    227.1
+   ],
+   "proposed": [
+    0.7,
+    226.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      221.1,
+      227.1
+     ],
+     "b": [
+      221.1,
+      226.1
+     ],
+     "cut": 1.0,
+     "shown": 1.0
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 39
+  },
+  {
+   "id": "78_maria-mari_beniamino-gigli-vincenzo-russo-eduardo-di-capua_gbia0042759a",
+   "f": "Maria, Mari - Beniamino Gigli - Vincenzo Russo.mp3",
+   "url": "https://archive.org/download/78_maria-mari_beniamino-gigli-vincenzo-russo-eduardo-di-capua_gbia0042759a/Maria%2C%20Mari%20-%20Beniamino%20Gigli%20-%20Vincenzo%20Russo.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Maria, Mari”, Beniamino Gigli (1925)",
+   "gain": -5.7,
+   "dur": 212.2,
+   "bytes": 5969713,
+   "prog": -21.5,
+   "now": [
+    0,
+    210.9
+   ],
+   "proposed": [
+    0,
+    210
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      205,
+      210.9
+     ],
+     "b": [
+      205,
+      210
+     ],
+     "cut": 0.9,
+     "shown": 0.9
+    }
+   ],
+   "n": 40
+  },
+  {
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep44_The_Badlands.mp3",
+   "url": "https://archive.org/download/OTRR_Frontier_Town_Singles/Frontier_Town_49-xx-xx_ep44_The_Badlands.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Frontier Town 49-xx-xx ep44 The Badlands",
+   "gain": 2,
+   "dur": 1710.8,
+   "bytes": 27376095,
+   "prog": -25.1,
+   "now": [
+    0.1,
+    1707.3
+   ],
+   "proposed": [
+    1,
+    1707.3
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0.1,
+      6
+     ],
+     "b": [
+      1,
+      6
+     ],
+     "cut": 0.9,
+     "shown": 0.9
+    }
+   ],
+   "n": 41
+  },
+  {
+   "id": "78_ride-of-the-valkyries_american-symphony-orchestra-wagner_gbia0078143b",
+   "f": "Ride of the Valkyries - American Symphony Orchestra.mp3",
+   "url": "https://archive.org/download/78_ride-of-the-valkyries_american-symphony-orchestra-wagner_gbia0078143b/Ride%20of%20the%20Valkyries%20-%20American%20Symphony%20Orchestra.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Ride of the Valkyries”, American Symphony Orchestra (1921)",
+   "gain": 5.4,
+   "dur": 263.2,
+   "bytes": 7275376,
+   "prog": -30.2,
+   "now": [
+    0.5,
+    263.2
+   ],
+   "proposed": [
+    0.6,
+    262.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      257.4,
+      263.2
+     ],
+     "b": [
+      257.4,
+      262.4
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    }
+   ],
+   "n": 42
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-04-Allegro.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInCMinorD.958/FranzSchubert-SonataInCMinorD.958-04-Allegro.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInCMinorD.958-04-Allegro",
+   "gain": -0.1,
+   "dur": 655.5,
+   "bytes": 16378880,
+   "prog": -24.6,
+   "now": [
+    0,
+    652.9
+   ],
+   "proposed": [
+    0,
+    652.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      647.1,
+      652.9
+     ],
+     "b": [
+      647.1,
+      652.1
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    }
+   ],
+   "n": 43
+  },
+  {
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep28_The_Coach_That_Arrived_Missing.mp3",
+   "url": "https://archive.org/download/OTRR_Frontier_Town_Singles/Frontier_Town_49-xx-xx_ep28_The_Coach_That_Arrived_Missing.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Frontier Town 49-xx-xx ep28 The Coach That Arrived Missing",
+   "gain": 2.4,
+   "dur": 1707.3,
+   "bytes": 27320091,
+   "prog": -27.4,
+   "now": [
+    0,
+    1706.8
+   ],
+   "proposed": [
+    0.5,
+    1706
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1701,
+      1706.8
+     ],
+     "b": [
+      1701,
+      1706
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.5
+     ],
+     "b": [
+      0.5,
+      5.5
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 44
+  },
+  {
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris52-03-16207ChoosingWhereToGoOnVacation.mp3",
+   "url": "https://archive.org/download/OTRR_Harris_Faye_Singles/PhilHarris52-03-16207ChoosingWhereToGoOnVacation.mp3",
+   "pool": "laugh",
+   "station": "WHAH",
+   "title": "PhilHarris52-03-16207ChoosingWhereToGoOnVacation",
+   "gain": 2.9,
+   "dur": 1765.5,
+   "bytes": 28252257,
+   "prog": -26.5,
+   "now": [
+    0.5,
+    1761.9
+   ],
+   "proposed": [
+    1.3,
+    1761.7
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0.5,
+      6.3
+     ],
+     "b": [
+      1.3,
+      6.3
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    }
+   ],
+   "n": 45
+  },
+  {
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-04-22 Ep 30 Johnny Springer.mp3",
+   "url": "https://archive.org/download/OTRR_The_Six_Shooter_Singles/1954-04-22%20Ep%2030%20Johnny%20Springer.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "1954-04-22 Ep 30 Johnny Springer",
+   "gain": -3.7,
+   "dur": 1787.6,
+   "bytes": 14303632,
+   "prog": -20,
+   "now": [
+    0,
+    1787.6
+   ],
+   "proposed": [
+    0.8,
+    1787.6
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.8
+     ],
+     "b": [
+      0.8,
+      5.8
+     ],
+     "cut": 0.8,
+     "shown": 0.8
+    }
+   ],
+   "n": 46
+  },
+  {
+   "id": "78_afterwards_reed-miller-john-w-mullen_gbia0083079b",
+   "f": "Afterwards - Reed Miller - John W. Mullen.mp3",
+   "url": "https://archive.org/download/78_afterwards_reed-miller-john-w-mullen_gbia0083079b/Afterwards%20-%20Reed%20Miller%20-%20John%20W.%20Mullen.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Afterwards”, Reed Miller (1914)",
+   "gain": 5.6,
+   "dur": 286.3,
+   "bytes": 9000314,
+   "prog": -30,
+   "now": [
+    0.5,
+    286.3
+   ],
+   "proposed": [
+    0.5,
+    285.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      280.6,
+      286.3
+     ],
+     "b": [
+      280.6,
+      285.6
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 47
+  },
+  {
+   "id": "78_cuarto-lagrimas_francisco-canaro-y-su-orquesta-tipica-lito-bayardo-alberto-arenas_gbia0072729b",
+   "f": "Cuarto Lagrimas - Francisco Canaro y su Orquesta Tipica.mp3",
+   "url": "https://archive.org/download/78_cuarto-lagrimas_francisco-canaro-y-su-orquesta-tipica-lito-bayardo-alberto-arenas_gbia0072729b/Cuarto%20Lagrimas%20-%20Francisco%20Canaro%20y%20su%20Orquesta%20Tipica.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Cuatro Lagrimas”, Francisco Canaro y su Orquesta Tipica (1922)",
+   "gain": -1.1,
+   "dur": 172.4,
+   "bytes": 5665369,
+   "prog": -22.6,
+   "now": [
+    0,
+    172
+   ],
+   "proposed": [
+    0,
+    171.3
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      166.3,
+      172
+     ],
+     "b": [
+      166.3,
+      171.3
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 48
+  },
+  {
+   "id": "78_of-all-the-wrongs-you-done-to-me_clarence-williams-blue-five-eva-taylor-len-payton_gbia0100514b",
+   "f": "Of all the Wrongs You Done  - Clarence Williams' Blue Five.mp3",
+   "url": "https://archive.org/download/78_of-all-the-wrongs-you-done-to-me_clarence-williams-blue-five-eva-taylor-len-payton_gbia0100514b/Of%20all%20the%20Wrongs%20You%20Done%20%20-%20Clarence%20Williams%27%20Blue%20Five.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Of all the Wrongs You Done to Me”, Clarence Williams' Blue Five (1924)",
+   "gain": 2,
+   "dur": 184,
+   "bytes": 6574902,
+   "prog": -25.5,
+   "now": [
+    0,
+    183.5
+   ],
+   "proposed": [
+    0,
+    182.8
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      177.8,
+      183.5
+     ],
+     "b": [
+      177.8,
+      182.8
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 49
+  },
+  {
+   "id": "MusopenCollectionAsFlac",
+   "f": "Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato.mp3",
+   "url": "https://archive.org/download/MusopenCollectionAsFlac/Schubert_SonataInDMajorD.850/FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato.mp3",
+   "pool": "works",
+   "station": "WNOC",
+   "title": "FranzSchubert-SonataInDMajorD.850-04-Rondo.AllegroModerato",
+   "gain": 0.8,
+   "dur": 556.1,
+   "bytes": 11611648,
+   "prog": -27.8,
+   "now": [
+    0,
+    553.1
+   ],
+   "proposed": [
+    0,
+    552.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      547.4,
+      553.1
+     ],
+     "b": [
+      547.4,
+      552.4
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 50
+  },
+  {
+   "id": "OTRR_Harris_Faye_Singles",
+   "f": "PhilHarris50-12-03157TheMissingBaby.mp3",
+   "url": "https://archive.org/download/OTRR_Harris_Faye_Singles/PhilHarris50-12-03157TheMissingBaby.mp3",
+   "pool": "laugh",
+   "station": "WHAH",
+   "title": "PhilHarris50-12-03157TheMissingBaby",
+   "gain": 3.9,
+   "dur": 1772.8,
+   "bytes": 28368417,
+   "prog": -29,
+   "now": [
+    1.7,
+    1767.8
+   ],
+   "proposed": [
+    2.4,
+    1767.8
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      1.7,
+      7.4
+     ],
+     "b": [
+      2.4,
+      7.4
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 51
+  },
+  {
+   "id": "OTRR_The_Six_Shooter_Singles",
+   "f": "1954-01-24 Ep 19 Helen Bricker.mp3",
+   "url": "https://archive.org/download/OTRR_The_Six_Shooter_Singles/1954-01-24%20Ep%2019%20Helen%20Bricker.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "1954-01-24 Ep 19 Helen Bricker",
+   "gain": -2.2,
+   "dur": 1694.2,
+   "bytes": 13692895,
+   "prog": -22.1,
+   "now": [
+    0,
+    1694.2
+   ],
+   "proposed": [
+    0.7,
+    1693.6
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1688.6,
+      1694.2
+     ],
+     "b": [
+      1688.6,
+      1693.6
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    },
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.7
+     ],
+     "b": [
+      0.7,
+      5.7
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 52
+  },
+  {
+   "id": "stories_003_librivox",
+   "f": "story_of_an_hour_chopin_ho_64kb.mp3",
+   "url": "https://archive.org/download/stories_003_librivox/story_of_an_hour_chopin_ho_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "story of an hour chopin ho",
+   "gain": 1.5,
+   "dur": 469.3,
+   "bytes": 3755840,
+   "prog": -28.1,
+   "now": [
+    0,
+    467.5
+   ],
+   "proposed": [
+    0,
+    466.8
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      461.8,
+      467.5
+     ],
+     "b": [
+      461.8,
+      466.8
+     ],
+     "cut": 0.7,
+     "shown": 0.7
+    }
+   ],
+   "n": 53
+  },
+  {
+   "id": "78_entry-of-the-gladiators-march_julius-fucik_gbia0083119a",
+   "f": "Entry of the Gladiators March - Julius Fucik.mp3",
+   "url": "https://archive.org/download/78_entry-of-the-gladiators-march_julius-fucik_gbia0083119a/Entry%20of%20the%20Gladiators%20March%20-%20Julius%20Fucik.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Entry of the Gladiators March”, Julius Fucik (1914)",
+   "gain": 3.7,
+   "dur": 251,
+   "bytes": 5911563,
+   "prog": -28.9,
+   "now": [
+    0.7,
+    250.7
+   ],
+   "proposed": [
+    0.7,
+    250.1
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      245.1,
+      250.7
+     ],
+     "b": [
+      245.1,
+      250.1
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 54
+  },
+  {
+   "id": "78_my-bird-of-paradise-medley_jaudas-society-orchestra_gbia0082906a",
+   "f": "My Bird of Paradise Medley - Jaudas' Society Orchestra.mp3",
+   "url": "https://archive.org/download/78_my-bird-of-paradise-medley_jaudas-society-orchestra_gbia0082906a/My%20Bird%20of%20Paradise%20Medley%20-%20Jaudas%27%20Society%20Orchestra.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“My Bird of Paradise Medley”, Jaudas' Society Orchestra (1915)",
+   "gain": 5.4,
+   "dur": 288.5,
+   "bytes": 7020329,
+   "prog": -30.5,
+   "now": [
+    0.6,
+    288
+   ],
+   "proposed": [
+    0.6,
+    287.4
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      282.4,
+      288
+     ],
+     "b": [
+      282.4,
+      287.4
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 55
+  },
+  {
+   "id": "OTRR_Frontier_Town_Singles",
+   "f": "Frontier_Town_49-xx-xx_ep36_Bullets_for_Boot_Hill.mp3",
+   "url": "https://archive.org/download/OTRR_Frontier_Town_Singles/Frontier_Town_49-xx-xx_ep36_Bullets_for_Boot_Hill.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Frontier Town 49-xx-xx ep36 Bullets for Boot Hill",
+   "gain": 2.2,
+   "dur": 1706.4,
+   "bytes": 27305476,
+   "prog": -26.4,
+   "now": [
+    0,
+    1706.2
+   ],
+   "proposed": [
+    0.6,
+    1705.8
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.6
+     ],
+     "b": [
+      0.6,
+      5.6
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 56
+  },
+  {
+   "id": "OTRR_Our_Miss_Brooks_Singles",
+   "f": "Our Miss Brooks 1949-12-25 (072) The Magic Christmas Tree.mp3",
+   "url": "https://archive.org/download/OTRR_Our_Miss_Brooks_Singles/Our%20Miss%20Brooks%201949-12-25%20%28072%29%20The%20Magic%20Christmas%20Tree.mp3",
+   "pool": "laugh",
+   "station": "WHAH",
+   "title": "Our Miss Brooks 1949-12-25 (072) The Magic Christmas Tree",
+   "gain": -2.6,
+   "dur": 1768.8,
+   "bytes": 71156597,
+   "prog": -27,
+   "now": [
+    1.7,
+    1768.3
+   ],
+   "proposed": [
+    1.7,
+    1767.7
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1762.7,
+      1768.3
+     ],
+     "b": [
+      1762.7,
+      1767.7
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 57
+  },
+  {
+   "id": "stories_002_librivox",
+   "f": "diamond_necklace_maupassant_aa_64kb.mp3",
+   "url": "https://archive.org/download/stories_002_librivox/diamond_necklace_maupassant_aa_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "diamond necklace maupassant aa",
+   "gain": 1.8,
+   "dur": 1165.7,
+   "bytes": 9327046,
+   "prog": -24.1,
+   "now": [
+    0,
+    1165.7
+   ],
+   "proposed": [
+    0.6,
+    1165.7
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.6
+     ],
+     "b": [
+      0.6,
+      5.6
+     ],
+     "cut": 0.6,
+     "shown": 0.6
+    }
+   ],
+   "n": 58
+  },
+  {
+   "id": "78_whispering-flowers_fr-von-blon_gbia0083337a",
+   "f": "Whispering Flowers - Fr. von Blon.mp3",
+   "url": "https://archive.org/download/78_whispering-flowers_fr-von-blon_gbia0083337a/Whispering%20Flowers%20-%20Fr.%20von%20Blon.mp3",
+   "pool": "g78",
+   "station": "WGRM",
+   "title": "“Whispering Flowers”, Fr. von Blon (1913)",
+   "gain": 5.6,
+   "dur": 251.8,
+   "bytes": 7018497,
+   "prog": -30.6,
+   "now": [
+    0.5,
+    251.8
+   ],
+   "proposed": [
+    0.5,
+    251.3
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      246.3,
+      251.8
+     ],
+     "b": [
+      246.3,
+      251.3
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 59
+  },
+  {
+   "id": "OTRR_Fort_Laramie_Singles",
+   "f": "Fort_Laramie_56-08-19_ep30_Goodbye_Willa.mp3",
+   "url": "https://archive.org/download/OTRR_Fort_Laramie_Singles/Fort_Laramie_56-08-19_ep30_Goodbye_Willa.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Fort Laramie 56-08-19 ep30 Goodbye Willa",
+   "gain": 1.8,
+   "dur": 1788.5,
+   "bytes": 28618762,
+   "prog": -28.9,
+   "now": [
+    1.4,
+    1784.8
+   ],
+   "proposed": [
+    1.9,
+    1784.8
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      1.4,
+      6.9
+     ],
+     "b": [
+      1.9,
+      6.9
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 60
+  },
+  {
+   "id": "OTRR_Gunsmoke_Singles",
+   "f": "Gunsmoke 55-09-17 (179) Thoroughbreds.mp3",
+   "url": "https://archive.org/download/OTRR_Gunsmoke_Singles/Gunsmoke%2055-09-17%20%28179%29%20Thoroughbreds.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Gunsmoke 55-09-17 (179) Thoroughbreds",
+   "gain": -0.3,
+   "dur": 1789,
+   "bytes": 14313544,
+   "prog": -27.7,
+   "now": [
+    0,
+    1789
+   ],
+   "proposed": [
+    0.5,
+    1789
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.5
+     ],
+     "b": [
+      0.5,
+      5.5
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 61
+  },
+  {
+   "id": "OTRR_Have_Gun_Singles",
+   "f": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs.mp3",
+   "url": "https://archive.org/download/OTRR_Have_Gun_Singles/Have%20Gun%E2%80%94Will%20Travel%201960-02-14%20%28065%29%20The%20Dollhouse%20in%20Diamond%20Springs.mp3",
+   "pool": "saddle",
+   "station": "KPRY",
+   "title": "Have Gun—Will Travel 1960-02-14 (065) The Dollhouse in Diamond Springs",
+   "gain": 3.2,
+   "dur": 1468,
+   "bytes": 24013252,
+   "prog": -30.6,
+   "now": [
+    1.8,
+    1467.7
+   ],
+   "proposed": [
+    1.8,
+    1467.2
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      1462.2,
+      1467.7
+     ],
+     "b": [
+      1462.2,
+      1467.2
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 62
+  },
+  {
+   "id": "OTRR_Suspense_Singles",
+   "f": "Suspense 600410 848 Two Horse Parlay (128-44) 23062 24m15s.mp3",
+   "url": "https://archive.org/download/OTRR_Suspense_Singles/Suspense%20600410%20848%20Two%20Horse%20Parlay%20%28128-44%29%2023062%2024m15s.mp3",
+   "pool": "midnight",
+   "station": "WMID",
+   "title": "Suspense 600410 848 Two Horse Parlay (128-44) 23062 24m15s",
+   "gain": 1.2,
+   "dur": 1434.8,
+   "bytes": 23615355,
+   "prog": -24.3,
+   "now": [
+    0,
+    1434.8
+   ],
+   "proposed": [
+    0.5,
+    1434.4
+   ],
+   "clips": [
+    {
+     "end": "start",
+     "a": [
+      0,
+      5.5
+     ],
+     "b": [
+      0.5,
+      5.5
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 63
+  },
+  {
+   "id": "stories_002_librivox",
+   "f": "toys_of_peace_saki_tyj_64kb.mp3",
+   "url": "https://archive.org/download/stories_002_librivox/toys_of_peace_saki_tyj_64kb.mp3",
+   "pool": "stories",
+   "station": "WPGE",
+   "title": "toys of peace saki tyj",
+   "gain": 3,
+   "dur": 691.3,
+   "bytes": 5530889,
+   "prog": -25.1,
+   "now": [
+    0,
+    691.3
+   ],
+   "proposed": [
+    0,
+    690.8
+   ],
+   "clips": [
+    {
+     "end": "end",
+     "a": [
+      685.8,
+      691.3
+     ],
+     "b": [
+      685.8,
+      690.8
+     ],
+     "cut": 0.5,
+     "shown": 0.5
+    }
+   ],
+   "n": 64
+  }
+ ]
+}
