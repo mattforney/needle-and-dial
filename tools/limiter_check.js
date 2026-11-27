@@ -9,6 +9,11 @@
 //       already in OUT are skipped, so it resumes
 //   node tools/limiter_check.js selftest         the same on synthetic recordings whose answers are known
 //   node tools/limiter_check.js report OUT       a summary, as Markdown
+//   node tools/limiter_check.js clips LIST DIR [N] [SECS]   for listening: in each listed file, the N spots
+//       of SECS seconds (default 3 of 12) where the limiter works hardest, each as two 16-bit WAVs: a, the
+//       file at its gain without the limiter (as the station plays it with the limiter off), and b, with
+//       the limiter, turned back down by the difference between the gains. The two are then at the same
+//       level, so anything heard in b and not in a is the limiter's doing. DIR/clips.json lists them.
 //
 // archive.org can't be reached from every machine, so the run happens on GitHub's servers (the Limiter
 // check workflow, on its own branch). Needs ffmpeg and Chrome (CHROME_PATH, default /usr/bin/google-chrome).
@@ -108,16 +113,17 @@ window.limit = async (frames, cfgs, a, n, lag, probe) => {
   const out = await ctx.startRendering(), D = Math.floor(n / ${STEP}) + 1, envs = new Float32Array(cfgs.length * D), SUB = ${RATE} / 10;
   const L1 = Math.pow(10, -1 / 20), L3 = Math.pow(10, -3 / 20), L6 = Math.pow(10, -6 / 20);
   const stats = cfgs.map((c, k) => {
-    const y = out.getChannelData(k), bed = Math.pow(10, (c.threshold - 6) / 20), o = { c1: 0, c3: 0, c6: 0, min: 1, peak: 0, bIn: 0, bOut: 0, sub: [] };
-    let acc = 0, m = 0;
+    const y = out.getChannelData(k), bed = Math.pow(10, (c.threshold - 6) / 20), o = { c1: 0, c3: 0, c6: 0, min: 1, peak: 0, bIn: 0, bOut: 0, sub: [], subMax: [] };
+    let acc = 0, m = 0, mn = 1;
     for (let j = 0; j < n; j++) {
       const e = y[a + lag + j] / probe, xm = Math.abs(x[a + j]), v = xm * e;
       if (e < L1) { o.c1++; if (e < L3) { o.c3++; if (e < L6) o.c6++; } }
       if (e < o.min) o.min = e;
+      if (e < mn) mn = e;
       if (v > o.peak) o.peak = v;
       if (xm < bed) { o.bIn += xm * xm; o.bOut += v * v; }
       if (e < 0.99999) acc -= 20 * Math.log10(e);
-      if (++m === SUB || j === n - 1) { o.sub.push(acc / m); acc = 0; m = 0; }
+      if (++m === SUB || j === n - 1) { o.sub.push(acc / m); o.subMax.push(mn < 1 ? -20 * Math.log10(mn) : 0); acc = 0; m = 0; mn = 1; }
       if (j % ${STEP} === 0) envs[k * D + j / ${STEP}] = e;
     }
     envs[k * D + D - 1] = y[Math.min(a + lag + n, frames - 1)] / probe;
@@ -125,6 +131,16 @@ window.limit = async (frames, cfgs, a, n, lag, probe) => {
   });
   await fetch('/out', { method: 'POST', body: envs });
   return stats;
+};
+// Frames of ch channels from /in through the limiter; the limited audio back to /out.
+window.clip = async (frames, ch, c) => {
+  const x = new Float32Array(await (await fetch('/in')).arrayBuffer()), ctx = new OfflineAudioContext(ch, frames, ${RATE}), buf = ctx.createBuffer(ch, frames, ${RATE});
+  for (let k = 0; k < ch; k++) buf.copyToChannel(x.subarray(k * frames, (k + 1) * frames), k);
+  const src = ctx.createBufferSource(), [l, b] = limiter(ctx, c); src.buffer = buf; src.connect(l); b.connect(ctx.destination); src.start();
+  const out = await ctx.startRendering(), body = new Float32Array(ch * frames);
+  for (let k = 0; k < ch; k++) body.set(out.getChannelData(k), k * frames);
+  await fetch('/out', { method: 'POST', body });
+  return true;
 };
 // The limiter's delay: where an impulse well under its threshold comes out. Half a second in, since
 // Chrome's limiter starts with its gain near nothing and takes about its release time to come up.
@@ -158,6 +174,7 @@ async function browser() {
   return {
     limit: async (input, frames, cfgs, a, n, lag) => { IN = input; OUT = null; const stats = await page.evaluate((v) => window.limit(...v), [frames, cfgs, a, n, lag, PROBE]); return { stats, envs: OUT }; },
     lag: (c) => page.evaluate((x) => window.lag(x), c),
+    clip: async (input, frames, ch, c) => { IN = input; OUT = null; await page.evaluate((v) => window.clip(...v), [frames, ch, c]); return OUT; },
     close: async () => { await chrome.close(); server.close(); },
   };
 }
@@ -167,16 +184,23 @@ function channels(file) {
   const s = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'a:0', '-show_entries', 'stream=channels', '-of', 'json', file]).toString()).streams[0] || {};
   return s.channels === 1 ? 1 : 2;
 }
-async function limitFile(B, cfgs, LAG, file, it) {
+// The program of a file (from its skip point, at most MAXSECS), decoded at RATE into raw interleaved floats,
+// and read back a stretch at a time: frames [a, b), zeros outside it.
+function decode(file, it) {
   const CH = channels(file), raw = file + '.f32', from = it.skip || 0, secs = Math.min((it.out || Infinity) - from, MAXSECS);
   execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', file, '-ss', String(from), ...(isFinite(secs) ? ['-t', String(secs)] : []), '-ac', String(CH), '-ar', String(RATE), '-f', 'f32le', raw]);
-  const N = Math.floor(fs.statSync(raw).size / (4 * CH)), fd = fs.openSync(raw, 'r'), g = Math.pow(10, it.gain / 20), K = cfgs.length;
-  const read = (a, b) => { // frames [a, b), zeros outside the file
+  const N = Math.floor(fs.statSync(raw).size / (4 * CH)), fd = fs.openSync(raw, 'r');
+  const read = (a, b) => {
     const x = new Float32Array((b - a) * CH), lo = Math.max(0, a), hi = Math.min(N, b);
     if (hi > lo) { const buf = Buffer.alloc((hi - lo) * CH * 4); fs.readSync(fd, buf, 0, buf.length, lo * CH * 4); new Uint8Array(x.buffer, (lo - a) * CH * 4, buf.length).set(buf); }
     return x;
   };
-  const inM = new Meter(CH), st = cfgs.map(() => ({ m: new Meter(CH), c1: 0, c3: 0, c6: 0, min: 1, peak: 0, bIn: 0, bOut: 0, sub: [] }));
+  return { CH, N, from, read, close: () => { fs.closeSync(fd); fs.rmSync(raw, { force: true }); } };
+}
+async function limitFile(B, cfgs, LAG, file, it, D = null) {
+  const own = !D; D = D || decode(file, it);
+  const { CH, N, from, read } = D, g = Math.pow(10, it.gain / 20), K = cfgs.length;
+  const inM = new Meter(CH), st = cfgs.map(() => ({ m: new Meter(CH), c1: 0, c3: 0, c6: 0, min: 1, peak: 0, bIn: 0, bOut: 0, sub: [], subMax: [] }));
   for (let s = 0; s < N; s += PIECE) {
     const L = Math.min(PIECE, N - s), F = PRE + L + LAG, x = read(s - PRE, s + L + LAG), input = new Float32Array(2 * F);
     for (let i = 0; i < F; i++) { let v = x[i * CH]; if (CH === 2) { const w = x[i * 2 + 1]; if (Math.abs(w) > Math.abs(v)) v = w; } input[i] = v * g; input[F + i] = PROBE; }
@@ -185,13 +209,14 @@ async function limitFile(B, cfgs, LAG, file, it) {
     for (let k = 0; k < K; k++) {
       const o = st[k], p = stats[k], env = new Float32Array(L);
       for (const f of ['c1', 'c3', 'c6', 'bIn', 'bOut']) o[f] += p[f];
-      o.min = Math.min(o.min, p.min); o.peak = Math.max(o.peak, p.peak); for (const v of p.sub) o.sub.push(v);
+      o.min = Math.min(o.min, p.min); o.peak = Math.max(o.peak, p.peak); for (const v of p.sub) o.sub.push(v); for (const v of p.subMax) o.subMax.push(v);
       for (let j = 0; j < L; j++) { const i = Math.floor(j / STEP), t = (j % STEP) / STEP, e0 = envs[k * D + i], e1 = envs[k * D + Math.min(i + 1, D - 1)]; env[j] = e0 + (e1 - e0) * t; }
       o.m.feed(body, 0, L, g, env);
     }
   }
-  fs.closeSync(fd); fs.rmSync(raw, { force: true });
+  if (own) D.close();
   const Iin = inM.I(), res = { channels: CH, secs: r1(N / RATE), I_in: r2(Iin), limits: {} };
+  Object.defineProperty(res, 'subs', { value: st.map((o) => ({ sub: o.sub, subMax: o.subMax })) }); // for clips; not saved
   cfgs.forEach((c, k) => {
     const o = st[k], W = 30; let best = -1, at = 0, sum = 0;
     for (let j = 0; j < o.sub.length; j++) { sum += o.sub[j] - (j >= W ? o.sub[j - W] : 0); if (j >= W - 1 && sum > best) { best = sum; at = j - W + 1; } }
@@ -284,9 +309,74 @@ async function selftest() {
     if (probs.length) bad++;
     console.log(`${probs.length ? 'FAIL' : 'ok  '} ${name}${probs.length ? ': ' + probs.join('; ') : ''}  ${p ? JSON.stringify({ gr1: p.gr1, gr3: p.gr3, gr6: p.gr6, grMax: p.grMax, peak: p.peak, dI: p.dI, dBed: p.dBed }) : ''}`);
   });
+  // Clips: the clicks file at +10 dB with the limiter and +3 dB without. Its clips should have the music
+  // at the same level either way and the clicks lower with the limiter.
+  const cdir = path.join(tmp, 'clips'), ci = list.files[3], cl = path.join(tmp, 'clips.json');
+  fs.writeFileSync(cl, JSON.stringify({ files: [Object.assign({}, ci, { gain0: 3 })] }));
+  const idx = await clips(cl, cdir, 2, 4), sp = idx.files[0].spots, pcm = (f) => { const b = fs.readFileSync(path.join(cdir, f)); const x = new Float32Array((b.length - 44) / 2); for (let i = 0; i < x.length; i++) x[i] = b.readInt16LE(44 + 2 * i) / 32767; return x; };
+  const probs = [];
+  if (sp.length !== 2) probs.push(`${sp.length} spots, expected 2`);
+  for (const p of sp) {
+    const A = pcm(p.a), Bc = pcm(p.b), rms = (x, a0, n) => { let e = 0; for (let i = a0; i < a0 + n; i++) e += x[i] * x[i]; return Math.sqrt(e / n); }, pk = (x) => x.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+    if (A.length !== 4 * RATE || Bc.length !== A.length) probs.push(`clip lengths ${A.length} and ${Bc.length}, expected ${4 * RATE}`);
+    // the music just before each click (0.5 s into each second of the file, so at whole seconds plus 0.5 from the clip's start, less its offset)
+    const off = Math.round(((0.5 - (p.at % 1)) + 1) % 1 * RATE), quiet = Math.max(0, off - Math.round(0.2 * RATE)), dbBed = 20 * Math.log10(rms(Bc, quiet, Math.round(0.15 * RATE)) / rms(A, quiet, Math.round(0.15 * RATE)));
+    if (!(Math.abs(dbBed) < 0.3)) probs.push(`at ${p.at} s the music is ${dbBed.toFixed(2)} dB apart between the clips`);
+    if (!(pk(Bc) < pk(A) * 0.8)) probs.push(`at ${p.at} s the clicks are no lower with the limiter: peaks ${pk(A).toFixed(3)} and ${pk(Bc).toFixed(3)}`);
+  }
+  if (probs.length) bad++;
+  console.log(`${probs.length ? 'FAIL' : 'ok  '} clips: the music level-matched, the clicks lower with the limiter${probs.length ? ': ' + probs.join('; ') : ''}`);
   fs.rmSync(tmp, { recursive: true, force: true });
-  console.log(bad ? `${bad} self-tests failed` : `all ${cases.length + 1} self-tests passed`);
+  console.log(bad ? `${bad} self-tests failed` : `all ${cases.length + 2} self-tests passed`);
   process.exitCode = bad ? 1 : 0;
+}
+
+// ---- clips for listening: where the limiter works hardest, without it and with it, at the same level
+function wav16(file, x, ch) { // 16-bit PCM WAV at RATE from interleaved floats
+  const data = Buffer.alloc(x.length * 2), h = Buffer.alloc(44);
+  for (let i = 0; i < x.length; i++) data.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(x[i] * 32767))), i * 2);
+  h.write('RIFF', 0); h.writeUInt32LE(36 + data.length, 4); h.write('WAVE', 8); h.write('fmt ', 12); h.writeUInt32LE(16, 16); h.writeUInt16LE(1, 20); h.writeUInt16LE(ch, 22);
+  h.writeUInt32LE(RATE, 24); h.writeUInt32LE(RATE * ch * 2, 28); h.writeUInt16LE(ch * 2, 32); h.writeUInt16LE(16, 34); h.write('data', 36); h.writeUInt32LE(data.length, 40);
+  fs.writeFileSync(file, Buffer.concat([h, data]));
+}
+async function clips(listPath, outDir, N = 3, SECS = 12) {
+  const list = JSON.parse(fs.readFileSync(listPath, 'utf8')), cfg = settings()[0], W = SECS * 10, L = SECS * RATE, EDGE = Math.round(0.01 * RATE);
+  fs.mkdirSync(outDir, { recursive: true });
+  const B = await browser(), tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nd-clips-')), index = { made: new Date().toISOString(), setting: cfg, secs: SECS, files: [] };
+  try {
+    const LAG = (await B.lag(cfg)).lag;
+    for (const [i, it] of list.files.entries()) {
+      const file = it.path || path.join(tmp, 'a' + (path.extname(it.f).toLowerCase() || '.mp3'));
+      if (!it.path) await download(ia(it.id, it.f), file);
+      const D = decode(file, it), res = await limitFile(B, [cfg], LAG, file, it, D), { sub, subMax } = res.subs[0];
+      // The spots: most 0.1 s blocks with more than 3 dB off, then the most reduction overall; none overlapping.
+      const score = (j) => { let s = 0; for (let k = j; k < j + W; k++) s += (subMax[k] >= 3 ? 1000 : 0) + sub[k]; return s; };
+      const cand = []; for (let j = 0; j + W <= sub.length; j += 5) cand.push([score(j), j]);
+      cand.sort((a, b) => b[0] - a[0]);
+      const picks = []; for (const [s, j] of cand) { if (s <= 0 || picks.length >= N) break; if (picks.every((p) => Math.abs(p - j) >= W)) picks.push(j); }
+      picks.sort((a, b) => a - b);
+      const CH = D.CH, g = Math.pow(10, it.gain / 20), g0 = Math.pow(10, it.gain0 / 20), back = Math.pow(10, (it.gain0 - it.gain) / 20);
+      const rec = { pool: it.pool, id: it.id, f: it.f, title: it.title || null, gain: it.gain, gain0: it.gain0, channels: CH, gr1: res.limits.page.gr1, spots: [] };
+      for (const [k, j] of picks.entries()) {
+        const start = j * RATE / 10, F = PRE + L + LAG, x = D.read(start - PRE, start + L + LAG), input = new Float32Array(CH * F);
+        for (let n = 0; n < F; n++) for (let c = 0; c < CH; c++) input[c * F + n] = x[n * CH + c] * g;
+        const out = await B.clip(input, F, CH, cfg), a = new Float32Array(L * CH), b = new Float32Array(L * CH);
+        for (let n = 0; n < L; n++) {
+          const fade = Math.min(1, n / EDGE, (L - 1 - n) / EDGE); // 10 ms in and out, so the clip's own edges don't click
+          for (let c = 0; c < CH; c++) { a[n * CH + c] = x[(PRE + n) * CH + c] * g0 * fade; b[n * CH + c] = out[c * F + PRE + LAG + n] * back * fade; }
+        }
+        const name = `${i + 1}-${k + 1}`;
+        wav16(path.join(outDir, name + 'a.wav'), a, CH); wav16(path.join(outDir, name + 'b.wav'), b, CH);
+        let mx = 0, o3 = 0; for (let q = j; q < j + W; q++) { mx = Math.max(mx, subMax[q]); if (subMax[q] >= 3) o3++; }
+        rec.spots.push({ at: r1(D.from + j / 10), a: name + 'a.wav', b: name + 'b.wav', grMax: r1(mx), over3: o3 });
+      }
+      D.close(); if (!it.path) fs.rmSync(file, { force: true });
+      index.files.push(rec);
+      console.log(`${it.f}: ${rec.spots.map((p) => `${Math.floor(p.at / 60)}:${String(Math.floor(p.at % 60)).padStart(2, '0')} (up to ${p.grMax} dB, ${p.over3} × 0.1 s over 3 dB)`).join('; ') || 'nowhere it works'}`);
+    }
+  } finally { await B.close(); fs.rmSync(tmp, { recursive: true, force: true }); }
+  fs.writeFileSync(path.join(outDir, 'clips.json'), JSON.stringify(index, null, 1) + '\n');
+  return index;
 }
 
 // ---- summary
@@ -320,6 +410,6 @@ function report(outPath) {
 module.exports = { Meter, settings, makeupDb, pageLimiter };
 if (require.main !== module) return;
 const [cmd, ...args] = process.argv.slice(2);
-const cli = { pick: () => pick(args[0]), run: () => run(args[0], args[1]), selftest: () => selftest(), report: () => report(args[0]) }[cmd];
-if (!cli) { console.error('usage: node tools/limiter_check.js pick [OUT] | run LIST OUT | selftest | report OUT'); process.exitCode = 2; }
+const cli = { pick: () => pick(args[0]), run: () => run(args[0], args[1]), selftest: () => selftest(), report: () => report(args[0]), clips: () => clips(args[0], args[1], +(args[2] || 3), +(args[3] || 12)) }[cmd];
+if (!cli) { console.error('usage: node tools/limiter_check.js pick [OUT] | run LIST OUT | selftest | report OUT | clips LIST DIR [N] [SECS]'); process.exitCode = 2; }
 else Promise.resolve(cli()).catch((e) => { console.error(e); process.exitCode = 1; });
