@@ -67,7 +67,7 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .knob::before{content:"";position:absolute;inset:9px;border-radius:50%;background:repeating-conic-gradient(from 0deg,#7a5a28 0 6deg,#a47c3a 6deg 12deg);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25)}
 .knob .ind{position:absolute;left:50%;top:50%;width:4px;height:26px;margin:-26px 0 0 -2px;transform-origin:50% 100%;border-radius:2px;background:#2a1a08}
 .kcol{display:flex;flex-direction:column;align-items:center;gap:6px}
-.volnote{width:70px;height:70px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.2;color:var(--muted);box-shadow:inset 0 0 0 1px var(--brass-d)}
+.knob.fixed{opacity:.6;cursor:default}
 .sw{display:flex;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 2px var(--brass-d)}
 .sw button{border:0;background:transparent;white-space:nowrap;padding:8px 12px;min-height:40px;font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);cursor:pointer}
 .sw button[aria-pressed="true"]{background:var(--brass);color:#22160a}
@@ -140,7 +140,7 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 .dbg pre{margin:0;padding:0 10px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
 body.has-dbg .wrap{padding-bottom:42vh}
 @media(max-width:860px){.face{grid-template-columns:96px minmax(0,1fr)}.controls{grid-column:1/-1;grid-template-columns:repeat(3,minmax(0,1fr))}.row{grid-template-columns:130px minmax(0,1fr) minmax(0,1fr)}.row .later{display:none}}
-@media(max-width:600px){.volnote{width:60px;height:60px;font-size:11px}.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.presets button b{font-size:15px}.presets button span{font-size:11px}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
+@media(max-width:600px){.face{grid-template-columns:1fr}.eyebox{flex-direction:row}.eyebox svg{width:56px;height:56px}.presets{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}.presets button b{font-size:15px}.presets button span{font-size:11px}.row{grid-template-columns:1fr;gap:6px}.about{grid-template-columns:1fr}.knob,.power{width:60px;height:60px}.sw button{padding:8px 9px}.clock{margin-left:0}}
 /* Touch screens: no keyboard instructions. */
 @media(hover:none) and (pointer:coarse){.hint .keys{display:none}}
 @media(prefers-reduced-motion:reduce){.radio[data-on="false"] .power{animation:none}.presets button{transition:none}}
@@ -914,7 +914,11 @@ function power(on) {
   setPlaybackState(); drawDial(); drawEye(0); render();
 }
 function knobDrag(el, onDelta) { let y0 = 0, x0 = 0, dragging = false; el.addEventListener('pointerdown', e => { dragging = true; y0 = e.clientY; x0 = e.clientX; el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing'; }); el.addEventListener('pointermove', e => { if (!dragging) return; const d = (y0 - e.clientY) + (e.clientX - x0); y0 = e.clientY; x0 = e.clientX; onDelta(d); }); const end = () => { if (dragging) { dragging = false; el.style.cursor = ''; onDelta(0, true); } }; el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end); }
-function setVol(v) { R.vol = Math.min(1, Math.max(0, v)); $('#volKnob .ind').style.transform = `rotate(${-135 + R.vol * 270}deg)`; $('#volKnob').setAttribute('aria-valuenow', Math.round(R.vol * 100)); save(); }
+// On iPhone and iPad the carrier plays directly (Web Audio stops there when the screen locks), and a page
+// can't set the volume of audio played that way: the phone's buttons do. The dial stays, at its default
+// (which also sets the static between stations), dimmed; a tap says to use the phone's buttons.
+const FIXED_VOL = IOS && !ROUTE;
+function setVol(v) { if (FIXED_VOL) v = 0.75; R.vol = Math.min(1, Math.max(0, v)); $('#volKnob .ind').style.transform = `rotate(${-135 + R.vol * 270}deg)`; $('#volKnob').setAttribute('aria-valuenow', Math.round(R.vol * 100)); save(); }
 const tuneStep = () => R.band === 'AM' ? 1 : 0.025;
 
 /* ---------- Presets: a bank of six per band, as on a car radio ---------- */
@@ -1105,9 +1109,11 @@ document.addEventListener('resume', () => dlog('page unfrozen'));
 document.addEventListener('keyup', e => { if (!e.target.closest('.knob,#dial') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.shiftKey) { clearTimeout(afc.t); afc.t = setTimeout(afc, 400); } });
 new ResizeObserver(() => drawDial()).observe($('#dial'));
 
-// On iPhone and iPad the carrier plays directly (Web Audio stops there when the screen locks), and a
-// page can't set the volume of audio played that way: the phone's buttons do. The knob would do nothing.
-if (IOS && !ROUTE) { const k = $('#volKnob'), n = document.createElement('div'); k.hidden = true; n.className = 'volnote'; n.textContent = 'Use the phone’s buttons'; k.after(n); }
+if (FIXED_VOL) {
+  const k = $('#volKnob'), lbl = k.nextElementSibling; let t = 0;
+  k.classList.add('fixed'); k.setAttribute('aria-disabled', 'true'); k.setAttribute('aria-valuetext', 'Set with the phone’s volume buttons'); k.tabIndex = -1;
+  k.addEventListener('pointerdown', () => { lbl.textContent = 'Phone buttons'; $('#sr').textContent = 'Use the phone’s volume buttons.'; clearTimeout(t); t = setTimeout(() => { lbl.textContent = 'Volume'; }, 2500); });
+}
 setBand(R.band === 'FM' ? 'FM' : 'AM', true);
 setTone(R.tone === 'am' ? 'am' : 'hifi'); setVol(R.vol); renderPresets(); drawDial(); drawEye(0); render(); renderLog();
 renderRadioLog();

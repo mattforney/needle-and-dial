@@ -243,8 +243,12 @@ async function lockWhileLoading(browser, ua) {
   if (s.held) problems.push('the page gave up and held the station');
   if (!/paused as the screen locked while loading; restarting/.test(s.log)) problems.push('no restart in the log');
   if (ua && !/audio direct, with keep-alive/.test(s.log)) problems.push('expected direct audio with the keep-alive on iPhone');
-  const knob = await page.evaluate(() => ({ hidden: document.querySelector('#volKnob').hidden, note: !!document.querySelector('.volnote') }));
-  if (ua ? !(knob.hidden && knob.note) : knob.hidden || knob.note) problems.push(ua ? 'the volume knob should give way to a note on iPhone' : 'the volume knob should show');
+  // On iPhone the volume dial stays, fixed at its default: turning it changes nothing, and a tap says why.
+  const knob = await page.evaluate(() => { const k = document.querySelector('#volKnob'), before = window.SKY.R.vol; k.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true })); k.scrollIntoView({ block: 'start' }); return { fixed: k.classList.contains('fixed') && k.getAttribute('aria-disabled') === 'true', before, after: window.SKY.R.vol }; });
+  await page.click('#volKnob', { timeout: 5000, force: true }); // a real tap, above the debug panel (force: Playwright won't tap what's marked disabled)
+  knob.label = await page.evaluate(() => document.querySelector('#volKnob').nextElementSibling.textContent);
+  if (ua && !(knob.fixed && knob.before === 0.75 && knob.after === 0.75 && /Phone buttons/.test(knob.label))) problems.push('on iPhone the volume dial should stay at its default and point to the phone’s buttons: ' + JSON.stringify(knob));
+  if (!ua && (knob.fixed || knob.after === knob.before)) problems.push('the volume dial should turn: ' + JSON.stringify(knob));
   return finish(t, name, problems);
 }
 
