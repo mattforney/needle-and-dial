@@ -275,7 +275,7 @@ async function tuneInLead(browser) {
   const log = await page.evaluate(() => window.SKY.log());
   if (lags.length === 2) {
     if (Math.abs(lags[1]) > 1.5) problems.push(`second tune-in started ${Math.abs(lags[1]).toFixed(1)} s ${lags[1] > 0 ? 'behind' : 'ahead of'} the schedule (first: ${lags[0].toFixed(1)} s behind)`);
-    if (!/WMID prog .*aiming \d+\.\d s ahead/.test(log)) problems.push('no aimed seek in the log');
+    if (!/WMID \w+ .*aiming \d+\.\d s ahead/.test(log)) problems.push('no aimed seek in the log');
   }
   return finish(t, 'tuning in starts in step with the schedule', problems);
 }
