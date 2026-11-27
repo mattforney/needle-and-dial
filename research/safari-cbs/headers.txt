@@ -1,0 +1,1509 @@
+== OldRadio_Adv--Sugar_Crinkles3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:50 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Sugar_Crinkles3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Sugar_Crinkles3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-5fdac2c80b6218b83f52c04d92a333e6' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:51 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:09:06 GMT
+Connection: keep-alive
+ETag: "48fd47d2-5961a"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/366106
+
+== OldRadio_Adv--NBC8convention.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:52 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--NBC8convention.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--NBC8convention.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-a2f7aecbf7315c7e1d9a86e3979e0f55' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:52 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:01:30 GMT
+Connection: keep-alive
+ETag: "48fd460a-36d8d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/224653
+
+== OldRadio_Adv--Camel5.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:53 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Camel5.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Camel5.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-8224b27a9b8f4d45f4f94a8814f98f9e' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:54 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:26:17 GMT
+Connection: keep-alive
+ETag: "48fd3dc9-2c2a2"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/180898
+
+== OldRadio_Adv--Quaker_Oats4.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:55 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Quaker_Oats4.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Quaker_Oats4.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-f0dfaa3cee85c32975c7149eb294db61' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:55 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:03:18 GMT
+Connection: keep-alive
+ETag: "48fd4676-18239"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/98873
+
+== OldRadio_Adv--Palmolive_Soap.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:57 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Palmolive_Soap.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Palmolive_Soap.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-9a48f2bfa8c2164785de9b2ecff3a05e' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:57 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:02:11 GMT
+Connection: keep-alive
+ETag: "48fd4633-52454"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/336980
+
+== OldRadio_Adv--DelMonte_Catsup2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:33:58 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--DelMonte_Catsup2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--DelMonte_Catsup2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-2a9ea879aeb59cb1cff6444415b110d1' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:33:59 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:35:56 GMT
+Connection: keep-alive
+ETag: "48fd400c-5bad6"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/375510
+
+== OldRadio_Adv--NBC2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:00 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--NBC2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--NBC2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-28787109356f2907e36091ecb109cdc1' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:01 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:01:13 GMT
+Connection: keep-alive
+ETag: "48fd45f9-4b105"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/307461
+
+== OldRadio_Adv--Jello1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:02 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Jello1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Jello1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-94b280b90c84cc8ffb5bd0f484dfe9ee' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:02 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:46:18 GMT
+Connection: keep-alive
+ETag: "48fd427a-2257d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/140669
+
+== OldRadio_Adv--45rpm_records.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:04 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--45rpm_records.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--45rpm_records.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-c47bcaea361a4617aa8932bbbf032c04' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:04 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:21:30 GMT
+Connection: keep-alive
+ETag: "48fd3caa-44c83"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/281731
+
+== OldRadio_Adv--Anacin.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:05 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Anacin.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Anacin.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-3ef7139f254004f33fd4042ff96ee678' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:06 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:22:34 GMT
+Connection: keep-alive
+ETag: "48fd3cea-31cf0"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/204016
+
+== OldRadio_Adv--Anchor_Hocking.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:07 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Anchor_Hocking.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Anchor_Hocking.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-4685c08e7118fa53246b7e564688ffec' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:07 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:22:51 GMT
+Connection: keep-alive
+ETag: "48fd3cfb-36d8d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/224653
+
+== OldRadio_Adv--Autolite5.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:09 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Autolite5.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Autolite5.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-a2ece1297d0a230ee8cec7ee93c241f9' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:09 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:23:48 GMT
+Connection: keep-alive
+ETag: "48fd3d34-4dff6"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/319478
+
+== OldRadio_Adv--AutoliteB.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:10 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--AutoliteB.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--AutoliteB.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-9f93aca4e422d46cef3da4ea0f7fa130' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:11 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:24:32 GMT
+Connection: keep-alive
+ETag: "48fd3d60-5d459"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/382041
+
+== OldRadio_Adv--Blue_Coal1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:12 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Blue_Coal1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Blue_Coal1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-33639744d76705a7637067fcb6bf8a2b' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:12 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:25:02 GMT
+Connection: keep-alive
+ETag: "48fd3d7e-250db"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/151771
+
+== OldRadio_Adv--Bromo_Quinine.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:13 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Bromo_Quinine.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Bromo_Quinine.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-934089a92cad07cf68b59f6b7234387c' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:14 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:25:39 GMT
+Connection: keep-alive
+ETag: "48fd3da3-47c78"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/294008
+
+== OldRadio_Adv--CBS_Radio3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:15 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--CBS_Radio3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--CBS_Radio3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-60e483b8429f433b317c73ff58fc6c5b' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:15 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:27:13 GMT
+Connection: keep-alive
+ETag: "48fd3e01-292ac"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/168620
+
+== OldRadio_Adv--Carnation1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:16 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Carnation1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Carnation1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-a4414fcbb56fec213f79ec7928e77ff2' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:17 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:26:35 GMT
+Connection: keep-alive
+ETag: "48fd3ddb-693ac"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/431020
+
+== OldRadio_Adv--Cheerios2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:18 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Cheerios2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Cheerios2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-9cf132086585e16914ce881093282ea8' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:19 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:27:30 GMT
+Connection: keep-alive
+ETag: "48fd3e12-490e1"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/299233
+
+== OldRadio_Adv--ChesterfieldN.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:20 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia601500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--ChesterfieldN.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--ChesterfieldN.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-a81d43d1da9c13e945b8c436f7da5dfb' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:34:20 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:29:58 GMT
+Connection: keep-alive
+ETag: "48fd3ea6-601c1"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia601500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-b54c5c2c3864d75fd54c7b7436e2ef74' https://archive.org/includes/ https://ia601500.us.archive.org/includes/ https://archive.org/components/ https://ia601500.us.archive.org/components/ https://archive.org/v/ https://ia601500.us.archive.org/v/ https://ia601500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia601500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia601500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:34:20 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/393665
+
+== OldRadio_Adv--Colgate_Shaving_Cream.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:21 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Colgate_Shaving_Cream.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Colgate_Shaving_Cream.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-02475f3de9fa12ad5616614301b1852b' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:22 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:32:43 GMT
+Connection: keep-alive
+ETag: "48fd3f4b-4294e"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/272718
+
+== OldRadio_Adv--Columbia_Phonograph.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:23 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Columbia_Phonograph.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Columbia_Phonograph.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-d214fbaa0fa8ee7b6ac47d62f44fc122' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:23 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:32:49 GMT
+Connection: keep-alive
+ETag: "48fd3f51-4b310"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/307984
+
+== OldRadio_Adv--Cream_Of_Wheat.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:25 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia601500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--Cream_Of_Wheat.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Cream_Of_Wheat.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-cc0eae8f08dc5b954697a36bdec9fe90' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:34:25 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:33:25 GMT
+Connection: keep-alive
+ETag: "48fd3f75-239e6"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia601500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-be0f543acfa2238a9539939710eb071a' https://archive.org/includes/ https://ia601500.us.archive.org/includes/ https://archive.org/components/ https://ia601500.us.archive.org/components/ https://archive.org/v/ https://ia601500.us.archive.org/v/ https://ia601500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia601500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia601500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:34:25 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/145894
+
+== OldRadio_Adv--DuPont_Chemistry1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:26 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia801500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--DuPont_Chemistry1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--DuPont_Chemistry1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-50c7e6b7e226266d67c98919f235c527' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:34:26 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:37:00 GMT
+Connection: keep-alive
+ETag: "48fd404c-3ea8d"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia801500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-f43b471596b479c85de6b58fdb477c54' https://archive.org/includes/ https://ia801500.us.archive.org/includes/ https://archive.org/components/ https://ia801500.us.archive.org/components/ https://archive.org/v/ https://ia801500.us.archive.org/v/ https://ia801500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia801500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia801500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:34:26 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/256653
+
+== OldRadio_Adv--Dutch_Cleanser3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:28 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia801500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--Dutch_Cleanser3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Dutch_Cleanser3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-c21e645e6726376026de8825d6a71133' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:34:29 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:37:46 GMT
+Connection: keep-alive
+ETag: "48fd407a-56a39"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia801500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-a58995477005c736b7a4c533de6ecb28' https://archive.org/includes/ https://ia801500.us.archive.org/includes/ https://archive.org/components/ https://ia801500.us.archive.org/components/ https://archive.org/v/ https://ia801500.us.archive.org/v/ https://ia801500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia801500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia801500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:34:29 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/354873
+
+== OldRadio_Adv--Exlax1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:30 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Exlax1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Exlax1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-2d01c45c3c73c9d32ca64a33d95e66ac' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:31 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:39:50 GMT
+Connection: keep-alive
+ETag: "48fd40f6-4ab68"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/306024
+
+== OldRadio_Adv--Fitch_ShaveCream1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:32 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Fitch_ShaveCream1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Fitch_ShaveCream1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-abfaaa83041c9115e83250e1c916a209' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:32 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:41:36 GMT
+Connection: keep-alive
+ETag: "48fd4160-5b32f"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/373551
+
+== OldRadio_Adv--Frigidaire1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:33 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Frigidaire1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Frigidaire1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-60c6fa9274de18477b2b9e15891934d5' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:34 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:42:20 GMT
+Connection: keep-alive
+ETag: "48fd418c-5b9d1"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/375249
+
+== OldRadio_Adv--Goodyear_Rubber_Cement.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:35 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Goodyear_Rubber_Cement.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Goodyear_Rubber_Cement.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-f9e36771b5617c67b6966482e92319dd' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:35 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:43:17 GMT
+Connection: keep-alive
+ETag: "48fd41c5-6c3a2"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/443298
+
+== OldRadio_Adv--Haleys_MO.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:37 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Haleys_MO.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Haleys_MO.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-0dcdc98a4945a81949346ca0d0cdfdd7' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:37 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:44:24 GMT
+Connection: keep-alive
+ETag: "48fd4208-4519d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/283037
+
+== OldRadio_Adv--Ingram_Gasoline.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:38 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Ingram_Gasoline.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Ingram_Gasoline.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-e527a86ee5a27f406730dfcb7403701c' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:38 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:45:08 GMT
+Connection: keep-alive
+ETag: "48fd4234-4a5cc"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/304588
+
+== OldRadio_Adv--Jello7_Magic.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:40 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Jello7_Magic.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Jello7_Magic.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-cefc31ccc7383d1214d2f6ef1cf77175' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:40 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:46:43 GMT
+Connection: keep-alive
+ETag: "48fd4293-30ea7"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/200359
+
+== OldRadio_Adv--Johnsons_Glocoat2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:44 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Johnsons_Glocoat2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Johnsons_Glocoat2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-32abd0557ed310335faea38d7197bc37' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:45 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:48:05 GMT
+Connection: keep-alive
+ETag: "48fd42e5-40ab2"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/264882
+
+== OldRadio_Adv--Kellogs1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:46 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Kellogs1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Kellogs1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-67cfd562102edd1c94e0aa42a179fdfe' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:46 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:48:09 GMT
+Connection: keep-alive
+ETag: "48fd42e9-41259"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/266841
+
+== OldRadio_Adv--Kraft5_Parfait1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:47 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Kraft5_Parfait1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Kraft5_Parfait1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-051fe310ac7b577bf3ec1ceb1700e8a9' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:48 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:50:05 GMT
+Connection: keep-alive
+ETag: "48fd435d-282db"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/164571
+
+== OldRadio_Adv--L_and_M_Cigs3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:49 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--L_and_M_Cigs3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--L_and_M_Cigs3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-1d4cadabdb87a5c2151a05bae31f62ff' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:49 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:53:53 GMT
+Connection: keep-alive
+ETag: "48fd4441-3c4cc"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/246988
+
+== OldRadio_Adv--Lava_Soap.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:50 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Lava_Soap.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Lava_Soap.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-16bcfbc89d55a687211b542a4829ce86' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:51 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:55:31 GMT
+Connection: keep-alive
+ETag: "48fd44a3-57883"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/358531
+
+== OldRadio_Adv--Lipton1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:52 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Lipton1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Lipton1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-529affd6479969b5e49937e7d8c91051' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:52 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:56:09 GMT
+Connection: keep-alive
+ETag: "48fd44c9-315cc"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/202188
+
+== OldRadio_Adv--Lucky_Strike2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:54 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Lucky_Strike2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Lucky_Strike2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-41d97604c3874945cfc2646816d24c6a' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:54 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:57:07 GMT
+Connection: keep-alive
+ETag: "48fd4503-4fa7d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/326269
+
+== OldRadio_Adv--Lux6.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:55 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Lux6.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Lux6.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-ca5b75bbd5f66b9f4a84765ba779243e' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:55 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 02:59:00 GMT
+Connection: keep-alive
+ETag: "48fd4574-3292f"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/207151
+
+== OldRadio_Adv--LuxF.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:57 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--LuxF.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--LuxF.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-890bae3f9665d78b3337018228d1c8f9' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:57 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:00:00 GMT
+Connection: keep-alive
+ETag: "48fd45b0-25368"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/152424
+
+== OldRadio_Adv--Maxwell_House3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:34:59 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Maxwell_House3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Maxwell_House3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-1df2d3a3ba002909f75aac7cfa7a6403' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:34:59 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:00:37 GMT
+Connection: keep-alive
+ETag: "48fd45d5-250db"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/151771
+
+== OldRadio_Adv--PabstBlueRibbon3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:01 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--PabstBlueRibbon3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--PabstBlueRibbon3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-dcbea299e87bdb477fd9fc230218f674' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:01 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:01:49 GMT
+Connection: keep-alive
+ETag: "48fd461d-54b9d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/347037
+
+== OldRadio_Adv--Post_Bran_Flakes1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:03 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Post_Bran_Flakes1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Post_Bran_Flakes1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-bff908ce1313bbba91e9a24f6e37008f' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:04 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:02:58 GMT
+Connection: keep-alive
+ETag: "48fd4662-1d9fb"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/121339
+
+== OldRadio_Adv--Rexall3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:05 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia801500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--Rexall3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Rexall3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-400ccd483798d851f0c365f8fc530478' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:35:05 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:04:45 GMT
+Connection: keep-alive
+ETag: "48fd46cd-543f6"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia801500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-dd3662075523576c1b443ae7a1ae7590' https://archive.org/includes/ https://ia801500.us.archive.org/includes/ https://archive.org/components/ https://ia801500.us.archive.org/components/ https://archive.org/v/ https://ia801500.us.archive.org/v/ https://ia801500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia801500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia801500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:35:05 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/345078
+
+== OldRadio_Adv--Roma_Wines3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:07 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://ia801500.us.archive.org/9/items/Old_Radio_Adverts_01/OldRadio_Adv--Roma_Wines3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Roma_Wines3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-8bb88f0e6f51859444f77e5b57b54722' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx/1.30.7
+Date: Fri, 27 Nov 2026 20:35:07 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:05:18 GMT
+Connection: keep-alive
+ETag: "48fd46ee-4a0b2"
+Strict-Transport-Security: max-age=15724800
+Content-Security-Policy-Report-Only: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://ia801500.us.archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-7f340a130d4e2367399a36616489ed8a' https://archive.org/includes/ https://ia801500.us.archive.org/includes/ https://archive.org/components/ https://ia801500.us.archive.org/components/ https://archive.org/v/ https://ia801500.us.archive.org/v/ https://ia801500.us.archive.org/upload/app/ https://archive.org/offshoot_assets/ https://ia801500.us.archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://ia801500.us.archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+Expires: Sat, 28 Nov 2026 02:35:07 GMT
+Cache-Control: max-age=21600
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+Access-Control-Allow-Credentials: true
+Content-Range: bytes 0-1/303282
+
+== OldRadio_Adv--Signal_Battery.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:08 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Battery.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Battery.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-ab799f7e742877ea65f938ee89606dee' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:09 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:06:15 GMT
+Connection: keep-alive
+ETag: "48fd4727-534a7"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/341159
+
+== OldRadio_Adv--Signal_Oil3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:10 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Oil3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Oil3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-23e6256eda95b56dbebff5731412e23f' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:10 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:06:52 GMT
+Connection: keep-alive
+ETag: "48fd474c-6c6b2"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/444082
+
+== OldRadio_Adv--Signal_Oil9.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:12 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Oil9.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Signal_Oil9.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-f80d58bc63277264e7859c3be6cb4e50' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:12 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:07:32 GMT
+Connection: keep-alive
+ETag: "48fd4774-3f1b2"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/258482
+
+== OldRadio_Adv--Signal_OilE.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:13 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Signal_OilE.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Signal_OilE.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-20837782e5009cc0ea94a6fd050dff4a' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:14 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:08:08 GMT
+Connection: keep-alive
+ETag: "48fd4798-2afc1"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/176065
+
+== OldRadio_Adv--Spam5.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:15 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Spam5.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Spam5.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-59a1c3f7126eba4940f11f32c65fdd45' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:15 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:08:49 GMT
+Connection: keep-alive
+ETag: "48fd47c1-3dc44"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/252996
+
+== OldRadio_Adv--Swan_Soap5.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:17 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Swan_Soap5.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Swan_Soap5.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-73df8fcfb767681ef8a762cdccba2626' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:17 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:09:58 GMT
+Connection: keep-alive
+ETag: "48fd4806-1c388"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/115592
+
+== OldRadio_Adv--Tums2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:18 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Tums2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Tums2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-96a781b24637f2d08ebb860275fed634' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:19 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:11:01 GMT
+Connection: keep-alive
+ETag: "48fd4845-5488d"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/346253
+
+== OldRadio_Adv--Velveta2.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:20 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Velveta2.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Velveta2.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-798441747b3c29e1d2002804ee26992a' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:21 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:11:42 GMT
+Connection: keep-alive
+ETag: "48fd486e-3090a"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/198922
+
+== OldRadio_Adv--Wildroot1.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:22 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Wildroot1.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Wildroot1.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-f96c66f7a3fb45f1b2eb38a7d3ddc06c' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:22 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:12:06 GMT
+Connection: keep-alive
+ETag: "48fd4886-3caeb"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/248555
+
+== OldRadio_Adv--Wrigleys3.mp3
+HTTP/1.1 302 Found
+Server: nginx/1.26.3
+Date: Fri, 27 Nov 2026 20:35:23 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Accept-Ranges: bytes
+Location: https://dn721309.ca.archive.org/0/items/Old_Radio_Adverts_01/OldRadio_Adv--Wrigleys3.mp3
+Strict-Transport-Security: max-age=15724800
+Onion-Location: https://archivep75mbjunhxc6x4j5mwjmomyxb573v42baldlqu56ruil2oiad.onion/download/Old_Radio_Adverts_01/OldRadio_Adv--Wrigleys3.mp3
+Content-Security-Policy: report-uri https://archive.org/services/csp-report; default-src *; img-src * data: blob:; object-src 'none'; media-src * blob:; connect-src * data:; style-src 'unsafe-inline' https://archive.org/ https://archive.org https://esm.archive.org/ https://esm.ext.archive.org/ https://offshoot.prod.archive.org/ https://av.archive.org/css/ https://av.dev.archive.org/css/ https://accounts.google.com/gsi/ https://synerg.adp.com/; script-src 'nonce-c772a10aa91c9c6ea254b64f2ca570a5' https://archive.org/includes/ https://archive.org/includes/ https://archive.org/components/ https://archive.org/components/ https://archive.org/v/ https://archive.org/v/ https://archive.org/upload/app/ https://archive.org/offshoot_assets/ https://archive.org/offshoot_assets/ https://esm.archive.org/ https://esm.ext.archive.org/ https://polyfill.archive.org/v3/polyfill.min.js https://offshoot.prod.archive.org/ https://av.archive.org/ https://av.dev.archive.org/ https://openlibrary.org/query.json https://emularity-engine.ux-b.archive.org/ https://emularity-config.ux-b.archive.org/ https://emularity-bios.ux-b.archive.org/ https://archive.org/services/emularity/ https://archive.org/services/emularity/ 'wasm-unsafe-eval' 'sha256-CoX53XgCdkM1zegYEEpMUeYIZnv663inNm8bQv2VRbM=' https://accounts.google.com/gsi/ https://www.google.com/recaptcha/ https://www.recaptcha.net/recaptcha/ https://www.gstatic.com/recaptcha/ https://workforcenow.adp.com/ https://synerg.adp.com/ https://apollo.archive.org
+X-Fastcgi-Cache: MISS
+
+HTTP/1.1 206 Partial Content
+Server: nginx
+Date: Fri, 27 Nov 2026 20:35:24 GMT
+Content-Type: audio/mpeg
+Content-Length: 2
+Last-Modified: Tue, 21 Oct 2008 03:12:43 GMT
+Connection: keep-alive
+ETag: "48fd48ab-252e6"
+access-control-allow-credentials: true
+access-control-allow-headers: Accept-Encoding,Accept-Language,Authorization,Baggage,Cache-Control,Content-Length,Content-Range,DNT,Pragma,Range,Sentry-Trace,X-Requested-With
+access-control-allow-origin: *
+Content-Range: bytes 0-1/152294
+
