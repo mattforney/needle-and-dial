@@ -21,4 +21,4 @@ Scoping for the roadmap's "Loudness and trims": before building level matching a
 
 ## Every file
 
-`all.json` lists all 1,069 files in the catalog (`node tools/loudness_survey.js pick all`), each once, under the first pool it appears in (KTPR's vault tracks are tracks of its concerts, so they're listed as concerts). The workflow measures them into `levels.json`, 50 at a time, committing after each 50, so a stopped run resumes where it left off; files that fail are recorded with the error and not retried. The 132 files measured in the sample run are reused rather than downloaded again.
+`all.json` lists all 1,069 files in the catalog as of 26 Nov (`node tools/loudness_survey.js pick all`), each once, under the first pool it appears in (KTPR's vault tracks are tracks of its concerts, so they're listed as concerts). A workflow measured them on 26 Nov, 50 at a time, reusing the 132 from the sample run; none failed. The measurements now live in `catalog/measurements.json`, where the weekly Archive check adds any new or changed file, and `tools/levels.js` turns them into `catalog/levels.json`.

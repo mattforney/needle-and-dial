@@ -4,7 +4,7 @@
 
 ## Update: the whole catalog
 
-All 1,069 files were measured on 26 Nov ([figures](FINDINGS-catalog.md), from `node research/loudness/analyze.js research/loudness/levels.json`), none failed. The sample's conclusions hold, with larger numbers in places:
+All 1,069 files were measured on 26 Nov ([figures](FINDINGS-catalog.md), from `node research/loudness/analyze.js catalog/measurements.json`), none failed. The sample's conclusions hold, with larger numbers in places:
 
 - Files span 37 LU (−43.8 to −6.4 LUFS); the middle 90% span 16.5 LU. On nine stations 44–67% of changes jump over 3 LU, and on KTPR 31%: within a concert, tracks vary more than the sample's nine pairs suggested.
 - One gain per file, capped at the headroom, brings changes over 3 LU to 14% or fewer on eight stations. WGRM (56%) and WPGE (39%) keep more than the sample suggested: 254 files (24%) can't be raised to −20 LUFS without a limiter, mostly 78s and LibriVox readings. A limiter on the Web Audio path is the next improvement for those two stations.
@@ -32,7 +32,7 @@ All 1,069 files were measured on 26 Nov ([figures](FINDINGS-catalog.md), from `n
 
 ## Limits
 
-132 files is 12% of the catalog, spread over every pool and every Archive item in the program pools; the figures are estimates, good for the decisions above rather than for setting any one file's gain (the full measurement, in `levels.json`, is for that). Changes between tracks of one netlabel album couldn't be measured (8% of KFRE's changes); every other kind of change could. Integrated loudness evens out programs, not the loud and quiet scenes inside one (old-time radio episodes have a loudness range of about 10 LU).
+132 files is 12% of the catalog, spread over every pool and every Archive item in the program pools; the figures are estimates, good for the decisions above rather than for setting any one file's gain (the full measurement, in `catalog/measurements.json`, is for that). Changes between tracks of one netlabel album couldn't be measured (8% of KFRE's changes); every other kind of change could. Integrated loudness evens out programs, not the loud and quiet scenes inside one (old-time radio episodes have a loudness range of about 10 LU).
 
 ---
 

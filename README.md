@@ -16,7 +16,8 @@ Prototype. Not affiliated with the Internet Archive. Station call letters are fi
 | `tools/check_log.js` | Checks a phone's debug log against the locked-phone half of Gate B: every program change and how long it took, every stop and how long the sound was gone, heartbeat gaps, and a verdict (`tools/test_check_log.js` tests it) |
 | `snapshots/` | The frozen catalog each schedule week uses, one file per Monday it starts (`tools/snapshot.py` drafts them; `tools/test_snapshot.py` tests it) |
 | `catalog/review/stream-only.json` | Stream-only Archive items you've approved to keep, each with a one-line reason |
-| `catalog/levels.json` | Per-file levels: a gain toward −20 LUFS and the silence to cut from each end, from `tools/levels.js` and the loudness measurements |
+| `catalog/measurements.json` | Each catalog file's loudness, true peak, silence at each end and true length, measured once by `tools/loudness_survey.js` (the weekly Archive check adds new and changed files) |
+| `catalog/levels.json` | Per-file levels: a gain toward −20 LUFS and the silence to cut from each end, from `tools/levels.js` and the measurements |
 | `catalog/review/held.json` | Files kept off the air by hand (a damaged file, an upheld report), each with a reason; every snapshot holds them out |
 | `tools/test_playback.js` | Plays the built page in headless Chrome across record changes, with the screen "locked" and a browser that is strict about background audio |
 | `.github/ISSUE_TEMPLATE/report.yml` | The form behind the Report link on the radio's card (`tools/test_report_form.js` checks it against GitHub's form schema and against the fields the page fills in) |
@@ -47,7 +48,7 @@ ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names m
 
 Every Sunday at 14:17 UTC (8:17 AM Central), the day before each new schedule week, GitHub Actions runs `tools/archive_check.js` against the real Archive: one metadata request per item and one download probe per file, a few requests a second, with the repository named in its user agent. It changes nothing; it reports.
 
-Results go to a single GitHub issue labelled `archive-check`. The issue always shows the latest report, and the full report is also posted as a comment, which emails you, only when the list of problems changes. When everything passes, the issue closes. Timeouts and Archive errors are listed as "couldn't check" and don't count as problems; if more than a quarter of files can't be checked, the run fails instead of reporting.
+Then it measures any file that is new to the catalog, changed length or failed to measure last time (ffmpeg's loudness meter and silence at each end, one file at a time) into `catalog/measurements.json`, and rebuilds `catalog/levels.json` from it, before drafting next week's snapshot. Results go to a single GitHub issue labelled `archive-check`. The issue always shows the latest report, and the full report is also posted as a comment, which emails you, only when the list of problems changes. When everything passes, the issue closes. Timeouts and Archive errors are listed as "couldn't check" and don't count as problems; if more than a quarter of files can't be checked, the run fails instead of reporting.
 
 To run it by hand: Actions, then Weekly Archive check, then Run workflow. Give it identifiers to check only those items (those runs don't touch the issue). To keep a stream-only item, add its identifier and a one-line reason to `catalog/review/stream-only.json`. GitHub turns scheduled workflows off in a public repository after 60 days without activity; Actions then offers a button to turn it back on.
 
@@ -57,7 +58,7 @@ Each week's schedule comes from a frozen copy of the catalog, so the program gui
 
 After the Sunday Archive check, the same workflow drafts next week's snapshot from `catalog/`, holding out files the check found broken and stream-only items not yet approved (files that only changed length, or couldn't be checked, stay in). If that differs from what the week would otherwise use, it commits the file and republishes the site. To draft one by hand: `python3 tools/snapshot.py`. A snapshot is fixed once its week starts; to change what is on air this week anyway, edit that week's file directly, knowing it reshuffles that station from that moment.
 
-Each snapshot also carries the levels (`catalog/levels.json`) for the Archive items it plays, frozen with it, and holds out everything in `catalog/review/held.json`. The levels come from measuring each file once (`tools/loudness_survey.js`, which the Loudness survey workflow runs on GitHub's servers; see `research/loudness/`), then `node tools/levels.js MEASUREMENTS.json`, which also lists files worth a listen: peaks far over full scale, a length far from the catalog's, long dead air inside.
+Each snapshot also carries the levels (`catalog/levels.json`) for the Archive items it plays, frozen with it, and holds out everything in `catalog/review/held.json`. The levels come from measuring each file once (`tools/loudness_survey.js`, run on GitHub's servers by the weekly Archive check; the 26 Nov survey is in `research/loudness/`), then `node tools/levels.js`, which also lists files worth a listen: peaks far over full scale, a length far from the catalog's, long dead air inside.
 
 ## Reports
 

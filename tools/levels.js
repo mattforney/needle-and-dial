@@ -13,7 +13,7 @@
 // A file with no measurement plays as before. Also lists files worth a listen: peaks well over full
 // scale (damage, or heavy clipping), a length far from the catalog's, long dead air inside.
 //
-//   node tools/levels.js MEASUREMENTS.json [catalog/levels.json]    (needs dist/catalog.json)
+//   node tools/levels.js [catalog/measurements.json [catalog/levels.json]]    (needs dist/catalog.json)
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -73,8 +73,7 @@ function dump(t) {
   return head + ',"items":{\n' + ids.map((id, i) => JSON.stringify(id) + ':' + JSON.stringify(t.items[id]) + (i < ids.length - 1 ? ',' : '')).join('\n') + '\n}}\n';
 }
 
-function main([src, dest = path.join(__dirname, '..', 'catalog', 'levels.json')]) {
-  if (!src) { console.error('usage: node tools/levels.js MEASUREMENTS.json [catalog/levels.json]'); process.exitCode = 2; return; }
+function main([src = path.join(__dirname, '..', 'catalog', 'measurements.json'), dest = path.join(__dirname, '..', 'catalog', 'levels.json')]) {
   const meas = JSON.parse(fs.readFileSync(src, 'utf8')).files, parts = programs(meas), items = {}, listen = [];
   let n = 0;
   for (const m of meas) {
@@ -85,10 +84,12 @@ function main([src, dest = path.join(__dirname, '..', 'catalog', 'levels.json')]
   }
   for (const id of Object.keys(items)) items[id] = Object.fromEntries(Object.entries(items[id]).sort(([a], [b]) => (a < b ? -1 : 1)));
   const t = { made: new Date().toISOString().slice(0, 10), target: TARGET, peak: PEAK, pad: PAD, files: n, items };
-  fs.writeFileSync(dest, dump(t));
+  const old = fs.existsSync(dest) ? JSON.parse(fs.readFileSync(dest, 'utf8')) : null, same = old && JSON.stringify(old.items) === JSON.stringify(items);
+  if (same) t.made = old.made; // nothing new: leave the file as it was
+  if (!same) fs.writeFileSync(dest, dump(t));
   const all = Object.values(items).flatMap((o) => Object.values(o));
   const cut = all.reduce((s, [, skip, out], i) => s + skip, 0);
-  console.log(`${n} files → ${path.relative(process.cwd(), dest)} (${parts.size} parts of programs share their program’s gain); gains ${Math.min(...all.map((v) => v[0]))} to +${Math.max(...all.map((v) => v[0]))} dB; ${all.filter((v) => v[1] > 0).length} start trimmed (${Math.round(cut)} s in all)`);
+  console.log(`${n} files → ${path.relative(process.cwd(), dest)}${same ? ', unchanged' : ''} (${parts.size} parts of programs share their program’s gain); gains ${Math.min(...all.map((v) => v[0]))} to +${Math.max(...all.map((v) => v[0]))} dB; ${all.filter((v) => v[1] > 0).length} start trimmed (${Math.round(cut)} s in all)`);
   if (listen.length) console.log(`Worth a listen (${listen.length}):\n  ` + listen.join('\n  '));
 }
 

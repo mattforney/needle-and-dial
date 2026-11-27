@@ -28,5 +28,12 @@ eq(review(Object.assign({}, m, { TP: 8 }), [0, 0, 1]), ['true peak +8 dBTP'], 'p
 eq(review(Object.assign({}, m, { dur: 80 }), [0, 0, 1]), ['plays 80 s, catalog says 100 s'], 'a length far from the catalog');
 eq(review(m, [0, 0, 1]), [], 'a clean file');
 
+// The weekly job measures again what failed last time, and files whose Archive copy changed length.
+const { prune } = require('./loudness_survey.js');
+const store = () => ({ files: [{ id: 'a', f: '1.mp3', I: -20 }, { id: 'a', f: '2.mp3', error: 'HTTP 503' }, { id: 'b', f: '3.mp3', I: -18 }] });
+let st = store(); eq([prune(st, {}), st.files.length], [0, 3], 'nothing asked: nothing measured again');
+st = store(); eq([prune(st, { retryErrors: true }), st.files.map((x) => x.f)], [1, ['1.mp3', '3.mp3']], 'retry-errors drops the failed one');
+st = store(); eq([prune(st, { redo: new Set(['b/3.mp3']) }), st.files.map((x) => x.f)], [1, ['1.mp3', '2.mp3']], 'redo drops the changed one');
+
 console.log(fail ? `${fail} LEVELS TEST FAILURES` : 'ALL LEVELS TESTS PASSED');
 process.exitCode = fail ? 1 : 0;

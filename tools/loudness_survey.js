@@ -2,14 +2,16 @@
 // end, to scope level matching and trims before building them (roadmap: "Loudness and trims").
 //
 //   node tools/loudness_survey.js pick              writes research/loudness/sample.json (needs dist/catalog.json)
-//   node tools/loudness_survey.js pick all          writes research/loudness/all.json: every file in the catalog
+//   node tools/loudness_survey.js pick all [OUT]    every file in the catalog (default research/loudness/all.json)
 //   node tools/loudness_survey.js selftest          measures synthetic files whose answers are known
-//   node tools/loudness_survey.js measure LIST OUT [--max N]  downloads each listed file once, one at a time, and
-//                                                   measures it; files already in OUT are skipped, so it resumes
+//   node tools/loudness_survey.js measure LIST OUT [--max N] [--retry-errors] [--redo-from CHECK.json]
+//       downloads each listed file once, one at a time, and measures it; files already in OUT are skipped,
+//       so it resumes. --retry-errors measures again the ones that failed; --redo-from, the ones an Archive
+//       check (dist/archive-check.json) found changed in length. OUT is rewritten only if something changed.
 //   node tools/loudness_survey.js report OUT        prints a summary by pool, as Markdown
 //
-// archive.org can't be reached from every machine, so the "Loudness survey" workflow runs measure on
-// GitHub's servers. Needs ffmpeg (with libmp3lame for the self-test).
+// archive.org can't be reached from every machine, so the weekly Archive check workflow runs measure on
+// GitHub's servers, into catalog/measurements.json. Needs ffmpeg (with libmp3lame for the self-test).
 //
 // Per file: integrated loudness (LUFS), loudness range (LU) and true peak (dBTP) from ffmpeg's ebur128
 // filter; then, from the audio in 100 ms blocks (48 kHz, full bandwidth; the average power of its one or
@@ -89,7 +91,7 @@ function ends(db) {
 
 // ---- the sample: about ten files a pool, spread over the pool's Archive items, the same every time
 const PER = { ads: 8, g78: 12, poems: 6, chopin: 6, shows: 11, vault: 11 };
-function pick(all) {
+function pick(all, dest) {
   const html = fs.readFileSync(path.join(ROOT, 'src/index.template.html'), 'utf8');
   const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
   const CAT = JSON.parse(fs.readFileSync(path.join(ROOT, 'dist/catalog.json'), 'utf8'));
@@ -114,7 +116,7 @@ function pick(all) {
     for (const o of got) files.push({ pool, id: o.id, f: o.f, d: o.d, t: o.t || '' });
     pools[pool] = { files: seen.size, items: byItem.size, sampled: got.length };
   }
-  const out = path.join(ROOT, all ? 'research/loudness/all.json' : 'research/loudness/sample.json');
+  const out = dest ? path.resolve(dest) : path.join(ROOT, all ? 'research/loudness/all.json' : 'research/loudness/sample.json');
   fs.writeFileSync(out, JSON.stringify({ made: new Date().toISOString().slice(0, 10), seed: 20261126, pools, files }, null, 1) + '\n');
   console.log(`${files.length} files from ${Object.keys(pools).length} pools, ${Math.round(files.reduce((s, x) => s + (x.d || 0), 0) / 3600)} hours of audio → ${path.relative(ROOT, out)}`);
 }
@@ -134,11 +136,21 @@ async function download(url, to) {
   }
 }
 
-async function survey(samplePath, outPath, max = Infinity) {
-  const sample = JSON.parse(fs.readFileSync(samplePath, 'utf8'));
-  const out = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, 'utf8'))
+// Records to measure again: failed ones (retryErrors) and files whose Archive copy changed length (redo, a
+// Set of "item/file"). Within one run a file that fails stays failed: no endless retries.
+function prune(out, { retryErrors, redo } = {}) {
+  const before = out.files.length;
+  out.files = out.files.filter((x) => !(retryErrors && x.error) && !(redo && redo.has(x.id + '/' + x.f)));
+  return before - out.files.length;
+}
+const changedLength = (checkPath) => new Set(JSON.parse(fs.readFileSync(checkPath, 'utf8')).results.filter((r) => r.status === 'length').map((r) => r.id + '/' + r.f));
+async function survey(samplePath, outPath, { max = Infinity, retryErrors = false, redoFrom = null } = {}) {
+  const sample = JSON.parse(fs.readFileSync(samplePath, 'utf8')), existed = fs.existsSync(outPath);
+  const out = existed ? JSON.parse(fs.readFileSync(outPath, 'utf8'))
     : { started: new Date().toISOString(), ffmpeg: execFileSync('ffmpeg', ['-version']).toString().split('\n')[0], method: { block_ms: 100, rate: RATE, silent_dbfs: SILENT, quiet_db_below_program: QUIET }, files: [] };
-  const done = new Set(out.files.map((x) => x.id + '/' + x.f)); // a file that failed stays failed: no endless retries
+  const dropped = prune(out, { retryErrors, redo: redoFrom ? changedLength(redoFrom) : null });
+  if (dropped) console.log(`measuring ${dropped} again`);
+  const done = new Set(out.files.map((x) => x.id + '/' + x.f));
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nd-loud-'));
   let k = 0, n = 0;
   for (const s of sample.files) {
@@ -157,10 +169,9 @@ async function survey(samplePath, outPath, max = Infinity) {
     console.log(`${String(k).padStart(3)}/${sample.files.length} ${s.pool.padEnd(9)} ${rec.error ? 'ERROR ' + rec.error : `${rec.I} LUFS, lead ${rec.lead_quiet} s, tail ${rec.tail_quiet} s`}  ${s.f.slice(0, 60)}`);
     await sleep(1000);
   }
-  const left = sample.files.filter((s) => !out.files.some((x) => x.id === s.id && x.f === s.f)).length;
-  if (!left) out.finished = new Date().toISOString();
-  fs.writeFileSync(outPath, JSON.stringify(out, null, 1) + '\n');
-  console.log(`${out.files.length} measured (${out.files.filter((x) => x.error).length} failed), ${left} left`);
+  const have = new Set(out.files.map((x) => x.id + '/' + x.f)), left = sample.files.filter((s) => !have.has(s.id + '/' + s.f)).length;
+  if (n || dropped || !existed) { if (!left) out.finished = new Date().toISOString(); fs.writeFileSync(outPath, JSON.stringify(out, null, 1) + '\n'); }
+  console.log(`${Math.min(n, sample.files.length)} measured this run; ${out.files.length} in all (${out.files.filter((x) => x.error).length} failed), ${left} left`);
 }
 
 // ---- summary by pool
@@ -205,10 +216,11 @@ async function selftest() {
   process.exitCode = bad ? 1 : 0;
 }
 
-module.exports = { measure, ends, ia };
+module.exports = { measure, ends, ia, prune };
 if (require.main !== module) return;
 const [cmd, ...args] = process.argv.slice(2);
-const maxAt = args.indexOf('--max'), max = maxAt >= 0 ? +args[maxAt + 1] : Infinity;
-const run = { pick: () => pick(args[0] === 'all'), selftest: () => selftest(), measure: () => survey(args[0], args[1], max), report: () => report(args[0]) }[cmd];
+const opt = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
+const run = { pick: () => pick(args[0] === 'all', args[0] === 'all' ? args[1] : args[0]), selftest: () => selftest(), report: () => report(args[0]),
+  measure: () => survey(args[0], args[1], { max: opt('--max') ? +opt('--max') : Infinity, retryErrors: args.includes('--retry-errors'), redoFrom: opt('--redo-from') }) }[cmd];
 if (!run) { console.error('usage: node tools/loudness_survey.js pick | selftest | measure SAMPLE OUT | report OUT'); process.exitCode = 2; }
 else Promise.resolve(run()).catch((e) => { console.error(e); process.exitCode = 1; });
