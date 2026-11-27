@@ -24,6 +24,8 @@ jobs:
         run: python3 tools/test_snapshot.py
       - name: Log checker
         run: node tools/test_check_log.js
+      - name: Levels rules
+        run: node tools/test_levels.js
       - name: Install test tools
         run: npm ci
       - name: Report form
