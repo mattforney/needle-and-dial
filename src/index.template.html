@@ -431,7 +431,7 @@ function applyLevels(P, LV) {
   const walk = (o) => {
     if (!o || typeof o !== 'object' || vis.has(o)) return; vis.add(o);
     if (Array.isArray(o)) return o.forEach(walk);
-    if (typeof o.id === 'string' && typeof o.f === 'string') { const v = LV[o.id] && LV[o.id][o.f]; if (v && v[2] > v[1]) Object.assign(o, { gain: v[0], skip: v[1], d: Math.max(1, Math.ceil(v[2] - v[1])) }); return; }
+    if (typeof o.id === 'string' && typeof o.f === 'string') { const v = LV[o.id] && LV[o.id][o.f]; if (v && v[2] > v[1]) Object.assign(o, { gain: v[0], gain0: v.length > 3 ? v[3] : v[0], skip: v[1], d: Math.max(1, Math.ceil(v[2] - v[1])) }); return; }
     for (const k of ['eps', 'items']) if (o[k]) walk(o[k]);
   };
   for (const k of Object.keys(P)) walk(P[k]);
@@ -556,7 +556,7 @@ const progLabel = (S, seg) => { if (!seg) return ''; if (S.key === 'tapers') ret
 const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
-const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
+const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
 let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
@@ -629,11 +629,16 @@ function initAudio() {
   const ng = ctx.createGain(); ng.gain.value = 0; ns.connect(nf); nf.connect(ng); ng.connect(master); ns.start();
   const wo = ctx.createOscillator(); wo.frequency.value = 600; const wg = ctx.createGain(); wg.gain.value = 0; wo.connect(wg); wg.connect(master); wo.start();
   const el = new Audio(); el.preload = 'auto';
-  let g = null;
-  if (ROUTE) { el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g); g.connect(toneIn); }
+  let g = null, lim = null, wet = null, dry = null;
+  if (ROUTE) {
+    el.crossOrigin = 'anonymous'; g = ctx.createGain(); ctx.createMediaElementSource(el).connect(g);
+    lim = ctx.createDynamicsCompressor(); for (const k of Object.keys(LIMITER)) lim[k].value = LIMITER[k];
+    wet = ctx.createGain(); dry = ctx.createGain(); g.connect(lim); lim.connect(wet); wet.connect(toneIn); g.connect(dry); dry.connect(toneIn);
+    wet.gain.value = LIM.on ? Math.pow(10, -makeupDb(LIMITER) / 20) : 0; dry.gain.value = LIM.on ? 0 : 1;
+  }
   const keep = QS.get('keepalive') === '0' ? null : new Audio(); // on everywhere since 26 Nov; ?keepalive=0 turns it off for testing
   if (keep) { keep.loop = true; keep.preload = 'auto'; keep.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); }); keep.addEventListener('pause', () => { if (R.on) dlog('keep-alive paused from outside'); }); }
-  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, keep });
+  Object.assign(A, { ctx, master, sig, toneIn, hifi, am, nf, ng, wo, wg, el, g, lim, wet, dry, keep });
   el.addEventListener('timeupdate', () => { if (document.hidden) tick('media'); });
   el.addEventListener('loadedmetadata', onMeta);
   el.addEventListener('playing', () => {
@@ -653,7 +658,15 @@ function initAudio() {
   ctx.onstatechange = () => dlog('audio engine ' + ctx.state);
   if (IOS && navigator.audioSession) { try { navigator.audioSession.type = 'playback'; } catch (e) {} }
   applyTone();
-  dlog('audio ' + (ROUTE ? 'through Web Audio' : 'direct') + (keep ? ', with keep-alive' : ''));
+  dlog('audio ' + (ROUTE ? 'through Web Audio' + (LIM.on ? ', limiter on' : ', limiter off') : 'direct') + (keep ? ', with keep-alive' : ''));
+}
+// Limiter on or off while playing, for comparing: the recording's gain changes with it (see LIMITER).
+function setLimiter(on) {
+  LIM.on = !!on && ROUTE;
+  if (!A.g) return;
+  ramp(A.wet.gain, LIM.on ? Math.pow(10, -makeupDb(LIMITER) / 20) : 0, 0.01); ramp(A.dry.gain, LIM.on ? 0 : 1, 0.01);
+  A.lvl = gainOf(A.it); ramp(A.g.gain, A.fade * A.lvl, 0.01);
+  dlog('limiter ' + (LIM.on ? 'on' : 'off') + (A.it && dbOf(A.it) ? `: ${dbOf(A.it) > 0 ? '+' : ''}${dbOf(A.it)} dB` : ''));
 }
 const ramp = (param, v, tc = 0.06) => param.setTargetAtTime(v, A.ctx.currentTime, tc);
 function wake() { try { const p = A.ctx && A.ctx.state !== 'running' && A.ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
@@ -680,10 +693,22 @@ function onMeta() { const want = aimPos(), d = A.el.currentTime - want; if ((wan
 // Point the carrier at a source and keep it playing. t0 is the moment the slot starts; it, for a
 // recording, the catalog item, whose skip point (silence cut from the start) lines up with t0 and
 // whose gain the carrier applies.
-const gainOf = (it) => (it && it.gain ? Math.pow(10, it.gain / 20) : 1);
+// The limiter, after each recording's gain: it lets a recording whose loudest clicks or consonants
+// stand far above the rest come up to the stations' loudness anyway, taking up to 6 dB off those
+// peaks. tools/levels.js gives such a recording a second, lower gain (gain0) for when the limiter is
+// off: ?limiter=0, or direct audio, which has none. The browser's limiter looks 6 ms ahead, reacts in
+// 1 ms (its quickest) and lets go over 100 ms; it lets the sharpest clicks through about 1.5 dB past
+// its threshold, hence -2 dBFS, 1 dB under the -1 dBTP the gains otherwise keep to. It adds makeup
+// gain of its own, which the Web Audio spec sets at its curve's value at full scale to the -0.6th
+// power; the gain after it takes that back out, so below the threshold it changes nothing.
+const LIMITER = { threshold: -2, knee: 0, ratio: 20, attack: 0.001, release: 0.1 };
+const LIM = { on: ROUTE && QS.get('limiter') !== '0' };
+const makeupDb = (L) => -0.6 * (L.threshold - L.threshold / L.ratio); // the curve at 0 dBFS, with no knee: threshold + (0 - threshold) / ratio
+const dbOf = (it) => (!it ? 0 : LIM.on || it.gain0 == null ? it.gain || 0 : it.gain0);
+const gainOf = (it) => (dbOf(it) ? Math.pow(10, dbOf(it) / 20) : 1);
 function carry(src, kind, t0, len, loop, label, it) {
   const el = A.el, fresh = src !== A.src || !!el.error, skip = (it && it.skip) || 0;
-  Object.assign(A, { src, kind, t0: t0 - skip, len: len || 0, loop: !!loop, skip, lvl: gainOf(it) });
+  Object.assign(A, { src, kind, t0: t0 - skip, len: len || 0, loop: !!loop, skip, it: it || null, lvl: gainOf(it) });
   el.loop = !!loop;
   if (fresh) {
     A.swapAt = performance.now(); A.lockRetry = 0; A.lockTries = 0; A.aim = 0; A.seekAt = 0;
@@ -692,7 +717,7 @@ function carry(src, kind, t0, len, loop, label, it) {
     const want = wantPos(), into = want - skip; // into: how far into the slot
     if (into > 0.5 && kind === 'media') { A.aim = Math.max(want, Math.min(want + loadLead(), it ? skip + it.d - 1 : Infinity)); A.seekAt = A.swapAt; }
     if (into > 0.5 || skip > 0) { try { el.currentTime = Math.max(want, A.aim); } catch (e) {} }
-    dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : '') + (skip ? `, from ${skip.toFixed(1)} s` : '') + (it && it.gain ? `, ${it.gain > 0 ? '+' : ''}${it.gain} dB` : ''));
+    dlog('→ ' + label + (A.aim > want + 0.05 ? `, aiming ${(A.aim - want).toFixed(1)} s ahead` : '') + (skip ? `, from ${skip.toFixed(1)} s` : '') + (dbOf(it) ? `, ${dbOf(it) > 0 ? '+' : ''}${dbOf(it)} dB` + (LIM.on && it.gain0 != null && it.gain0 !== it.gain ? ' with the limiter' : '') : ''));
   } else onMeta();
   playCarrier(kind);
 }
@@ -1144,7 +1169,7 @@ if (DBG.on) {
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, LIMITER, LIM, makeupDb, setLimiter, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>

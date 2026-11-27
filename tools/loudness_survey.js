@@ -216,7 +216,7 @@ async function selftest() {
   process.exitCode = bad ? 1 : 0;
 }
 
-module.exports = { measure, ends, ia, prune };
+module.exports = { measure, ends, ia, prune, download };
 if (require.main !== module) return;
 const [cmd, ...args] = process.argv.slice(2);
 const opt = (name) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };

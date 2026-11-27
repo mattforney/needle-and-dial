@@ -8,13 +8,18 @@ function biquad(x, b, a) {
   for (let i = 0; i < x.length; i++) { const v = b[0] * x[i] + b[1] * x1 + b[2] * x2 - a[1] * y1 - a[2] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; }
   return y;
 }
-function kWeight(x, fs) {
+// The K-weighting filters' coefficients at rate fs: [[b, a] of the high shelf, [b, a] of the high-pass].
+function kCoeffs(fs) {
   let K = Math.tan(Math.PI * 1681.974450955533 / fs), Q = 0.7071752369554196;
   const Vh = Math.pow(10, 3.999843853973347 / 20), Vb = Math.pow(Vh, 0.4996667741545416);
   let a0 = 1 + K / Q + K * K;
-  const shelf = biquad(x, [(Vh + Vb * K / Q + K * K) / a0, 2 * (K * K - Vh) / a0, (Vh - Vb * K / Q + K * K) / a0], [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0]);
+  const shelf = [[(Vh + Vb * K / Q + K * K) / a0, 2 * (K * K - Vh) / a0, (Vh - Vb * K / Q + K * K) / a0], [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0]];
   K = Math.tan(Math.PI * 38.13547087602444 / fs); Q = 0.5003270373238773; a0 = 1 + K / Q + K * K;
-  return biquad(shelf, [1, -2, 1], [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0]);
+  return [shelf, [[1, -2, 1], [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0]]];
+}
+function kWeight(x, fs) {
+  const [shelf, hp] = kCoeffs(fs);
+  return biquad(biquad(x, shelf[0], shelf[1]), hp[0], hp[1]);
 }
 function lufs(samples, fs) {
   const y = kWeight(samples, fs), block = Math.round(0.4 * fs), step = Math.round(0.1 * fs), z = [];
@@ -26,4 +31,4 @@ function lufs(samples, fs) {
   let pk = 0; for (const v of samples) pk = Math.max(pk, Math.abs(v));
   return { I: L(mean(kept)), peak: 20 * Math.log10(pk) };
 }
-module.exports = { lufs };
+module.exports = { lufs, kCoeffs };

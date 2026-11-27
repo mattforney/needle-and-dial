@@ -1,8 +1,10 @@
 // Turns the loudness measurements (tools/loudness_survey.js measure) into catalog/levels.json, the
 // per-file table that weekly snapshots carry and the page applies:
 //
-//   gain   dB toward -20 LUFS integrated loudness. Turning down has no limit; turning up stops where
-//          the file's true peak would pass -1 dBTP, since there's no limiter.
+//   gain   dB toward -20 LUFS integrated loudness. Turning down has no limit; turning up stops 6 dB
+//          past where the file's true peak would reach -1 dBTP, the page's limiter taking those peaks.
+//          Where that differs, a fourth number is the gain without the limiter (its headroom alone),
+//          which the page uses when the limiter is off (?limiter=0, or direct audio).
 //   skip   seconds of silence (below -50 dBFS) cut from the start, keeping 0.3 s of it
 //   out    where the file ends on air, cutting all but 0.3 s of trailing silence
 //
@@ -18,16 +20,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const TARGET = -20, PEAK = -1, PAD = 0.3;
+const TARGET = -20, PEAK = -1, PAD = 0.3, LIMIT = 6;
 const r1 = (x) => Math.round(x * 10) / 10;
 
-// The gain to bring loudness I toward the target, turning up only while true peak TP stays under PEAK.
-function gainFor(I, TP) {
+// The gain to bring loudness I toward the target, turning up only until true peak TP passes PEAK by
+// `limit` dB (0: no limiter, so not past PEAK at all).
+function gainFor(I, TP, limit = LIMIT) {
   if (I == null || !(I > -70)) return 0;
   let g = TARGET - I;
-  if (g > 0) g = Math.max(0, Math.min(g, PEAK - (TP == null ? 0 : TP)));
+  if (g > 0) g = Math.max(0, Math.min(g, Math.max(0, PEAK - (TP == null ? 0 : TP)) + limit));
   return r1(g) || 0;
 }
+const entry = (g, g0, skip, out) => (g0 === g ? [g, r1(skip), r1(out)] : [g, r1(skip), r1(out), g0]);
 // One file's entry. part: { gain, first, last } when the file is one part of a program in parts.
 function derive(m, part) {
   if (m.error || m.dur == null || m.lead_silent == null) return null;
@@ -35,7 +39,7 @@ function derive(m, part) {
   const skip = head ? Math.floor(Math.max(0, m.lead_silent - PAD) * 10) / 10 : 0;
   const out = tail ? Math.min(m.dur, Math.ceil((m.dur - Math.max(0, m.tail_silent - PAD)) * 10) / 10) : r1(m.dur);
   if (out - skip < 5) return null; // all but silent: leave it alone and list it
-  return [part ? part.gain : gainFor(m.I, m.TP), r1(skip), r1(out)];
+  return part ? entry(part.gain, part.gain0, skip, out) : entry(gainFor(m.I, m.TP), gainFor(m.I, m.TP, 0), skip, out);
 }
 // Programs in parts, from the catalog: each work's movements (Nocturne) and each concert's tracks (KTPR).
 function programs(meas) {
@@ -47,8 +51,8 @@ function programs(meas) {
     if (prog.items.length < 2 || !ms.length) continue;
     // loudness of the parts together: their energy, weighted by length
     const I = 10 * Math.log10(ms.reduce((s, m) => s + m.dur * Math.pow(10, m.I / 10), 0) / ms.reduce((s, m) => s + m.dur, 0));
-    const gain = gainFor(I, Math.max(...ms.map((m) => (m.TP == null ? 0 : m.TP))));
-    prog.items.forEach((it, i) => parts.set(it.id + '/' + it.f, { gain, first: i === 0, last: i === prog.items.length - 1 }));
+    const TP = Math.max(...ms.map((m) => (m.TP == null ? 0 : m.TP))), gain = gainFor(I, TP), gain0 = gainFor(I, TP, 0);
+    prog.items.forEach((it, i) => parts.set(it.id + '/' + it.f, { gain, gain0, first: i === 0, last: i === prog.items.length - 1 }));
   }
   return parts;
 }
@@ -94,4 +98,4 @@ function main([src = path.join(__dirname, '..', 'catalog', 'measurements.json'),
 }
 
 if (require.main === module) main(process.argv.slice(2));
-module.exports = { derive, gainFor, review, dump, TARGET, PEAK, PAD };
+module.exports = { derive, gainFor, review, dump, TARGET, PEAK, PAD, LIMIT };
