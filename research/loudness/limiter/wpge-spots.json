@@ -1,0 +1,51 @@
+{
+ "made": "2026-11-27",
+ "why": "The same spots as the first clips, rendered again with the high-pass, and as they were without it",
+ "files": [
+  {
+   "pool": "stories",
+   "id": "stories_002_librivox",
+   "f": "esme_saki_ib_64kb.mp3",
+   "title": "Esmé (Saki)",
+   "gain": 6.5,
+   "gain0": 0.6,
+   "skip": 0,
+   "out": 779.6,
+   "spots": [
+    666,
+    707,
+    734
+   ]
+  },
+  {
+   "pool": "stories",
+   "id": "story_5_librivox",
+   "f": "beauty_and_the_beast_beaumont_t_64kb.mp3",
+   "title": "Beauty and the Beast (Beaumont)",
+   "gain": 6,
+   "gain0": 0,
+   "skip": 0,
+   "out": 1852.2,
+   "spots": [
+    532.5,
+    644,
+    1527
+   ]
+  },
+  {
+   "pool": "poems",
+   "id": "shortpoetry_002_librivox",
+   "f": "walrus_and_carpenter_lc_jc_64kb.mp3",
+   "title": "The Walrus and the Carpenter (Carroll)",
+   "gain": 4.8,
+   "gain0": 1,
+   "skip": 0.2,
+   "out": 232.9,
+   "spots": [
+    135.2,
+    161.2,
+    176.7
+   ]
+  }
+ ]
+}

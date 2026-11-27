@@ -1,0 +1,62 @@
+# The limiter check again, now that the page high-passes before the gain: first the listening clips at the
+# spots of 26 Nov's (research/loudness/limiter/wpge-spots.json), committed as soon as they're made, then the
+# 50 files of research/loudness/limiter/files.json into a fresh research/loudness/limiter/results.json.
+# It runs only on the limiter-check-2 branch, so main and the site are untouched.
+name: Limiter check, with the high-pass
+
+on:
+  push:
+    branches: [limiter-check-2]
+    paths: [tools/limiter_check.js, research/loudness/limiter/wpge-spots.json, .github/workflows/limiter-check-2.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: limiter-check-2
+  cancel-in-progress: false
+
+jobs:
+  limit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Install the test tools and ffmpeg
+        run: |
+          npm ci
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+      - name: Self-test on synthetic recordings
+        run: node tools/limiter_check.js selftest
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Clips at 26 Nov's spots
+        run: node tools/limiter_check.js clips research/loudness/limiter/wpge-spots.json dist/clips 3 12
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Commit the clips
+        run: |
+          rm -rf research/loudness/limiter/clips && mkdir -p research/loudness/limiter/clips && cp dist/clips/* research/loudness/limiter/clips/
+          git add research/loudness/limiter/clips
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Limiter clips, with the high-pass [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Limit every listed file
+        timeout-minutes: 120
+        run: |
+          rm -f research/loudness/limiter/results.json
+          node tools/limiter_check.js run research/loudness/limiter/files.json research/loudness/limiter/results.json
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+      - name: Summary
+        if: always() && hashFiles('research/loudness/limiter/results.json') != ''
+        run: node tools/limiter_check.js report research/loudness/limiter/results.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit the results
+        if: always() && hashFiles('research/loudness/limiter/results.json') != ''
+        run: |
+          git add research/loudness/limiter/results.json
+          git diff --cached --quiet && exit 0
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "Limiter check with the high-pass: results [skip ci]"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
