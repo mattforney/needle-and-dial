@@ -1,11 +1,8 @@
-# Candidates for renaming the stations whose call letters belong to real stations (Nov 2026), second
-# round: the first round left Prairie and the Gramophone with nothing free that fits. Checked by
-# tools/callsigns.py; the first round's free picks are rechecked here too.
-WHDU WGUM WDTC WCSE WHDO WHOO WHOU WHOX WHOQ WDIT WHDY WHDZ WSLH WHDE WHDK WDUZ WHOJ        # Whodunit
-WGHO WMIT WTMN WMNN WMDE WMDV WMNU WMIE WNTM WMDA WNHT WNIG WMDZ WMDJ WMDK WMDQ WMDO WMNQ WMNZ WMNJ   # Midnight
-KRCT KRKJ KSCF                                                                                 # Rocket
-KPAR KPAI KPAE KRIE KPYR KRPY KPRR KPIR KSDE KSDY KSDA KSDX KSDZ KSAD KWST KRNG KSGE KTMB KDST KSOD KBUF KHOM KPRN KPRK KPLN  # Prairie
-WGRP WGMP WGPH WGPN WGRA WGRH WGRO WGMO WGRN WRPM WSHL WCYL WHRN WGRV WGRK WGRQ WGRX WGRJ WGRU WGRY WGRW WGMF WPHN WVIC  # The Gramophone
-WNOQ WNOY WNOJ WNOF WNOT WNCE WNTC WNRC WOCT WNCY WNCZ WNTZ WNTY WNRT WNRU WNUE               # Nocturne
-KFRF KFRV KFRL                                                                                 # Free Form
-KTPT KTPW KTPY KTPQ KTPA KTPV KTPU KTPK KTPI KTPM KLMA KSBD KBTL KAUD KSET                      # Taper's Section
+# Candidates for renaming the stations whose call letters belong to real stations (Nov 2026), third
+# round: closer echoes of each station's name for the five where rounds one and two found only weak fits.
+WGHO WMGT WDHT WIGH WGHT WMGH WIDN WMIG WDNI WIGT WMHN WMTN WTWI WWCH WHGT              # Midnight
+KRIE KSOD KRAI KAIR KPIE KARI KIRE KRRE KPNR KPIO KSPR KRDE                                # Prairie
+WGPN WGMR WGMN WGPE WGPO WGPA WRMO WMPH WPHO WGMH WGMT WGRB WGRT WGRI WGRL WGRS WGRG WVTR WVCT WSHK WEDS WDSC WDSK   # The Gramophone
+WNOT WCTR WURN WTUR WOCN WCRN WNOA WNOI WNOM WNOS WNOP WNCO WNCQ                            # Nocturne
+KSBD KTPV KTSE KTSN KAPR KSEC KTSX KTPP KTAE KVLT KDAT KCAS KMIC KTRD KSHN KFLC            # Taper's Section
+WHDU WGUM KRCT KFRF                                                                         # rechecks
