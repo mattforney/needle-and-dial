@@ -1478,7 +1478,7 @@ function runSelftest() {
   }).catch((err) => { $('#stRun').textContent = 'The self-test could not run in this browser: ' + (err && err.message || err); });
 }
 if (QS.get('selftest') === '1') runSelftest();
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, FADE, selftest, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, FADE, selftest, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, ANN, annPrep, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>
