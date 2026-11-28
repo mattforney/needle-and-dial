@@ -1,41 +1,118 @@
 # What each station's announcer says, recorded by tools/voices/package.py.
 #
-# A block per station: "== key voice", then one line per recording.
-#   legal:   the top-of-hour ID. It must give the call letters followed straight away by the city of
-#            license, in that order ("WHOX New York"); anything may come before or after that.
-#   sweeper: everything else the station says about itself between programs or records. Call letters
-#            are optional here: most stations go by their name and frequency.
-# Write call letters as they look ("WHOX"); the renderer spells them out for the voice. Write numbers
-# as words ("six-forty"), the way the announcer says them.
+# A block per station: "== key voice frequency", the frequency as the announcer says it. Then a line per
+# recording:
+#   legal:   the top-of-hour ID. It gives the call letters followed straight away by the city of license,
+#            in that order ("WHOX New York"), and the station's name and frequency ("Whodunit, six-forty"),
+#            so the branding matches the sweepers'.
+#   sweeper: everything else the station says about itself between programs or records. It gives the
+#            station's name and frequency; call letters are optional, and mostly left out because the
+#            names are long already.
+# Write call letters as they look ("WHOX"); the renderer spells them out for the voice. Write numbers as
+# words ("six-forty"). The renderer checks every line against these rules before recording anything.
+#
+# "pron:" sets how a word is said, in Kokoro's phonemes, where its own guess is wrong ("Bach" as "batch").
 
 city: New York
+pron: Bach /bˈɑːk/
+pron: Chopin /ʃˈɒpan/
 
-== whodunit am_adam
+== whodunit am_adam six-forty
 legal: WHOX New York. Whodunit, six-forty.
 legal: Whodunit, six-forty. WHOX New York.
-legal: This is WHOX New York. The night is young, and nobody's innocent.
+legal: This is WHOX New York, Whodunit, six-forty. The night is young, and nobody's innocent.
 sweeper: Whodunit, six-forty. Every case closed by the top of the hour.
-sweeper: Private eyes, public airwaves. Whodunit.
+sweeper: Private eyes, public airwaves. Whodunit, six-forty.
 sweeper: Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty.
-sweeper: Keep your hands where we can see them, and your dial right where it is. Whodunit.
+sweeper: Keep your hands where we can see them, and your dial right where it is. Whodunit, six-forty.
 sweeper: The usual suspects, rounded up nightly. Whodunit, six-forty on your dial.
 
-== gramophone bf_isabella
+== midnight af_nicole seven-sixty
+legal: WGHO New York. Midnight, seven-sixty.
+legal: Midnight, seven-sixty. WGHO New York.
+legal: This is WGHO New York, Midnight, seven-sixty. Whatever you do, don't turn around.
+sweeper: It's always midnight somewhere. Tonight, it's here. Midnight, seven-sixty.
+sweeper: Lock the door. Check the window. Then check it again. Midnight, seven-sixty.
+sweeper: Stories for the hour when the house starts making noises. Midnight, seven-sixty.
+sweeper: Suspense, escape, and things that go bump in the night. Midnight, seven-sixty.
+sweeper: If you hear footsteps, it's probably just the radio. Probably. Midnight, seven-sixty.
+
+== rocket bm_daniel nine hundred
+legal: KRCT New York. Rocket, nine hundred.
+legal: Rocket, nine hundred. KRCT New York.
+legal: This is KRCT New York, Rocket, nine hundred, broadcasting to Earth and points beyond.
+sweeper: Tomorrow, the way they imagined it yesterday. Rocket, nine hundred.
+sweeper: Five, four, three, two, one... Rocket, nine hundred.
+sweeper: Ray guns, robots, and the occasional little green man. Rocket, nine hundred.
+sweeper: Strap in. The future's a long way off, and we leave on the hour. Rocket, nine hundred.
+sweeper: Coming to you across the void, at the speed of radio. Rocket, nine hundred.
+
+== saddle am_michael ten-seventy
+legal: KRIE New York. Prairie, ten-seventy.
+legal: Prairie, ten-seventy. KRIE New York.
+legal: This is KRIE New York, Prairie, ten-seventy. Tie up your horse and stay a spell.
+sweeper: Wide open spaces, right there on your dial. Prairie, ten-seventy.
+sweeper: Marshals, outlaws, and a whole lot of dust. Prairie, ten-seventy.
+sweeper: Ride out with us. The trail is long, and the stories are longer. Prairie, ten-seventy.
+sweeper: There's a new sheriff in town every half hour. Prairie, ten-seventy.
+sweeper: Out where the West is still wild, and the radio's still on. Prairie, ten-seventy.
+
+== laugh af_heart twelve-forty
+legal: WHAH New York. Laugh Line, twelve-forty.
+legal: Laugh Line, twelve-forty. WHAH New York.
+legal: This is WHAH New York, Laugh Line, twelve-forty. Even our call letters end in a laugh.
+sweeper: Old jokes, new listeners. Laugh Line, twelve-forty.
+sweeper: Studio audience not included. Laughter guaranteed anyway. Laugh Line, twelve-forty.
+sweeper: The punchlines are vintage. The giggles are fresh. Laugh Line, twelve-forty.
+sweeper: Warning: may cause snorting. Laugh Line, twelve-forty.
+sweeper: Seventy-five years of timing, and it still kills. Laugh Line, twelve-forty.
+
+== gramophone bf_isabella thirteen-forty
 legal: WGPN New York. The Gramophone, thirteen-forty.
 legal: The Gramophone, thirteen-forty. WGPN New York.
-legal: You're listening to WGPN New York, where the records still turn at seventy-eight.
+legal: You're listening to WGPN New York, The Gramophone, thirteen-forty, where the records still turn at seventy-eight.
 sweeper: Wind the crank, lower the needle. The Gramophone, thirteen-forty.
-sweeper: Music from before there was radio... on the radio. The Gramophone.
-sweeper: Shellac, steel needles, and a century of crackle. The Gramophone.
-sweeper: Seventy-eight turns a minute, a hundred years and counting. The Gramophone.
+sweeper: Music from before there was radio... on the radio. The Gramophone, thirteen-forty.
+sweeper: Shellac, steel needles, and a century of crackle. The Gramophone, thirteen-forty.
+sweeper: Seventy-eight turns a minute, a hundred years and counting. The Gramophone, thirteen-forty.
 sweeper: Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty.
 
-== tapers bf_lily
+== storytime bf_emma fifteen hundred
+legal: WPGE New York. Story Hour, fifteen hundred.
+legal: Story Hour, fifteen hundred. WPGE New York.
+legal: This is WPGE New York, Story Hour, fifteen hundred, where every hour turns a page.
+sweeper: Once upon a time, every hour. Story Hour, fifteen hundred.
+sweeper: Close your eyes. Someone's reading to you. Story Hour, fifteen hundred.
+sweeper: Great stories, read aloud by the volunteers who love them. Story Hour, fifteen hundred.
+sweeper: The classics, the curious, and a poem in between. Story Hour, fifteen hundred.
+sweeper: No pictures? No problem. Story Hour, fifteen hundred.
+
+== nocturne bm_george eighty-nine point five
+legal: WNOT New York. Nocturne, eighty-nine point five.
+legal: Nocturne, eighty-nine point five. WNOT New York.
+legal: This is WNOT New York, Nocturne, eighty-nine point five. Every work, played whole.
+sweeper: Every movement, in order, from the first note to the last. Nocturne, eighty-nine point five.
+sweeper: Music for the hours when the city finally goes quiet. Nocturne, eighty-nine point five.
+sweeper: We never fade out a symphony. Nocturne, eighty-nine point five.
+sweeper: Bach before breakfast, Chopin after dark. Nocturne, eighty-nine point five.
+sweeper: Take your time. The music certainly will. Nocturne, eighty-nine point five.
+
+== freeform af_bella ninety-three point three
+legal: KFRF New York. Free Form, ninety-three point three.
+legal: Free Form, ninety-three point three. KFRF New York.
+legal: This is KFRF New York, Free Form, ninety-three point three. Free to hear, free to share.
+sweeper: Independent music from netlabels, shared under Creative Commons. Free Form, ninety-three point three.
+sweeper: No playlist meetings. No label deals. Just the music. Free Form, ninety-three point three.
+sweeper: Music made to be passed around. Free Form, ninety-three point three.
+sweeper: From bedrooms, basements and back rooms all over the world. Free Form, ninety-three point three.
+sweeper: Turn it up. It's all yours. Free Form, ninety-three point three.
+
+== tapers bf_lily one-oh-one point nine
 legal: KTPA New York. The Taper's Section, one-oh-one point nine.
 legal: The Taper's Section, one-oh-one point nine. KTPA New York.
-legal: KTPA New York. Mics up, levels set, here we go.
+legal: KTPA New York, The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go.
 sweeper: The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine.
-sweeper: Recorded by fans, from the crowd, and shared for free. The Taper's Section.
-sweeper: Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section.
-sweeper: No singles. No edits. Just the night, the way it happened. One-oh-one point nine.
-sweeper: Find your spot. The band's tuning up. The Taper's Section.
+sweeper: Recorded by fans, from the crowd, and shared for free. The Taper's Section, one-oh-one point nine.
+sweeper: Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section, one-oh-one point nine.
+sweeper: No singles. No edits. Just the night, the way it happened. The Taper's Section, one-oh-one point nine.
+sweeper: Find your spot. The band's tuning up. The Taper's Section, one-oh-one point nine.

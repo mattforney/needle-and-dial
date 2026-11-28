@@ -19,23 +19,30 @@ PAD = 0.15  # seconds of silence kept before and after each recording
 
 
 def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
-    """Blocks of lines per station, checked: a known station and voice, and every legal ID giving the
-    call letters followed straight away by the city of license."""
+    """Blocks of lines per station, checked against the rules at the top of scripts.txt: a known station
+    and voice; every line giving the station's name and frequency; every legal ID also giving the call
+    letters followed straight away by the city of license."""
     by_key = {S['key']: S for S in stations()}
-    city, out, cur, problems = None, [], None, []
+    city, out, cur, problems, pron = None, [], None, [], {}
     for n, raw in enumerate(open(path, encoding='utf-8'), 1):
         line = raw.strip()
         if not line or line.startswith('#'):
             continue
         if line.startswith('city:'):
             city = line.split(':', 1)[1].strip()
+        elif line.startswith('pron:'):
+            m = re.fullmatch(r"pron:\s*([\w'\u2019-]+)\s+/([^/]+)/", line)
+            if m:
+                pron[m.group(1)] = m.group(2)
+            else:
+                problems.append(f'line {n}: "{line}" should be "pron: Word /phonemes/"')
         elif line.startswith('== '):
             parts = line[3:].split()
-            if len(parts) != 2 or parts[0] not in by_key or not re.fullmatch(r'[ab][fm]_\w+', parts[1]):
-                problems.append(f'line {n}: "{line}" should be "== station-key voice"')
+            if len(parts) < 3 or parts[0] not in by_key or not re.fullmatch(r'[ab][fm]_\w+', parts[1]):
+                problems.append(f'line {n}: "{line}" should be "== station-key voice frequency"')
                 cur = None
                 continue
-            cur = {'station': by_key[parts[0]], 'voice': parts[1], 'lines': []}
+            cur = {'station': by_key[parts[0]], 'voice': parts[1], 'freq': ' '.join(parts[2:]), 'lines': []}
             out.append(cur)
         elif cur and re.match(r'(legal|sweeper):', line):
             kind, text = (x.strip() for x in line.split(':', 1))
@@ -46,18 +53,28 @@ def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
         problems.append('no "city:" line')
     for b in out:
         S, k = b['station'], {'legal': 0, 'sweeper': 0}
+        name = S['name'].replace('\u2019', "'")
         for L in b['lines']:
             k[L['kind']] += 1
             L['id'] = f"{L['kind']}-{k[L['kind']]}"
+            where = f"{S['key']} {L['id']}"
             if L['kind'] == 'legal' and not re.search(rf"\b{S['call']} {re.escape(city or '')}\b", L['text']):
-                problems.append(f"{S['key']} {L['id']}: a legal ID needs \"{S['call']} {city}\", the call letters followed by the city")
+                problems.append(f"{where}: a legal ID needs \"{S['call']} {city}\", the call letters followed by the city")
+            if name not in L['text'].replace('\u2019', "'"):
+                problems.append(f"{where}: no station name (\"{name}\")")
+            if b['freq'].lower() not in L['text'].lower():
+                problems.append(f"{where}: no frequency (\"{b['freq']}\")")
         if not k['legal']:
             problems.append(f"{S['key']}: no legal ID")
+    read_scripts.pron = pron
     return city, out, problems
 
 
-def say(text, call):
-    """The text as the voice should read it: the call letters spelled out, as on the page's own IDs."""
+def say(text, call, pron=None):
+    """The text as the voice should read it: words with a set pronunciation (the scripts' "pron:" lines)
+    in Kokoro's markup for one, and the call letters spelled out, as on the page's own IDs."""
+    for word, ph in (pron or {}).items():
+        text = re.sub(rf"(?<![\w\[])({re.escape(word)})(?![\w\]])", rf"[\1](/{ph}/)", text)
     return spoken(re.sub(rf'\b{call}\b', ' '.join(call), text))
 
 
@@ -102,7 +119,7 @@ def main():
         clips = []
         for L in b['lines']:
             parts, ps = [], []
-            for r in pipes[lang](say(L['text'], S['call']), voice=v, speed=a.speed):
+            for r in pipes[lang](say(L['text'], S['call'], read_scripts.pron), voice=v, speed=a.speed):
                 if r.audio is not None:
                     parts.append(r.audio.detach().cpu().numpy() if hasattr(r.audio, 'detach') else np.asarray(r.audio))
                 ps.append(r.phonemes)
@@ -114,7 +131,7 @@ def main():
             os.remove(wav)
             clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps)})
             log(f"  {S['call']} {L['id']}: {len(audio) / SR:.1f} s, {raw:.1f} LUFS before levelling · {' '.join(ps)}")
-        manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'clips': clips})
+        manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'freq': b['freq'], 'clips': clips})
     with open(os.path.join(a.out, 'manifest.json'), 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
     log(f'done in {time.time() - t0:.0f} s')
