@@ -1,6 +1,7 @@
 # Voice audition: every English Kokoro voice reads every station's legal ID and a program introduction
 # (tools/voices/audition.py). Kokoro's weights come from Hugging Face, which a runner can reach. Four jobs
-# share the voices; each uploads its MP3s, a manifest of where each line sits, and the phonemes read.
+# share the voices; a fifth gathers their MP3s, manifests and phonemes onto the voice-audition branch,
+# which holds nothing but the latest render (each run replaces it), for the audition page to be built from.
 name: Voice audition
 
 on:
@@ -41,3 +42,38 @@ jobs:
         with:
           name: voice-audition-${{ matrix.shard }}
           path: out/
+
+  collect:
+    needs: render
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: voice-audition-*
+          path: out
+          merge-multiple: true
+      - name: One manifest for every voice
+        working-directory: out
+        run: |
+          python3 - <<'EOF'
+          import glob, json
+          ms = [json.load(open(f, encoding='utf-8')) for f in sorted(glob.glob('manifest-*.json'))]
+          m = ms[0]
+          m['voices'] = sorted((v for x in ms for v in x['voices']), key=lambda v: v['id'])
+          json.dump(m, open('manifest.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+          print(len(m['voices']), 'voices:', ', '.join(v['id'] for v in m['voices']))
+          EOF
+          cat phonemes-*.txt > phonemes.txt && rm manifest-*.json phonemes-*.txt
+      - name: Replace the voice-audition branch with this render
+        working-directory: out
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          git init -q -b voice-audition
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git add -A
+          git commit -q -m "Voice audition render, run ${{ github.run_id }} from ${{ github.sha }}"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${{ github.repository }}" voice-audition

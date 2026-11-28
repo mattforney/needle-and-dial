@@ -103,7 +103,7 @@ def main():
         lines.append({'id': S['key'] + ':id', 'station': S['key'], 'kind': 'id', 'text': S['say']})
         lines.append({'id': S['key'] + ':intro', 'station': S['key'], 'kind': 'intro', 'text': INTROS[S['key']]})
     notes = grades()
-    voices = [v for v in (a.voices.split(',') if a.voices else (sorted(notes) or FALLBACK)) if v]
+    voices = [v for v in (a.voices.split(',') if a.voices else sorted(set(notes) | set(FALLBACK))) if v]
     i, n = (int(x) for x in a.shard.split('/'))
     voices = voices[i::n]
     log(f'{len(voices)} voices × {len(lines)} lines: {", ".join(voices)}')
@@ -113,32 +113,44 @@ def main():
     pipes, phon, manifest = {}, {}, {'stations': st, 'lines': lines, 'voices': [], 'gap': GAP, 'speed': a.speed}
     t0 = time.time()
     for v in voices:
-        lang = v[0]
-        if lang not in pipes:
-            pipes[lang] = KPipeline(lang_code=lang, repo_id='hexgrad/Kokoro-82M')
-        pipe, chunks, segs, t, tv = pipes[lang], [], [], 0.0, time.time()
-        for L in lines:
-            parts, ps = [], []
-            for r in pipe(spoken(L['text']), voice=v, speed=a.speed):
-                if r.audio is not None:
-                    parts.append(r.audio.detach().cpu().numpy() if hasattr(r.audio, 'detach') else np.asarray(r.audio))
-                ps.append(r.phonemes)
-            audio = np.concatenate(parts) if parts else np.zeros(1, dtype=np.float32)
-            segs.append([round(t, 3), round(t + len(audio) / SR, 3)])
-            chunks += [audio, np.zeros(int(GAP * SR), dtype=np.float32)]
-            t += len(audio) / SR + GAP
-            if L['kind'] != 'intro':
-                phon.setdefault(L['id'], {})[v] = ' '.join(ps)
-        wav = os.path.join(a.out, v + '.wav')
-        sf.write(wav, np.concatenate([np.zeros(int(0.3 * SR), dtype=np.float32)] + chunks), SR)
-        segs = [[s + 0.3, e + 0.3] for s, e in segs]
-        mp3 = os.path.join(a.out, v + '.mp3')
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav, '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k', mp3], check=True)
-        os.remove(wav)
-        manifest['voices'].append({'id': v, 'accent': {'a': 'American', 'b': 'British'}[lang], 'gender': {'f': 'female', 'm': 'male'}[v[1]],
-                                   'grade': notes.get(v, {}).get('grade', ''), 'traits': notes.get(v, {}).get('traits', ''),
-                                   'file': v + '.mp3', 'segments': segs, 'length': round(t + 0.3, 2)})
-        log(f'{v}: {t:.0f} s of speech in {time.time() - tv:.0f} s')
+        try:
+            render(v, lines, pipes, phon, manifest, notes, a, KPipeline, np, sf)
+        except Exception as e:  # noqa: BLE001 - a voice Kokoro doesn't have: say so and go on
+            log(f'{v}: not rendered: {e}')
+    finish(a, i, manifest, phon, t0)
+
+
+def render(v, lines, pipes, phon, manifest, notes, a, KPipeline, np, sf):
+    """One voice: every line, one after another with a pause between, to one MP3."""
+    lang = v[0]
+    if lang not in pipes:
+        pipes[lang] = KPipeline(lang_code=lang, repo_id='hexgrad/Kokoro-82M')
+    pipe, chunks, segs, t, tv = pipes[lang], [], [], 0.0, time.time()
+    for L in lines:
+        parts, ps = [], []
+        for r in pipe(spoken(L['text']), voice=v, speed=a.speed):
+            if r.audio is not None:
+                parts.append(r.audio.detach().cpu().numpy() if hasattr(r.audio, 'detach') else np.asarray(r.audio))
+            ps.append(r.phonemes)
+        audio = np.concatenate(parts) if parts else np.zeros(1, dtype=np.float32)
+        segs.append([round(t, 3), round(t + len(audio) / SR, 3)])
+        chunks += [audio, np.zeros(int(GAP * SR), dtype=np.float32)]
+        t += len(audio) / SR + GAP
+        if L['kind'] != 'intro':
+            phon.setdefault(L['id'], {})[v] = ' '.join(ps)
+    wav = os.path.join(a.out, v + '.wav')
+    sf.write(wav, np.concatenate([np.zeros(int(0.3 * SR), dtype=np.float32)] + chunks), SR)
+    segs = [[round(s + 0.3, 3), round(e + 0.3, 3)] for s, e in segs]
+    mp3 = os.path.join(a.out, v + '.mp3')
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav, '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k', mp3], check=True)
+    os.remove(wav)
+    manifest['voices'].append({'id': v, 'accent': {'a': 'American', 'b': 'British'}[lang], 'gender': {'f': 'female', 'm': 'male'}[v[1]],
+                               'grade': notes.get(v, {}).get('grade', ''), 'traits': notes.get(v, {}).get('traits', ''),
+                               'file': v + '.mp3', 'segments': segs, 'length': round(t + 0.3, 2)})
+    log(f'{v}: {t:.0f} s of speech in {time.time() - tv:.0f} s')
+
+
+def finish(a, i, manifest, phon, t0):
     with open(os.path.join(a.out, f'manifest-{i}.json'), 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
     with open(os.path.join(a.out, f'phonemes-{i}.txt'), 'w', encoding='utf-8') as f:
@@ -147,7 +159,7 @@ def main():
             for v, p in by.items():
                 f.write(f'{v}\t{p}\n')
     log(f'done in {time.time() - t0:.0f} s')
-    # The call letters as every voice read them, for a check by eye.
+    # The call letters as one voice read them, for a check by eye; every voice's are in phonemes-*.txt.
     for lid, by in phon.items():
         if lid.endswith(':id'):
             log(f"{lid}: {next(iter(by.values()))}")
