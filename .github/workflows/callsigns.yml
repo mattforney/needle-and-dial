@@ -1,0 +1,34 @@
+# Are the stations' call letters still fictional? Checks every call sign on the page against the FCC's
+# records of US broadcast stations, once a month and on demand. Call signs change hands often: one that
+# is free today can go to a real station next year, and this check fails when that happens.
+name: Call-sign check
+
+on:
+  schedule:
+    - cron: '43 15 3 * *' # the 3rd of each month, 15:43 UTC (9:43 AM Central)
+  workflow_dispatch:
+    inputs:
+      extra:
+        description: More call signs to check, comma-separated (candidates for a rename, say)
+        required: false
+        default: ''
+  push:
+    branches: [callsigns]
+    paths: [tools/callsigns.py, tools/callsign_candidates.txt, .github/workflows/callsigns.yml]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check the call signs against the FCC's records
+        env:
+          EXTRA: ${{ inputs.extra }}
+        run: python3 tools/callsigns.py --extra "$EXTRA" --json callsigns.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: callsigns
+          path: callsigns.json
+          if-no-files-found: ignore
