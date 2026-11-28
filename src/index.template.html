@@ -21,8 +21,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--glass-hot);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding:clamp(14px,3vw,32px) max(4vw,14px) 48px}
 header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.brand{font-family:Limelight,Georgia,serif;font-size:clamp(30px,5vw,44px);line-height:1.05;color:var(--glass-hot);text-shadow:0 0 18px rgba(255,190,90,.35)}
-.sub{color:var(--muted);font-size:15px}
+.sub{flex:1 1 16em;color:var(--muted);font-size:15px}
 .clock{margin-left:auto;font-family:Oswald,sans-serif;font-size:20px;color:var(--muted);white-space:nowrap}
 
 /* Cabinet */
@@ -31,12 +30,12 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
   repeating-linear-gradient(92deg,rgba(0,0,0,.10) 0 2px,rgba(255,255,255,.025) 2px 5px,rgba(0,0,0,.06) 5px 9px),
   linear-gradient(90deg,var(--walnut-d),var(--walnut) 18%,var(--walnut-l) 50%,var(--walnut) 82%,var(--walnut-d));
   box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.12),inset 0 -6px 14px rgba(0,0,0,.45)}
-.grille{height:clamp(54px,9vw,96px);border-radius:14px 14px 6px 6px;position:relative;overflow:hidden;
+.grille{height:clamp(54px,9vw,96px);border-radius:12px;position:relative;overflow:hidden;
   background:repeating-linear-gradient(90deg,#2b2017 0 3px,#4a3a2c 3px 5px,#2b2017 5px 7px),linear-gradient(#3b2e22,#2a2018);
-  box-shadow:inset 0 0 0 3px var(--brass-d),inset 0 8px 18px rgba(0,0,0,.6)}
+  box-shadow:inset 0 0 0 3px var(--brass),inset 0 0 0 6px #1a120a,inset 0 8px 18px rgba(0,0,0,.6)}
 .badge{white-space:nowrap;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:Limelight,Georgia,serif;font-size:clamp(20px,3.4vw,34px);color:#f3d38a;padding:2px 18px;border-radius:999px;
-  background:linear-gradient(#6b4a22,#3d2810);box-shadow:0 0 0 2px var(--brass),0 6px 14px rgba(0,0,0,.5);white-space:nowrap}
-.dial{position:relative;margin-top:12px;height:clamp(120px,15vw,150px);border-radius:10px;overflow:hidden;cursor:ew-resize;touch-action:none;
+  background:#4f3519;box-shadow:0 0 0 2px var(--brass),0 6px 14px rgba(0,0,0,.5);white-space:nowrap}
+.dial{position:relative;margin-top:12px;height:clamp(120px,15vw,150px);border-radius:12px;overflow:hidden;cursor:ew-resize;touch-action:none;
   background:linear-gradient(180deg,#2a241c,#1d1913);box-shadow:inset 0 0 0 3px var(--brass),inset 0 0 0 6px #1a120a,inset 0 10px 22px rgba(0,0,0,.7);transition:background .8s}
 .radio[data-on="true"] .dial{background:radial-gradient(120% 140% at 50% 50%,var(--glass-hot) 0%,var(--glass) 45%,#d9b878 100%)}
 .dial svg{position:absolute;inset:0;width:100%;height:100%}
@@ -71,11 +70,16 @@ header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bott
 .sw{display:flex;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 2px var(--brass-d)}
 .sw button{border:0;background:transparent;white-space:nowrap;padding:8px 12px;min-height:40px;font-family:Oswald,sans-serif;font-size:14px;color:var(--muted);cursor:pointer}
 .sw button[aria-pressed="true"]{background:var(--brass);color:#22160a}
-.power{width:70px;height:70px;border-radius:50%;border:0;cursor:pointer;font-family:Oswald,sans-serif;font-size:14px;color:#22160a;
-  background:radial-gradient(circle at 35% 30%,#f7e1a8,#c39446 55%,#6a4718);box-shadow:0 6px 12px rgba(0,0,0,.55)}
+.power{width:70px;height:70px;border-radius:50%;border:0;cursor:pointer;font-family:Oswald,sans-serif;font-size:14px;color:#22160a;position:relative;isolation:isolate;
+  background:radial-gradient(circle at 35% 30%,#f2d9a0,#b98d43 45%,#5d4018 100%);box-shadow:0 6px 12px rgba(0,0,0,.55),inset 0 -3px 6px rgba(0,0,0,.4)}
+.power::before{content:"";position:absolute;inset:8px;border-radius:50%;z-index:-1;
+  background:repeating-radial-gradient(circle,rgba(255,255,255,.05) 0 1px,rgba(255,255,255,0) 1px 3px),linear-gradient(180deg,#dcb468,#b8893d);
+  box-shadow:0 0 0 1px rgba(40,24,8,.55),inset 0 1px 1px rgba(255,240,205,.55),inset 0 -1px 2px rgba(0,0,0,.25)}
+.power:active::before{box-shadow:0 0 0 1px rgba(40,24,8,.55),inset 0 3px 5px rgba(0,0,0,.4)}
 .radio[data-on="false"] .power{animation:pulse 2.2s ease-in-out infinite}
-.radio[data-on="true"] .power{background:radial-gradient(circle at 35% 30%,#ffb39b,#e2412b 55%,#7a1a0d);color:#fff}
-@keyframes pulse{0%,100%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 0 rgba(255,210,122,.0)}50%{box-shadow:0 6px 12px rgba(0,0,0,.55),0 0 0 10px rgba(255,210,122,.22)}}
+.radio[data-on="true"] .power{color:#fff}
+.radio[data-on="true"] .power::before{background:radial-gradient(circle,#ff9a7e 0%,#e2412b 55%,#a8240f 100%);box-shadow:0 0 0 1px rgba(40,10,4,.6),inset 0 2px 4px rgba(0,0,0,.35),0 0 12px rgba(226,65,43,.45)}
+@keyframes pulse{0%,100%{box-shadow:0 6px 12px rgba(0,0,0,.55),inset 0 -3px 6px rgba(0,0,0,.4),0 0 0 0 rgba(255,210,122,0)}50%{box-shadow:0 6px 12px rgba(0,0,0,.55),inset 0 -3px 6px rgba(0,0,0,.4),0 0 0 10px rgba(255,210,122,.22)}}
 .fine{display:flex;gap:6px}.fine button{min-width:44px;min-height:40px;border-radius:10px;border:0;background:#3a2615;color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--brass-d)}
 .presets{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:14px}
 .presets button{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}.presets button span{white-space:nowrap}
@@ -169,13 +173,13 @@ body.has-dbg .wrap{padding-bottom:42vh}
 <div class="pv" id="pv" hidden><b>Preview</b><span class="pv-note" id="pvNote"></span><span class="pv-sw" role="group" aria-label="Limiter"><span>Limiter</span><button type="button" data-lim="1" aria-pressed="true">On</button><button type="button" data-lim="0" aria-pressed="false">Off</button></span><span class="pv-now" id="pvNow" aria-live="off"></span></div>
 <div class="wrap">
 <header class="top">
-  <div class="brand">Needle &amp; Dial</div>
+  <h1 class="sr">Needle &amp; Dial</h1>
   <div class="sub">Radio stations built from the Internet Archive. Everyone tuned to a station hears the same moment.</div>
   <div class="clock" id="clock" aria-live="off"></div>
 </header>
 
 <section class="radio" id="radio" data-on="false" aria-label="Radio">
-  <div class="grille"><div class="badge">Needle &amp; Dial</div></div>
+  <div class="grille"><div class="badge" aria-hidden="true">Needle &amp; Dial</div></div>
   <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Tuning dial" aria-valuemin="530" aria-valuemax="1700" aria-valuenow="640">
     <svg id="dialSvg" aria-hidden="true"></svg>
     <div class="needle" id="needle"></div>
