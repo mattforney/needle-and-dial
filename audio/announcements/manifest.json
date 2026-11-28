@@ -19,6 +19,10 @@
      "text": "WHOX New York. Whodunit, six-forty.",
      "file": "whodunit/legal-1.mp3",
      "seconds": 4.28,
+     "voice": [
+      0.45,
+      3.48
+     ],
      "approved": "2026-11-28",
      "spoken": "W H O X New York. Whodunit, six-forty."
     },
@@ -28,6 +32,10 @@
      "text": "Whodunit, six-forty. WHOX New York.",
      "file": "whodunit/legal-2.mp3",
      "seconds": 4.22,
+     "voice": [
+      0.44,
+      3.47
+     ],
      "approved": "2026-11-28",
      "spoken": "Whodunit, six-forty. W H O X New York."
     },
@@ -37,6 +45,10 @@
      "text": "This is WHOX New York, Whodunit, six-forty. The night is young, and nobody's innocent.",
      "file": "whodunit/legal-3.mp3",
      "seconds": 6.9,
+     "voice": [
+      0.45,
+      6.11
+     ],
      "approved": "2026-11-28",
      "spoken": "This is W H O X New York, Whodunit, six-forty. The night is young, and nobody's innocent."
     },
@@ -46,6 +58,10 @@
      "text": "Whodunit, six-forty. Every case closed by the top of the hour.",
      "file": "whodunit/sweeper-1.mp3",
      "seconds": 4.78,
+     "voice": [
+      0.44,
+      3.97
+     ],
      "approved": "2026-11-28",
      "spoken": "Whodunit, six-forty. Every case closed by the top of the hour."
     },
@@ -55,6 +71,10 @@
      "text": "Private eyes, public airwaves. Whodunit, six-forty.",
      "file": "whodunit/sweeper-2.mp3",
      "seconds": 4.28,
+     "voice": [
+      0.45,
+      3.48
+     ],
      "approved": "2026-11-28",
      "spoken": "Private eyes, public airwaves. Whodunit, six-forty."
     },
@@ -64,6 +84,10 @@
      "text": "Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty.",
      "file": "whodunit/sweeper-3.mp3",
      "seconds": 5.08,
+     "voice": [
+      0.42,
+      4.27
+     ],
      "approved": "2026-11-28",
      "spoken": "Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty."
     },
@@ -73,6 +97,10 @@
      "text": "Keep your hands where we can see them, and your dial right where it is. Whodunit, six-forty.",
      "file": "whodunit/sweeper-4.mp3",
      "seconds": 5.85,
+     "voice": [
+      0.45,
+      5.06
+     ],
      "approved": "2026-11-28",
      "spoken": "Keep your hands where we can see them, and your dial right where it is. Whodunit, six-forty."
     },
@@ -82,6 +110,10 @@
      "text": "The usual suspects, rounded up nightly. Whodunit, six-forty on your dial.",
      "file": "whodunit/sweeper-5.mp3",
      "seconds": 5.28,
+     "voice": [
+      0.44,
+      4.47
+     ],
      "approved": "2026-11-28",
      "spoken": "The usual suspects, rounded up nightly. Whodunit, six-forty on your dial."
     }
@@ -104,6 +136,10 @@
      "text": "WGHO New York. Midnight, seven-sixty.",
      "file": "midnight/legal-1.mp3",
      "seconds": 6.22,
+     "voice": [
+      0.4,
+      5.4
+     ],
      "approved": "2026-11-28",
      "spoken": "W G H O New York. Midnight, seven-sixty."
     },
@@ -113,6 +149,10 @@
      "text": "Midnight, seven-sixty. WGHO New York.",
      "file": "midnight/legal-2.mp3",
      "seconds": 6.15,
+     "voice": [
+      0.4,
+      5.3
+     ],
      "approved": "2026-11-28",
      "spoken": "Midnight, seven-sixty. W G H O New York."
     },
@@ -122,6 +162,10 @@
      "text": "This is WGHO New York, Midnight, seven-sixty. Whatever you do, don't turn around.",
      "file": "midnight/legal-3.mp3",
      "seconds": 9.8,
+     "voice": [
+      0.4,
+      8.96
+     ],
      "approved": "2026-11-28",
      "spoken": "This is W G H O New York, Midnight, seven-sixty. Whatever you do, don't turn around."
     },
@@ -131,6 +175,10 @@
      "text": "It's always midnight somewhere. Tonight, it's here. Midnight, seven-sixty.",
      "file": "midnight/sweeper-1.mp3",
      "seconds": 8.22,
+     "voice": [
+      0.42,
+      7.41
+     ],
      "approved": "2026-11-28",
      "spoken": "It's always midnight somewhere. Tonight, it's here. Midnight, seven-sixty."
     },
@@ -140,6 +188,10 @@
      "text": "Lock the door. Check the window. Then check it again. Midnight, seven-sixty.",
      "file": "midnight/sweeper-2.mp3",
      "seconds": 8.45,
+     "voice": [
+      0.4,
+      7.65
+     ],
      "approved": "2026-11-28",
      "spoken": "Lock the door. Check the window. Then check it again. Midnight, seven-sixty."
     },
@@ -149,6 +201,10 @@
      "text": "Stories for the hour when the house starts making noises. Midnight, seven-sixty.",
      "file": "midnight/sweeper-3.mp3",
      "seconds": 8.4,
+     "voice": [
+      0.4,
+      7.57
+     ],
      "approved": "2026-11-28",
      "spoken": "Stories for the hour when the house starts making noises. Midnight, seven-sixty."
     },
@@ -158,6 +214,10 @@
      "text": "Suspense, escape, and things that go bump in the night. Midnight, seven-sixty.",
      "file": "midnight/sweeper-4.mp3",
      "seconds": 8.3,
+     "voice": [
+      0.38,
+      7.49
+     ],
      "approved": "2026-11-28",
      "spoken": "Suspense, escape, and things that go bump in the night. Midnight, seven-sixty."
     },
@@ -167,6 +227,10 @@
      "text": "If you hear footsteps, it's probably just the radio. Probably. Midnight, seven-sixty.",
      "file": "midnight/sweeper-5.mp3",
      "seconds": 9.32,
+     "voice": [
+      0.41,
+      8.5
+     ],
      "approved": "2026-11-28",
      "spoken": "If you hear footsteps, it's probably just the radio. Probably. Midnight, seven-sixty."
     }
@@ -189,6 +253,10 @@
      "text": "KRCT Los Angeles. Rocket, nine hundred.",
      "file": "rocket/legal-1.mp3",
      "seconds": 4.25,
+     "voice": [
+      0.4,
+      3.6
+     ],
      "approved": null,
      "spoken": "K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/). Rocket, nine hundred."
     },
@@ -198,6 +266,10 @@
      "text": "Rocket, nine hundred. KRCT Los Angeles.",
      "file": "rocket/legal-2.mp3",
      "seconds": 4.05,
+     "voice": [
+      0.4,
+      3.4
+     ],
      "approved": null,
      "spoken": "Rocket, nine hundred. K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/)."
     },
@@ -207,6 +279,10 @@
      "text": "This is KRCT Los Angeles, Rocket, nine hundred, broadcasting to Earth and points beyond.",
      "file": "rocket/legal-3.mp3",
      "seconds": 6.6,
+     "voice": [
+      0.41,
+      5.91
+     ],
      "approved": null,
      "spoken": "This is K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/), Rocket, nine hundred, broadcasting to Earth and points beyond."
     },
@@ -216,6 +292,10 @@
      "text": "Tomorrow, the way they imagined it yesterday. Rocket, nine hundred.",
      "file": "rocket/sweeper-1.mp3",
      "seconds": 4.75,
+     "voice": [
+      0.4,
+      4.08
+     ],
      "approved": "2026-11-28",
      "spoken": "Tomorrow, the way they imagined it yesterday. Rocket, nine hundred."
     },
@@ -225,6 +305,10 @@
      "text": "Five, four, three, two, one... Rocket, nine hundred.",
      "file": "rocket/sweeper-2.mp3",
      "seconds": 3.83,
+     "voice": [
+      0.38,
+      3.17
+     ],
      "approved": "2026-11-28",
      "spoken": "Five, four, three, two, one... Rocket, nine hundred."
     },
@@ -234,6 +318,10 @@
      "text": "Ray guns, robots, and the occasional little green man. Rocket, nine hundred.",
      "file": "rocket/sweeper-3.mp3",
      "seconds": 5.55,
+     "voice": [
+      0.41,
+      4.86
+     ],
      "approved": "2026-11-28",
      "spoken": "Ray guns, robots, and the occasional little green man. Rocket, nine hundred."
     },
@@ -243,6 +331,10 @@
      "text": "Strap in. The future's a long way off, and we leave on the hour. Rocket, nine hundred.",
      "file": "rocket/sweeper-4.mp3",
      "seconds": 5.53,
+     "voice": [
+      0.39,
+      4.83
+     ],
      "approved": "2026-11-28",
      "spoken": "Strap in. The future's a long way off, and we leave on the hour. Rocket, nine hundred."
     },
@@ -252,6 +344,10 @@
      "text": "Coming to you across the void, at the speed of radio. Rocket, nine hundred.",
      "file": "rocket/sweeper-5.mp3",
      "seconds": 5.17,
+     "voice": [
+      0.4,
+      4.5
+     ],
      "approved": "2026-11-28",
      "spoken": "Coming to you across the void, at the speed of radio. Rocket, nine hundred."
     }
@@ -274,6 +370,10 @@
      "text": "KRIE Los Angeles. Prairie, ten-seventy.",
      "file": "saddle/legal-1.mp3",
      "seconds": 4.65,
+     "voice": [
+      0.54,
+      3.92
+     ],
      "approved": null,
      "spoken": "K R I E [Los Angeles](/lˈɔs ˈænʤələs/). Prairie, ten-seventy."
     },
@@ -283,6 +383,10 @@
      "text": "Prairie, ten-seventy. KRIE Los Angeles.",
      "file": "saddle/legal-2.mp3",
      "seconds": 4.55,
+     "voice": [
+      0.54,
+      3.88
+     ],
      "approved": null,
      "spoken": "Prairie, ten-seventy. K R I E [Los Angeles](/lˈɔs ˈænʤələs/)."
     },
@@ -292,6 +396,10 @@
      "text": "This is KRIE Los Angeles, Prairie, ten-seventy. Tie up your horse and stay a spell.",
      "file": "saddle/legal-3.mp3",
      "seconds": 7.05,
+     "voice": [
+      0.54,
+      6.35
+     ],
      "approved": null,
      "spoken": "This is K R I E [Los Angeles](/lˈɔs ˈænʤələs/), Prairie, ten-seventy. Tie up your horse and stay a spell."
     },
@@ -301,6 +409,10 @@
      "text": "Wide open spaces, right there on your dial. Prairie, ten-seventy.",
      "file": "saddle/sweeper-1.mp3",
      "seconds": 5.33,
+     "voice": [
+      0.57,
+      4.62
+     ],
      "approved": "2026-11-28",
      "spoken": "Wide open spaces, right there on your dial. Prairie, ten-seventy."
     },
@@ -310,6 +422,10 @@
      "text": "Marshals, outlaws, and a whole lot of dust. Prairie, ten-seventy.",
      "file": "saddle/sweeper-2.mp3",
      "seconds": 5.35,
+     "voice": [
+      0.55,
+      4.64
+     ],
      "approved": "2026-11-28",
      "spoken": "Marshals, outlaws, and a whole lot of dust. Prairie, ten-seventy."
     },
@@ -319,6 +435,10 @@
      "text": "Ride out with us. The trail is long, and the stories are longer. Prairie, ten-seventy.",
      "file": "saddle/sweeper-3.mp3",
      "seconds": 6.65,
+     "voice": [
+      0.57,
+      5.94
+     ],
      "approved": "2026-11-28",
      "spoken": "Ride out with us. The trail is long, and the stories are longer. Prairie, ten-seventy."
     },
@@ -328,6 +448,10 @@
      "text": "There's a new sheriff in town every half hour. Prairie, ten-seventy.",
      "file": "saddle/sweeper-4.mp3",
      "seconds": 5.4,
+     "voice": [
+      0.55,
+      4.69
+     ],
      "approved": "2026-11-28",
      "spoken": "There's a new sheriff in town every half hour. Prairie, ten-seventy."
     },
@@ -337,6 +461,10 @@
      "text": "Out where the West is still wild, and the radio's still on. Prairie, ten-seventy.",
      "file": "saddle/sweeper-5.mp3",
      "seconds": 6.05,
+     "voice": [
+      0.48,
+      5.34
+     ],
      "approved": "2026-11-28",
      "spoken": "Out where the West is still wild, and the radio's still on. Prairie, ten-seventy."
     }
@@ -359,6 +487,10 @@
      "text": "WHAH New York. Laugh Line, twelve-forty.",
      "file": "laugh/legal-1.mp3",
      "seconds": 4.47,
+     "voice": [
+      0.45,
+      3.86
+     ],
      "approved": "2026-11-28",
      "spoken": "W H [A](/ˈA/) H New York. Laugh Line, twelve-forty."
     },
@@ -368,6 +500,10 @@
      "text": "Laugh Line, twelve-forty. WHAH New York.",
      "file": "laugh/legal-2.mp3",
      "seconds": 4.45,
+     "voice": [
+      0.48,
+      3.86
+     ],
      "approved": "2026-11-28",
      "spoken": "Laugh Line, twelve-forty. W H [A](/ˈA/) H New York."
     },
@@ -377,6 +513,10 @@
      "text": "This is WHAH New York, Laugh Line, twelve-forty. Even our call letters end in a laugh.",
      "file": "laugh/legal-3.mp3",
      "seconds": 7.25,
+     "voice": [
+      0.47,
+      6.69
+     ],
      "approved": "2026-11-28",
      "spoken": "This is W H [A](/ˈA/) H New York, Laugh Line, twelve-forty. Even our call letters end in a laugh."
     },
@@ -386,6 +526,10 @@
      "text": "Old jokes, new listeners. Laugh Line, twelve-forty.",
      "file": "laugh/sweeper-1.mp3",
      "seconds": 4.17,
+     "voice": [
+      0.46,
+      3.54
+     ],
      "approved": "2026-11-28",
      "spoken": "Old jokes, new listeners. Laugh Line, twelve-forty."
     },
@@ -395,6 +539,10 @@
      "text": "Studio audience not included. Laughter guaranteed anyway. Laugh Line, twelve-forty.",
      "file": "laugh/sweeper-2.mp3",
      "seconds": 6.42,
+     "voice": [
+      0.42,
+      5.79
+     ],
      "approved": "2026-11-28",
      "spoken": "Studio audience not included. Laughter guaranteed anyway. Laugh Line, twelve-forty."
     },
@@ -404,6 +552,10 @@
      "text": "The punchlines are vintage. The giggles are fresh. Laugh Line, twelve-forty.",
      "file": "laugh/sweeper-3.mp3",
      "seconds": 5.3,
+     "voice": [
+      0.44,
+      4.67
+     ],
      "approved": "2026-11-28",
      "spoken": "The punchlines are vintage. The giggles are fresh. Laugh Line, twelve-forty."
     },
@@ -413,6 +565,10 @@
      "text": "Warning: may cause snorting. Laugh Line, twelve-forty.",
      "file": "laugh/sweeper-4.mp3",
      "seconds": 4.28,
+     "voice": [
+      0.46,
+      3.63
+     ],
      "approved": "2026-11-28",
      "spoken": "Warning: may cause snorting. Laugh Line, twelve-forty."
     },
@@ -422,6 +578,10 @@
      "text": "Seventy-five years of timing, and it still kills. Laugh Line, twelve-forty.",
      "file": "laugh/sweeper-5.mp3",
      "seconds": 5.45,
+     "voice": [
+      0.43,
+      4.82
+     ],
      "approved": "2026-11-28",
      "spoken": "Seventy-five years of timing, and it still kills. Laugh Line, twelve-forty."
     }
@@ -444,6 +604,10 @@
      "text": "WGPN New York. The Gramophone, thirteen-forty.",
      "file": "gramophone/legal-1.mp3",
      "seconds": 5.0,
+     "voice": [
+      0.44,
+      4.12
+     ],
      "approved": "2026-11-28",
      "spoken": "W G P N New York. The Gramophone, thirteen-forty."
     },
@@ -453,6 +617,10 @@
      "text": "The Gramophone, thirteen-forty. WGPN New York.",
      "file": "gramophone/legal-2.mp3",
      "seconds": 4.85,
+     "voice": [
+      0.41,
+      4.03
+     ],
      "approved": "2026-11-28",
      "spoken": "The Gramophone, thirteen-forty. W G P N New York."
     },
@@ -462,6 +630,10 @@
      "text": "You're listening to WGPN New York, The Gramophone, thirteen-forty, where the records still turn at seventy-eight.",
      "file": "gramophone/legal-3.mp3",
      "seconds": 8.05,
+     "voice": [
+      0.44,
+      7.2
+     ],
      "approved": "2026-11-28",
      "spoken": "You're listening to W G P N New York, The Gramophone, thirteen-forty, where the records still turn at seventy-eight."
     },
@@ -471,6 +643,10 @@
      "text": "Wind the crank, lower the needle. The Gramophone, thirteen-forty.",
      "file": "gramophone/sweeper-1.mp3",
      "seconds": 4.83,
+     "voice": [
+      0.41,
+      3.97
+     ],
      "approved": "2026-11-28",
      "spoken": "Wind the crank, lower the needle. The Gramophone, thirteen-forty."
     },
@@ -480,6 +656,10 @@
      "text": "Music from before there was radio... on the radio. The Gramophone, thirteen-forty.",
      "file": "gramophone/sweeper-2.mp3",
      "seconds": 5.9,
+     "voice": [
+      0.42,
+      5.02
+     ],
      "approved": "2026-11-28",
      "spoken": "Music from before there was radio... on the radio. The Gramophone, thirteen-forty."
     },
@@ -489,6 +669,10 @@
      "text": "Shellac, steel needles, and a century of crackle. The Gramophone, thirteen-forty.",
      "file": "gramophone/sweeper-3.mp3",
      "seconds": 5.9,
+     "voice": [
+      0.4,
+      5.02
+     ],
      "approved": "2026-11-28",
      "spoken": "Shellac, steel needles, and a century of crackle. The Gramophone, thirteen-forty."
     },
@@ -498,6 +682,10 @@
      "text": "Seventy-eight turns a minute, a hundred years and counting. The Gramophone, thirteen-forty.",
      "file": "gramophone/sweeper-4.mp3",
      "seconds": 6.17,
+     "voice": [
+      0.4,
+      5.31
+     ],
      "approved": "2026-11-28",
      "spoken": "Seventy-eight turns a minute, a hundred years and counting. The Gramophone, thirteen-forty."
     },
@@ -507,6 +695,10 @@
      "text": "Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty.",
      "file": "gramophone/sweeper-5.mp3",
      "seconds": 7.38,
+     "voice": [
+      0.43,
+      6.49
+     ],
      "approved": "2026-11-28",
      "spoken": "Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty."
     }
@@ -529,6 +721,10 @@
      "text": "WPGE New York. Story Hour, fifteen hundred.",
      "file": "storytime/legal-1.mp3",
      "seconds": 4.7,
+     "voice": [
+      0.44,
+      3.86
+     ],
      "approved": "2026-11-28",
      "spoken": "W P G E New York. Story Hour, fifteen hundred."
     },
@@ -538,6 +734,10 @@
      "text": "Story Hour, fifteen hundred. WPGE New York.",
      "file": "storytime/legal-2.mp3",
      "seconds": 4.7,
+     "voice": [
+      0.39,
+      3.87
+     ],
      "approved": "2026-11-28",
      "spoken": "Story Hour, fifteen hundred. W P G E New York."
     },
@@ -547,6 +747,10 @@
      "text": "This is WPGE New York, Story Hour, fifteen hundred, where every hour turns a page.",
      "file": "storytime/legal-3.mp3",
      "seconds": 6.67,
+     "voice": [
+      0.44,
+      5.81
+     ],
      "approved": "2026-11-28",
      "spoken": "This is W P G E New York, Story Hour, fifteen hundred, where every hour turns a page."
     },
@@ -556,6 +760,10 @@
      "text": "Once upon a time, every hour. Story Hour, fifteen hundred.",
      "file": "storytime/sweeper-1.mp3",
      "seconds": 4.75,
+     "voice": [
+      0.42,
+      3.91
+     ],
      "approved": "2026-11-28",
      "spoken": "Once upon a time, every hour. Story Hour, fifteen hundred."
     },
@@ -565,6 +773,10 @@
      "text": "Close your eyes. Someone's reading to you. Story Hour, fifteen hundred.",
      "file": "storytime/sweeper-2.mp3",
      "seconds": 4.9,
+     "voice": [
+      0.41,
+      4.05
+     ],
      "approved": "2026-11-28",
      "spoken": "Close your eyes. Someone's reading to you. Story Hour, fifteen hundred."
     },
@@ -574,6 +786,10 @@
      "text": "Great stories, read aloud by the volunteers who love them. Story Hour, fifteen hundred.",
      "file": "storytime/sweeper-3.mp3",
      "seconds": 6.22,
+     "voice": [
+      0.44,
+      5.37
+     ],
      "approved": "2026-11-28",
      "spoken": "Great stories, read aloud by the volunteers who love them. Story Hour, fifteen hundred."
     },
@@ -583,6 +799,10 @@
      "text": "The classics, the curious, and a poem in between. Story Hour, fifteen hundred.",
      "file": "storytime/sweeper-4.mp3",
      "seconds": 5.5,
+     "voice": [
+      0.41,
+      4.66
+     ],
      "approved": "2026-11-28",
      "spoken": "The classics, the curious, and a poem in between. Story Hour, fifteen hundred."
     },
@@ -592,6 +812,10 @@
      "text": "No pictures? No problem. Story Hour, fifteen hundred.",
      "file": "storytime/sweeper-5.mp3",
      "seconds": 4.42,
+     "voice": [
+      0.42,
+      3.59
+     ],
      "approved": "2026-11-28",
      "spoken": "No pictures? No problem. Story Hour, fifteen hundred."
     }
@@ -614,6 +838,10 @@
      "text": "WNOT New York. Nocturne, eighty-nine point five.",
      "file": "nocturne/legal-1.mp3",
      "seconds": 5.33,
+     "voice": [
+      0.42,
+      4.67
+     ],
      "approved": "2026-11-28",
      "spoken": "W N O T New York. Nocturne, eighty-nine point five."
     },
@@ -623,6 +851,10 @@
      "text": "Nocturne, eighty-nine point five. WNOT New York.",
      "file": "nocturne/legal-2.mp3",
      "seconds": 5.22,
+     "voice": [
+      0.42,
+      4.58
+     ],
      "approved": "2026-11-28",
      "spoken": "Nocturne, eighty-nine point five. W N O T New York."
     },
@@ -632,6 +864,10 @@
      "text": "This is WNOT New York, Nocturne, eighty-nine point five. Every work, played whole.",
      "file": "nocturne/legal-3.mp3",
      "seconds": 7.17,
+     "voice": [
+      0.42,
+      6.52
+     ],
      "approved": "2026-11-28",
      "spoken": "This is W N O T New York, Nocturne, eighty-nine point five. Every work, played whole."
     },
@@ -641,6 +877,10 @@
      "text": "Every movement, in order, from the first note to the last. Nocturne, eighty-nine point five.",
      "file": "nocturne/sweeper-1.mp3",
      "seconds": 6.9,
+     "voice": [
+      0.42,
+      6.25
+     ],
      "approved": "2026-11-28",
      "spoken": "Every movement, in order, from the first note to the last. Nocturne, eighty-nine point five."
     },
@@ -650,6 +890,10 @@
      "text": "Music for the hours when the city finally goes quiet. Nocturne, eighty-nine point five.",
      "file": "nocturne/sweeper-2.mp3",
      "seconds": 6.9,
+     "voice": [
+      0.42,
+      6.24
+     ],
      "approved": "2026-11-28",
      "spoken": "Music for the hours when the city finally goes quiet. Nocturne, eighty-nine point five."
     },
@@ -659,6 +903,10 @@
      "text": "We never fade out a symphony. Nocturne, eighty-nine point five.",
      "file": "nocturne/sweeper-3.mp3",
      "seconds": 5.2,
+     "voice": [
+      0.42,
+      4.55
+     ],
      "approved": "2026-11-28",
      "spoken": "We never fade out a symphony. Nocturne, eighty-nine point five."
     },
@@ -668,6 +916,10 @@
      "text": "Bach before breakfast, Chopin after dark. Nocturne, eighty-nine point five.",
      "file": "nocturne/sweeper-4.mp3",
      "seconds": 6.15,
+     "voice": [
+      0.43,
+      5.51
+     ],
      "approved": "2026-11-28",
      "spoken": "[Bach](/bˈɑːk/) before breakfast, [Chopin](/ʃˈɒpan/) after dark. Nocturne, eighty-nine point five."
     },
@@ -677,6 +929,10 @@
      "text": "Take your time. The music certainly will. Nocturne, eighty-nine point five.",
      "file": "nocturne/sweeper-5.mp3",
      "seconds": 5.9,
+     "voice": [
+      0.41,
+      5.25
+     ],
      "approved": "2026-11-28",
      "spoken": "Take your time. The music certainly will. Nocturne, eighty-nine point five."
     }
@@ -699,6 +955,10 @@
      "text": "KFRF Los Angeles. Free Form, ninety-three point three.",
      "file": "freeform/legal-1.mp3",
      "seconds": 5.5,
+     "voice": [
+      0.54,
+      4.78
+     ],
      "approved": null,
      "spoken": "K F R F [Los Angeles](/lˈɔs ˈænʤələs/). Free Form, ninety-three point three."
     },
@@ -708,6 +968,10 @@
      "text": "Free Form, ninety-three point three. KFRF Los Angeles.",
      "file": "freeform/legal-2.mp3",
      "seconds": 5.3,
+     "voice": [
+      0.54,
+      4.63
+     ],
      "approved": null,
      "spoken": "Free Form, ninety-three point three. K F R F [Los Angeles](/lˈɔs ˈænʤələs/)."
     },
@@ -717,6 +981,10 @@
      "text": "This is KFRF Los Angeles, Free Form, ninety-three point three. Free to hear, free to share.",
      "file": "freeform/legal-3.mp3",
      "seconds": 7.47,
+     "voice": [
+      0.56,
+      6.75
+     ],
      "approved": null,
      "spoken": "This is K F R F [Los Angeles](/lˈɔs ˈænʤələs/), Free Form, ninety-three point three. Free to hear, free to share."
     },
@@ -726,6 +994,10 @@
      "text": "Independent music from netlabels, shared under Creative Commons. Free Form, ninety-three point three.",
      "file": "freeform/sweeper-1.mp3",
      "seconds": 7.58,
+     "voice": [
+      0.55,
+      6.87
+     ],
      "approved": "2026-11-28",
      "spoken": "Independent music from netlabels, shared under Creative Commons. Free Form, ninety-three point three."
     },
@@ -735,6 +1007,10 @@
      "text": "No playlist meetings. No label deals. Just the music. Free Form, ninety-three point three.",
      "file": "freeform/sweeper-2.mp3",
      "seconds": 6.85,
+     "voice": [
+      0.57,
+      6.15
+     ],
      "approved": "2026-11-28",
      "spoken": "No playlist meetings. No label deals. Just the music. Free Form, ninety-three point three."
     },
@@ -744,6 +1020,10 @@
      "text": "Music made to be passed around. Free Form, ninety-three point three.",
      "file": "freeform/sweeper-3.mp3",
      "seconds": 5.45,
+     "voice": [
+      0.57,
+      4.72
+     ],
      "approved": "2026-11-28",
      "spoken": "Music made to be passed around. Free Form, ninety-three point three."
     },
@@ -753,6 +1033,10 @@
      "text": "From bedrooms, basements and back rooms all over the world. Free Form, ninety-three point three.",
      "file": "freeform/sweeper-4.mp3",
      "seconds": 7.12,
+     "voice": [
+      0.53,
+      6.42
+     ],
      "approved": "2026-11-28",
      "spoken": "From bedrooms, basements and back rooms all over the world. Free Form, ninety-three point three."
     },
@@ -762,6 +1046,10 @@
      "text": "Turn it up. It's all yours. Free Form, ninety-three point three.",
      "file": "freeform/sweeper-5.mp3",
      "seconds": 5.03,
+     "voice": [
+      0.53,
+      4.3
+     ],
      "approved": "2026-11-28",
      "spoken": "Turn it up. It's all yours. Free Form, ninety-three point three."
     }
@@ -784,6 +1072,10 @@
      "text": "KTPA Los Angeles. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/legal-1.mp3",
      "seconds": 5.42,
+     "voice": [
+      0.4,
+      4.77
+     ],
      "approved": null,
      "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/). The Taper's Section, one-oh-one point nine."
     },
@@ -793,6 +1085,10 @@
      "text": "The Taper's Section, one-oh-one point nine. KTPA Los Angeles.",
      "file": "tapers/legal-2.mp3",
      "seconds": 5.28,
+     "voice": [
+      0.41,
+      4.67
+     ],
      "approved": null,
      "spoken": "The Taper's Section, one-oh-one point nine. K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/)."
     },
@@ -802,6 +1098,10 @@
      "text": "KTPA Los Angeles, The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go.",
      "file": "tapers/legal-3.mp3",
      "seconds": 7.08,
+     "voice": [
+      0.41,
+      6.41
+     ],
      "approved": null,
      "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/), The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go."
     },
@@ -811,6 +1111,10 @@
      "text": "The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/sweeper-1.mp3",
      "seconds": 6.78,
+     "voice": [
+      0.41,
+      6.14
+     ],
      "approved": "2026-11-28",
      "spoken": "The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine."
     },
@@ -820,6 +1124,10 @@
      "text": "Recorded by fans, from the crowd, and shared for free. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/sweeper-2.mp3",
      "seconds": 6.28,
+     "voice": [
+      0.42,
+      5.64
+     ],
      "approved": "2026-11-28",
      "spoken": "Recorded by fans, from the crowd, and shared for free. The Taper's Section, one-oh-one point nine."
     },
@@ -829,6 +1137,10 @@
      "text": "Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section, one-oh-one point nine.",
      "file": "tapers/sweeper-3.mp3",
      "seconds": 7.75,
+     "voice": [
+      0.38,
+      7.07
+     ],
      "approved": "2026-11-28",
      "spoken": "Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section, one-oh-one point nine."
     },
@@ -838,6 +1150,10 @@
      "text": "No singles. No edits. Just the night, the way it happened. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/sweeper-4.mp3",
      "seconds": 6.45,
+     "voice": [
+      0.41,
+      5.8
+     ],
      "approved": "2026-11-28",
      "spoken": "No singles. No edits. Just the night, the way it happened. The Taper's Section, one-oh-one point nine."
     },
@@ -847,6 +1163,10 @@
      "text": "Find your spot. The band's tuning up. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/sweeper-5.mp3",
      "seconds": 5.42,
+     "voice": [
+      0.38,
+      4.79
+     ],
      "approved": "2026-11-28",
      "spoken": "Find your spot. The band's tuning up. The Taper's Section, one-oh-one point nine."
     }

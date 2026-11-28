@@ -2,7 +2,8 @@
 """Records each station's announcements (tools/voices/scripts.txt) in its chosen Kokoro voice.
 
 One MP3 per line, levelled to the programs' loudness (-20 LUFS, peaks under -2 dBTP) so an ID sits at
-the same level as what's around it, and a manifest with each line's text, kind, file and length. Runs in
+the same level as what's around it, and a manifest with each line's text, kind, file and length, and where
+its voice starts and ends (the page fits a line to its station break by where the voice ends). Runs in
 a GitHub Action (.github/workflows/voice-package.yml), which can reach Kokoro's weights on Hugging Face.
 
 Approved takes (audio/announcements, with the text each was recorded from) are reused while a line's
@@ -13,7 +14,7 @@ so recording one again gives the same take.
   python3 tools/voices/package.py OUT_DIR [--only whodunit,tapers] [--speed 1.0]
   python3 tools/voices/package.py --check     # read and check the scripts only, no rendering
 """
-import argparse, json, os, re, shutil, subprocess, sys, time, zlib
+import argparse, json, math, os, re, shutil, subprocess, sys, time, zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 APPROVED = os.path.join(os.path.dirname(os.path.dirname(HERE)), 'audio', 'announcements')
@@ -101,6 +102,19 @@ def level(wav, mp3):
     return float(m['input_i'])
 
 
+def voiced(mp3):
+    """Where the voice is in a recording: [start, end], in seconds into the file, the first and the last
+    5 ms whose peak is above -50 dBFS. Each take carries some silence at both ends."""
+    import numpy as np
+    pcm = subprocess.run(['ffmpeg', '-v', 'error', '-i', mp3, '-f', 's16le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True, check=True).stdout
+    x = np.abs(np.frombuffer(pcm, dtype=np.int16).astype(np.float32)) / 32768
+    w = SR // 200
+    on = np.nonzero(x[:len(x) // w * w].reshape(-1, w).max(axis=1) > 10 ** (-50 / 20))[0]
+    if not len(on):
+        raise ValueError(f'{mp3}: no voice in it')
+    return [math.floor(on[0] * w / SR * 100) / 100, math.ceil((on[-1] + 1) * w / SR * 100) / 100]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('out', nargs='?')
@@ -143,7 +157,7 @@ def main():
             if kept and a.speed == 1.0:
                 rel = f"{S['key']}/{L['id']}.mp3"
                 shutil.copy2(os.path.join(APPROVED, kept['file']), os.path.join(a.out, rel))
-                clips.append({**L, 'file': rel, 'seconds': kept['seconds'], 'take': 'approved'})
+                clips.append({**L, 'file': rel, 'seconds': kept['seconds'], 'voice': voiced(os.path.join(a.out, rel)), 'take': 'approved'})
                 log(f"  {S['call']} {L['id']}: the approved take")
                 continue
             torch.manual_seed(zlib.crc32(f"{v}|{L['text']}".encode()))
@@ -158,7 +172,7 @@ def main():
             sf.write(wav, audio, SR)
             raw = level(wav, os.path.join(a.out, rel))
             os.remove(wav)
-            clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps), 'take': 'new'})
+            clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'voice': voiced(os.path.join(a.out, rel)), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps), 'take': 'new'})
             log(f"  {S['call']} {L['id']}: {len(audio) / SR:.1f} s, {raw:.1f} LUFS before levelling · {' '.join(ps)}")
         manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'freq': b['freq'], 'city': b['city'], 'clips': clips})
     with open(os.path.join(a.out, 'manifest.json'), 'w', encoding='utf-8') as f:
