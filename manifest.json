@@ -1,0 +1,881 @@
+{
+ "city": "New York",
+ "lufs": -20.0,
+ "speed": 1.0,
+ "stations": [
+  {
+   "key": "whodunit",
+   "call": "WHOX",
+   "name": "Whodunit",
+   "band": "AM",
+   "f": "640",
+   "fmt": "Crime, detectives and private eyes",
+   "voice": "am_adam",
+   "freq": "six-forty",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WHOX New York. Whodunit, six-forty.",
+     "id": "legal-1",
+     "spoken": "W H O X New York. Whodunit, six-forty.",
+     "file": "whodunit/legal-1.mp3",
+     "seconds": 4.28,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "Whodunit, six-forty. WHOX New York.",
+     "id": "legal-2",
+     "spoken": "Whodunit, six-forty. W H O X New York.",
+     "file": "whodunit/legal-2.mp3",
+     "seconds": 4.22,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "This is WHOX New York, Whodunit, six-forty. The night is young, and nobody's innocent.",
+     "id": "legal-3",
+     "spoken": "This is W H O X New York, Whodunit, six-forty. The night is young, and nobody's innocent.",
+     "file": "whodunit/legal-3.mp3",
+     "seconds": 6.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Whodunit, six-forty. Every case closed by the top of the hour.",
+     "id": "sweeper-1",
+     "spoken": "Whodunit, six-forty. Every case closed by the top of the hour.",
+     "file": "whodunit/sweeper-1.mp3",
+     "seconds": 4.78,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Private eyes, public airwaves. Whodunit, six-forty.",
+     "id": "sweeper-2",
+     "spoken": "Private eyes, public airwaves. Whodunit, six-forty.",
+     "file": "whodunit/sweeper-2.mp3",
+     "seconds": 4.28,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty.",
+     "id": "sweeper-3",
+     "spoken": "Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty.",
+     "file": "whodunit/sweeper-3.mp3",
+     "seconds": 5.08,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Keep your hands where we can see them, and your dial right where it is. Whodunit, six-forty.",
+     "id": "sweeper-4",
+     "spoken": "Keep your hands where we can see them, and your dial right where it is. Whodunit, six-forty.",
+     "file": "whodunit/sweeper-4.mp3",
+     "seconds": 5.85,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "The usual suspects, rounded up nightly. Whodunit, six-forty on your dial.",
+     "id": "sweeper-5",
+     "spoken": "The usual suspects, rounded up nightly. Whodunit, six-forty on your dial.",
+     "file": "whodunit/sweeper-5.mp3",
+     "seconds": 5.28,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "midnight",
+   "call": "WGHO",
+   "name": "Midnight",
+   "band": "AM",
+   "f": "760",
+   "fmt": "Suspense and the supernatural",
+   "voice": "af_nicole",
+   "freq": "seven-sixty",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WGHO New York. Midnight, seven-sixty.",
+     "id": "legal-1",
+     "spoken": "W G H O New York. Midnight, seven-sixty.",
+     "file": "midnight/legal-1.mp3",
+     "seconds": 6.22,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "Midnight, seven-sixty. WGHO New York.",
+     "id": "legal-2",
+     "spoken": "Midnight, seven-sixty. W G H O New York.",
+     "file": "midnight/legal-2.mp3",
+     "seconds": 6.15,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "This is WGHO New York, Midnight, seven-sixty. Whatever you do, don't turn around.",
+     "id": "legal-3",
+     "spoken": "This is W G H O New York, Midnight, seven-sixty. Whatever you do, don't turn around.",
+     "file": "midnight/legal-3.mp3",
+     "seconds": 9.8,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "It's always midnight somewhere. Tonight, it's here. Midnight, seven-sixty.",
+     "id": "sweeper-1",
+     "spoken": "It's always midnight somewhere. Tonight, it's here. Midnight, seven-sixty.",
+     "file": "midnight/sweeper-1.mp3",
+     "seconds": 8.22,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Lock the door. Check the window. Then check it again. Midnight, seven-sixty.",
+     "id": "sweeper-2",
+     "spoken": "Lock the door. Check the window. Then check it again. Midnight, seven-sixty.",
+     "file": "midnight/sweeper-2.mp3",
+     "seconds": 8.45,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Stories for the hour when the house starts making noises. Midnight, seven-sixty.",
+     "id": "sweeper-3",
+     "spoken": "Stories for the hour when the house starts making noises. Midnight, seven-sixty.",
+     "file": "midnight/sweeper-3.mp3",
+     "seconds": 8.4,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Suspense, escape, and things that go bump in the night. Midnight, seven-sixty.",
+     "id": "sweeper-4",
+     "spoken": "Suspense, escape, and things that go bump in the night. Midnight, seven-sixty.",
+     "file": "midnight/sweeper-4.mp3",
+     "seconds": 8.3,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "If you hear footsteps, it's probably just the radio. Probably. Midnight, seven-sixty.",
+     "id": "sweeper-5",
+     "spoken": "If you hear footsteps, it's probably just the radio. Probably. Midnight, seven-sixty.",
+     "file": "midnight/sweeper-5.mp3",
+     "seconds": 9.32,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "rocket",
+   "call": "KRCT",
+   "name": "Rocket",
+   "band": "AM",
+   "f": "900",
+   "fmt": "Science fiction from radio’s golden age",
+   "voice": "bm_daniel",
+   "freq": "nine hundred",
+   "city": "Los Angeles",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "KRCT Los Angeles. Rocket, nine hundred.",
+     "id": "legal-1",
+     "spoken": "K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/). Rocket, nine hundred.",
+     "file": "rocket/legal-1.mp3",
+     "seconds": 4.25,
+     "raw_lufs": -24.7,
+     "phonemes": "kˈA ˈɑː sˈiː tˈiː lˈɒs ˈanʤəlɪs. ɹˈɒkɪt, nˈIn hˈʌndɹəd.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "Rocket, nine hundred. KRCT Los Angeles.",
+     "id": "legal-2",
+     "spoken": "Rocket, nine hundred. K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/).",
+     "file": "rocket/legal-2.mp3",
+     "seconds": 4.05,
+     "raw_lufs": -24.8,
+     "phonemes": "ɹˈɒkɪt, nˈIn hˈʌndɹəd. kˈA ˈɑː sˈiː tˈiː lˈɒs ˈanʤəlɪs.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "This is KRCT Los Angeles, Rocket, nine hundred, broadcasting to Earth and points beyond.",
+     "id": "legal-3",
+     "spoken": "This is K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/), Rocket, nine hundred, broadcasting to Earth and points beyond.",
+     "file": "rocket/legal-3.mp3",
+     "seconds": 6.6,
+     "raw_lufs": -24.7,
+     "phonemes": "ðˌɪs ɪz kˈA ˈɑː sˈiː tˈiː lˈɒs ˈanʤəlɪs, ɹˈɒkɪt, nˈIn hˈʌndɹəd, bɹˈɔːdkˌɑːstɪŋ tʊ ˈɜːθ and pˈYnts bɪjˈɒnd.",
+     "take": "new"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Tomorrow, the way they imagined it yesterday. Rocket, nine hundred.",
+     "id": "sweeper-1",
+     "spoken": "Tomorrow, the way they imagined it yesterday. Rocket, nine hundred.",
+     "file": "rocket/sweeper-1.mp3",
+     "seconds": 4.75,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Five, four, three, two, one... Rocket, nine hundred.",
+     "id": "sweeper-2",
+     "spoken": "Five, four, three, two, one... Rocket, nine hundred.",
+     "file": "rocket/sweeper-2.mp3",
+     "seconds": 3.83,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Ray guns, robots, and the occasional little green man. Rocket, nine hundred.",
+     "id": "sweeper-3",
+     "spoken": "Ray guns, robots, and the occasional little green man. Rocket, nine hundred.",
+     "file": "rocket/sweeper-3.mp3",
+     "seconds": 5.55,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Strap in. The future's a long way off, and we leave on the hour. Rocket, nine hundred.",
+     "id": "sweeper-4",
+     "spoken": "Strap in. The future's a long way off, and we leave on the hour. Rocket, nine hundred.",
+     "file": "rocket/sweeper-4.mp3",
+     "seconds": 5.53,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Coming to you across the void, at the speed of radio. Rocket, nine hundred.",
+     "id": "sweeper-5",
+     "spoken": "Coming to you across the void, at the speed of radio. Rocket, nine hundred.",
+     "file": "rocket/sweeper-5.mp3",
+     "seconds": 5.17,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "saddle",
+   "call": "KRIE",
+   "name": "Prairie",
+   "band": "AM",
+   "f": "1070",
+   "fmt": "Westerns and frontier drama",
+   "voice": "am_michael",
+   "freq": "ten-seventy",
+   "city": "Los Angeles",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "KRIE Los Angeles. Prairie, ten-seventy.",
+     "id": "legal-1",
+     "spoken": "K R I E [Los Angeles](/lˈɔs ˈænʤələs/). Prairie, ten-seventy.",
+     "file": "saddle/legal-1.mp3",
+     "seconds": 4.65,
+     "raw_lufs": -27.7,
+     "phonemes": "kˈA ˈɑɹ ˌI ˈi lˈɔs ˈænʤələs. pɹˈɛɹi, tˌɛnsˈɛvənti.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "Prairie, ten-seventy. KRIE Los Angeles.",
+     "id": "legal-2",
+     "spoken": "Prairie, ten-seventy. K R I E [Los Angeles](/lˈɔs ˈænʤələs/).",
+     "file": "saddle/legal-2.mp3",
+     "seconds": 4.55,
+     "raw_lufs": -27.1,
+     "phonemes": "pɹˈɛɹi, tˌɛnsˈɛvənti. kˈA ˈɑɹ ˌI ˈi lˈɔs ˈænʤələs.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "This is KRIE Los Angeles, Prairie, ten-seventy. Tie up your horse and stay a spell.",
+     "id": "legal-3",
+     "spoken": "This is K R I E [Los Angeles](/lˈɔs ˈænʤələs/), Prairie, ten-seventy. Tie up your horse and stay a spell.",
+     "file": "saddle/legal-3.mp3",
+     "seconds": 7.05,
+     "raw_lufs": -27.2,
+     "phonemes": "ðˌɪs ɪz kˈA ˈɑɹ ˌI ˈi lˈɔs ˈænʤələs, pɹˈɛɹi, tˌɛnsˈɛvənti. tˈI ˌʌp jʊɹ hˈɔɹs ænd stˈA ɐ spˈɛl.",
+     "take": "new"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Wide open spaces, right there on your dial. Prairie, ten-seventy.",
+     "id": "sweeper-1",
+     "spoken": "Wide open spaces, right there on your dial. Prairie, ten-seventy.",
+     "file": "saddle/sweeper-1.mp3",
+     "seconds": 5.33,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Marshals, outlaws, and a whole lot of dust. Prairie, ten-seventy.",
+     "id": "sweeper-2",
+     "spoken": "Marshals, outlaws, and a whole lot of dust. Prairie, ten-seventy.",
+     "file": "saddle/sweeper-2.mp3",
+     "seconds": 5.35,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Ride out with us. The trail is long, and the stories are longer. Prairie, ten-seventy.",
+     "id": "sweeper-3",
+     "spoken": "Ride out with us. The trail is long, and the stories are longer. Prairie, ten-seventy.",
+     "file": "saddle/sweeper-3.mp3",
+     "seconds": 6.65,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "There's a new sheriff in town every half hour. Prairie, ten-seventy.",
+     "id": "sweeper-4",
+     "spoken": "There's a new sheriff in town every half hour. Prairie, ten-seventy.",
+     "file": "saddle/sweeper-4.mp3",
+     "seconds": 5.4,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Out where the West is still wild, and the radio's still on. Prairie, ten-seventy.",
+     "id": "sweeper-5",
+     "spoken": "Out where the West is still wild, and the radio's still on. Prairie, ten-seventy.",
+     "file": "saddle/sweeper-5.mp3",
+     "seconds": 6.05,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "laugh",
+   "call": "WHAH",
+   "name": "Laugh Line",
+   "band": "AM",
+   "f": "1240",
+   "fmt": "Comedy from radio’s golden age",
+   "voice": "af_heart",
+   "freq": "twelve-forty",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WHAH New York. Laugh Line, twelve-forty.",
+     "id": "legal-1",
+     "spoken": "W H [A](/ˈA/) H New York. Laugh Line, twelve-forty.",
+     "file": "laugh/legal-1.mp3",
+     "seconds": 4.47,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "Laugh Line, twelve-forty. WHAH New York.",
+     "id": "legal-2",
+     "spoken": "Laugh Line, twelve-forty. W H [A](/ˈA/) H New York.",
+     "file": "laugh/legal-2.mp3",
+     "seconds": 4.45,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "This is WHAH New York, Laugh Line, twelve-forty. Even our call letters end in a laugh.",
+     "id": "legal-3",
+     "spoken": "This is W H [A](/ˈA/) H New York, Laugh Line, twelve-forty. Even our call letters end in a laugh.",
+     "file": "laugh/legal-3.mp3",
+     "seconds": 7.25,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Old jokes, new listeners. Laugh Line, twelve-forty.",
+     "id": "sweeper-1",
+     "spoken": "Old jokes, new listeners. Laugh Line, twelve-forty.",
+     "file": "laugh/sweeper-1.mp3",
+     "seconds": 4.17,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Studio audience not included. Laughter guaranteed anyway. Laugh Line, twelve-forty.",
+     "id": "sweeper-2",
+     "spoken": "Studio audience not included. Laughter guaranteed anyway. Laugh Line, twelve-forty.",
+     "file": "laugh/sweeper-2.mp3",
+     "seconds": 6.42,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "The punchlines are vintage. The giggles are fresh. Laugh Line, twelve-forty.",
+     "id": "sweeper-3",
+     "spoken": "The punchlines are vintage. The giggles are fresh. Laugh Line, twelve-forty.",
+     "file": "laugh/sweeper-3.mp3",
+     "seconds": 5.3,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Warning: may cause snorting. Laugh Line, twelve-forty.",
+     "id": "sweeper-4",
+     "spoken": "Warning: may cause snorting. Laugh Line, twelve-forty.",
+     "file": "laugh/sweeper-4.mp3",
+     "seconds": 4.28,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Seventy-five years of timing, and it still kills. Laugh Line, twelve-forty.",
+     "id": "sweeper-5",
+     "spoken": "Seventy-five years of timing, and it still kills. Laugh Line, twelve-forty.",
+     "file": "laugh/sweeper-5.mp3",
+     "seconds": 5.45,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "gramophone",
+   "call": "WGPN",
+   "name": "The Gramophone",
+   "band": "AM",
+   "f": "1340",
+   "fmt": "78 rpm records, 1898–1925",
+   "voice": "bf_isabella",
+   "freq": "thirteen-forty",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WGPN New York. The Gramophone, thirteen-forty.",
+     "id": "legal-1",
+     "spoken": "W G P N New York. The Gramophone, thirteen-forty.",
+     "file": "gramophone/legal-1.mp3",
+     "seconds": 5.0,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "The Gramophone, thirteen-forty. WGPN New York.",
+     "id": "legal-2",
+     "spoken": "The Gramophone, thirteen-forty. W G P N New York.",
+     "file": "gramophone/legal-2.mp3",
+     "seconds": 4.85,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "You're listening to WGPN New York, The Gramophone, thirteen-forty, where the records still turn at seventy-eight.",
+     "id": "legal-3",
+     "spoken": "You're listening to W G P N New York, The Gramophone, thirteen-forty, where the records still turn at seventy-eight.",
+     "file": "gramophone/legal-3.mp3",
+     "seconds": 8.05,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Wind the crank, lower the needle. The Gramophone, thirteen-forty.",
+     "id": "sweeper-1",
+     "spoken": "Wind the crank, lower the needle. The Gramophone, thirteen-forty.",
+     "file": "gramophone/sweeper-1.mp3",
+     "seconds": 4.83,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Music from before there was radio... on the radio. The Gramophone, thirteen-forty.",
+     "id": "sweeper-2",
+     "spoken": "Music from before there was radio... on the radio. The Gramophone, thirteen-forty.",
+     "file": "gramophone/sweeper-2.mp3",
+     "seconds": 5.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Shellac, steel needles, and a century of crackle. The Gramophone, thirteen-forty.",
+     "id": "sweeper-3",
+     "spoken": "Shellac, steel needles, and a century of crackle. The Gramophone, thirteen-forty.",
+     "file": "gramophone/sweeper-3.mp3",
+     "seconds": 5.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Seventy-eight turns a minute, a hundred years and counting. The Gramophone, thirteen-forty.",
+     "id": "sweeper-4",
+     "spoken": "Seventy-eight turns a minute, a hundred years and counting. The Gramophone, thirteen-forty.",
+     "file": "gramophone/sweeper-4.mp3",
+     "seconds": 6.17,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty.",
+     "id": "sweeper-5",
+     "spoken": "Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty.",
+     "file": "gramophone/sweeper-5.mp3",
+     "seconds": 7.38,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "storytime",
+   "call": "WPGE",
+   "name": "Story Hour",
+   "band": "AM",
+   "f": "1500",
+   "fmt": "Short stories and poems, read aloud",
+   "voice": "bf_emma",
+   "freq": "fifteen hundred",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WPGE New York. Story Hour, fifteen hundred.",
+     "id": "legal-1",
+     "spoken": "W P G E New York. Story Hour, fifteen hundred.",
+     "file": "storytime/legal-1.mp3",
+     "seconds": 4.7,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "Story Hour, fifteen hundred. WPGE New York.",
+     "id": "legal-2",
+     "spoken": "Story Hour, fifteen hundred. W P G E New York.",
+     "file": "storytime/legal-2.mp3",
+     "seconds": 4.7,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "This is WPGE New York, Story Hour, fifteen hundred, where every hour turns a page.",
+     "id": "legal-3",
+     "spoken": "This is W P G E New York, Story Hour, fifteen hundred, where every hour turns a page.",
+     "file": "storytime/legal-3.mp3",
+     "seconds": 6.67,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Once upon a time, every hour. Story Hour, fifteen hundred.",
+     "id": "sweeper-1",
+     "spoken": "Once upon a time, every hour. Story Hour, fifteen hundred.",
+     "file": "storytime/sweeper-1.mp3",
+     "seconds": 4.75,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Close your eyes. Someone's reading to you. Story Hour, fifteen hundred.",
+     "id": "sweeper-2",
+     "spoken": "Close your eyes. Someone's reading to you. Story Hour, fifteen hundred.",
+     "file": "storytime/sweeper-2.mp3",
+     "seconds": 4.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Great stories, read aloud by the volunteers who love them. Story Hour, fifteen hundred.",
+     "id": "sweeper-3",
+     "spoken": "Great stories, read aloud by the volunteers who love them. Story Hour, fifteen hundred.",
+     "file": "storytime/sweeper-3.mp3",
+     "seconds": 6.22,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "The classics, the curious, and a poem in between. Story Hour, fifteen hundred.",
+     "id": "sweeper-4",
+     "spoken": "The classics, the curious, and a poem in between. Story Hour, fifteen hundred.",
+     "file": "storytime/sweeper-4.mp3",
+     "seconds": 5.5,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "No pictures? No problem. Story Hour, fifteen hundred.",
+     "id": "sweeper-5",
+     "spoken": "No pictures? No problem. Story Hour, fifteen hundred.",
+     "file": "storytime/sweeper-5.mp3",
+     "seconds": 4.42,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "nocturne",
+   "call": "WNOT",
+   "name": "Nocturne",
+   "band": "FM",
+   "f": "89.5",
+   "fmt": "Classical, complete works",
+   "voice": "bm_george",
+   "freq": "eighty-nine point five",
+   "city": "New York",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "WNOT New York. Nocturne, eighty-nine point five.",
+     "id": "legal-1",
+     "spoken": "W N O T New York. Nocturne, eighty-nine point five.",
+     "file": "nocturne/legal-1.mp3",
+     "seconds": 5.33,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "Nocturne, eighty-nine point five. WNOT New York.",
+     "id": "legal-2",
+     "spoken": "Nocturne, eighty-nine point five. W N O T New York.",
+     "file": "nocturne/legal-2.mp3",
+     "seconds": 5.22,
+     "take": "approved"
+    },
+    {
+     "kind": "legal",
+     "text": "This is WNOT New York, Nocturne, eighty-nine point five. Every work, played whole.",
+     "id": "legal-3",
+     "spoken": "This is W N O T New York, Nocturne, eighty-nine point five. Every work, played whole.",
+     "file": "nocturne/legal-3.mp3",
+     "seconds": 7.17,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Every movement, in order, from the first note to the last. Nocturne, eighty-nine point five.",
+     "id": "sweeper-1",
+     "spoken": "Every movement, in order, from the first note to the last. Nocturne, eighty-nine point five.",
+     "file": "nocturne/sweeper-1.mp3",
+     "seconds": 6.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Music for the hours when the city finally goes quiet. Nocturne, eighty-nine point five.",
+     "id": "sweeper-2",
+     "spoken": "Music for the hours when the city finally goes quiet. Nocturne, eighty-nine point five.",
+     "file": "nocturne/sweeper-2.mp3",
+     "seconds": 6.9,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "We never fade out a symphony. Nocturne, eighty-nine point five.",
+     "id": "sweeper-3",
+     "spoken": "We never fade out a symphony. Nocturne, eighty-nine point five.",
+     "file": "nocturne/sweeper-3.mp3",
+     "seconds": 5.2,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Bach before breakfast, Chopin after dark. Nocturne, eighty-nine point five.",
+     "id": "sweeper-4",
+     "spoken": "[Bach](/bˈɑːk/) before breakfast, [Chopin](/ʃˈɒpan/) after dark. Nocturne, eighty-nine point five.",
+     "file": "nocturne/sweeper-4.mp3",
+     "seconds": 6.15,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Take your time. The music certainly will. Nocturne, eighty-nine point five.",
+     "id": "sweeper-5",
+     "spoken": "Take your time. The music certainly will. Nocturne, eighty-nine point five.",
+     "file": "nocturne/sweeper-5.mp3",
+     "seconds": 5.9,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "freeform",
+   "call": "KFRF",
+   "name": "Free Form",
+   "band": "FM",
+   "f": "93.3",
+   "fmt": "Netlabel music under Creative Commons",
+   "voice": "af_bella",
+   "freq": "ninety-three point three",
+   "city": "Los Angeles",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "KFRF Los Angeles. Free Form, ninety-three point three.",
+     "id": "legal-1",
+     "spoken": "K F R F [Los Angeles](/lˈɔs ˈænʤələs/). Free Form, ninety-three point three.",
+     "file": "freeform/legal-1.mp3",
+     "seconds": 5.5,
+     "raw_lufs": -24.9,
+     "phonemes": "kˈA ˈɛf ˈɑɹ ˈɛf lˈɔs ˈænʤələs. fɹˈi fˈɔɹm, nˈIndiθɹˌi pˈYnt θɹˈi.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "Free Form, ninety-three point three. KFRF Los Angeles.",
+     "id": "legal-2",
+     "spoken": "Free Form, ninety-three point three. K F R F [Los Angeles](/lˈɔs ˈænʤələs/).",
+     "file": "freeform/legal-2.mp3",
+     "seconds": 5.3,
+     "raw_lufs": -25.4,
+     "phonemes": "fɹˈi fˈɔɹm, nˈIndiθɹˌi pˈYnt θɹˈi. kˈA ˈɛf ˈɑɹ ˈɛf lˈɔs ˈænʤələs.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "This is KFRF Los Angeles, Free Form, ninety-three point three. Free to hear, free to share.",
+     "id": "legal-3",
+     "spoken": "This is K F R F [Los Angeles](/lˈɔs ˈænʤələs/), Free Form, ninety-three point three. Free to hear, free to share.",
+     "file": "freeform/legal-3.mp3",
+     "seconds": 7.47,
+     "raw_lufs": -25.4,
+     "phonemes": "ðˌɪs ɪz kˈA ˈɛf ˈɑɹ ˈɛf lˈɔs ˈænʤələs, fɹˈi fˈɔɹm, nˈIndiθɹˌi pˈYnt θɹˈi. fɹˈi tə hˈɪɹ, fɹˈi tə ʃˈɛɹ.",
+     "take": "new"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Independent music from netlabels, shared under Creative Commons. Free Form, ninety-three point three.",
+     "id": "sweeper-1",
+     "spoken": "Independent music from netlabels, shared under Creative Commons. Free Form, ninety-three point three.",
+     "file": "freeform/sweeper-1.mp3",
+     "seconds": 7.58,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "No playlist meetings. No label deals. Just the music. Free Form, ninety-three point three.",
+     "id": "sweeper-2",
+     "spoken": "No playlist meetings. No label deals. Just the music. Free Form, ninety-three point three.",
+     "file": "freeform/sweeper-2.mp3",
+     "seconds": 6.85,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Music made to be passed around. Free Form, ninety-three point three.",
+     "id": "sweeper-3",
+     "spoken": "Music made to be passed around. Free Form, ninety-three point three.",
+     "file": "freeform/sweeper-3.mp3",
+     "seconds": 5.45,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "From bedrooms, basements and back rooms all over the world. Free Form, ninety-three point three.",
+     "id": "sweeper-4",
+     "spoken": "From bedrooms, basements and back rooms all over the world. Free Form, ninety-three point three.",
+     "file": "freeform/sweeper-4.mp3",
+     "seconds": 7.12,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Turn it up. It's all yours. Free Form, ninety-three point three.",
+     "id": "sweeper-5",
+     "spoken": "Turn it up. It's all yours. Free Form, ninety-three point three.",
+     "file": "freeform/sweeper-5.mp3",
+     "seconds": 5.03,
+     "take": "approved"
+    }
+   ]
+  },
+  {
+   "key": "tapers",
+   "call": "KTPA",
+   "name": "The Taper’s Section",
+   "band": "FM",
+   "f": "101.9",
+   "fmt": "Full concerts from the Live Music Archive",
+   "voice": "bf_lily",
+   "freq": "one-oh-one point nine",
+   "city": "Los Angeles",
+   "clips": [
+    {
+     "kind": "legal",
+     "text": "KTPA Los Angeles. The Taper's Section, one-oh-one point nine.",
+     "id": "legal-1",
+     "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/). The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/legal-1.mp3",
+     "seconds": 5.42,
+     "raw_lufs": -24.9,
+     "phonemes": "kˈA tˈiː pˈiː ˈA lˈɒs ˈanʤəlɪs. ðə tˈApəz sˈɛkʃᵊn, wˈʌnˌQwˈʌn pˈYnt nˈIn.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "The Taper's Section, one-oh-one point nine. KTPA Los Angeles.",
+     "id": "legal-2",
+     "spoken": "The Taper's Section, one-oh-one point nine. K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/).",
+     "file": "tapers/legal-2.mp3",
+     "seconds": 5.28,
+     "raw_lufs": -25.3,
+     "phonemes": "ðə tˈApəz sˈɛkʃᵊn, wˈʌnˌQwˈʌn pˈYnt nˈIn. kˈA tˈiː pˈiː ˈA lˈɒs ˈanʤəlɪs.",
+     "take": "new"
+    },
+    {
+     "kind": "legal",
+     "text": "KTPA Los Angeles, The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go.",
+     "id": "legal-3",
+     "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/), The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go.",
+     "file": "tapers/legal-3.mp3",
+     "seconds": 7.08,
+     "raw_lufs": -24.9,
+     "phonemes": "kˈA tˈiː pˈiː ˈA lˈɒs ˈanʤəlɪs, ðə tˈApəz sˈɛkʃᵊn, wˈʌnˌQwˈʌn pˈYnt nˈIn. mˈIks ˌʌp, lˈɛvᵊlz sˈɛt, hˈɪə wiː ɡˌQ.",
+     "take": "new"
+    },
+    {
+     "kind": "sweeper",
+     "text": "The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine.",
+     "id": "sweeper-1",
+     "spoken": "The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/sweeper-1.mp3",
+     "seconds": 6.78,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Recorded by fans, from the crowd, and shared for free. The Taper's Section, one-oh-one point nine.",
+     "id": "sweeper-2",
+     "spoken": "Recorded by fans, from the crowd, and shared for free. The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/sweeper-2.mp3",
+     "seconds": 6.28,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section, one-oh-one point nine.",
+     "id": "sweeper-3",
+     "spoken": "Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/sweeper-3.mp3",
+     "seconds": 7.75,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "No singles. No edits. Just the night, the way it happened. The Taper's Section, one-oh-one point nine.",
+     "id": "sweeper-4",
+     "spoken": "No singles. No edits. Just the night, the way it happened. The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/sweeper-4.mp3",
+     "seconds": 6.45,
+     "take": "approved"
+    },
+    {
+     "kind": "sweeper",
+     "text": "Find your spot. The band's tuning up. The Taper's Section, one-oh-one point nine.",
+     "id": "sweeper-5",
+     "spoken": "Find your spot. The band's tuning up. The Taper's Section, one-oh-one point nine.",
+     "file": "tapers/sweeper-5.mp3",
+     "seconds": 5.42,
+     "take": "approved"
+    }
+   ]
+  }
+ ]
+}
