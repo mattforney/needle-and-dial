@@ -1,8 +1,9 @@
-# The page's audio self-test in Firefox and WebKit (Safari's engine, on Linux and on a Mac). Runs only
-# on the selftest branch for now; CI runs the same checks in Chrome on every push.
+# The page's audio self-test in Firefox and WebKit (Safari's engine, on Linux and on a Mac): run it from
+# the Actions tab (Run workflow) after changing the audio chain. CI runs the same checks in Chrome on every push.
 name: Self-test in other browsers
 
 on:
+  workflow_dispatch:
   push:
     branches: [selftest]
     paths: [src/index.template.html, tools/selftest.js, .github/workflows/selftest-browsers.yml]

@@ -45,7 +45,7 @@ node tools/test_playback.js  # playback checks in headless Chrome (set CHROME_PA
 ND_ONLY='lock time' node tools/test_playback.js  # just the checks whose names match
 ```
 
-`npm run check` runs them all. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. Levels reach the air only with a new week's snapshot, so to hear `catalog/levels.json` before then, open `dist/preview.html` in Chrome or Firefox on a computer: it plays this week's schedule with the levels applied, and its banner switches the limiter on and off and says what it is doing. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
+`npm run check` runs them all. Open `dist/index.html` in a browser to listen; audio streams straight from archive.org. Levels reach the air only with a new week's snapshot, so to hear `catalog/levels.json` before then, open `dist/preview.html` in Chrome or Firefox on a computer: it plays this week's schedule with the levels applied, and its banner switches the limiter on and off and says what it is doing. To check the audio chain in another browser, open the site with `?selftest=1`: it measures the limiter, the high-pass and the fades in that browser and copies the results (the "Self-test in other browsers" workflow runs it in Firefox and WebKit). To hear a later week before it airs, add `?debug=1&days=n`: the radio plays the schedule n days on. GitHub Actions runs the same build and checks on every push, and publishes `main` to <https://mattforney.github.io/needle-and-dial/> (through the `gh-pages` branch) once they pass.
 
 ## Weekly Archive check
 
