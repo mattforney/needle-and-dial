@@ -40,11 +40,12 @@ def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
             else:
                 city = line.split(':', 1)[1].strip()
         elif line.startswith('pron:'):
-            m = re.fullmatch(r"pron:\s*([\w'\u2019-]+)\s+/([^/]+)/", line)
+            # "pron: Los Angeles /American/ /British/": the second is optional, for British voices
+            m = re.fullmatch(r"pron:\s*([\w'\u2019 -]+?)\s+/([^/]+)/(?:\s+/([^/]+)/)?", line)
             if m:
-                pron[m.group(1)] = m.group(2)
+                pron[m.group(1)] = {'a': m.group(2), 'b': m.group(3) or m.group(2)}
             else:
-                problems.append(f'line {n}: "{line}" should be "pron: Word /phonemes/"')
+                problems.append(f'line {n}: "{line}" should be "pron: Words /phonemes/" or "pron: Words /American/ /British/"')
         elif line.startswith('== '):
             parts = line[3:].split()
             if len(parts) < 3 or parts[0] not in by_key or not re.fullmatch(r'[ab][fm]_\w+', parts[1]):
@@ -80,11 +81,12 @@ def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
     return city, out, problems
 
 
-def say(text, call, pron=None):
-    """The text as the voice should read it: words with a set pronunciation (the scripts' "pron:" lines)
-    in Kokoro's markup for one, and the call letters spelled out, as on the page's own IDs."""
-    for word, ph in (pron or {}).items():
-        text = re.sub(rf"(?<![\w\[])({re.escape(word)})(?![\w\]])", rf"[\1](/{ph}/)", text)
+def say(text, call, pron=None, lang='a'):
+    """The text as the voice should read it: words with a set pronunciation (the scripts' "pron:" lines,
+    in the voice's accent) in Kokoro's markup for one, and the call letters spelled out, as on the page's
+    own IDs."""
+    for words, ph in (pron or {}).items():
+        text = re.sub(rf"(?<![\w\[])({re.escape(words)})(?![\w\]])", rf"[\1](/{ph[lang]}/)", text)
     return spoken(re.sub(rf'\b{call}\b', ' '.join(call), text))
 
 
@@ -119,7 +121,9 @@ def main():
     from kokoro import KPipeline
     try:
         approved = json.load(open(os.path.join(APPROVED, 'manifest.json'), encoding='utf-8'))
-        takes = {(st['key'], st['voice'], c['id'], c['text']): c for st in approved['stations'] for c in st['clips']}
+        # only approved takes, and only while the line would still be read the same way: its text, and
+        # how that text is said (a "pron:" line changed since would make the take out of date)
+        takes = {(st['key'], st['voice'], c['id'], c['spoken']): c for st in approved['stations'] for c in st['clips'] if c.get('approved') and c.get('spoken')}
     except FileNotFoundError:
         takes = {}
     only = set(filter(None, a.only.split(',')))
@@ -134,7 +138,8 @@ def main():
         os.makedirs(os.path.join(a.out, S['key']), exist_ok=True)
         clips = []
         for L in b['lines']:
-            kept = takes.get((S['key'], v, L['id'], L['text']))
+            L['spoken'] = say(L['text'], S['call'], read_scripts.pron, lang)
+            kept = takes.get((S['key'], v, L['id'], L['spoken']))
             if kept and a.speed == 1.0:
                 rel = f"{S['key']}/{L['id']}.mp3"
                 shutil.copy2(os.path.join(APPROVED, kept['file']), os.path.join(a.out, rel))
@@ -143,7 +148,7 @@ def main():
                 continue
             torch.manual_seed(zlib.crc32(f"{v}|{L['text']}".encode()))
             parts, ps = [], []
-            for r in pipes[lang](say(L['text'], S['call'], read_scripts.pron), voice=v, speed=a.speed):
+            for r in pipes[lang](L['spoken'], voice=v, speed=a.speed):
                 if r.audio is not None:
                     parts.append(r.audio.detach().cpu().numpy() if hasattr(r.audio, 'detach') else np.asarray(r.audio))
                 ps.append(r.phonemes)

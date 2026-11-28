@@ -12,11 +12,13 @@
 # Write call letters as they look ("WHOX"); the renderer spells them out for the voice. Write numbers as
 # words ("six-forty"). The renderer checks every line against these rules before recording anything.
 #
-# "pron:" sets how a word is said, in Kokoro's phonemes, where its own guess is wrong ("Bach" as "batch").
+# "pron:" sets how words are said, in Kokoro's phonemes, where its own guess is wrong ("Bach" as "batch",
+# "Los Angeles" as "Lows Angels"): one set for every voice, or an American set then a British one.
 
 city: New York
 pron: Bach /bˈɑːk/
 pron: Chopin /ʃˈɒpan/
+pron: Los Angeles /lˈɔs ˈænʤələs/ /lˈɒs ˈanʤəlɪs/
 
 == whodunit am_adam six-forty
 legal: WHOX New York. Whodunit, six-forty.
