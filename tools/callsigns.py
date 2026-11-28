@@ -111,7 +111,10 @@ def src_cdbs(calls):
                 continue
             rows += 1
             r = dict(zip(FAC, (x.strip() for x in v)))
-            newest = max(newest, r['last_change_date'][:10] if re.match(r'\d{4}-\d\d-\d\d', r['last_change_date']) else '')
+            m = re.match(r'(\d\d)/(\d\d)/(\d{4})', r['last_change_date']) or re.match(r'(\d{4})-(\d\d)-(\d\d)', r['last_change_date'])
+            if m:
+                d = '-'.join(m.groups()) if len(m.group(1)) == 4 else f'{m.group(3)}-{m.group(1)}-{m.group(2)}'
+                newest = max(newest, d)
             b, deleted = base_of(r['fac_callsign'])
             if b in known and not deleted:
                 known[b].append((r['fac_service'], r['comm_state']))
