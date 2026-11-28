@@ -44,6 +44,14 @@ const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).s
   expect('desktop log: Gate B not tested', !r.ok && /Gate B, locked phone: not tested/.test(r.report) && !/Gate B, locked phone: FAIL/.test(r.report), r);
   expect('desktop log: record timing', r.timing && r.timing.ok && /4 at their slot: 4 on time from their start point/.test(r.report) && /Late finishes\s+1 record finished past its slot, by up to 0\.4 s/.test(r.report), r);
 }
+// The real thing: Safari on a friend's Mac, 27 Nov, the 30 Nov week with ?days=3, on slow loads: two late
+// finishes carry into the next record, and a station break catches up the third.
+{
+  const r = check(fs.readFileSync(path.join(__dirname, 'fixtures', 'safari-desktop-gap.log'), 'utf8'));
+  expect('Safari log: device', /build 6bdea99 · Mac, Safari/.test(r.report), r);
+  expect('Safari log: what each late finish led to', r.timing && r.timing.ok && /Late finishes\s+3 records finished past their slot, by up to 2\.9 s; after 2, the next record started behind too \(up to 3\.0 s\); after 1, a station break caught up/.test(r.report), r);
+  expect('Safari log: the margin to the 4 s cut', /furthest 3\.3 s behind the schedule, at 11:35:54 .*; a record is cut once it runs 4 s past its slot/.test(r.report), r);
+}
 // A clean two hours.
 {
   const r = check(synth());
