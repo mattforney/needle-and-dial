@@ -1,0 +1,352 @@
+## lineup
+af_alloy	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_jessica	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_river	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_echo	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_michael	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+bf_alice	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+bm_daniel	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+## whodunit:id
+af_alloy	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_jessica	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_river	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_echo	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_michael	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+bf_alice	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+bm_daniel	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+## midnight:id
+af_alloy	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_jessica	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_river	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_echo	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_michael	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+bf_alice	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+bm_daniel	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+## rocket:id
+af_alloy	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_jessica	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_river	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_echo	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_michael	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+bf_alice	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+bm_daniel	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+## saddle:id
+af_alloy	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_jessica	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_river	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_echo	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_michael	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+bf_alice	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+bm_daniel	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+## laugh:id
+af_alloy	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_jessica	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_river	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_echo	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_michael	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+bf_alice	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+bm_daniel	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+## gramophone:id
+af_alloy	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_jessica	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_river	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_echo	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_michael	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+bf_alice	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+bm_daniel	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+## storytime:id
+af_alloy	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_jessica	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_river	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_echo	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_michael	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+bf_alice	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+bm_daniel	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+## nocturne:id
+af_alloy	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_jessica	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_river	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_echo	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_michael	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bf_alice	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bm_daniel	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+## freeform:id
+af_alloy	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_jessica	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_river	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_echo	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_michael	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+bf_alice	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+bm_daniel	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+## tapers:id
+af_alloy	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_jessica	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_river	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_echo	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_michael	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+bf_alice	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+bm_daniel	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+## lineup
+af_aoede	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_kore	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_sarah	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_eric	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_onyx	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+bf_emma	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+bm_fable	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+## whodunit:id
+af_aoede	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_kore	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_sarah	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_eric	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_onyx	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+bf_emma	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+bm_fable	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+## midnight:id
+af_aoede	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_kore	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_sarah	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_eric	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_onyx	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+bf_emma	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+bm_fable	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+## rocket:id
+af_aoede	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_kore	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_sarah	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_eric	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_onyx	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+bf_emma	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+bm_fable	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+## saddle:id
+af_aoede	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_kore	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_sarah	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_eric	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_onyx	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+bf_emma	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+bm_fable	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+## laugh:id
+af_aoede	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_kore	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_sarah	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_eric	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_onyx	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+bf_emma	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+bm_fable	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+## gramophone:id
+af_aoede	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_kore	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_sarah	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_eric	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_onyx	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+bf_emma	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+bm_fable	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+## storytime:id
+af_aoede	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_kore	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_sarah	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_eric	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_onyx	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+bf_emma	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+bm_fable	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+## nocturne:id
+af_aoede	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_kore	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_sarah	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_eric	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_onyx	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bf_emma	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bm_fable	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+## freeform:id
+af_aoede	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_kore	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_sarah	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_eric	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_onyx	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+bf_emma	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+bm_fable	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+## tapers:id
+af_aoede	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_kore	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_sarah	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_eric	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_onyx	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+bf_emma	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+bm_fable	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+## lineup
+af_bella	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_nicole	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_sky	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_fenrir	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_puck	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+bf_isabella	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+bm_george	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+## whodunit:id
+af_bella	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_nicole	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_sky	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_fenrir	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_puck	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+bf_isabella	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+bm_george	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+## midnight:id
+af_bella	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_nicole	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_sky	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_fenrir	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_puck	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+bf_isabella	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+bm_george	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+## rocket:id
+af_bella	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_nicole	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_sky	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_fenrir	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_puck	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+bf_isabella	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+bm_george	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+## saddle:id
+af_bella	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_nicole	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_sky	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_fenrir	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_puck	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+bf_isabella	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+bm_george	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+## laugh:id
+af_bella	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_nicole	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_sky	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_fenrir	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_puck	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+bf_isabella	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+bm_george	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+## gramophone:id
+af_bella	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_nicole	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_sky	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_fenrir	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_puck	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+bf_isabella	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+bm_george	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+## storytime:id
+af_bella	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_nicole	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_sky	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_fenrir	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_puck	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+bf_isabella	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+bm_george	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+## nocturne:id
+af_bella	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_nicole	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_sky	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_fenrir	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_puck	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bf_isabella	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bm_george	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+## freeform:id
+af_bella	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_nicole	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_sky	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_fenrir	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_puck	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+bf_isabella	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+bm_george	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+## tapers:id
+af_bella	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_nicole	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_sky	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_fenrir	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_puck	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+bf_isabella	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+bm_george	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+## lineup
+af_heart	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+af_nova	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_adam	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_liam	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+am_santa	ɡˈʊd ˈivnɪŋ. jˌʊɹ tˈund tə nˈidᵊl ænd dˈIᵊl: tˈɛn stˈAʃənz, ænd ˈɛvəɹi wˈʌn ʌv ðˌɛm ˌɔn ði ˈɛɹ ɹˈIt nˈW.
+bf_lily	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+bm_lewis	ɡˈʊd ˈiːvnɪŋ. jˌɔː tjˈuːnd tə nˈiːdᵊl and dˈIəl: tˈɛn stˈAʃᵊnz, and ˈɛvəɹi wˈʌn ɒv ðˌɛm ˌɒn ði ˈɛː ɹˈIt nˈW.
+## whodunit:id
+af_heart	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+af_nova	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_adam	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_liam	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+am_santa	ðˌɪs ɪz dˈʌbᵊlju ˈAʧ ˈO ˈɛks . hˌudˈʌnət. sˈɪks fˈɔɹTi ˌɔn jʊɹ dˈIᵊl.
+bf_lily	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+bm_lewis	ðˌɪs ɪz dˈʌbᵊljuː ˈAʧ ˈQ ˈɛks . huːdˈʌnɪt. sˈɪks fˈɔːti ˌɒn jɔː dˈIəl.
+## midnight:id
+af_heart	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+af_nova	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_adam	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_liam	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+am_santa	dˈʌbᵊlju ʤˈi ˈAʧ ˈO . mˈɪdnˌIt. sˈɛvən sˈɪksti.
+bf_lily	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+bm_lewis	dˈʌbᵊljuː ʤˈiː ˈAʧ ˈQ . mˈɪdnIt. sˈɛvᵊn sˈɪksti.
+## rocket:id
+af_heart	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+af_nova	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_adam	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_liam	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+am_santa	kˈA ˈɑɹ sˈi tˈi . ɹˈɑkət. nˈIn hˈʌndɹəd.
+bf_lily	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+bm_lewis	kˈA ˈɑː sˈiː tˈiː . ɹˈɒkɪt. nˈIn hˈʌndɹəd.
+## saddle:id
+af_heart	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+af_nova	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_adam	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_liam	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+am_santa	kˈA ˈɑɹ ˌI ˈi . pɹˈɛɹi. tˈɛn sˈɛvənti.
+bf_lily	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+bm_lewis	kˈA ˈɑː ˌI ˈiː . pɹˈɛːɹi. tˈɛn sˈɛvnti.
+## laugh:id
+af_heart	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+af_nova	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_adam	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_liam	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+am_santa	dˈʌbᵊlju ˈAʧ ˈA ˈAʧ . lˈæf lˈIn. twˈɛlv fˈɔɹTi.
+bf_lily	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+bm_lewis	dˈʌbᵊljuː ˈAʧ ˈA ˈAʧ . lˈɑːf lˈIn. twˈɛlv fˈɔːti.
+## gramophone:id
+af_heart	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+af_nova	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_adam	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_liam	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+am_santa	dˈʌbᵊlju ʤˈi pˈi ˈɛn . ðə ɡɹˈæməfˌOn. θˌɜɹtˈin fˈɔɹTi.
+bf_lily	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+bm_lewis	dˈʌbᵊljuː ʤˈiː pˈiː ˈɛn . ðə ɡɹˈaməfQn. θˌɜːtˈiːn fˈɔːti.
+## storytime:id
+af_heart	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+af_nova	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_adam	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_liam	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+am_santa	dˈʌbᵊlju pˈi ʤˈi ˈi . stˈɔɹi ˈWəɹ. fˌɪftˈin hˈʌndɹəd.
+bf_lily	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+bm_lewis	dˈʌbᵊljuː pˈiː ʤˈiː ˈiː . stˈɔːɹi ˈWə. fˌɪftˈiːn hˈʌndɹəd.
+## nocturne:id
+af_heart	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+af_nova	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_adam	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_liam	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+am_santa	dˈʌbᵊlju ˈɛn ˈO tˈi . nˈɑktəɹn. ˌATinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bf_lily	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+bm_lewis	dˈʌbᵊljuː ˈɛn ˈQ tˈiː . nˈɒktəːn. ˌAtinˈIn pˈYnt fˈIv ˈɛf ˈɛm .
+## freeform:id
+af_heart	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+af_nova	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_adam	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_liam	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+am_santa	kˈA ˈɛf ˈɑɹ ˈɛf . fɹˈi fˈɔɹm. nˈIndiθɹˌi pˈYnt θɹˈi.
+bf_lily	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+bm_lewis	kˈA ˈɛf ˈɑː ˈɛf . fɹˈiː fˈɔːm. nˈIntiθɹˌiː pˈYnt θɹˈiː.
+## tapers:id
+af_heart	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+af_nova	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_adam	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_liam	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+am_santa	kˈA tˈi pˈi ˈA . ðə tˈApəɹz sˈɛkʃən. wˈʌn ˈO wˈʌn pˈYnt nˈIn.
+bf_lily	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
+bm_lewis	kˈA tˈiː pˈiː ˈA . ðə tˈApəz sˈɛkʃᵊn. wˈʌn ˈQ wˈʌn pˈYnt nˈIn.
