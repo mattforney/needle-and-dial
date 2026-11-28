@@ -93,17 +93,43 @@ function recordTiming(seg, lines, out) {
     if (withSp.length) out.push(`  Start points     ${n(withSp.length, 'record', 'records')} began past a silent lead-in: ${missed.length ? `${missed.length} missed it` : withSp.length > 1 ? 'all taken' : 'taken'}`);
     for (const r of missed) timing.push(`${r.L.at} ${r.name} started at ${r.from.toFixed(1)} s, before its ${r.sp.toFixed(1)} s start point`);
   }
-  // From the week of 30 Nov each recording has a load gap before it: a late one finishes past its slot
-  // (up to 4 s) and the next gap takes up the delay, so running behind costs nothing unless it is cut.
+  // From the week of 30 Nov each recording has a load gap before it. A late one finishes past its slot
+  // (up to 4 s; later than that it is cut), and the next item waits for it: a station break or ID, which
+  // keeps to the clock, catches up, but the next recording's gap takes up the delay only when the delay
+  // and the recording's load fit in it together. Otherwise that recording starts behind too.
   const gap = lines.some((L) => /^schedule: this week has a [\d.]+ s load gap/.test(L.msg));
   const lagged = recs.filter((r) => r.beats.length);
   if (lagged.length) {
     const worst = lagged.map((r) => ({ r, b: r.beats.reduce((a, b) => (b.lag > a.lag ? b : a)) })).reduce((a, b) => (b.b.lag > a.b.lag ? b : a));
-    out.push(`  Mid-record       ${worst.b.lag > 0.5 ? `furthest ${worst.b.lag.toFixed(1)} s behind the schedule, at ${worst.b.at} (${worst.r.name})` : 'within 0.5 s of the schedule'}`);
+    out.push(`  Mid-record       ${worst.b.lag > 0.5 ? `furthest ${worst.b.lag.toFixed(1)} s behind the schedule, at ${worst.b.at} (${worst.r.name})${gap && worst.b.lag > 2 ? '; a record is cut once it runs 4 s past its slot' : ''}` : 'within 0.5 s of the schedule'}`);
     if (!gap) for (const r of lagged) { const b = r.beats.reduce((a, x) => (x.lag > a.lag ? x : a)); if (b.lag > 1.5) timing.push(`${b.at} ${r.name} was ${b.lag.toFixed(1)} s behind the schedule, so it loses about that much of its ending`); }
   }
-  const late = seg.map((L) => /^letting it finish: ([\d.]+) s to go/.exec(L.msg)).filter(Boolean).map((m) => +m[1]);
-  if (late.length) out.push(`  Late finishes    ${n(late.length, 'record', 'records')} finished past ${late.length === 1 ? 'its' : 'their'} slot, by up to ${Math.max(...late).toFixed(1)} s; the next gap took up the delay`);
+  // Each late finish, and what came after it: a recording (how far behind it started) or a break.
+  const late = [];
+  seg.forEach((L, i) => {
+    const m = /^letting it finish: ([\d.]+) s to go/.exec(L.msg);
+    if (!m) return;
+    let next = null, lag = null;
+    for (let j = i + 1; j < seg.length; j++) {
+      const M = seg[j].msg;
+      if (!next) { if (M.startsWith('→ ')) next = M; continue; }
+      if (M.startsWith('→ ')) break;
+      const p = /^playing media from [\d.]+ s \(start point [\d.]+ s\), ([\d.]+) s (behind|ahead of) the schedule/.exec(M);
+      if (p) { lag = (p[2] === 'behind' ? 1 : -1) * +p[1]; break; }
+    }
+    late.push({ by: +m[1], next, lag });
+  });
+  if (late.length) {
+    const media = (x) => x.next && /^→ \S+ (music|prog|poem|filler|ad)\b/.test(x.next);
+    const groups = [
+      [late.filter((x) => x.lag != null && x.lag > 0.5), (k) => `the next record started behind too (up to ${Math.max(...k.map((x) => x.lag)).toFixed(1)} s)`],
+      [late.filter((x) => x.lag != null && x.lag <= 0.5), () => 'the next gap took up the delay'],
+      [late.filter((x) => x.lag == null && x.next && !media(x)), () => 'a station break caught up'],
+      [late.filter((x) => x.lag == null && (!x.next || media(x))), () => 'the log ends before the next one starts'],
+    ].filter(([k]) => k.length);
+    const after = groups.length === 1 ? groups[0][1](groups[0][0]) : groups.map(([k, say]) => `after ${k.length}, ${say(k)}`).join('; ');
+    out.push(`  Late finishes    ${n(late.length, 'record', 'records')} finished past ${late.length === 1 ? 'its' : 'their'} slot, by up to ${Math.max(...late.map((x) => x.by)).toFixed(1)} s; ${after}`);
+  }
   for (const L of seg) { const m = /^cut (.+) with ([\d.]+) s of it unplayed/.exec(L.msg); if (m) timing.push(`${L.at} ${m[1]} was cut with ${(+m[2]).toFixed(1)} s of it unplayed`); }
   return { timing, starts, lagged, timed: starts.length > 0 || lagged.length > 0 || timing.length > 0 };
 }
