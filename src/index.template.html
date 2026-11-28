@@ -1311,7 +1311,7 @@ async function selftest() {
   if (!Ctx) { add(false, 'Web Audio rendering', 'not available', 'OfflineAudioContext'); return { checks: out }; }
   const offline = (n) => new Ctx(1, n, sr);
   const render = async (secs, fill) => {
-    const n = Math.round(secs * sr), ctx = offline(n), b = ctx.createBuffer(1, n, sr), x = b.getChannelData(0); fill(x);
+    const n = Math.round(secs * sr), ctx = offline(n), b = ctx.createBuffer(1, n, sr), x = new Float32Array(n); fill(x); b.copyToChannel(x, 0); // x stays ours: a browser may take over the buffer once it plays (Firefox does, as the spec says)
     const s = ctx.createBufferSource(), l = ctx.createDynamicsCompressor(), g = ctx.createGain(); s.buffer = b; for (const k of Object.keys(L)) l[k].value = L[k]; g.gain.value = back;
     s.connect(l); l.connect(g); g.connect(ctx.destination); s.start();
     return { x, y: (await ctx.startRendering()).getChannelData(0) };
@@ -1328,6 +1328,11 @@ async function selftest() {
   const clicks = peak(c.y, sr); add(clicks < -0.1, 'clicks 7 dB over the limiter stay under full scale', `${clicks.toFixed(2)} dBFS`, 'under -0.1 dBFS');
   const at = sr + every + lag + Math.round(0.2 * sr), n = Math.round(0.02 * sr); let e = 0; for (let i = at; i < at + n; i++) e += c.y[i] ** 2;
   const bed = dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)); add(bed > -0.5, 'music 200 ms after a click is back to its level', `${z(bed, 2)} dB`, 'within 0.5 dB');
+  { // the dip itself: the deepest 5 ms window from 10 ms after the click, and how long the music stays more than 1 dB down
+    const w = Math.round(0.005 * sr), from = sr + every + lag; let deep = 0, down = 0;
+    for (let k = 2; k < 40; k++) { let ew = 0; for (let i = from + k * w; i < from + (k + 1) * w; i++) ew += c.y[i] ** 2; const v = dB(Math.sqrt(ew / w) / (0.1 / Math.SQRT2)); deep = Math.min(deep, v); if (v < -1) down = (k + 1) * 5; }
+    add(deep > -12 && down <= 150, 'the music under a click dips briefly', `${z(deep, 1)} dB at most, back within 1 dB after ${down} ms`, 'no deeper than 12 dB, back within 150 ms');
+  }
   let hpOk = true; try { const [ff, fb] = hpCoeffs(sr); offline(128).createIIRFilter(ff, fb); } catch (err) { hpOk = false; }
   if (!hpOk) { add(false, 'the 20 Hz high-pass', 'this browser has no IIR filter, so the page plays without it', 'an IIR filter'); }
   else {
