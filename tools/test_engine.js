@@ -2,8 +2,8 @@ const fs = require('fs');
 const html = fs.readFileSync(__dirname + '/../src/index.template.html', 'utf8');
 const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const CAT = JSON.parse(fs.readFileSync(__dirname + '/../dist/catalog.json', 'utf8'));
-const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap };')(CAT);
-const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap } = api;
+const api = new Function('CAT', code + '\nreturn { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, QH, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap, withBreak, breakFor, annPick, annFits, annChime, ANN_TAIL, CHIME_GAP, CHIME_LEN };')(CAT);
+const { WEEK, EPOCH, STATIONS, parseCatalog, buildStation, makeScheduler, ia, ID, QH, HOUR, canStart, fillerFor, weekOf, excludeFiles, loadSnapshots, applyLevels, applyGap, withBreak, breakFor, annPick, annFits, annChime, ANN_TAIL, CHIME_GAP, CHIME_LEN } = api;
 const P = parseCatalog(CAT);
 let fail = 0; const bad = (m) => { fail++; console.log('FAIL', m); };
 // The page script runs in sloppy mode, where a second function with the same name silently replaces
@@ -36,9 +36,11 @@ for (const S of STATIONS) {
 // or, inside a program longer than an hour, in the break between its items nearest the hour, and
 // there are no legal IDs anywhere else. Every program starts right after a station break on a
 // minute its station's clock allows for its length (canStart), and only programs longer than an
-// hour run through a top of the hour. Nothing is faded out to make a break.
+// hour run through a top of the hour. Nothing is faded out to make a break. pb: the week's station
+// break before a program (ID, or a snapshot's brk), its load gap included; a program its extra seconds
+// would push out of its clock slot keeps ID (breakFor).
 const fmtT = (s) => { const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), x = Math.round(s % 60); return `${'MTWTFSS'[d]} ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(x).padStart(2, '0')}`; };
-function clockAudit(label, S, segs, stats) {
+function clockAudit(label, S, segs, stats, pb = ID) {
   const fails = [], progs = [];
   for (let i = 0; i < segs.length; i++) {
     if (segs[i].k !== 'prog' || segs[i].pi !== 0) continue;
@@ -46,7 +48,7 @@ function clockAudit(label, S, segs, stats) {
     let j = i;
     let prev = null; // natural breaks: between items, but not after a track that runs into the next
     for (; j < segs.length && (j === i || segs[j].pi > 0 || segs[j].pi === -1); j++) { if (segs[j].pi === -1) p.ids.push(j); else { p.d += segs[j].d; if (j > i && !/>\s*$/.test(prev.t || '')) p.bounds.push(segs[j].s); prev = segs[j]; } }
-    p.i1 = j; p.end = segs[j - 1].s + segs[j - 1].d; p.long = p.d > HOUR - ID || !!S.longForm; p.through = Math.floor((p.start - ID) / HOUR) !== Math.floor((p.end - 1) / HOUR); progs.push(p); i = j - 1;
+    p.i1 = j; p.end = segs[j - 1].s + segs[j - 1].d; p.long = p.d > HOUR - breakFor(S, p.d, pb) || !!S.longForm; p.through = Math.floor((p.start - breakFor(S, p.d, pb)) / HOUR) !== Math.floor((p.end - 1) / HOUR); progs.push(p); i = j - 1;
   }
   const inLong = (s) => progs.find((p) => p.long && p.start < s && s < p.end);
   const legal = new Set(), worst = { dev: 0, at: 0 };
@@ -64,13 +66,14 @@ function clockAudit(label, S, segs, stats) {
   }
   segs.forEach((g, i) => { if (g.k === 'id' && !legal.has(i)) fails.push(`legal ID away from the top of the hour at ${fmtT(g.s)}`); });
   for (const p of progs) {
-    const br = segs[p.i0 - 1];
-    if (!br || (br.k !== 'id' && br.k !== 'imaging') || br.d !== ID - p.lead) fails.push(`program at ${fmtT(p.start)} has no station break before it`);
-    if (!canStart(S, p.d, p.start - ID)) fails.push(`${Math.round(p.d / 60)}-minute program starts at ${fmtT(p.start)}`);
-    if (!p.long && Math.floor((p.start - ID) / HOUR) !== Math.floor((p.end - 1) / HOUR)) fails.push(`program at ${fmtT(p.start)} runs through the top of the hour`);
+    const br = segs[p.i0 - 1], bp = breakFor(S, p.d, pb);
+    if (!br || (br.k !== 'id' && br.k !== 'imaging') || br.d !== bp - p.lead) fails.push(`program at ${fmtT(p.start)} has no station break before it`);
+    if (!canStart(S, p.d, p.start - bp, bp)) fails.push(`${Math.round(p.d / 60)}-minute program starts at ${fmtT(p.start)}`);
+    if (!p.long && Math.floor((p.start - bp) / HOUR) !== Math.floor((p.end - 1) / HOUR)) fails.push(`program at ${fmtT(p.start)} runs through the top of the hour`);
+    if (bp < pb && stats) stats.kept = (stats.kept || 0) + 1;
   }
   segs.forEach((g, i) => {
-    if (g.k === 'imaging' && !(segs[i + 1] && segs[i + 1].pi === 0)) fails.push(`station break at ${fmtT(g.s)} without a program after it`);
+    if (g.k === 'imaging' && !(segs[i + 1] && (S.type === 'music' ? segs[i + 1].k === 'music' : segs[i + 1].pi === 0))) fails.push(`station break at ${fmtT(g.s)} without a ${S.type === 'music' ? 'record' : 'program'} after it`);
     if (g.cut) fails.push(`faded out at ${fmtT(g.s)}`);
     if (g.f && Math.floor(g.s / HOUR) !== Math.floor((g.s + g.d - 1e-6) / HOUR) && !inLong(g.s + g.d / 2)) fails.push(`${g.k} at ${fmtT(g.s)} runs through the top of the hour`);
   });
@@ -126,9 +129,9 @@ for (const n of snaps) {
   const w = weekOf(s.from);
   if (n !== s.from + '.json') bad(`${n} says it starts ${s.from}`);
   if (!Number.isInteger(w)) { bad(`${n}: ${s.from} is not a schedule Monday`); continue; }
-  const Ps = excludeFiles(applyGap(applyLevels(parseCatalog(s.catalog), s.levels || {}), s.gap || 0), s.exclude);
-  for (const S of STATIONS) { const segs = buildStation(S, w, Ps); audit(`${n} ${S.key}`, S, segs); clockAudit(`${n} ${S.key}`, S, segs); }
-  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out, levels for ${Object.values(s.levels || {}).reduce((k, o) => k + Object.keys(o || {}).length, 0)} files, ${s.gap ? s.gap + ' s load gap' : 'no load gap'}`);
+  const Ps = withBreak(excludeFiles(applyGap(applyLevels(parseCatalog(s.catalog), s.levels || {}), s.gap || 0), s.exclude), s.brk || 0);
+  for (const S of STATIONS) { const segs = buildStation(S, w, Ps); audit(`${n} ${S.key}`, S, segs); clockAudit(`${n} ${S.key}`, S, segs, null, s.brk || ID); }
+  console.log(`snapshot ${s.from} (week ${w}): ${s.exclude.length} files held out, levels for ${Object.values(s.levels || {}).reduce((k, o) => k + Object.keys(o || {}).length, 0)} files, ${s.gap ? s.gap + ' s load gap' : 'no load gap'}, ${s.brk ? s.brk + ' s station breaks' : 'station breaks of ' + ID + ' s'}`);
 }
 // The load gap: every recording's slot opens with it (lead), its length grows by it, station sounds and
 // the program objects themselves don't, and a partial snapshot keeps the gap of the one before it.
@@ -198,6 +201,86 @@ for (const n of snaps) {
     Object.values(PL).forEach(walk);
     console.log(`levels: ${T.files} files in catalog/levels.json, ${n} in this catalog; every station audits clean over weeks 0–2`);
   }
+}
+// The longer station break (a snapshot's brk, 12 s from the week of 7 Dec): every station audits clean
+// with it, every break before a program, legal ID and sweeper is long enough for each of the station's
+// recordings of its kind (audio/announcements), music stations air a sweeper about every quarter hour,
+// and each break carries its place in the week's run of them (n). A week without it schedules as before.
+{
+  const lvPath = __dirname + '/../catalog/levels.json', T = fs.existsSync(lvPath) ? JSON.parse(fs.readFileSync(lvPath, 'utf8')).items : {};
+  const PB = 12, PG = applyGap(applyLevels(parseCatalog(CAT), T), 2), PB12 = withBreak(applyGap(applyLevels(parseCatalog(CAT), T), 2), PB);
+  if (Object.keys(PB12).includes('brk') || PB12.brk !== PB || withBreak(parseCatalog(CAT), 0).brk !== undefined) bad('withBreak: the break should go with the catalog, out of sight of its lists');
+  const [a, b, c, d] = loadSnapshots([{ from: '2026-11-23', exclude: [], catalog: CAT }, { from: '2026-11-30', exclude: [], gap: 2, catalog: CAT }, { from: '2026-12-07', exclude: [], partial: true, brk: PB, catalog: {} }, { from: '2026-12-14', exclude: [], partial: true, catalog: {} }]);
+  if (a.brk || b.brk || c.brk !== PB || d.brk !== PB || a.P.brk || b.P.brk || c.P.brk !== PB || d.P.brk !== PB || d.gap !== 2) bad(`loadSnapshots: breaks ${a.brk}, ${b.brk}, ${c.brk}, ${d.brk}; expected none, none, ${PB} and ${PB}, a partial snapshot keeping the one before's`);
+  const MAN = JSON.parse(fs.readFileSync(__dirname + '/../audio/announcements/manifest.json', 'utf8'));
+  const recs = Object.fromEntries(MAN.stations.map((st) => [st.key, { id: st.clips.filter((x) => x.kind === 'legal').map((x) => ({ id: x.id, end: x.voice[1] })), imaging: st.clips.filter((x) => x.kind !== 'legal').map((x) => ({ id: x.id, end: x.voice[1] })) }]));
+  for (const st of MAN.stations) for (const x of st.clips) if (!(Array.isArray(x.voice) && x.voice[0] > 0 && x.voice[0] < x.voice[1] && x.voice[1] <= x.seconds + 0.1)) bad(`${st.call} ${x.id}: where its voice is (${JSON.stringify(x.voice)}) should lie inside its ${x.seconds} s`);
+  for (const S of STATIONS) if (!recs[S.key] || !recs[S.key].id.length || !recs[S.key].imaging.length) bad(`${S.call}: no recorded legal IDs or sweepers in audio/announcements`);
+  const fitStats = (S, segs) => {
+    const st = { breaks: 0, chime: 0, none: 0, skipped: 0, tight: Infinity };
+    for (const g of segs) {
+      if (g.k !== 'id' && g.k !== 'imaging') continue;
+      const list = recs[S.key][g.k], pick = annPick(list, g, g.d);
+      st.breaks++;
+      if (!pick) { st.none++; continue; }
+      if (pick !== list[g.n % list.length]) st.skipped++;
+      if (annChime(pick, g.d)) st.chime++;
+      st.tight = Math.min(st.tight, ...list.map((x) => g.d - x.end - ANN_TAIL));
+    }
+    return st;
+  };
+  const sweeps = { gramophone: [], freeform: [] };
+  for (const S of STATIONS) for (const w of [0, 1, 2, 3]) {
+    const segs = buildStation(S, w, PB12), label = `${PB} s breaks ${S.key} week ${w}`;
+    const ck = {}; audit(label, S, segs); clockAudit(label, S, segs, ck, PB);
+    const n = { id: 0, imaging: 0 };
+    for (const g of segs) if (g.k === 'id' || g.k === 'imaging') { if (g.n !== n[g.k]++) { bad(`${label}: ${g.k} at ${fmtT(g.s)} is number ${g.n} in the week, not ${n[g.k] - 1}`); break; } }
+    for (let i = 0; i < segs.length; i++) {
+      const g = segs[i], nx = segs[i + 1];
+      if (g.k !== 'id' && g.k !== 'imaging') continue;
+      // a legal ID inside a program or atop a music station's hour: ID; a break before a program or a record: the
+      // week's, less the load gap after it (or ID's, where clockAudit finds the program needed it: breakFor)
+      const lead = (nx && nx.lead) || 0, want = g.pi === -1 || (S.type === 'music' && g.k === 'id') ? [ID] : [PB - lead, ID - lead];
+      if (!want.includes(g.d)) { bad(`${label}: ${g.k} at ${fmtT(g.s)} lasts ${g.d} s, not ${want.join(' or ')}`); break; }
+    }
+    const st = fitStats(S, segs);
+    if (st.none) bad(`${label}: ${st.none} breaks too short for any recording`);
+    if (st.skipped && w === 0) console.log(`${PB} s breaks ${S.call}: ${st.skipped} of ${st.breaks} breaks too short for the recording next in turn, so the next one that fits`);
+    if (w === 0) console.log(`${PB} s breaks ${S.call}: ${st.breaks} breaks, ${st.tight >= 0 ? `every recording fits every one of its kind (${st.tight.toFixed(2)} s to spare at the tightest)` : 'some too short for a recording'}, the chime after ${Math.round(st.chime / st.breaks * 100)}%${ck.kept ? `; ${ck.kept} programs keep their slot with ${ID} s` : ''}`);
+    if (S.type === 'music') {
+      // one sweeper before the first record at or after :15, :30 and :45, the k-th never before k quarter hours
+      const per = new Map();
+      segs.forEach((g, i) => {
+        if (g.k !== 'imaging') return;
+        if (!segs[i + 1] || segs[i + 1].k !== 'music' || (segs[i - 1] && segs[i - 1].k === 'imaging')) bad(`${label}: sweeper at ${fmtT(g.s)} isn't between records`);
+        const h = Math.floor(g.s / HOUR); if (!per.has(h)) per.set(h, []); per.get(h).push(g.s - h * HOUR);
+      });
+      for (const [h, offs] of per) {
+        if (offs.length > 3) bad(`${label}: ${offs.length} sweepers in the hour from ${fmtT(h * HOUR)}`);
+        offs.forEach((o, k) => { if (o < (k + 1) * QH) bad(`${label}: sweeper ${k + 1} of the hour from ${fmtT(h * HOUR)} at ${Math.floor(o / 60)}:${String(Math.round(o % 60)).padStart(2, '0')}`); else sweeps[S.key].push(o - (k + 1) * QH); });
+      }
+      for (let h = 0; h < WEEK / HOUR; h++) if (!per.has(h)) sweeps[S.key].push(null);
+      // an hour that couldn't carry all three makes the difference up in interval signal, as any short hour
+      const hours = WEEK / HOUR, got = [...per.values()].reduce((x, o) => x + o.length, 0);
+      if (got < 3 * hours * 0.97) bad(`${label}: only ${got} sweepers of ${3 * hours}`);
+    }
+  }
+  for (const k of Object.keys(sweeps)) {
+    const late = sweeps[k].filter((x) => x != null).sort((x, y) => x - y), S = STATIONS.find((x) => x.key === k);
+    console.log(`${PB} s breaks ${S.call}: ${late.length} sweepers in four weeks, of ${4 * 3 * WEEK / HOUR}; after their quarter hour by a median ${Math.round(late[late.length >> 1])} s, at most ${(late[late.length - 1] / 60).toFixed(1)} min`);
+  }
+  // A week without brk: no sweepers on the music stations, and the program break as before.
+  for (const S of STATIONS.filter((x) => x.type === 'music')) if (buildStation(S, 1, PG).some((g) => g.k === 'imaging')) bad(`${S.key}: sweepers in a week without the longer break`);
+  for (const S of STATIONS) {
+    const st = fitStats(S, buildStation(S, 1, PG));
+    if (st.none) bad(`${S.key} week 1, breaks of ${ID} s: ${st.none} breaks with no recording that fits`);
+    console.log(`${ID} s breaks ${S.call}: the chime after ${Math.round(st.chime / st.breaks * 100)}%` + (st.skipped ? `; ${st.skipped} of ${st.breaks} breaks too short for the recording next in turn, so the next one that fits` : ''));
+  }
+  // Taking turns: from the one next in turn, the first that fits.
+  const L = [{ id: 'a', end: 9 }, { id: 'b', end: 4 }, { id: 'c', end: 6 }];
+  const pk = (n, room) => (annPick(L, { n }, room) || {}).id;
+  if (pk(0, 10) !== 'a' || pk(1, 10) !== 'b' || pk(5, 10) !== 'c' || pk(0, 8) !== 'b' || pk(2, 6.2) !== 'b' || pk(0, 4) !== undefined || annPick([], { n: 0 }, 10) !== null) bad('annPick: should take each in turn, from the next that fits');
+  if (!annFits({ end: 7.7 }, 8) || annFits({ end: 7.71 }, 8) || !annChime({ end: 7.4 }, 10) || annChime({ end: 7.41 }, 10)) bad('annFits, annChime: the margins moved');
 }
 // The page's own sounds (the ID chime, the interval tune) play at the programs' loudness, -20 LUFS, for
 // every station, without clipping. The meter (tools/lufs.js) first checks itself against BS.1770's

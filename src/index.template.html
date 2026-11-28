@@ -222,7 +222,7 @@ body.has-dbg .wrap{padding-bottom:42vh}
   <h2>How it works</h2>
   <div>
     <p>Every station runs on a fixed weekly schedule that your browser computes from the same starting moment, so anyone tuned to a station hears the same program at the same second. Dramas start on the hour or half hour; station IDs, vintage commercials and musical interludes fill the gaps, the way a real station hit its marks.</p>
-    <p>Nothing is hosted here. Every second of audio streams straight from the Internet Archive's servers, which is why the dial goes quiet if archive.org is down. If you use this, <a href="https://archive.org/donate" target="_blank" rel="noopener">donate to the Archive</a>.</p>
+    <p>The programs aren't hosted here: every one streams straight from the Internet Archive's servers, which is why the dial goes quiet if archive.org is down. Only the stations' announcements, voiced for this site, come from here. If you use this, <a href="https://archive.org/donate" target="_blank" rel="noopener">donate to the Archive</a>.</p>
   </div>
   <div>
     <p><b>Rights, station by station</b></p>
@@ -230,12 +230,13 @@ body.has-dbg .wrap{padding-bottom:42vh}
   </div>
 </section>
 <div id="sr" class="sr" aria-live="polite"></div>
-<footer>Needle &amp; Dial is a prototype, not affiliated with the Internet Archive. Station call letters are fictional. Audio and metadata: Internet Archive contributors, Old Time Radio Researchers, LibriVox, the Great 78 Project, the Live Music Archive tapers, Musopen and the netlabels credited on air.</footer>
+<footer>Needle &amp; Dial is a prototype, not affiliated with the Internet Archive. Station call letters are fictional. Audio and metadata: Internet Archive contributors, Old Time Radio Researchers, LibriVox, the Great 78 Project, the Live Music Archive tapers, Musopen and the netlabels credited on air. Station announcements: synthetic voices made with Kokoro.</footer>
 </div>
 
 <div class="dbg" id="dbg" hidden><div class="dbg-h"><b>Debug log</b><button id="dbgShare" type="button" hidden>Share</button><button id="dbgCopy" type="button">Copy</button><button id="dbgClear" type="button">Clear</button></div><pre id="dbgLog"></pre></div>
 
 <script id="catalog" type="application/json">__CATALOG__</script>
+<script id="announcements" type="application/json">__ANNOUNCE__</script>
 <script>
 {
 // ==ENGINE==
@@ -288,31 +289,49 @@ const ID = 10, QH = 900, HOUR = 3600;
 // and complete works start on any five-minute mark from which they end before the hour, and concerts
 // on :00 or :30. Anything that runs through a top of the hour gets the legal ID in the break between
 // tracks or movements nearest it, the natural break the FCC rule asks for.
-const stepFor = (d) => (d <= QH - ID ? QH : d <= 2 * QH - ID ? 2 * QH : d <= HOUR - ID ? HOUR : 2 * QH);
+// pb: the station break before a program, from its mark to the program's first sound, the load gap
+// included: ID (10 s), or a week's snapshot's own (brk; 12 s from the week of 7 Dec 2026, so every
+// recorded ID and sweeper fits it). IDs inside a program and at the top of the hour on music stations
+// stay ID, with the next recording's load gap after them.
+const stepFor = (d, pb = ID) => (d <= QH - pb ? QH : d <= 2 * QH - pb ? 2 * QH : d <= HOUR - pb ? HOUR : 2 * QH);
+// The break before a program of length d in a week whose break is pb: pb, unless the seconds it adds to ID
+// would cost the program its slot on a station of shows' clock (with 12 s before it, a 29:49 episode would
+// need a whole hour, not a half); then ID, as always, and a shorter recording in it.
+const breakFor = (S, d, pb) => (pb > ID && !S.clock && !S.longForm && stepFor(d, pb) !== stepFor(d, ID) ? ID : pb);
 // Whether a program of length d may have its station break at B. Stations of shows keep that classic
 // clock; a station whose clock is a number of minutes (stories, complete works) starts a piece on any
 // such mark from which it ends before the top of the hour.
-function canStart(S, d, B) {
+function canStart(S, d, B, pb = ID) {
   if (S.longForm) return B % (2 * QH) === 0; // concerts: on the hour or half hour, through the hour if need be
-  if (!S.clock) return B % QH === 0 && B % stepFor(d) === 0;
-  return B % (S.clock * 60) === 0 && (d > HOUR - ID || B + ID + d <= (Math.floor(B / HOUR) + 1) * HOUR);
+  if (!S.clock) return B % QH === 0 && B % stepFor(d, pb) === 0;
+  return B % (S.clock * 60) === 0 && (d > HOUR - pb || B + pb + d <= (Math.floor(B / HOUR) + 1) * HOUR);
 }
 // When a program whose break is at B ends: a legal ID joins it for each top of the hour it runs through.
 // In a week with a load gap the program's first recording takes its lead out of the break before it, so
 // the program itself starts where it always would, 10 s after its break, and keeps to the same clock.
-function endOf(B, items) { let t = B + ID - (items[0].lead || 0), top = (Math.floor(t / HOUR) + 1) * HOUR; for (const it of items) { if (t + it.d > top) { t += ID; top += HOUR; } t += it.d; } return t; }
+function endOf(B, items, pb = ID) { let t = B + pb - (items[0].lead || 0), top = (Math.floor(t / HOUR) + 1) * HOUR; for (const it of items) { if (t + it.d > top) { t += ID; top += HOUR; } t += it.d; } return t; }
 const SEGUE = />\s*$/; // a live track that runs straight into the next
+// Station breaks are read in the station's own recorded voice (audio/announcements): a legal ID at each
+// top of the hour, a sweeper (name and dial) at every other break. A recording fits a break when its voice
+// ends (end: seconds into its file) ANN_TAIL before the break does, and the station's chime follows it,
+// CHIME_GAP after the voice, when the break has room for all of the chime (CHIME_LEN) too. Each break takes
+// the station's recordings of its kind in turn, by its place in the week's run of them (n), from the
+// first that fits.
+const ANN_TAIL = 0.3, CHIME_GAP = 0.35, CHIME_LEN = 2.25;
+const annFits = (c, room) => c.end + ANN_TAIL <= room;
+const annChime = (c, room) => c.end + CHIME_GAP + CHIME_LEN <= room;
+function annPick(list, seg, room) { for (let j = 0; j < list.length; j++) { const c = list[((seg.n || 0) + j) % list.length]; if (annFits(c, room)) return c; } return null; }
 // The first allowed break at or after t for program b. A gap too long for interval signal (a minute)
 // and too short for the station's shortest filler (`least`) can't be filled, so skip a break that
 // would leave one before it, or a program end that would leave one before the top of the hour.
-function startFor(S, b, t, least) {
+function startFor(S, b, t, least, pb = ID) {
   const bad = (g) => g > 60 && g < least, first = Math.ceil(t / 300) * 300;
   for (let B = first; B < first + 12 * HOUR; B += 300) {
-    if (!canStart(S, b.d, B) || bad(B - t)) continue;
-    const E = endOf(B, b.pg.items);
+    if (!canStart(S, b.d, B, pb) || bad(B - t)) continue;
+    const E = endOf(B, b.pg.items, pb);
     if (!bad(Math.ceil(E / HOUR) * HOUR - E)) return B;
   }
-  let B = first; while (!canStart(S, b.d, B)) B += 300; return B; // none avoids it: the audit will say so
+  let B = first; while (!canStart(S, b.d, B, pb)) B += 300; return B; // none avoids it: the audit will say so
 }
 const NO_FILL = /intro|tuning|tunin|break|crowd|outro|dead air|fade|improv|happy birthday|tease/i;
 
@@ -360,6 +379,10 @@ function buildStation(S, week, P) {
   const r = rng(hash(S.key) ^ Math.imul(week + 7, 2654435761));
   const segs = []; let t = 0;
   const push = (o, d) => { const dur = d === undefined ? o.d : d; segs.push(Object.assign({}, o, { s: t, d: dur })); t += dur; };
+  // Each legal ID and each station break carries its place in the week's run of them (n), so the page
+  // plays the station's recorded IDs and sweepers in turn, the same one for every listener.
+  const PB = P.brk || ID, ann = { id: 0, imaging: 0 };
+  const brk = (k, d, o) => push(Object.assign({ k, n: ann[k]++ }, o), d);
   // Fill up to T from the pools in order, each up to its count: whatever is next in rotation while
   // there's room, then the closest fit of one or two items for the last stretch, so nothing has to be
   // cut short to make the break. Whatever can't be filled plays the interval signal.
@@ -388,7 +411,24 @@ function buildStation(S, week, P) {
   const poolOf = (name, max, look) => ({ pool: new Pool(P[name], r), max, look, long: P[name].reduce((m, x) => Math.max(m, x.d), 0) });
   if (S.type === 'music') {
     const songs = [poolOf(S.songs, 1e9, 90)];
-    for (let h = 0; h < WEEK / HOUR; h++) { push({ k: 'id' }, ID); packTo((h + 1) * HOUR, songs); }
+    // In a week with its own break (brk), a music station also airs a sweeper between records about every
+    // quarter hour: before the first record to start at or after :15, :30 and :45. The hour is packed
+    // short by their length, so it still ends on the hour; a sweeper gets the break less the next
+    // record's load gap, as a program's does.
+    const lead = (P[S.songs][0] && P[S.songs][0].lead) || 0, sweep = P.brk ? PB - lead : 0;
+    for (let h = 0; h < WEEK / HOUR; h++) {
+      brk('id', ID);
+      if (!sweep) { packTo((h + 1) * HOUR, songs); continue; }
+      const i0 = segs.length, t0 = t;
+      packTo((h + 1) * HOUR - 3 * sweep, songs);
+      const hour = segs.splice(i0); t = t0;
+      let q = 1;
+      for (const g of hour) {
+        if (q <= 3 && g.k === 'music' && t >= h * HOUR + q * QH) { brk('imaging', sweep); q++; while (q <= 3 && t >= h * HOUR + q * QH + QH / 2) q++; }
+        push(g, g.d);
+      }
+      if (q <= 3) push({ k: 'interval' }, (4 - q) * sweep); // too few records to carry them all: interval signal, as for any short hour
+    }
     return segs;
   }
   const pools = S.fill.map(([name, max]) => poolOf(name, max, 48));
@@ -404,35 +444,35 @@ function buildStation(S, week, P) {
     let pick = -1, best = Infinity;
     waiting.forEach((b, i) => {
       if (waiting.findIndex((x) => who(x) === who(b)) !== i) return;
-      const B = startFor(S, b, t, least);
-      if (B + ID + b.d + ID * (Math.ceil((b.d + ID) / HOUR) + 1) > WEEK) return;
+      const pb = breakFor(S, b.d, PB), B = startFor(S, b, t, least, pb);
+      if (B + pb + b.d + ID * (Math.ceil((b.d + pb) / HOUR) + 1) > WEEK) return;
       const cost = B - t + (who(b) === last && !b.pg.items[0].sr ? 600 : 0) - 120 * b.passed;
       if (cost < best) { best = cost; pick = i; }
     });
     if (pick < 0) { // nothing fits before the week ends: filler, hour by hour
-      if (t < WEEK && t % HOUR === 0) push({ k: 'id' }, ID);
-      for (let top = (Math.floor(t / HOUR) + 1) * HOUR; top <= WEEK; top += HOUR) { packTo(top, pools); if (top < WEEK) push({ k: 'id' }, ID); }
+      if (t < WEEK && t % HOUR === 0) brk('id', ID);
+      for (let top = (Math.floor(t / HOUR) + 1) * HOUR; top <= WEEK; top += HOUR) { packTo(top, pools); if (top < WEEK) brk('id', ID); }
       break;
     }
     const b = waiting.splice(pick, 1)[0]; waiting.forEach((x) => x.passed++);
-    const B = startFor(S, b, t, least);
+    const pb = breakFor(S, b.d, PB), B = startFor(S, b, t, least, pb);
     packTo(B, pools);
-    push({ k: B % HOUR ? 'imaging' : 'id' }, ID - (b.pg.items[0].lead || 0));
+    brk(B % HOUR ? 'imaging' : 'id', pb - (b.pg.items[0].lead || 0));
     // Through each top of the hour, the legal ID goes into the nearest natural break: between two
     // items, but not where one track runs straight into the next (a '>' after its title).
     const items = b.pg.items, flows = (i) => SEGUE.test(items[i].t || '');
     let top = (Math.floor(t / HOUR) + 1) * HOUR, owed = false;
     items.forEach((it, i) => {
       const natural = i === 0 || !flows(i - 1);
-      if (owed && natural) { push({ k: 'id', pi: -1 }, ID); owed = false; }
+      if (owed && natural) { brk('id', ID, { pi: -1 }); owed = false; }
       if (!owed && t + it.d > top) {
         let j = i, end = t + it.d; while (j < items.length - 1 && flows(j)) end += items[++j].d;
-        if (natural && top - t <= end - top) push({ k: 'id', pi: -1 }, ID); else owed = true;
+        if (natural && top - t <= end - top) brk('id', ID, { pi: -1 }); else owed = true;
         top += HOUR;
       }
       push(Object.assign({}, it, { p: b.pg.meta, pi: i }));
     });
-    if (owed) push({ k: 'id', pi: -1 }, ID);
+    if (owed) brk('id', ID, { pi: -1 });
     last = who(b);
   }
   return segs;
@@ -479,14 +519,16 @@ function applyGap(P, gap) {
   for (const k of Object.keys(P)) walk(P[k]);
   return P;
 }
+// The week's station break goes with its catalog, out of the way of anything that walks the catalog's lists.
+const withBreak = (P, brk) => (brk ? Object.defineProperty(P, 'brk', { value: brk, enumerable: false }) : P);
 // The page carries this week's snapshot whole; later ones list only the stations, and the items' levels, that change.
 function loadSnapshots(raw) {
-  let prev = {}, prevLv = {}, prevGap = 0;
+  let prev = {}, prevLv = {}, prevGap = 0, prevBrk = 0;
   return raw.map(s => {
     const cat = s.partial ? Object.assign({}, prev, s.catalog) : s.catalog, lv = s.partial ? Object.assign({}, prevLv, s.levels) : (s.levels || {});
-    const gap = s.gap != null ? s.gap : s.partial ? prevGap : 0;
-    prev = cat; prevLv = lv; prevGap = gap;
-    return { from: s.from, week: weekOf(s.from), gap, P: excludeFiles(applyGap(applyLevels(parseCatalog(cat), lv), gap), s.exclude) };
+    const gap = s.gap != null ? s.gap : s.partial ? prevGap : 0, brk = s.brk != null ? s.brk : s.partial ? prevBrk : 0;
+    prev = cat; prevLv = lv; prevGap = gap; prevBrk = brk;
+    return { from: s.from, week: weekOf(s.from), gap, brk, P: withBreak(excludeFiles(applyGap(applyLevels(parseCatalog(cat), lv), gap), s.exclude), brk) };
   }).sort((a, b) => a.week - b.week);
 }
 const schedulerFor = (snaps) => makeScheduler((w) => snaps.reduce((p, s) => (s.week <= w ? s.P : p), snaps[0].P));
@@ -600,7 +642,6 @@ const QS = new URLSearchParams(location.search);
 const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const ROUTE = QS.get('audio') === 'direct' ? false : QS.get('audio') === 'webaudio' ? true : !IOS;
 const A = { ctx: null, el: null, keep: null, g: null, src: '', kind: '', t0: 0, len: 0, loop: false, fade: 1, skip: 0, lead: 0, cont: false, over: false, pre: null, fadedOut: false, it: null, lvl: 1, held: false, blocked: false, swapAt: 0, nudgeAt: 0, aim: 0, seekAt: 0, waitAt: 0, retryAt: 0, retryKey: '', retries: {} };
-let sigNow = 0;
 
 /* Debug log: add ?debug=1 to the address. Kept in localStorage so it survives a reload. */
 const BUILD = '__BUILD__';
@@ -629,10 +670,10 @@ function wavURL(pcm, sr) {
   return URL.createObjectURL(new Blob([v.buffer], { type: 'audio/wav' }));
 }
 // notes: [start s, Hz, length s, triangle?, peak]. A 12 ms attack, then an exponential fall to silence.
-function synth(sec, notes) {
-  const out = new Float32Array(Math.round(sec * SR));
+function synth(sec, notes, sr = SR) {
+  const out = new Float32Array(Math.round(sec * sr));
   for (const [t, hz, dur, tri, peak] of notes) {
-    const i0 = Math.round(t * SR), n = Math.min(out.length - i0, Math.round(dur * SR)), att = Math.round(0.012 * SR), fall = Math.pow(1e-4, 1 / Math.max(1, n - att)), w = 2 * Math.PI * hz / SR;
+    const i0 = Math.round(t * sr), n = Math.min(out.length - i0, Math.round(dur * sr)), att = Math.round(0.012 * sr), fall = Math.pow(1e-4, 1 / Math.max(1, n - att)), w = 2 * Math.PI * hz / sr;
     let env = peak;
     for (let k = 0; k < n; k++) { const e = k < att ? peak * k / att : (env *= fall), s = Math.sin(w * k); out[i0 + k] += 0.55 * e * (tri ? 2 / Math.PI * Math.asin(s) : s); }
   }
@@ -643,7 +684,8 @@ function synth(sec, notes) {
 // (tools/test_engine.js measures every station's). Built into the sound, so it holds on iPhone too.
 const SOUND_DB = { id: 6, interval: 15.2 };
 const louder = (pcm, db) => { const k = Math.pow(10, db / 20); for (let i = 0; i < pcm.length; i++) pcm[i] *= k; return pcm; };
-const idPCM = (S) => louder(synth(ID + 2, S.motif.flatMap((hz, i) => [[0.05 + i * 0.33, hz, 1.5, 0, 0.3], [0.05 + i * 0.33, hz * 2, 0.5, 0, 0.05]])), SOUND_DB.id);
+// The station's chime: its three notes, sounding for CHIME_LEN. As a clip of its own it runs ID + 2 s.
+const idPCM = (S, sec = ID + 2, sr = SR) => louder(synth(sec, S.motif.flatMap((hz, i) => [[0.05 + i * 0.33, hz, 1.5, 0, 0.3], [0.05 + i * 0.33, hz * 2, 0.5, 0, 0.05]]), sr), SOUND_DB.id);
 // The interval tune repeats to at least 6 s: phones treat very short sounds as one-off effects, not playback.
 function intervalPCM(S) { const step = 0.4, loop = S.tune.length * step + 0.6, reps = Math.ceil(6 / loop), notes = []; for (let r = 0; r < reps; r++) S.tune.forEach((hz, i) => { if (hz) notes.push([r * loop + 0.1 + i * step, hz, 0.9, 1, 0.16]); }); return { pcm: louder(synth(reps * loop, notes), SOUND_DB.interval), len: reps * loop }; }
 const CLIPS = {};
@@ -655,6 +697,62 @@ function clip(kind, S) {
     else { const x = intervalPCM(S); CLIPS[key] = { url: wavURL(x.pcm, SR), len: x.len }; }
   }
   return CLIPS[key];
+}
+
+/* Station breaks in the station's own voice. The page decodes the break's recording and adds the chime
+   after it into one WAV, played as the chime alone was: one source for the whole break, so a locked phone
+   has nothing new to start in the middle of it. Each break is readied while what comes before it plays.
+   One that isn't ready yet (tuned in just before it) plays its recording straight from its file, without
+   the chime; a station with no recording that fits plays the chime alone. */
+const ANN = JSON.parse(document.getElementById('announcements').textContent); // tools/build.py: approved takes, by station and kind
+const ANN_SR = 24000; // the recordings' own rate
+const ANNS = new Map(); // readied breaks, by station, recording and break length, newest last
+let ANN_CTX = null;
+const annList = (S, seg) => (ANN[S.key] || {})[seg.k === 'id' ? 'legal' : 'sweeper'] || [];
+const annKey = (S, c, room) => S.key + '/' + c.id + '/' + room.toFixed(1);
+function annDecode(buf) {
+  const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+  if (!OAC) return Promise.reject(new Error('no OfflineAudioContext'));
+  if (!ANN_CTX) ANN_CTX = new OAC(1, ANN_SR, ANN_SR);
+  return new Promise((ok, no) => { try { const p = ANN_CTX.decodeAudioData(buf, ok, no); if (p && p.catch) p.catch(no); } catch (e) { no(e); } });
+}
+function annPrep(S, c, room) {
+  const key = annKey(S, c, room);
+  let e = ANNS.get(key);
+  if (e && !(e.failed && performance.now() - e.failed > 60000)) { ANNS.delete(key); ANNS.set(key, e); return e; } // one that failed: again after a minute
+  e = { url: '', len: room + 2, chime: false, used: 0, ready: false, failed: 0 };
+  ANNS.set(key, e);
+  for (const [k, x] of ANNS) { if (ANNS.size <= 4) break; if (x.url && x.url === A.src) continue; ANNS.delete(k); if (x.url) URL.revokeObjectURL(x.url); }
+  fetch(c.file).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); }).then(annDecode).then((b) => {
+    const x = b.getChannelData(0), sr = b.sampleRate;
+    let last = x.length - 1; while (last > 0 && Math.abs(x[last]) < 0.00316) last--; // -50 dBFS: where the voice ends in this decoding
+    const end = Math.max(c.end, (last + 1) / sr), out = new Float32Array(Math.round(e.len * sr));
+    out.set(x.subarray(0, Math.min(x.length, out.length, Math.round((end + ANN_TAIL) * sr))));
+    e.chime = annChime({ end }, room);
+    if (e.chime) { const k = idPCM(S, CHIME_LEN + 0.05, sr), at = Math.round((end + CHIME_GAP) * sr); for (let i = 0; i < k.length && at + i < out.length; i++) out[at + i] += k[i]; }
+    e.used = e.chime ? end + CHIME_GAP + CHIME_LEN : end + ANN_TAIL;
+    if (ANNS.get(key) !== e) return; // put aside meanwhile
+    e.url = wavURL(out, sr); e.ready = true;
+  }).catch((err) => { e.failed = performance.now(); dlog(`couldn't ready ${S.call} ${c.id} for its break: ${(err && err.message) || err}`); });
+  return e;
+}
+// The station's next break, among what's coming up, readied for its slot.
+function annAhead(S, c) {
+  for (let j = c.i + 1; j < Math.min(c.segs.length, c.i + 16); j++) {
+    const g = c.segs[j];
+    if (g.k !== 'id' && g.k !== 'imaging') continue;
+    const pick = annPick(annList(S, g), g, g.d);
+    if (pick) annPrep(S, pick, g.d);
+    return;
+  }
+}
+// late: a recording that ran into the break finished just now, so the break starts here, that much shorter.
+function annStart(S, seg, c, late, what) {
+  const room = late ? seg.d - c.off : seg.d, t0 = late ? nowS() : c.start, list = annList(S, seg), pick = annPick(list, seg, room);
+  if (!pick) { const k = clip('id', S); carry(k.url, seg.k, t0, k.len, false, what + (list.length ? ': no recording fits, the chime' : ': the chime')); return; }
+  const e = ANNS.get(annKey(S, pick, seg.d));
+  if (e && e.ready && e.used <= room + 0.05) carry(e.url, seg.k, t0, e.len, false, `${what}: ${pick.id}${e.chime ? ' and the chime' : ''}`);
+  else { carry(pick.file, seg.k, t0, 0, false, `${what}: ${pick.id}, straight from its file`); annPrep(S, pick, seg.d); }
 }
 
 function satCurve() { const n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = i / (n - 1) * 2 - 1; c[i] = Math.tanh(1.8 * x) / Math.tanh(1.8); } return c; }
@@ -721,10 +819,6 @@ const ramp = (param, v, tc = 0.06) => param.setTargetAtTime(v, A.ctx.currentTime
 function wake() { try { const p = A.ctx && A.ctx.state !== 'running' && A.ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
 function applyTone() { if (!A.ctx) return; ramp(A.hifi.gain, R.tone === 'hifi' ? 1 : 0, 0.05); ramp(A.am.gain, R.tone === 'hifi' ? 0 : 1.3, 0.05); }
 function applyBandNoise() { if (!A.ctx) return; if (R.band === 'AM') { A.nf.type = 'bandpass'; A.nf.frequency.value = 1400; A.nf.Q.value = 0.5; } else { A.nf.type = 'highpass'; A.nf.frequency.value = 1800; A.nf.Q.value = 0.4; } }
-
-const SYN = { talk: 0 };
-function stopSpeech() { clearTimeout(SYN.talk); SYN.talk = 0; try { speechSynthesis.cancel(); } catch (e) {} }
-function speak(text) { try { const u = new SpeechSynthesisUtterance(text); u.rate = 0.98; u.pitch = 0.85; u.volume = MUTE ? 0 : Math.min(1, R.vol); const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)); const pick = vs.find(v => /Daniel|Alex|Fred|Google US English|Guy|David/i.test(v.name)) || vs[0]; if (pick) u.voice = pick; speechSynthesis.speak(u); } catch (e) {} }
 
 /* The carrier */
 const wantPos = () => { const p = nowS() - A.t0; return A.loop && A.len ? ((p % A.len) + A.len) % A.len : Math.max(0, p); };
@@ -832,6 +926,7 @@ function bridge() {
 // end well before it is loaded again, once per slot, before the slot is filled; a second one stands.
 function onEnded() {
   if (!R.on) return; if (filling()) return nextFiller();
+  if (A.kind === 'id' || A.kind === 'imaging') { const k = clip('silence'); return carry(k.url, 'silence', nowS(), k.len, true, 'silence to the end of the break'); }
   const it = A.it, at = A.el.currentTime, len = it ? fileEnd(it, A.skip) : 0, left = PLAY.seg ? PLAY.start + PLAY.seg.d - nowS() : 0;
   if (A.kind === 'media' && it && it === PLAY.seg && at < len - 3 && left > 3 && A.endRetry !== PLAY.key) {
     A.endRetry = PLAY.key; const src = A.src;
@@ -884,6 +979,7 @@ function onError() {
   if (!R.on || !err) return;
   dlog(`load error ${err.code}${err.message ? ': ' + err.message : ''} (${A.kind})`);
   if (A.kind === 'silence') return;
+  if ((A.kind === 'id' || A.kind === 'imaging') && PLAY.S) { const k = clip('id', PLAY.S); if (A.src !== k.url) return carry(k.url, A.kind, nowS(), k.len, false, `${PLAY.S.call} ${A.kind}: the chime instead`); } // a recording that won't load
   if (filling() && A.src === ia(FILL.cur.it.id, FILL.cur.it.f)) { BAD.add(A.src); return startFiller(FILL.why, FILL.done); } // plan the rest again without it
   if (A.kind === 'media' && isMedia(PLAY.seg) && A.src === ia(PLAY.seg.id, PLAY.seg.f)) {
     const n = A.retries[PLAY.key] = (A.retries[PLAY.key] || 0) + 1;
@@ -905,16 +1001,12 @@ const isMedia = (seg) => seg && !!seg.f;
 function startSeg(S, c, cont) {
   const seg = c.seg; TROUBLE = '';
   PLAY = { key: segKey(S, c), seg, S, start: c.start, warm: false, week: c.week }; FILL = null;
-  stopSpeech(); A.fade = 1;
+  A.fade = 1;
   const L = seg.lead || 0, what = `${S.call} ${seg.k}${seg.t ? ' “' + seg.t + '”' : ''} at ${Math.round(Math.max(0, c.off - L))} of ${Math.round(seg.d - L)} s`;
   if (isMedia(seg)) carry(ia(seg.id, seg.f), 'media', c.start, 0, false, what, seg, cont);
-  else if (seg.k === 'id' || seg.k === 'imaging') {
-    // the legal ID gives the call letters; a station break between programs, the name and the dial
-    const k = clip('id', S), say = seg.k === 'id' ? S.say : S.say.split('. ').slice(1).join('. ');
-    carry(k.url, seg.k, cont && c.off > 0.5 ? nowS() : c.start, k.len, false, what); // after a recording that ran late, from the start
-    if (c.off < 4 && sigNow > 0.55 && !document.hidden && 'speechSynthesis' in window) SYN.talk = setTimeout(() => speak(say), Math.max(0, 1350 - c.off * 1000));
-  } else { const k = clip('interval', S); carry(k.url, 'interval', c.start, k.len, true, what); }
-  clip('id', S); clip('interval', S);
+  else if (seg.k === 'id' || seg.k === 'imaging') annStart(S, seg, c, cont && c.off > 0.5, what); // after a recording that ran late, from the start
+  else { const k = clip('interval', S); carry(k.url, 'interval', c.start, k.len, true, what); }
+  clip('id', S); clip('interval', S); annAhead(S, c);
   setMediaSession(S, seg);
   const dd = describe(S, seg); $('#sr').textContent = S.call + ' ' + S.fLabel + ': ' + dd.title;
 }
@@ -967,11 +1059,11 @@ function tick(src) {
   if (lastTick && t - lastTick > 3000) dlog('scheduler was asleep for ' + ((t - lastTick) / 1000).toFixed(1) + ' s');
   lastTick = t; TK[src === 'media' ? 'media' : 'timer']++;
   if (DBG.on && t - DBG.hb > 30000) { DBG.hb = t; beat(); }
-  const now = nowS(); const { S, s } = strongest(); sigNow = s;
+  const now = nowS(); const { S, s } = strongest();
   if (S && s > 0.15) {
     DETUNE = 0;
     if (TUNED !== S) { if (!PEND || PEND.S !== S) PEND = { S, at: now + 0.2 }; else if (now >= PEND.at) { TUNED = S; PEND = null; PLAY = { key: '' }; dlog('tuned to ' + S.call + ' ' + S.fLabel); } }
-  } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; stopSpeech(); dlog('off station'); } } }
+  } else { PEND = null; if (TUNED) { if (!DETUNE) DETUNE = now; else if (now - DETUNE > 1.2) { TUNED = null; PLAY = { key: '' }; dlog('off station'); } } }
   if (A.retryAt && now >= A.retryAt) { A.retryAt = 0; if (PLAY.key === A.retryKey) { dlog('trying the recording again'); PLAY.key = ''; } }
   if (TUNED) { const c = SCH.at(TUNED, now); if (PLAY.key !== segKey(TUNED, c)) { if (!finishing(now)) startSeg(TUNED, c, !!PLAY.key && PLAY.S === TUNED && gapFor(c.week) > 0); } else maintain(TUNED, c); }
   else if (A.el.paused && !A.held && !A.blocked && !A.el.ended) restartCarrier();
@@ -1053,7 +1145,7 @@ function power(on) {
     clearInterval(power.iv); power.iv = setInterval(() => tick('timer'), 200);
     dlog('power on');
   } else {
-    clearInterval(power.iv); stopSpeech();
+    clearInterval(power.iv);
     if (A.ctx) { A.el.pause(); if (A.keep) A.keep.pause(); ramp(A.master.gain, 0, 0.05); setTimeout(() => { if (!R.on) A.ctx.suspend(); }, 300); }
     TUNED = null; PLAY = { key: '' }; FILL = null; A.retryAt = 0; dlog('power off');
   }
@@ -1240,7 +1332,7 @@ document.addEventListener('pointerdown', kick, true);
 document.addEventListener('keydown', kick, true);
 document.addEventListener('visibilitychange', () => {
   dlog(document.hidden ? 'page hidden' : 'page visible');
-  if (document.hidden) { stopSpeech(); return; }
+  if (document.hidden) return;
   paintDbg();
   if (!R.on || !A.ctx) return;
   wake();
@@ -1283,7 +1375,7 @@ if (DBG.on) {
   $('#dbgClear').addEventListener('click', () => { DBG.lines = []; try { localStorage.removeItem('needle-dial.debug'); } catch (e) {} paintDbg(); });
   dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
   if (CLOCK.shift) dlog(`clock: ${CLOCK.shift / 86400000} days on, for testing: the radio plays that day's schedule`);
-  { const w = Math.floor((nowS() - EPOCH) / WEEK), g = gapFor(w); dlog(`schedule: this week ${g ? `has a ${g} s load gap before each recording` : 'has no load gap'}`); } // for tools/check_log.js
+  { const w = Math.floor((nowS() - EPOCH) / WEEK), g = gapFor(w), b = SCH.catalog(w).brk || ID; dlog(`schedule: this week ${g ? `has a ${g} s load gap before each recording` : 'has no load gap'}, ${b} s station breaks`); } // for tools/check_log.js
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
 }

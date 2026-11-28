@@ -27,6 +27,7 @@ try:
     check(False, 'a Tuesday is not a schedule Monday')
 except ValueError:
     pass
+check(ndlib.break_for(ndlib.date_week('2026-11-30')) == 0 and ndlib.break_for(ndlib.date_week(ndlib.BREAK_FROM)) == ndlib.BREAK == 12 and ndlib.break_for(9) == 12, 'the longer station break from the week of 7 Dec')
 check(ndlib.in_effect([(0, 'a'), (2, 'b')], 1) == 'a' and ndlib.in_effect([(0, 'a'), (2, 'b')], 2) == 'b' and ndlib.in_effect([(3, 'c')], 1) == 'c' and ndlib.in_effect([], 1) is None, 'in_effect')
 
 # What an Archive check holds out: broken files and unapproved stream-only items, nothing else.
@@ -61,13 +62,17 @@ with tempfile.TemporaryDirectory() as tmp:
     report = pathlib.Path(tmp, 'check.json')
     report.write_text(json.dumps({'pending': [], 'results': [{'id': 'a', 'f': '1.mp3', 'status': 'gone'}]}))
     check(run('--exclude-from', str(report)) == 'snapshots/2026-11-30.json' and ndlib.load_snapshots()[0][1]['exclude'] == ['a/1.mp3'], 'a new finding updates the draft')
-    # A week later the draft is on air. If the following week would schedule the same way, no new file.
-    check(run('--exclude-from', str(report), now='2026-12-03T12:00Z') == '' and files() == ['2026-11-30.json'], 'an unchanged week needs no file')
+    # A week later the draft is on air. The week after it is the first with the longer station break, so it needs a file of its own.
+    check(run('--exclude-from', str(report), now='2026-12-03T12:00Z') == 'snapshots/2026-12-07.json' and files() == ['2026-11-30.json', '2026-12-07.json'], 'the week the longer break starts gets a draft')
+    d = json.loads(pathlib.Path(tmp, 'snapshots/2026-12-07.json').read_text())
+    check(d.get('brk') == ndlib.BREAK and d.get('gap') == ndlib.GAP and d['exclude'] == ['a/1.mp3'] and d['catalog'] == cat, 'that draft carries the break: ' + repr({k: d.get(k) for k in ('brk', 'gap', 'exclude')}))
+    # If the following week would schedule the same way, no new file.
+    check(run('--exclude-from', str(report), now='2026-12-10T12:00Z') == '' and files() == ['2026-11-30.json', '2026-12-07.json'], 'an unchanged week needs no file')
     cat['one']['k'] = 2
-    check(run(now='2026-12-03T12:00Z') == 'snapshots/2026-12-07.json', 'a catalog change drafts the next week')
+    check(run(now='2026-12-10T12:00Z') == 'snapshots/2026-12-14.json', 'a catalog change drafts the next week')
     cat['one']['k'] = 1
     report.write_text(json.dumps({'pending': [], 'results': [{'id': 'a', 'f': '1.mp3', 'status': 'gone'}]}))
-    check(run('--exclude-from', str(report), now='2026-12-03T12:00Z') == 'removed snapshots/2026-12-07.json' and files() == ['2026-11-30.json'], 'a draft that matches the week before is removed')
+    check(run('--exclude-from', str(report), now='2026-12-10T12:00Z') == 'removed snapshots/2026-12-14.json' and files() == ['2026-11-30.json', '2026-12-07.json'], 'a draft that matches the week before is removed')
     try:
         with contextlib.redirect_stderr(io.StringIO()):
             run('--week', '2026-11-30', now='2026-12-03T12:00Z')
@@ -96,6 +101,9 @@ with tempfile.TemporaryDirectory() as tmp:
     check(json.loads(text)['levels']['i2'] == {'g': [0, 0, 9]} and text.count('\n') == 6, 'levels one item per line, and the file still parses')
     text = ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'gap': 2, 'catalog': {'a': 1}})
     check(json.loads(text)['gap'] == 2 and json.loads(text)['catalog'] == {'a': 1}, 'a gap goes in the head line, and the file still parses')
+    text = ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'gap': 2, 'brk': 12, 'catalog': {'a': 1}})
+    check(text.split('\n')[0].startswith('{"from":"x","exclude":[],"gap":2,"brk":12,') and json.loads(text)['brk'] == 12, 'a break goes in the head line too')
+    check('brk' not in ndlib.dump_snapshot({'from': 'x', 'exclude': [], 'brk': 0, 'catalog': {'a': 1}}), 'no break, no brk')
     # The real helpers, on scratch files: levels only for items the catalog plays; the hold list's files.
     lv = pathlib.Path(tmp, 'levels.json')
     lv.write_text(json.dumps({'items': {'item-a': {'x.mp3': [1, 0, 9]}, 'item-z': {'y.mp3': [1, 0, 9]}}}))

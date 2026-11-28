@@ -14,8 +14,9 @@ and fixed after that.
 failed) and stream-only items not yet approved; files that only changed length or couldn't be
 checked stay in. Files in catalog/review/held.json are always held out. The draft carries the
 per-file levels from catalog/levels.json (gain, and silence cut from each end) for the items it
-plays, and the load gap before each recording (ndlib.GAP). Writes nothing when the draft matches the snapshot already in effect for that week. Prints
-the file it wrote, or nothing.
+plays, the load gap before each recording (ndlib.GAP) and, from the week of 7 Dec 2026, the longer
+station break (ndlib.BREAK). Writes nothing when the draft matches the snapshot already in effect for
+that week. Prints the file it wrote, or nothing.
 """
 import argparse
 import datetime
@@ -23,7 +24,7 @@ import json
 import os
 import sys
 
-from ndlib import GAP, SNAPSHOTS, catalog_levels, date_week, dump_snapshot, head_catalog, held, in_effect, load_snapshots, week_date, week_index
+from ndlib import GAP, SNAPSHOTS, break_for, catalog_levels, date_week, dump_snapshot, head_catalog, held, in_effect, load_snapshots, week_date, week_index
 
 HOLD = {'gone', 'missing', 'refused', 'failed'}
 
@@ -46,11 +47,11 @@ def main(argv):
     if k <= now:
         sys.exit(f'{week_date(k)} has started; a snapshot on air is fixed.')
     cat = head_catalog()
-    draft = {'from': week_date(k), 'exclude': sorted(set(exclusions(a.exclude_from) if a.exclude_from else []) | set(held())), 'gap': GAP, 'catalog': cat, 'levels': catalog_levels(cat)}
+    draft = {'from': week_date(k), 'exclude': sorted(set(exclusions(a.exclude_from) if a.exclude_from else []) | set(held())), 'gap': GAP, 'brk': break_for(k), 'catalog': cat, 'levels': catalog_levels(cat)}
     snaps = load_snapshots()
     prior = in_effect([(w, s) for w, s in snaps if w < k], k)  # what week k gets without a file of its own
     existing = next((s for w, s in snaps if w == k), None)
-    same = lambda s: bool(s) and s['exclude'] == draft['exclude'] and s.get('gap', 0) == draft['gap'] and s['catalog'] == draft['catalog'] and s.get('levels', {}) == draft['levels']
+    same = lambda s: bool(s) and s['exclude'] == draft['exclude'] and s.get('gap', 0) == draft['gap'] and s.get('brk', 0) == draft['brk'] and s['catalog'] == draft['catalog'] and s.get('levels', {}) == draft['levels']
     out = SNAPSHOTS / f"{draft['from']}.json"
     if same(prior):
         # The week would schedule exactly as the one before it: no file needed, and an older draft would only differ.

@@ -24,7 +24,9 @@ const SHIFT = (+process.env.ND_DAYS || 0) * 86400, tnow = () => Date.now() / 100
 const code = HTML.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0];
 const INLINE = JSON.parse(HTML.split('<script id="catalog" type="application/json">')[1].split('</script>')[0]);
 const snapshotted = Array.isArray(INLINE); // pages built before weekly snapshots inline one catalog
-const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor, EPOCH, WEEK, weekOf' : ''} };`)(null);
+const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor, EPOCH, WEEK, weekOf' : ''}${/function annPick/.test(code) ? ', annPick, annChime' : ''} };`)(null);
+// The stations' recorded announcements the page carries (tools/build.py), served from beside it.
+const ANN = HTML.includes('<script id="announcements"') ? JSON.parse(HTML.split('<script id="announcements" type="application/json">')[1].split('</script>')[0]) : null;
 const SCH = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE)) : api.makeScheduler(api.parseCatalog(INLINE));
 const S = api.STATIONS.find((s) => s.key === 'gramophone');
 const CALL = Object.fromEntries(api.STATIONS.map((x) => [x.key, x.call])); // tests name stations by key, so call letters can change
@@ -61,7 +63,7 @@ const playingFiller = (bad) => (ps) => ps.some((p) => p.carrier && !isClip(p) &&
 
 const SCEN = [
   { name: 'record to record', at: end(a.c), first: a.c, checks: [[a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
-  { name: 'record, station ID, record', at: end(b.c), first: b.c,
+  { name: 'record, station ID, record', at: end(b.c), first: b.c, log: ANN ? new RegExp(`→ ${S.call} id at 0 of ${b.n1.seg.d} s: legal-\\d( and the chime)?\\n`) : null,
     checks: [[b.n1.start + 4, (ps) => ps.some((p) => p.carrier && isClip(p) && !p.loop) || 'expected the ID clip on the carrier'], [b.n2.start + 5, playingUrl(url(b.n2.seg))]] },
   { name: 'record shorter than its slot', at: end(a.c), first: a.c, len: { [url(a.c.seg)]: a.c.seg.d - 6 },
     checks: [[end(a.c) - 3, playingLoop], [a.n1.start + 5, playingUrl(url(a.n1.seg))]] },
@@ -143,6 +145,13 @@ async function open(browser, sc, opt) {
     const s = m[1] ? +m[1] : 0, e = Math.min(m[2] ? +m[2] : Infinity, buf.length - 1, s + 524287);
     return route.fulfill({ status: 206, headers: { ...h, 'content-range': `bytes ${s}-${e}/${buf.length}` }, body: buf.subarray(s, e + 1) });
   });
+  // The stations' announcements, from the build beside the page (dist/audio/announcements), or, for a check
+  // of a recording that won't load, not found. After the page's own route, so it comes first.
+  await ctx.route('http://nd.test/audio/**', (r) => {
+    const f = path.join(path.dirname(htmlPath), decodeURIComponent(new URL(r.request().url()).pathname));
+    if (sc.annFail || !fs.existsSync(f)) return r.fulfill({ status: 404, body: 'not found' });
+    return r.fulfill({ status: 200, contentType: 'audio/mpeg', body: fs.readFileSync(f) });
+  });
   await ctx.addInitScript(init, { offset: Math.round((sc.at - (sc.lead || 14)) * 1000 - Date.now()), strict: opt.strict, timers: opt.timers, unmute: !!sc.unmute });
   const page = await ctx.newPage();
   const errors = [];
@@ -168,6 +177,7 @@ async function run(browser, sc, opt) {
   if (opt.lock) await t.page.evaluate(() => window.__lock());
   const problems = [];
   for (const [at, check] of sc.checks) { await until(t.page, at); const r = check(await players(t.page)); if (r !== true) problems.push(`at ${(at - sc.at).toFixed(0)} s: ${r}`); }
+  if (sc.log && !sc.log.test(await t.page.evaluate(() => window.SKY.log()))) problems.push('the log should have ' + sc.log);
   return finish(t, `${sc.name} · ${opt.label}`, problems);
 }
 
@@ -445,6 +455,53 @@ async function gapPlay(browser) {
   if (!/schedule: this week has a 2 s load gap/.test(log)) problems.push('no load gap line in the log');
   return finish(t, name, problems);
 }
+// Station breaks in the station's voice, with the longer break that weeks from 7 Dec have (and with it a
+// sweeper about every quarter hour on the music stations): this week with a 12 s break. A record, then the
+// sweeper next in turn, readied while the record played and played as one clip, with the chime after the
+// voice when there's room for it, then the next record. And a recording that won't load: the chime instead.
+const INLINE_BRK = snapshotted ? thisWeek({ gap: 2, brk: 12 }) : null;
+const HTML_BRK = snapshotted ? inlined(INLINE_BRK) : HTML;
+const SCH_BRK = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE_BRK)) : null;
+async function annPlay(browser, fail, qs) {
+  const name = 'station break in the station’s voice' + (fail ? ': a recording that won’t load' : '') + (qs ? ' · ' + qs : '');
+  if (!SCH_BRK || !ANN || !api.annPick) return { name, ok: !snapshotted, problems: snapshotted ? ['the page carries no announcements'] : [], log: '' };
+  const nx = (c) => SCH_BRK.at(S, c.start + c.seg.d + 0.01);
+  let c = SCH_BRK.at(S, tnow() + 120), n1 = nx(c), n2 = nx(n1);
+  for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && n1.seg.k === 'imaging' && media(n2)); k++) { c = n1; n1 = n2; n2 = nx(n2); }
+  if (n1.seg.k !== 'imaging') return { name, ok: false, problems: ['no sweeper on ' + S.call + ' within reach'], log: '' };
+  const pick = api.annPick(ANN[S.key].sweeper, n1.seg, n1.seg.d), chime = api.annChime(pick, n1.seg.d), sound = (x) => x.seg.d - (x.seg.lead || 0);
+  const sc = { at: end(c), first: c, lead: 30, html: HTML_BRK, qs, annFail: !!fail, unmute: qs === 'audio=direct', len: { [url(c.seg)]: sound(c), [url(n2.seg)]: sound(n2) } };
+  const t = await open(browser, sc, { strict: true, timers: 'slow' });
+  const { page } = t, problems = [];
+  await until(page, n1.start + 2);
+  const ps = await players(page);
+  if (!ps.some((p) => p.carrier && isClip(p) && !p.loop)) problems.push('expected one clip on the carrier for the break: ' + JSON.stringify(ps.map((p) => p.src.slice(-40))));
+  if (!fail) {
+    // the clip: the voice, a moment's quiet, the chime (when there's room), then quiet to past the break's end
+    const w = await page.evaluate(async ([e, ch]) => {
+      const b = new DataView(await (await fetch(window.SKY.A.src)).arrayBuffer()), sr = b.getUint32(24, true), n = (b.byteLength - 44) / 2;
+      const peak = (t0, t1) => { let m = 0; for (let i = Math.max(0, Math.round(t0 * sr)); i < Math.min(n, Math.round(t1 * sr)); i++) m = Math.max(m, Math.abs(b.getInt16(44 + 2 * i, true)) / 32768); return m; };
+      return { sr, len: n / sr, voice: peak(0, e), gap: peak(e + 0.05, e + 0.34), chime: peak(e + 0.36, e + 1.2), after: peak(e + (ch ? 2.75 : 0.35), n / sr) };
+    }, [pick.end, chime]).catch((e) => ({ err: String(e) }));
+    if (w.err) problems.push('could not read the clip: ' + w.err);
+    else {
+      if (Math.abs(w.len - (n1.seg.d + 2)) > 0.01 || w.sr !== 24000) problems.push(`the clip runs ${w.len.toFixed(2)} s at ${w.sr} Hz; expected ${n1.seg.d + 2} s at 24000`);
+      if (!(w.voice > 0.1)) problems.push('no voice in the clip: peak ' + w.voice.toFixed(3));
+      if (!(w.gap < 0.01)) problems.push(`no quiet after the voice: peak ${w.gap.toFixed(3)}`);
+      if (chime ? !(w.chime > 0.1) : !(w.chime < 0.01)) problems.push(`${chime ? 'no' : 'a'} chime after the voice: peak ${w.chime.toFixed(3)}`);
+      if (!(w.after < 0.002)) problems.push(`sound after the ${chime ? 'chime' : 'voice'}: peak ${w.after.toFixed(4)}`);
+    }
+  }
+  await until(page, n2.start + 4);
+  const r = playingUrl(url(n2.seg))(await players(page));
+  if (r !== true) problems.push('after the break: ' + r);
+  const log = await page.evaluate(() => window.SKY.log());
+  const line = new RegExp(`→ ${S.call} imaging at 0 of ${n1.seg.d} s: (.*)`).exec(log);
+  if (!fail && (!line || line[1] !== pick.id + (chime ? ' and the chime' : ''))) problems.push(`the break should be ${pick.id}${chime ? ' and the chime' : ''}: ${line ? line[0] : 'no line for it'}`);
+  if (fail && !(new RegExp(`couldn't ready ${S.call} ${pick.id} for its break: HTTP 404`).test(log) && new RegExp(`→ ${S.call} imaging: the chime instead`).test(log))) problems.push("a recording that won't load should leave the chime: " + (line ? line[0] : 'no line for the break'));
+  if (!fail && /couldn't ready|straight from its file|interval signal/.test(log)) problems.push('unexpected: ' + /.*(couldn't ready|straight from its file|interval signal).*/.exec(log)[0]);
+  return finish(t, name, problems);
+}
 async function levelsPlay(browser, qs) {
   const name = 'levels: skip point and gain' + (qs ? ' · direct audio' : '');
   if (!SCH_LV) return { name, ok: true, problems: [], log: '' };
@@ -603,7 +660,7 @@ async function clockSync(browser, skewMs, slowMs = 0) {
   ];
   const jobs = [], only = (process.env.ND_ONLY || '').toLowerCase(), want = (n) => n.toLowerCase().includes(only);
   for (const sc of SCEN) for (const opt of OPTS) if ((opt.lock || sc === SCEN[0] || sc === SCEN[1]) && want(sc.name + ' · ' + opt.label)) jobs.push(() => run(browser, sc, opt));
-  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['load gap: start points, late loads, the gap', () => gapPlay(browser)], ['a file reported ended early is loaded again, once', () => falseEnd(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
+  const extra = [['tune away and back, outside pause, power off and on', () => handling(browser)], ['paused while loading at lock time, restarted', () => lockWhileLoading(browser)], ['paused while loading at lock time, restarted · iPhone', () => lockWhileLoading(browser, IPHONE)], ['tuning in starts in step with the schedule', () => tuneInLead(browser)], ['load gap: start points, late loads, the gap', () => gapPlay(browser)], ['station break in the station’s voice', () => annPlay(browser)], ['station break in the station’s voice · audio=direct', () => annPlay(browser, false, 'audio=direct')], ['station break in the station’s voice: a recording that won’t load', () => annPlay(browser, true)], ['a file reported ended early is loaded again, once', () => falseEnd(browser)], ['preset banks: press, hold, keys, reload', () => presetBanks(browser)], ['report link: what is playing when pressed', () => reportLink(browser)], ['levels: skip point and gain', () => levelsPlay(browser)], ['levels: skip point and gain · direct audio', () => levelsPlay(browser, 'audio=direct')], ['limiter: the gain with it and without', () => limiterPlay(browser)], ['limiter: the gain with it and without · limiter=0', () => limiterPlay(browser, 'limiter=0')], ['limiter: the gain with it and without · audio=direct', () => limiterPlay(browser, 'audio=direct')], ["limiter: its settings in this browser's limiter", () => limiterSettings(browser)], ['preview: the banner and the limiter switch', () => previewPlay(browser)],
     ['clock sync, server 90 s', () => clockSync(browser, 90000)], ['clock sync, server -45 s', () => clockSync(browser, -45000)], ['clock sync, server 0.8 s', () => clockSync(browser, 800)], ['clock sync, server 0.8 s from the device, slow round trip', () => clockSync(browser, 800, 4000)]];
   if (!process.argv.includes('--old')) for (const [n, f] of extra) if (want(n)) jobs.push(f);
   // A few checks at a time: they keep real time, and a crowded machine makes players start late.
