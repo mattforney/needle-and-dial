@@ -37,6 +37,13 @@ const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).s
   expect('iPhone log: device', /build 1f08420 · iPhone, Safari/.test(r.report), r);
   expect('iPhone log: buffering after the restart is part of it', !/mid-program/.test(r.report), r);
 }
+// The real thing: Firefox on a computer, 27 Nov, playing the 30 Nov week (load gap) with ?days=3. Never
+// locked, so nothing for Gate B; the record timing still reads.
+{
+  const r = check(fs.readFileSync(path.join(__dirname, 'fixtures', 'firefox-desktop-gap.log'), 'utf8'));
+  expect('desktop log: Gate B not tested', !r.ok && /Gate B, locked phone: not tested/.test(r.report) && !/Gate B, locked phone: FAIL/.test(r.report), r);
+  expect('desktop log: record timing', r.timing && r.timing.ok && /4 at their slot: 4 on time from their start point/.test(r.report) && /Late finishes\s+1 record finished past its slot, by up to 0\.4 s/.test(r.report), r);
+}
 // A clean two hours.
 {
   const r = check(synth());

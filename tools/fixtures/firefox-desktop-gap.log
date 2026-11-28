@@ -1,0 +1,87 @@
+Needle & Dial 938cd3e 2026-11-28 00:37Z
+Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:161.0) Gecko/20100101 Firefox/161.0
+18:40:46.537 page loaded · build 938cd3e 2026-11-28 00:37Z · Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:161.0) Gecko/20100101 Firefox/161.0
+18:40:46.537 clock: 3 days on, for testing: the radio plays that day's schedule
+18:40:46.537 schedule: this week has a 2 s load gap before each recording
+18:40:46.565 clock: device ahead of the server by 0.0 s (round trip 104 ms)
+18:41:22.052 audio through Web Audio, limiter on, with keep-alive
+18:41:22.053 → silence (power on)
+18:41:22.053 power on
+18:41:22.067 playing silence
+18:41:22.253 still here: silence at 0.0 s, playing, ready 4, keep-alive on, engine suspended, ticks 1/0
+18:41:22.454 tuned to WHOD 640 AM
+18:41:22.455 → WHOD prog “Eleven O'Clock” at 672 of 1760 s, aiming 3.5 s ahead, +2 dB
+18:41:22.460 buffering
+18:41:22.595 audio engine running
+18:41:23.078 playing media after 0.6 s, 2.9 s ahead of the schedule
+18:41:23.078 buffering
+18:41:23.477 back after 0.4 s of buffering
+18:41:25.859 tuned to WGRM 1340 AM
+18:41:25.860 → WGRM music “One, Two, Three, Four” at 92 of 224 s, aiming 3.5 s ahead, +6 dB with the limiter
+18:41:25.866 buffering
+18:41:26.772 playing media after 0.9 s, 2.6 s ahead of the schedule
+18:41:26.772 buffering
+18:41:27.348 back after 0.6 s of buffering
+18:41:52.304 still here: media at 120.3 s, 2.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 151/0
+18:42:22.357 still here: media at 150.3 s, 2.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 301/0
+18:42:52.420 still here: media at 180.4 s, 2.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 451/0
+18:43:22.501 still here: media at 210.5 s, 2.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 601/0
+18:43:35.724 file ended in the gap before the next item
+18:43:35.724 → silence
+18:43:35.725 playing silence
+18:43:38.128 → WGRM music “Entry of the Gladiators March” at 0 of 250 s, from 0.7 s, +3.7 dB with the limiter
+18:43:38.129 buffering
+18:43:38.500 playing media from 0.7 s (start point 0.7 s), 1.5 s ahead of the schedule
+18:43:38.500 buffering
+18:43:38.501 back after 0.0 s of buffering
+18:43:52.558 still here: media at 14.7 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 751/0
+18:44:22.620 still here: media at 44.8 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 901/0
+18:44:52.686 still here: media at 74.9 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1051/0
+18:45:22.764 still here: media at 104.9 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1201/0
+18:45:52.817 still here: media at 135.0 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1351/0
+18:46:22.866 still here: media at 165.0 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1501/0
+18:46:52.917 still here: media at 195.1 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1651/0
+18:47:22.975 still here: media at 225.2 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1801/0
+18:47:48.421 file ended in the gap before the next item
+18:47:48.421 → silence
+18:47:48.423 playing silence
+18:47:50.024 → WGRM music “Funiculi-Funicula” at 0 of 185 s, from 1.9 s, +16.5 dB with the limiter
+18:47:50.026 buffering
+18:47:50.422 playing media from 1.9 s (start point 1.9 s), 1.6 s ahead of the schedule
+18:47:50.422 buffering
+18:47:50.474 back after 0.1 s of buffering
+18:47:53.028 still here: media at 4.4 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 1951/0
+18:48:23.082 still here: media at 34.5 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 2101/0
+18:48:53.147 still here: media at 64.5 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 2251/0
+18:49:23.203 still here: media at 94.6 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 2401/0
+18:49:53.259 still here: media at 124.7 s, 1.5 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 2551/0
+18:49:54.061 tuned to WPGE 1500 AM
+18:49:54.061 → WPGE prog “A Child's Dream of a Star” at 284 of 403 s, aiming 0.9 s ahead, from 0.3 s, +6.7 dB with the limiter
+18:49:54.069 buffering
+18:49:54.999 playing media after 0.9 s, 0.0 s behind the schedule
+18:49:55.000 buffering
+18:49:55.574 back after 0.6 s of buffering
+18:50:23.316 still here: media at 313.0 s, 0.6 s behind the schedule, playing, ready 4, keep-alive on, engine running, ticks 2701/0
+18:50:53.366 still here: media at 343.1 s, 0.6 s behind the schedule, playing, ready 4, keep-alive on, engine running, ticks 2851/0
+18:51:23.419 still here: media at 373.1 s, 0.6 s behind the schedule, playing, ready 4, keep-alive on, engine running, ticks 3001/0
+18:51:53.069 letting it finish: 0.4 s to go, past its slot
+18:51:53.469 still here: media at 403.2 s, 0.6 s behind the schedule, playing, ready 4, keep-alive on, engine running, ticks 3151/0
+18:51:53.470 → WPGE poem “Kublai Khan” at 0 of 215 s, from 2.3 s, +9.7 dB with the limiter
+18:51:53.470 buffering
+18:51:53.973 playing media from 2.3 s (start point 2.3 s), 1.0 s ahead of the schedule
+18:51:53.974 buffering
+18:51:53.975 back after 0.0 s of buffering
+18:52:23.519 still here: media at 31.8 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 3301/0
+18:52:53.566 still here: media at 61.9 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 3451/0
+18:53:23.620 still here: media at 91.9 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 3601/0
+18:53:53.685 still here: media at 122.0 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 3751/0
+18:54:23.739 still here: media at 152.0 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 3901/0
+18:54:53.790 still here: media at 182.1 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 4051/0
+18:55:23.843 still here: media at 212.1 s, 1.0 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 4201/0
+18:55:30.054 → WPGE poem “How they Brought the Good News from Ghent to Aix” at 0 of 267 s, from 1.3 s, +1.3 dB with the limiter
+18:55:30.055 buffering
+18:55:30.637 playing media from 1.3 s (start point 1.3 s), 1.4 s ahead of the schedule
+18:55:30.638 buffering
+18:55:30.639 back after 0.0 s of buffering
+18:55:53.902 still here: media at 24.5 s, 1.3 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 4351/0
+18:56:23.953 still here: media at 54.6 s, 1.3 s ahead of the schedule, playing, ready 4, keep-alive on, engine running, ticks 4501/0
