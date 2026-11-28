@@ -5,21 +5,21 @@ Checks every call sign the page uses (the `call:` entries in src/index.template.
 candidates listed in tools/callsign_candidates.txt or passed with --extra, against the FCC's own
 records of US broadcast stations: AM, FM, low-power FM, full-power, Class A and low-power TV.
 
-Sources, each used if it can be reached:
-  cdbs   the CDBS public database file facility.zip (every facility the FCC has records for,
-         including deleted ones, whose call signs carry a leading D)
-  lms    the Licensing and Management System's public database dump (the same records, kept in LMS
-         since the radio services moved there), searched table by table for the call sign
-  query  the FCC's AM, FM and TV Query tools, asked one call sign at a time
+Two sources:
+  cdbs   the CDBS public database file facility.zip: every facility the FCC had records for when the
+         file stopped changing (January 2024), deleted ones included, whose call signs carry a leading D
+  query  the FCC's AM, FM and TV Query tools, which read the current Licensing and Management System,
+         asked one call sign at a time
 
-A call sign is "in use" when any source shows a station holding it now (licensed, built under a
-construction permit, or applied for), with or without a suffix: KRKT-FM uses KRKT. It is "free" when
-no source shows one; a deleted station that once held it is noted. With no source reachable the
-answer is "unknown" and the check fails rather than pass on no evidence.
+A call sign is "in use" when either source shows a station holding it now (licensed, built under a
+construction permit, or applied for), with or without a suffix: KRKT-FM uses KRKT. It is "free" only
+when the Query tools were reached and neither source shows one; a deleted station that once held it
+is noted. Without the Query tools the answer is "unknown", and the check fails rather than pass on a
+file that stopped changing in 2024.
 
   python3 tools/callsigns.py                 # the page's call signs; exits 1 if any is in use
   python3 tools/callsigns.py --extra WABC,KXYZ
-  python3 tools/callsigns.py --sources cdbs,query --json out.json
+  python3 tools/callsigns.py --json out.json
 """
 import argparse, io, json, os, re, sys, time, urllib.request, zipfile
 
@@ -27,11 +27,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = 'needle-and-dial call-sign check (https://github.com/mattforney/needle-and-dial)'
 CALL = re.compile(r'^[KW][A-Z]{3}$')
 CDBS_URLS = [
-    'https://transition.fcc.gov/ftp/Bureaus/MB/Databases/cdbs/facility.zip',
     'https://transition.fcc.gov/Bureaus/MB/Databases/cdbs/facility.zip',
-    'https://www.fcc.gov/ftp/Bureaus/MB/Databases/cdbs/facility.zip',
+    'https://transition.fcc.gov/ftp/Bureaus/MB/Databases/cdbs/facility.zip',
 ]
-LMS_URLS = ['https://enterpriseefiling.fcc.gov/dataentry/api/download/dbfile/Current_LMS_Dump.zip']
 QUERY = {'AM': 'amq', 'FM': 'fmq', 'TV': 'tvq'}
 QUERY_HOSTS = ['https://transition.fcc.gov', 'https://www.fcc.gov']
 # CDBS facility table, in the order of the public file's documentation.
@@ -77,11 +75,6 @@ def fetch(url, timeout=120):
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 
-
-def head(url):
-    req = urllib.request.Request(url, method='HEAD', headers={'User-Agent': UA})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return int(r.headers.get('Content-Length') or 0)
 
 
 def first_ok(urls, what):
@@ -132,46 +125,6 @@ def src_cdbs(calls):
     return {'name': 'cdbs', 'url': url, 'rows': rows, 'newest': newest, 'hits': hits}
 
 
-def src_lms(calls):
-    url = LMS_URLS[0]
-    try:
-        size = head(url)
-        log(f'lms: {url} is {size / 1e6:.0f} MB')
-        if size > 4e9:
-            log('lms: too large to fetch here; skipped')
-            return None
-    except Exception as e:  # noqa: BLE001
-        log(f'lms: {url} failed: {e}')
-        return None
-    url, blob = first_ok([url], 'lms')
-    if not blob:
-        return None
-    z = zipfile.ZipFile(io.BytesIO(blob))
-    names = z.namelist()
-    log('lms: tables: ' + ', '.join(sorted(os.path.basename(n) for n in names)))
-    token = re.compile(r'(?:^|\|)(D?(' + '|'.join(sorted(set(calls))) + r'))(?:-[A-Z0-9]{1,3})?(?=\||$)')
-    hits, tables = {c: [] for c in calls}, {}
-    for n in names:
-        low = os.path.basename(n).lower()
-        if not (low.endswith('.dat') or low.endswith('.txt') or low.endswith('.csv')):
-            continue
-        if not re.search(r'facil|call', low):
-            continue
-        with z.open(n) as f:
-            header = None
-            for i, raw in enumerate(io.TextIOWrapper(f, encoding='latin-1')):
-                line = raw.rstrip('\r\n')
-                if i == 0 and re.search(r'call', line, re.I) and not re.search(r'\|[KW][A-Z]{3}\b', line):
-                    header = line.split('|')
-                    tables[low] = header
-                    continue
-                for m in token.finditer(line):
-                    c = m.group(2)
-                    if len(hits[c]) < 12:
-                        hits[c].append({'table': low, 'deleted': m.group(1).startswith('D') and len(m.group(1)) == 5,
-                                        'row': (dict(zip(header, line.split('|'))) if header else line[:400])})
-    return {'name': 'lms', 'url': url, 'tables': tables, 'hits': hits}
-
 
 def src_query(calls):
     hits, ok, host = {c: [] for c in calls}, 0, None
@@ -213,7 +166,8 @@ def verdict(c, sources):
             (deleted if h.get('deleted') else current).append((s['name'], h))
     if current:
         return 'in use', current, deleted
-    return 'free', current, deleted
+    asked = any(s['name'] == 'query' and c in s['asked'] for s in sources)
+    return ('free' if asked else 'unknown'), current, deleted
 
 
 def describe(h):
@@ -232,7 +186,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
     ap.add_argument('--extra', default='', help='more call signs to check, comma-separated')
     ap.add_argument('--candidates', default=os.path.join(ROOT, 'tools', 'callsign_candidates.txt'))
-    ap.add_argument('--sources', default='cdbs,lms,query')
+    ap.add_argument('--sources', default='cdbs,query')
     ap.add_argument('--json', help='write the full results here')
     a = ap.parse_args()
     ours = page_calls()
@@ -243,14 +197,11 @@ def main():
         sys.exit(f'not four-letter K/W call signs: {badform}')
     log(f'checking {len(ours)} call signs from the page and {len(calls) - len(ours)} candidates')
     want = a.sources.split(',')
-    sources = [s for s in (
-        src_cdbs(calls) if 'cdbs' in want else None,
-        src_lms(calls) if 'lms' in want else None,
-    ) if s]
-    # The query tools are asked only about call signs the bulk files didn't already show in use,
-    # and the page's own; one request per tool per call sign.
+    sources = [s for s in (src_cdbs(calls) if 'cdbs' in want else None,) if s]
+    # The query tools are asked about the page's own call signs and any candidate the CDBS file
+    # didn't already show in use; one request per tool per call sign.
     if 'query' in want:
-        ask = [c for c in calls if c in ours or not sources or verdict(c, sources)[0] == 'free']
+        ask = [c for c in calls if c in ours or verdict(c, sources)[0] != 'in use']
         q = src_query(ask)
         if q:
             q['hits'] = {c: q['hits'].get(c, []) for c in calls}
@@ -260,10 +211,7 @@ def main():
              '| Call | On the page | Verdict | Evidence |', '|---|---|---|---|']
     out, used = {}, []
     for c in calls:
-        if not sources:
-            v, cur, dele = 'unknown', [], []
-        else:
-            v, cur, dele = verdict(c, sources)
+        v, cur, dele = verdict(c, sources)
         ev = '; '.join(f'{n}: {describe(h)}' for n, h in cur[:4]) or ('once held by a deleted station: ' + '; '.join(f'{n}: {describe(h)}' for n, h in dele[:2]) if dele else '')
         lines.append(f"| {c} | {'yes' if c in ours else ''} | {v} | {ev} |")
         out[c] = {'page': c in ours, 'verdict': v, 'current': [h for _, h in cur], 'deleted': [h for _, h in dele]}
