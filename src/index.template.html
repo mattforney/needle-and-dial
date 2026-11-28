@@ -21,8 +21,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--glass-hot);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding:clamp(14px,3vw,32px) max(4vw,14px) 48px}
 header.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.brand{font-family:Limelight,Georgia,serif;font-size:clamp(30px,5vw,44px);line-height:1.05;color:var(--glass-hot);text-shadow:0 0 18px rgba(255,190,90,.35)}
-.sub{color:var(--muted);font-size:15px}
+.sub{flex:1 1 16em;color:var(--muted);font-size:15px}
 .clock{margin-left:auto;font-family:Oswald,sans-serif;font-size:20px;color:var(--muted);white-space:nowrap}
 
 /* Cabinet */
@@ -174,13 +173,13 @@ body.has-dbg .wrap{padding-bottom:42vh}
 <div class="pv" id="pv" hidden><b>Preview</b><span class="pv-note" id="pvNote"></span><span class="pv-sw" role="group" aria-label="Limiter"><span>Limiter</span><button type="button" data-lim="1" aria-pressed="true">On</button><button type="button" data-lim="0" aria-pressed="false">Off</button></span><span class="pv-now" id="pvNow" aria-live="off"></span></div>
 <div class="wrap">
 <header class="top">
-  <div class="brand">Needle &amp; Dial</div>
+  <h1 class="sr">Needle &amp; Dial</h1>
   <div class="sub">Radio stations built from the Internet Archive. Everyone tuned to a station hears the same moment.</div>
   <div class="clock" id="clock" aria-live="off"></div>
 </header>
 
 <section class="radio" id="radio" data-on="false" aria-label="Radio">
-  <div class="grille"><div class="badge">Needle &amp; Dial</div></div>
+  <div class="grille"><div class="badge" aria-hidden="true">Needle &amp; Dial</div></div>
   <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Tuning dial" aria-valuemin="530" aria-valuemax="1700" aria-valuenow="640">
     <svg id="dialSvg" aria-hidden="true"></svg>
     <div class="needle" id="needle"></div>
