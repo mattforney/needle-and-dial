@@ -5,12 +5,18 @@ One MP3 per line, levelled to the programs' loudness (-20 LUFS, peaks under -2 d
 the same level as what's around it, and a manifest with each line's text, kind, file and length. Runs in
 a GitHub Action (.github/workflows/voice-package.yml), which can reach Kokoro's weights on Hugging Face.
 
+Approved takes (audio/announcements, with the text each was recorded from) are reused while a line's
+station, voice and text are unchanged: Kokoro adds a little noise to every take, so a line recorded again
+would not be the take that was approved. New lines are recorded with a seed from their voice and text,
+so recording one again gives the same take.
+
   python3 tools/voices/package.py OUT_DIR [--only whodunit,tapers] [--speed 1.0]
   python3 tools/voices/package.py --check     # read and check the scripts only, no rendering
 """
-import argparse, json, os, re, subprocess, sys, time
+import argparse, json, os, re, shutil, subprocess, sys, time, zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+APPROVED = os.path.join(os.path.dirname(os.path.dirname(HERE)), 'audio', 'announcements')
 sys.path.insert(0, HERE)
 from audition import SR, log, spoken, stations  # noqa: E402
 
@@ -109,7 +115,13 @@ def main():
         return
     import numpy as np
     import soundfile as sf
+    import torch
     from kokoro import KPipeline
+    try:
+        approved = json.load(open(os.path.join(APPROVED, 'manifest.json'), encoding='utf-8'))
+        takes = {(st['key'], st['voice'], c['id'], c['text']): c for st in approved['stations'] for c in st['clips']}
+    except FileNotFoundError:
+        takes = {}
     only = set(filter(None, a.only.split(',')))
     pipes, manifest, t0 = {}, {'city': city, 'lufs': LUFS, 'speed': a.speed, 'stations': []}, time.time()
     for b in blocks:
@@ -122,6 +134,14 @@ def main():
         os.makedirs(os.path.join(a.out, S['key']), exist_ok=True)
         clips = []
         for L in b['lines']:
+            kept = takes.get((S['key'], v, L['id'], L['text']))
+            if kept and a.speed == 1.0:
+                rel = f"{S['key']}/{L['id']}.mp3"
+                shutil.copy2(os.path.join(APPROVED, kept['file']), os.path.join(a.out, rel))
+                clips.append({**L, 'file': rel, 'seconds': kept['seconds'], 'take': 'approved'})
+                log(f"  {S['call']} {L['id']}: the approved take")
+                continue
+            torch.manual_seed(zlib.crc32(f"{v}|{L['text']}".encode()))
             parts, ps = [], []
             for r in pipes[lang](say(L['text'], S['call'], read_scripts.pron), voice=v, speed=a.speed):
                 if r.audio is not None:
@@ -133,7 +153,7 @@ def main():
             sf.write(wav, audio, SR)
             raw = level(wav, os.path.join(a.out, rel))
             os.remove(wav)
-            clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps)})
+            clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps), 'take': 'new'})
             log(f"  {S['call']} {L['id']}: {len(audio) / SR:.1f} s, {raw:.1f} LUFS before levelling · {' '.join(ps)}")
         manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'freq': b['freq'], 'city': b['city'], 'clips': clips})
     with open(os.path.join(a.out, 'manifest.json'), 'w', encoding='utf-8') as f:
