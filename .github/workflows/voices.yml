@@ -1,0 +1,43 @@
+# Voice audition: every English Kokoro voice reads every station's legal ID and a program introduction
+# (tools/voices/audition.py). Kokoro's weights come from Hugging Face, which a runner can reach. Four jobs
+# share the voices; each uploads its MP3s, a manifest of where each line sits, and the phonemes read.
+name: Voice audition
+
+on:
+  workflow_dispatch:
+    inputs:
+      voices:
+        description: Only these voices, comma-separated (blank renders every English voice)
+        required: false
+        default: ''
+  push:
+    branches: [voices]
+    paths: [tools/voices/**, .github/workflows/voices.yml]
+
+jobs:
+  render:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Kokoro, on the CPU
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "kokoro>=0.9.4" soundfile huggingface_hub
+          python -m spacy download en_core_web_sm
+      - name: Render
+        env:
+          VOICES: ${{ inputs.voices }}
+        run: python tools/voices/audition.py out --voices "$VOICES" --shard ${{ matrix.shard }}/4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voice-audition-${{ matrix.shard }}
+          path: out/
