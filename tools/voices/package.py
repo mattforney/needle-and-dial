@@ -28,8 +28,11 @@ def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
         line = raw.strip()
         if not line or line.startswith('#'):
             continue
-        if line.startswith('city:'):
-            city = line.split(':', 1)[1].strip()
+        if line.startswith('city:'):  # before the first station, the default; in a station's block, its own
+            if cur:
+                cur['city'] = line.split(':', 1)[1].strip()
+            else:
+                city = line.split(':', 1)[1].strip()
         elif line.startswith('pron:'):
             m = re.fullmatch(r"pron:\s*([\w'\u2019-]+)\s+/([^/]+)/", line)
             if m:
@@ -52,14 +55,15 @@ def read_scripts(path=os.path.join(HERE, 'scripts.txt')):
     if not city:
         problems.append('no "city:" line')
     for b in out:
+        b.setdefault('city', city)
         S, k = b['station'], {'legal': 0, 'sweeper': 0}
         name = S['name'].replace('\u2019', "'")
         for L in b['lines']:
             k[L['kind']] += 1
             L['id'] = f"{L['kind']}-{k[L['kind']]}"
             where = f"{S['key']} {L['id']}"
-            if L['kind'] == 'legal' and not re.search(rf"\b{S['call']} {re.escape(city or '')}\b", L['text']):
-                problems.append(f"{where}: a legal ID needs \"{S['call']} {city}\", the call letters followed by the city")
+            if L['kind'] == 'legal' and not re.search(rf"\b{S['call']} {re.escape(b['city'] or '')}\b", L['text']):
+                problems.append(f"{where}: a legal ID needs \"{S['call']} {b['city']}\", the call letters followed by the city")
             if name not in L['text'].replace('\u2019', "'"):
                 problems.append(f"{where}: no station name (\"{name}\")")
             if b['freq'].lower() not in L['text'].lower():
@@ -98,7 +102,7 @@ def main():
     a = ap.parse_args()
     city, blocks, problems = read_scripts()
     for b in blocks:
-        log(f"{b['station']['call']} {b['station']['name']}, {b['voice']}: {len(b['lines'])} lines")
+        log(f"{b['station']['call']} {b['city']}, {b['station']['name']}, {b['voice']}: {len(b['lines'])} lines")
     if problems:
         sys.exit('\n'.join(['scripts.txt:'] + problems))
     if a.check:
@@ -131,7 +135,7 @@ def main():
             os.remove(wav)
             clips.append({**L, 'file': rel, 'seconds': round(len(audio) / SR, 2), 'raw_lufs': round(raw, 1), 'phonemes': ' '.join(ps)})
             log(f"  {S['call']} {L['id']}: {len(audio) / SR:.1f} s, {raw:.1f} LUFS before levelling · {' '.join(ps)}")
-        manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'freq': b['freq'], 'clips': clips})
+        manifest['stations'].append({'key': S['key'], 'call': S['call'], 'name': S['name'], 'band': S['band'], 'f': S['f'], 'fmt': S['fmt'], 'voice': v, 'freq': b['freq'], 'city': b['city'], 'clips': clips})
     with open(os.path.join(a.out, 'manifest.json'), 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
     log(f'done in {time.time() - t0:.0f} s')
