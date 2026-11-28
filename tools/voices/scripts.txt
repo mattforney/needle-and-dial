@@ -1,0 +1,41 @@
+# What each station's announcer says, recorded by tools/voices/package.py.
+#
+# A block per station: "== key voice", then one line per recording.
+#   legal:   the top-of-hour ID. It must give the call letters followed straight away by the city of
+#            license, in that order ("WHOX New York"); anything may come before or after that.
+#   sweeper: everything else the station says about itself between programs or records. Call letters
+#            are optional here: most stations go by their name and frequency.
+# Write call letters as they look ("WHOX"); the renderer spells them out for the voice. Write numbers
+# as words ("six-forty"), the way the announcer says them.
+
+city: New York
+
+== whodunit am_adam
+legal: WHOX New York. Whodunit, six-forty.
+legal: Whodunit, six-forty. WHOX New York.
+legal: This is WHOX New York. The night is young, and nobody's innocent.
+sweeper: Whodunit, six-forty. Every case closed by the top of the hour.
+sweeper: Private eyes, public airwaves. Whodunit.
+sweeper: Somebody did it. Stick around, and you'll find out who. Whodunit, six-forty.
+sweeper: Keep your hands where we can see them, and your dial right where it is. Whodunit.
+sweeper: The usual suspects, rounded up nightly. Whodunit, six-forty on your dial.
+
+== gramophone bf_isabella
+legal: WGPN New York. The Gramophone, thirteen-forty.
+legal: The Gramophone, thirteen-forty. WGPN New York.
+legal: You're listening to WGPN New York, where the records still turn at seventy-eight.
+sweeper: Wind the crank, lower the needle. The Gramophone, thirteen-forty.
+sweeper: Music from before there was radio... on the radio. The Gramophone.
+sweeper: Shellac, steel needles, and a century of crackle. The Gramophone.
+sweeper: Seventy-eight turns a minute, a hundred years and counting. The Gramophone.
+sweeper: Records from eighteen ninety-eight to nineteen twenty-five, one side at a time. The Gramophone, thirteen-forty.
+
+== tapers bf_lily
+legal: KTPA New York. The Taper's Section, one-oh-one point nine.
+legal: The Taper's Section, one-oh-one point nine. KTPA New York.
+legal: KTPA New York. Mics up, levels set, here we go.
+sweeper: The whole show, start to finish. Nothing cut, nothing skipped. The Taper's Section, one-oh-one point nine.
+sweeper: Recorded by fans, from the crowd, and shared for free. The Taper's Section.
+sweeper: Somewhere behind the soundboard, there's a microphone on a very tall pole. This is The Taper's Section.
+sweeper: No singles. No edits. Just the night, the way it happened. One-oh-one point nine.
+sweeper: Find your spot. The band's tuning up. The Taper's Section.
