@@ -136,6 +136,15 @@ footer{margin-top:34px;color:var(--faint);font-size:14px}
 .dbg[hidden]{display:none}
 .dbg-h{display:flex;gap:8px;align-items:center;padding:6px 10px;font-family:Oswald,sans-serif;font-size:13px;color:var(--muted)}
 .dbg-h b{font-weight:500;margin-right:auto}
+.selftest{max-width:760px;margin:16px auto;padding:16px 18px;background:var(--night2);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:15px/1.5 Inter,sans-serif}
+.selftest h2{font:500 20px/1.2 Oswald,sans-serif;margin:0 0 6px}
+.selftest p{margin:0 0 10px;color:var(--muted)}
+.selftest ul{list-style:none;margin:0 0 12px;padding:0}
+.selftest li{padding:6px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:3.4em minmax(0,1fr);gap:8px}
+.selftest li b{font:600 13px/1.6 Oswald,sans-serif;letter-spacing:.04em}
+.selftest li.pass b{color:var(--eye)}.selftest li.fail b{color:#ff8a76}
+.selftest button{border:1px solid var(--line);border-radius:8px;min-height:44px;padding:0 16px;background:#3a2615;color:var(--ink);font:500 15px Oswald,sans-serif;cursor:pointer}
+.selftest textarea{display:none;width:100%;margin-top:8px;background:var(--night);color:var(--ink);border:1px solid var(--line);border-radius:8px;font:13px/1.4 monospace}
 .dbg-h button{border:0;border-radius:6px;min-height:30px;padding:4px 12px;background:#3a2615;color:var(--ink);cursor:pointer}
 .dbg pre{margin:0;padding:0 10px 10px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
 body.has-dbg .wrap{padding-bottom:42vh}
@@ -535,8 +544,8 @@ const fmtDate = (d) => { if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(d) || /-00/.test(
 // Clock sync: the schedule assumes every listener's clock agrees. The page reads the time from
 // the server it came from (the Date header, to the second) and corrects the device clock when it
 // is clearly off. Within 2 s the device, usually set by the network, is the better clock.
-const CLOCK = { off: 0, checked: 0, rtt: 0 };
-const nowS = () => (Date.now() + CLOCK.off) / 1000;
+const CLOCK = { off: 0, checked: 0, rtt: 0, shift: 0 }; // shift: ?debug=1&days=n plays the schedule n days on, for testing
+const nowS = () => (Date.now() + CLOCK.off + CLOCK.shift) / 1000;
 async function syncClock() {
   if (!/^https?:$/.test(location.protocol)) return;
   try {
@@ -593,6 +602,7 @@ let sigNow = 0;
 const BUILD = '__BUILD__';
 const PREVIEW = __PREVIEW__; // the preview build's note (tools/build.py --preview), or null
 const DBG = { on: QS.get('debug') === '1' || (__DEBUG__ && QS.get('debug') !== '0'), lines: [], hb: 0, paint: 0 };
+if (DBG.on && QS.get('days')) CLOCK.shift = Math.max(-14, Math.min(14, +QS.get('days') || 0)) * 86400000;
 if (DBG.on) { try { DBG.lines = JSON.parse(localStorage.getItem('needle-dial.debug') || '[]'); } catch (e) {} }
 function dlog(msg) {
   const d = new Date();
@@ -1268,6 +1278,7 @@ if (DBG.on) {
   if (navigator.share) { const sb = $('#dbgShare'); sb.hidden = false; sb.addEventListener('click', () => { navigator.share({ title: 'Needle & Dial debug log', text: report() }).catch((e) => { if (e && e.name !== 'AbortError') dlog('share failed: ' + e.name); }); }); }
   $('#dbgClear').addEventListener('click', () => { DBG.lines = []; try { localStorage.removeItem('needle-dial.debug'); } catch (e) {} paintDbg(); });
   dlog('page loaded · build ' + BUILD + ' · ' + navigator.userAgent);
+  if (CLOCK.shift) dlog(`clock: ${CLOCK.shift / 86400000} days on, for testing: the radio plays that day's schedule`);
   { const w = Math.floor((nowS() - EPOCH) / WEEK), g = gapFor(w); dlog(`schedule: this week ${g ? `has a ${g} s load gap before each recording` : 'has no load gap'}`); } // for tools/check_log.js
   if (navigator.brave && navigator.brave.isBrave) navigator.brave.isBrave().then((b) => { if (b) dlog('browser is Brave'); }, () => {});
   paintDbg();
@@ -1286,7 +1297,87 @@ if (PREVIEW) {
         + (A.lim && LIM.on ? ` · the limiter is taking ${Math.abs(A.lim.reduction).toFixed(1)} dB off now` : '') + '.';
   }, 250);
 }
-window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, FADE, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
+/* ---------- Self-test: ?selftest=1 ---------- */
+// The audio chain's measurements in this browser, rendered offline: the limiter (level unchanged below it,
+// a tone over it held, clicks kept under full scale, music back right after a click), the 20 Hz high-pass
+// (a DC offset taken out, 1 kHz untouched) and the fade (no thump where a recording off zero starts or
+// stops). tools/test_playback.js runs them in Chrome on every build; a person can open the page in another
+// browser to run them there.
+async function selftest() {
+  const L = LIMITER, back = Math.pow(10, -makeupDb(L) / 20), sr = 48000, lag = Math.round(0.006 * sr), dB = (v) => 20 * Math.log10(v), out = [];
+  const z = (x, d) => (Math.abs(x) < 0.5 * Math.pow(10, -d) ? 0 : x).toFixed(d); // no -0.000
+  const add = (ok, name, value, want) => out.push({ ok: !!ok, name, value, want });
+  const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+  if (!Ctx) { add(false, 'Web Audio rendering', 'not available', 'OfflineAudioContext'); return { checks: out }; }
+  const offline = (n) => new Ctx(1, n, sr);
+  const render = async (secs, fill) => {
+    const n = Math.round(secs * sr), ctx = offline(n), b = ctx.createBuffer(1, n, sr), x = b.getChannelData(0); fill(x);
+    const s = ctx.createBufferSource(), l = ctx.createDynamicsCompressor(), g = ctx.createGain(); s.buffer = b; for (const k of Object.keys(L)) l[k].value = L[k]; g.gain.value = back;
+    s.connect(l); l.connect(g); g.connect(ctx.destination); s.start();
+    return { x, y: (await ctx.startRendering()).getChannelData(0) };
+  };
+  const tone = (a, f = 1000) => (x) => { for (let i = 0; i < x.length; i++) x[i] = a(i) * Math.sin(2 * Math.PI * f * i / sr); };
+  const peak = (y, from) => { let p = 0; for (let i = from; i < y.length; i++) p = Math.max(p, Math.abs(y[i])); return dB(p); };
+  const a = await render(2, tone(() => 0.1)); let ex = 0, ey = 0; for (let i = sr; i < 1.9 * sr; i++) { ex += a.x[i - lag] ** 2; ey += a.y[i] ** 2; }
+  const unity = 10 * Math.log10(ey / ex);
+  add(Math.abs(unity) < 0.02, 'below the limiter, a recording plays at its own level', `${z(unity, 3)} dB`, 'within 0.02 dB of 0');
+  const b = await render(3, tone((i) => (i < sr ? 0.01 : Math.pow(10, (L.threshold + 6) / 20)))), held = peak(b.y, sr);
+  add(held < L.threshold + 0.6, 'a tone 6 dB over the limiter is held down', `${held.toFixed(2)} dBFS`, `under ${(L.threshold + 0.6).toFixed(1)} dBFS`);
+  const click = Math.pow(10, (L.threshold + 7) / 20), every = Math.round(0.77 * sr);
+  const c = await render(4, (x) => { tone(() => 0.1, 440)(x); for (let k0 = sr; k0 < x.length - 100; k0 += every) for (let k = 0; k < 48; k++) x[k0 + k] += click * Math.sin(Math.PI * (k + 0.5) / 48) * (k % 2 ? 1 : -1); });
+  const clicks = peak(c.y, sr); add(clicks < -0.1, 'clicks 7 dB over the limiter stay under full scale', `${clicks.toFixed(2)} dBFS`, 'under -0.1 dBFS');
+  const at = sr + every + lag + Math.round(0.2 * sr), n = Math.round(0.02 * sr); let e = 0; for (let i = at; i < at + n; i++) e += c.y[i] ** 2;
+  const bed = dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)); add(bed > -0.5, 'music 200 ms after a click is back to its level', `${z(bed, 2)} dB`, 'within 0.5 dB');
+  let hpOk = true; try { const [ff, fb] = hpCoeffs(sr); offline(128).createIIRFilter(ff, fb); } catch (err) { hpOk = false; }
+  if (!hpOk) { add(false, 'the 20 Hz high-pass', 'this browser has no IIR filter, so the page plays without it', 'an IIR filter'); }
+  else {
+    const hpRender = async (fill, gain) => {
+      const n2 = 2 * sr, ctx = offline(n2), b2 = ctx.createBuffer(1, n2, sr), x = b2.getChannelData(0); fill(x);
+      const s = ctx.createBufferSource(), [ff, fb] = hpCoeffs(sr), hp = ctx.createIIRFilter(ff, fb), g = ctx.createGain(), l = ctx.createDynamicsCompressor(), back2 = ctx.createGain();
+      s.buffer = b2; g.gain.value = gain; for (const k of Object.keys(L)) l[k].value = L[k]; back2.gain.value = back; s.connect(hp); hp.connect(g); g.connect(l); l.connect(back2); back2.connect(ctx.destination); s.start();
+      return (await ctx.startRendering()).getChannelData(0);
+    };
+    const yd = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = -0.33 + 0.1 * Math.sin(2 * Math.PI * 440 * i / sr); }, 2);
+    let mean = 0, pd = 0; for (let i = sr; i < 2 * sr; i++) { mean += yd[i]; pd = Math.max(pd, Math.abs(yd[i])); } mean /= sr;
+    add(Math.abs(mean) < 0.002 && Math.abs(dB(pd) - dB(0.2)) < 0.3, 'a recording a third of full scale off zero, turned up 6 dB, comes out centred and unlimited', `average ${z(mean, 4)}, peaks ${dB(pd).toFixed(2)} dBFS`, `average 0, peaks ${dB(0.2).toFixed(2)} dBFS`);
+    const yk = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = 0.1 * Math.sin(2 * Math.PI * 1000 * i / sr); }, 1);
+    let ek = 0; for (let i = sr; i < 2 * sr; i++) ek += yk[i] ** 2; const hpUnity = 10 * Math.log10(ek / sr / (0.01 / 2));
+    add(Math.abs(hpUnity) < 0.02, 'the high-pass leaves 1 kHz alone', `${z(hpUnity, 3)} dB`, 'within 0.02 dB of 0');
+    // Beauty and the Beast: a third of full scale off zero, starting at 0.5 s and stopping at 1.5 s, at +7.8 dB
+    const thump = async (fade) => {
+      const n2 = 2 * sr, ctx = offline(n2), b2 = ctx.createBuffer(1, n2, sr), x = b2.getChannelData(0);
+      for (let i = Math.round(0.5 * sr); i < Math.round(1.5 * sr); i++) x[i] = -0.314;
+      const s = ctx.createBufferSource(), pre = ctx.createGain(), [ff, fb] = hpCoeffs(sr), hp = ctx.createIIRFilter(ff, fb), g = ctx.createGain();
+      s.buffer = b2; g.gain.value = Math.pow(10, 7.8 / 20); s.connect(pre); pre.connect(hp); hp.connect(g); g.connect(ctx.destination);
+      if (fade) { pre.gain.setValueAtTime(0, 0.5); pre.gain.setTargetAtTime(1, 0.5, FADE); pre.gain.setValueAtTime(1, 1.1); pre.gain.setTargetAtTime(0, 1.15, FADE); }
+      s.start(); const y = (await ctx.startRendering()).getChannelData(0); let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v)); return dB(pk);
+    };
+    const raw = await thump(false), faded = await thump(true);
+    add(raw > -5 && faded < -20, 'the fade takes out the thump where a recording off zero starts and stops', `${raw.toFixed(1)} dBFS without the fade, ${faded.toFixed(1)} with it`, 'under -20 dBFS with the fade');
+  }
+  return { checks: out };
+}
+function runSelftest() {
+  const box = document.createElement('section'); box.className = 'selftest'; box.id = 'selftest';
+  box.innerHTML = '<h2>Audio self-test</h2><p id="stRun">Measuring the audio chain in this browser…</p>';
+  document.body.prepend(box);
+  selftest().then((r) => {
+    const n = r.checks.filter((c) => c.ok).length, all = n === r.checks.length;
+    const head = `Needle & Dial audio self-test · build ${BUILD} · ${navigator.userAgent}`;
+    const text = [head, ...r.checks.map((c) => `${c.ok ? 'PASS' : 'FAIL'}  ${c.name}: ${c.value}${c.ok ? '' : ` (wanted ${c.want})`}`), all ? `All ${n} passed.` : `${r.checks.length - n} of ${r.checks.length} failed.`].join('\n');
+    $('#stRun').textContent = (all ? `All ${n} checks passed in this browser.` : `${r.checks.length - n} of ${r.checks.length} checks failed in this browser.`) + (ROUTE ? '' : ' (This browser plays the radio straight, without this chain; the measurements show what it would do.)');
+    const ul = document.createElement('ul');
+    for (const c of r.checks) { const li = document.createElement('li'); li.className = c.ok ? 'pass' : 'fail'; const b = document.createElement('b'); b.textContent = c.ok ? 'PASS' : 'FAIL'; const t = document.createElement('span'); t.textContent = `${c.name}: ${c.value}${c.ok ? '' : ` (wanted ${c.want})`}`; li.append(b, t); ul.append(li); }
+    const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = 'Copy results';
+    const ta = document.createElement('textarea'); ta.rows = 8; ta.readOnly = true; ta.value = text;
+    const note = document.createElement('p'); note.setAttribute('aria-live', 'polite');
+    btn.addEventListener('click', () => { const shown = () => { ta.style.display = 'block'; ta.select(); note.textContent = 'Select the text above and copy it.'; }; try { navigator.clipboard.writeText(text).then(() => { note.textContent = 'Copied.'; }, shown); } catch (err) { shown(); } });
+    box.append(ul, btn, ta, note);
+    dlog('self-test: ' + (all ? `all ${n} passed` : `${r.checks.length - n} failed: ` + r.checks.filter((c) => !c.ok).map((c) => c.name).join('; ')));
+  }).catch((err) => { $('#stRun').textContent = 'The self-test could not run in this browser: ' + (err && err.message || err); });
+}
+if (QS.get('selftest') === '1') runSelftest();
+window.SKY = { R, STATIONS, SCH, A, power, seek, sweepTo, beat, FADE, selftest, LIMITER, LIM, makeupDb, setLimiter, hpCoeffs, log: () => DBG.lines.join('\n'), clock: CLOCK, snapshots: SNAPS.map(s => s.from), get PLAY() { return PLAY; }, get FILL() { return FILL; }, get TUNED() { return TUNED; }, get TROUBLE() { return TROUBLE; } };
 }
 </script>
 </body>

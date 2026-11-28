@@ -532,55 +532,12 @@ async function limiterSettings(browser) {
   await ctx.route('http://nd.test/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
   const page = await ctx.newPage();
   await page.goto('http://nd.test/');
-  const r = await page.evaluate(async () => {
-    const L = window.SKY.LIMITER, back = Math.pow(10, -window.SKY.makeupDb(L) / 20), sr = 48000, lag = Math.round(0.006 * sr), dB = (v) => 20 * Math.log10(v);
-    const render = async (secs, fill) => {
-      const n = Math.round(secs * sr), ctx = new OfflineAudioContext(1, n, sr), b = ctx.createBuffer(1, n, sr), x = b.getChannelData(0); fill(x);
-      const s = ctx.createBufferSource(), l = ctx.createDynamicsCompressor(), g = ctx.createGain(); s.buffer = b; for (const k of Object.keys(L)) l[k].value = L[k]; g.gain.value = back;
-      s.connect(l); l.connect(g); g.connect(ctx.destination); s.start();
-      return { x, y: (await ctx.startRendering()).getChannelData(0) };
-    };
-    const tone = (a, f = 1000) => (x) => { for (let i = 0; i < x.length; i++) x[i] = a(i) * Math.sin(2 * Math.PI * f * i / sr); };
-    const peak = (y, from) => { let p = 0; for (let i = from; i < y.length; i++) p = Math.max(p, Math.abs(y[i])); return dB(p); };
-    const a = await render(2, tone(() => 0.1)); let ex = 0, ey = 0; for (let i = sr; i < 1.9 * sr; i++) { ex += a.x[i - lag] ** 2; ey += a.y[i] ** 2; }
-    const over = Math.pow(10, (L.threshold + 6) / 20), b = await render(3, tone((i) => (i < sr ? 0.01 : over)));
-    const click = Math.pow(10, (L.threshold + 7) / 20), every = Math.round(0.77 * sr);
-    const c = await render(4, (x) => { tone(() => 0.1, 440)(x); for (let k0 = sr; k0 < x.length - 100; k0 += every) for (let k = 0; k < 48; k++) x[k0 + k] += click * Math.sin(Math.PI * (k + 0.5) / 48) * (k % 2 ? 1 : -1); });
-    const at = sr + every + lag + Math.round(0.2 * sr), n = Math.round(0.02 * sr); let e = 0; for (let i = at; i < at + n; i++) e += c.y[i] ** 2;
-    // high-pass, then gain, then limiter, as the page has them
-    const hpRender = async (fill, gain) => {
-      const n2 = 2 * sr, ctx = new OfflineAudioContext(1, n2, sr), b2 = ctx.createBuffer(1, n2, sr), x = b2.getChannelData(0); fill(x);
-      const s = ctx.createBufferSource(), [ff, fb] = window.SKY.hpCoeffs(sr), hp = ctx.createIIRFilter(ff, fb), g = ctx.createGain(), l = ctx.createDynamicsCompressor(), back2 = ctx.createGain();
-      s.buffer = b2; g.gain.value = gain; for (const k of Object.keys(L)) l[k].value = L[k]; back2.gain.value = back; s.connect(hp); hp.connect(g); g.connect(l); l.connect(back2); back2.connect(ctx.destination); s.start();
-      return (await ctx.startRendering()).getChannelData(0);
-    };
-    const yd = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = -0.33 + 0.1 * Math.sin(2 * Math.PI * 440 * i / sr); }, 2);
-    let mean = 0, pd = 0; for (let i = sr; i < 2 * sr; i++) { mean += yd[i]; pd = Math.max(pd, Math.abs(yd[i])); } mean /= sr;
-    const yk = await hpRender((x) => { for (let i = 0; i < x.length; i++) x[i] = 0.1 * Math.sin(2 * Math.PI * 1000 * i / sr); }, 1);
-    // A recording a third of full scale off zero starting at 0.5 s and stopping at 1.5 s, at +7.8 dB (Beauty
-    // and the Beast): the high-pass rings at the start and the stop unless the page's fade comes first.
-    const thump = async (fade) => {
-      const n2 = 2 * sr, ctx = new OfflineAudioContext(1, n2, sr), b2 = ctx.createBuffer(1, n2, sr), x = b2.getChannelData(0);
-      for (let i = Math.round(0.5 * sr); i < Math.round(1.5 * sr); i++) x[i] = -0.314;
-      const s = ctx.createBufferSource(), pre = ctx.createGain(), [ff, fb] = window.SKY.hpCoeffs(sr), hp = ctx.createIIRFilter(ff, fb), g = ctx.createGain();
-      s.buffer = b2; g.gain.value = Math.pow(10, 7.8 / 20); s.connect(pre); pre.connect(hp); hp.connect(g); g.connect(ctx.destination);
-      if (fade) { const F = window.SKY.FADE; pre.gain.setValueAtTime(0, 0.5); pre.gain.setTargetAtTime(1, 0.5, F); pre.gain.setValueAtTime(1, 1.1); pre.gain.setTargetAtTime(0, 1.15, F); }
-      s.start(); const y = (await ctx.startRendering()).getChannelData(0); let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v)); return dB(pk);
-    };
-    const thumpRaw = await thump(false), thumpFaded = await thump(true);
-    let ek = 0; for (let i = sr; i < 2 * sr; i++) ek += yk[i] ** 2;
-    return { threshold: L.threshold, unity: 10 * Math.log10(ey / ex), held: peak(b.y, sr), clicks: peak(c.y, sr), bed: dB(Math.sqrt(e / n) / (0.1 / Math.SQRT2)), dcMean: mean, dcPeak: dB(pd), hpUnity: 10 * Math.log10(ek / sr / (0.01 / 2)), thumpRaw, thumpFaded };
-  });
+  // The page's own self-test (?selftest=1 shows it): the limiter, the high-pass and the fade, rendered offline.
+  const r = await page.evaluate(() => window.SKY.selftest());
   await ctx.close();
-  const problems = [];
-  if (!(Math.abs(r.unity) < 0.02)) problems.push(`under the threshold the gain is ${r.unity.toFixed(3)} dB, not unity: the makeup gain isn't taken back out exactly`);
-  if (!(r.held < r.threshold + 0.6)) problems.push(`a tone 6 dB over the threshold comes out at ${r.held.toFixed(2)} dBFS`);
-  if (!(r.clicks < -0.1)) problems.push(`clicks 7 dB over the threshold come out at ${r.clicks.toFixed(2)} dBFS`);
-  if (!(r.bed > -0.5)) problems.push(`the music under a click is still ${r.bed.toFixed(2)} dB down 200 ms after it`);
-  if (!(Math.abs(r.dcMean) < 0.002 && Math.abs(r.dcPeak - 20 * Math.log10(0.2)) < 0.3)) problems.push(`a tone on a DC offset, turned up 6 dB, comes out averaging ${r.dcMean.toFixed(4)} with peaks at ${r.dcPeak.toFixed(2)} dBFS: the offset isn't removed, or the limiter acts`);
-  if (!(Math.abs(r.hpUnity) < 0.02)) problems.push(`the high-pass changes 1 kHz by ${r.hpUnity.toFixed(3)} dB`);
-  if (!(r.thumpRaw > -5 && r.thumpFaded < -20)) problems.push(`a recording a third of full scale off zero thumps at ${r.thumpRaw.toFixed(1)} dBFS without the fade and ${r.thumpFaded.toFixed(1)} dBFS with it`);
-  return { name, ok: !problems.length, problems, log: `unity ${r.unity.toFixed(3)} dB; tone 6 dB over held at ${r.held.toFixed(2)} dBFS; clicks 7 dB over at ${r.clicks.toFixed(2)} dBFS; music 200 ms after a click ${r.bed.toFixed(2)} dB; a thump ${r.thumpRaw.toFixed(1)} dBFS unfaded, ${r.thumpFaded.toFixed(1)} faded; a tone on a DC offset comes out averaging ${r.dcMean.toFixed(4)}, peaks ${r.dcPeak.toFixed(2)} dBFS; 1 kHz through the high-pass ${r.hpUnity.toFixed(3)} dB` };
+  const problems = r.checks.filter((c) => !c.ok).map((c) => `${c.name}: ${c.value} (wanted ${c.want})`);
+  if (r.checks.length < 7) problems.push(`only ${r.checks.length} measurements ran`);
+  return { name, ok: !problems.length, problems, log: r.checks.map((c) => `${c.name}: ${c.value}`).join('; ') };
 }
 
 // The preview build (tools/build.py --preview, beside dist/index.html): its banner, its limiter switch,

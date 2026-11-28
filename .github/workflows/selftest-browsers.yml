@@ -1,0 +1,29 @@
+# The page's audio self-test in Firefox and WebKit (Safari's engine, on Linux and on a Mac). Runs only
+# on the selftest branch for now; CI runs the same checks in Chrome on every push.
+name: Self-test in other browsers
+
+on:
+  push:
+    branches: [selftest]
+    paths: [src/index.template.html, tools/selftest.js, .github/workflows/selftest-browsers.yml]
+
+jobs:
+  selftest:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, engine: firefox }
+          - { os: ubuntu-latest, engine: webkit }
+          - { os: macos-latest, engine: webkit }
+          - { os: macos-latest, engine: firefox }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm ci && npx playwright-core install --with-deps ${{ matrix.engine }}
+      - run: python3 tools/build.py
+      - run: node tools/selftest.js ${{ matrix.engine }}
