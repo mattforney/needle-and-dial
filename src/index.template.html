@@ -763,7 +763,7 @@ function hpCoeffs(fs, fc = HIGHPASS) { const w = 2 * Math.PI * fc / fs, c = Math
 // leave at each end, which takes the thump down by 24 dB to a bump below 20 Hz. Web Audio only: on an
 // iPhone the page plays the file straight, as any player would.
 const FADE = 0.05;
-function fadeTo(v) { if (!A.pre) return; const p = A.pre.gain, t = A.ctx.currentTime; p.cancelScheduledValues(t); p.setValueAtTime(p.value, t); p.setTargetAtTime(v, t, FADE); A.fadedOut = v === 0; }
+function fadeTo(v) { if (!A.pre) return; const p = A.pre.gain, t = A.ctx.currentTime; p.cancelScheduledValues(t); p.setValueAtTime(p.value, t); p.setTargetAtTime(v, t, FADE); A.fadedOut = v === 0; if (!v) A.lastFade = { src: A.src, at: A.el.currentTime }; }
 const fadeIn = () => fadeTo(1);
 // Fade out when the recording is within 0.4 s of where its sound ends (the ticks come every 0.2 s or so,
 // more slowly in the background), or of its slot's end in a week without a load gap.

@@ -420,11 +420,11 @@ async function gapPlay(browser) {
   await until(page, n1.start + 1);
   const up = await page.evaluate(() => (window.SKY.A.pre ? window.SKY.A.pre.gain.value : 1));
   if (!(up > 0.9)) problems.push(`the fade-in had reached ${up.toFixed(2)} a second into the record`);
-  const out = SKIP + 20, tail = [];
-  await until(page, n1.start + 18);
-  for (let i = 0; i < 60; i++) { const x = await page.evaluate((u) => { const A = window.SKY.A; return A.src === u && A.kind === 'media' ? { t: A.el.currentTime, g: A.pre ? A.pre.gain.value : 0 } : null; }, url(n1.seg)); if (x && x.t >= out - 0.05) tail.push(x.g); if (!x && tail.length) break; await sleep(80); }
-  if (!tail.length) problems.push('never saw the first record past the end of its sound');
-  else if (!(Math.max(...tail) < 0.25)) problems.push(`past the end of its sound the fade was at ${Math.max(...tail).toFixed(2)}`);
+  // and down where its sound ends, before the file runs out (where the page last faded out, read after the fact)
+  await until(page, n2.start + 1);
+  const lf = await page.evaluate(() => window.SKY.A.lastFade || null), out = SKIP + 20;
+  if (!lf || lf.src !== url(n1.seg)) problems.push('the first record never faded out: ' + JSON.stringify(lf));
+  else if (!(lf.at > out - 0.6 && lf.at < out + 0.1)) problems.push(`the first record faded out at ${lf.at.toFixed(2)} s, its sound ends at ${out} s`);
   await until(page, n3.start + 5);
   const log = await page.evaluate(() => window.SKY.log());
   const starts = [...log.matchAll(/playing media from ([\d.]+) s \(start point ([\d.]+) s\), ([\d.]+) s (behind|ahead of) the schedule/g)].map((m) => ({ from: +m[1], sp: +m[2], lag: (m[4] === 'behind' ? 1 : -1) * +m[3] }));
