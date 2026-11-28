@@ -188,7 +188,7 @@
      "kind": "legal",
      "text": "KRCT Los Angeles. Rocket, nine hundred.",
      "file": "rocket/legal-1.mp3",
-     "seconds": 4.28,
+     "seconds": 4.25,
      "approved": null,
      "spoken": "K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/). Rocket, nine hundred."
     },
@@ -197,7 +197,7 @@
      "kind": "legal",
      "text": "Rocket, nine hundred. KRCT Los Angeles.",
      "file": "rocket/legal-2.mp3",
-     "seconds": 4.08,
+     "seconds": 4.05,
      "approved": null,
      "spoken": "Rocket, nine hundred. K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/)."
     },
@@ -206,7 +206,7 @@
      "kind": "legal",
      "text": "This is KRCT Los Angeles, Rocket, nine hundred, broadcasting to Earth and points beyond.",
      "file": "rocket/legal-3.mp3",
-     "seconds": 6.62,
+     "seconds": 6.6,
      "approved": null,
      "spoken": "This is K R C T [Los Angeles](/lˈɒs ˈanʤəlɪs/), Rocket, nine hundred, broadcasting to Earth and points beyond."
     },
@@ -273,7 +273,7 @@
      "kind": "legal",
      "text": "KRIE Los Angeles. Prairie, ten-seventy.",
      "file": "saddle/legal-1.mp3",
-     "seconds": 4.53,
+     "seconds": 4.65,
      "approved": null,
      "spoken": "K R I E [Los Angeles](/lˈɔs ˈænʤələs/). Prairie, ten-seventy."
     },
@@ -282,7 +282,7 @@
      "kind": "legal",
      "text": "Prairie, ten-seventy. KRIE Los Angeles.",
      "file": "saddle/legal-2.mp3",
-     "seconds": 4.58,
+     "seconds": 4.55,
      "approved": null,
      "spoken": "Prairie, ten-seventy. K R I E [Los Angeles](/lˈɔs ˈænʤələs/)."
     },
@@ -291,7 +291,7 @@
      "kind": "legal",
      "text": "This is KRIE Los Angeles, Prairie, ten-seventy. Tie up your horse and stay a spell.",
      "file": "saddle/legal-3.mp3",
-     "seconds": 6.92,
+     "seconds": 7.05,
      "approved": null,
      "spoken": "This is K R I E [Los Angeles](/lˈɔs ˈænʤələs/), Prairie, ten-seventy. Tie up your horse and stay a spell."
     },
@@ -698,7 +698,7 @@
      "kind": "legal",
      "text": "KFRF Los Angeles. Free Form, ninety-three point three.",
      "file": "freeform/legal-1.mp3",
-     "seconds": 5.42,
+     "seconds": 5.5,
      "approved": null,
      "spoken": "K F R F [Los Angeles](/lˈɔs ˈænʤələs/). Free Form, ninety-three point three."
     },
@@ -707,7 +707,7 @@
      "kind": "legal",
      "text": "Free Form, ninety-three point three. KFRF Los Angeles.",
      "file": "freeform/legal-2.mp3",
-     "seconds": 5.33,
+     "seconds": 5.3,
      "approved": null,
      "spoken": "Free Form, ninety-three point three. K F R F [Los Angeles](/lˈɔs ˈænʤələs/)."
     },
@@ -716,7 +716,7 @@
      "kind": "legal",
      "text": "This is KFRF Los Angeles, Free Form, ninety-three point three. Free to hear, free to share.",
      "file": "freeform/legal-3.mp3",
-     "seconds": 7.53,
+     "seconds": 7.47,
      "approved": null,
      "spoken": "This is K F R F [Los Angeles](/lˈɔs ˈænʤələs/), Free Form, ninety-three point three. Free to hear, free to share."
     },
@@ -783,7 +783,7 @@
      "kind": "legal",
      "text": "KTPA Los Angeles. The Taper's Section, one-oh-one point nine.",
      "file": "tapers/legal-1.mp3",
-     "seconds": 5.45,
+     "seconds": 5.42,
      "approved": null,
      "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/). The Taper's Section, one-oh-one point nine."
     },
@@ -792,7 +792,7 @@
      "kind": "legal",
      "text": "The Taper's Section, one-oh-one point nine. KTPA Los Angeles.",
      "file": "tapers/legal-2.mp3",
-     "seconds": 5.35,
+     "seconds": 5.28,
      "approved": null,
      "spoken": "The Taper's Section, one-oh-one point nine. K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/)."
     },
@@ -801,7 +801,7 @@
      "kind": "legal",
      "text": "KTPA Los Angeles, The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go.",
      "file": "tapers/legal-3.mp3",
-     "seconds": 7.1,
+     "seconds": 7.08,
      "approved": null,
      "spoken": "K T P [A](/ˈA/) [Los Angeles](/lˈɒs ˈanʤəlɪs/), The Taper's Section, one-oh-one point nine. Mics up, levels set, here we go."
     },
