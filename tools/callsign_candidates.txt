@@ -1,8 +1,0 @@
-# Candidates for renaming the stations whose call letters belong to real stations (Nov 2026), third
-# round: closer echoes of each station's name for the five where rounds one and two found only weak fits.
-WGHO WMGT WDHT WIGH WGHT WMGH WIDN WMIG WDNI WIGT WMHN WMTN WTWI WWCH WHGT              # Midnight
-KRIE KSOD KRAI KAIR KPIE KARI KIRE KRRE KPNR KPIO KSPR KRDE                                # Prairie
-WGPN WGMR WGMN WGPE WGPO WGPA WRMO WMPH WPHO WGMH WGMT WGRB WGRT WGRI WGRL WGRS WGRG WVTR WVCT WSHK WEDS WDSC WDSK   # The Gramophone
-WNOT WCTR WURN WTUR WOCN WCRN WNOA WNOI WNOM WNOS WNOP WNCO WNCQ                            # Nocturne
-KSBD KTPV KTSE KTSN KAPR KSEC KTSX KTPP KTAE KVLT KDAT KCAS KMIC KTRD KSHN KFLC            # Taper's Section
-WHDU WGUM KRCT KFRF                                                                         # rechecks

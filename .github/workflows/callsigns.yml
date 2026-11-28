@@ -14,7 +14,7 @@ on:
         default: ''
   push:
     branches: [callsigns]
-    paths: [tools/callsigns.py, tools/callsign_candidates.txt, .github/workflows/callsigns.yml]
+    paths: [src/index.template.html, tools/callsigns.py, tools/callsign_candidates.txt, .github/workflows/callsigns.yml]
 
 jobs:
   check:

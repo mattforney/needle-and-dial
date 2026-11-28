@@ -41,7 +41,7 @@ function derive(m, part) {
   if (out - skip < 5) return null; // all but silent: leave it alone and list it
   return part ? entry(part.gain, part.gain0, skip, out) : entry(gainFor(m.I, m.TP), gainFor(m.I, m.TP, 0), skip, out);
 }
-// Programs in parts, from the catalog: each work's movements (Nocturne) and each concert's tracks (KTPR).
+// Programs in parts, from the catalog: each work's movements (Nocturne) and each concert's tracks (the Taper's Section).
 function programs(meas) {
   const root = path.join(__dirname, '..'), html = fs.readFileSync(path.join(root, 'src/index.template.html'), 'utf8');
   const code = html.split('// ==ENGINE==')[1].split('// ==/ENGINE==')[0], CAT = JSON.parse(fs.readFileSync(path.join(root, 'dist/catalog.json'), 'utf8'));

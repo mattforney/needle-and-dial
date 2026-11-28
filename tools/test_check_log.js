@@ -15,10 +15,10 @@ function synth({ start = 14 * 3600 + 30 * 60, hours = 2.02, every = 180, wait = 
   let t = start;
   at(t, 'page loaded · build 44a2955 2026-11-26 08:04Z · ' + ua, false); at(t + 0.1, 'browser is Brave', false);
   at(t + 5, 'audio through Web Audio, with keep-alive', false); at(t + 5.1, '→ silence (power on)', false); at(t + 5.11, 'power on', false); at(t + 5.2, 'playing silence', false);
-  at(t + 6, 'tuned to WGRM 1340 AM', false); at(t + 6.01, '→ WGRM music “Song 0” at 30 of 200 s, aiming 3.0 s ahead', false); at(t + 6.9, 'playing media after 0.9 s, 0.4 s ahead of the schedule', false);
+  at(t + 6, 'tuned to WGPN 1340 AM', false); at(t + 6.01, '→ WGPN music “Song 0” at 30 of 200 s, aiming 3.0 s ahead', false); at(t + 6.9, 'playing media after 0.9 s, 0.4 s ahead of the schedule', false);
   const lock = t + 10, unlock = lock + hours * 3600;
   at(lock, 'page hidden');
-  for (let k = 1, c = lock + 60; c < unlock - 30; k++, c += every) { at(c, `→ WGRM music “Song ${k}” at 0 of ${every} s`); at(c + 0.1, 'buffering'); at(c + wait, 'playing media'); }
+  for (let k = 1, c = lock + 60; c < unlock - 30; k++, c += every) { at(c, `→ WGPN music “Song ${k}” at 0 of ${every} s`); at(c + 0.1, 'buffering'); at(c + wait, 'playing media'); }
   for (let b = lock + 30; b < unlock; b += 30) at(b, `still here: media at ${((b - lock) % every).toFixed(1)} s, playing, ready 4, keep-alive on, engine running, ticks 1/2`);
   at(unlock, 'page visible', false);
   const evs = edit ? edit(ev) || ev : ev;
@@ -26,7 +26,7 @@ function synth({ start = 14 * 3600 + 30 * 60, hours = 2.02, every = 180, wait = 
   const clock = (s) => { s = ((s % 86400) + 86400) % 86400; const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = Math.floor(s % 60), ms = Math.round((s % 1) * 1000) % 1000; return [h, m, x].map((v) => String(v).padStart(2, '0')).join(':') + '.' + String(ms).padStart(3, '0'); };
   return ['Needle & Dial 44a2955 2026-11-26 08:04Z', ua, ...evs.map((e) => `${clock(e.t)} ${e.bg ? '[bg] ' : ''}${e.msg}`)].join('\n');
 }
-const changeAt = (ev, k) => ev.find((e) => e.msg.startsWith(`→ WGRM music “Song ${k}”`));
+const changeAt = (ev, k) => ev.find((e) => e.msg.startsWith(`→ WGPN music “Song ${k}”`));
 const lineAfter = (ev, e, re) => ev.filter((x) => x.t > e.t && re.test(x.msg)).sort((a, b) => a.t - b.t)[0];
 
 // The real thing: a friend's iPhone, locked a second after tuning, for half a minute.
@@ -92,7 +92,7 @@ const timed = (from, lag = 0.1, beat = lag) => (ev) => {
     const c6 = changeAt(ev, 6); ev.push({ t: c6.t - 0.01, msg: 'letting it finish: 0.6 s to go, past its slot', bg: true }); };
   let r = check(synth({ edit: late }));
   expect('gap: a late finish is counted, behind mid-record is fine', r.timing.ok && /Late finishes\s+1 record finished past its slot, by up to 0\.6 s/.test(r.report) && /Mid-record\s+furthest 1\.7 s behind/.test(r.report), r);
-  r = check(synth({ edit: (ev) => { late(ev); const c9 = changeAt(ev, 9); ev.push({ t: c9.t - 0.01, msg: 'cut WGRM music “Song 8” with 2.2 s of it unplayed', bg: true }); } }));
+  r = check(synth({ edit: (ev) => { late(ev); const c9 = changeAt(ev, 9); ev.push({ t: c9.t - 0.01, msg: 'cut WGPN music “Song 8” with 2.2 s of it unplayed', bg: true }); } }));
   expect('gap: a cut record fails', !r.timing.ok && /Song 8” was cut with 2\.2 s of it unplayed/.test(r.report), r);
 }
 // A false end on Safari, loaded again (build from 27 Nov on): counted, and not a failure.

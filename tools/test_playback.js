@@ -4,7 +4,7 @@
 // about background audio (the Brave-on-Android failure): a player may only start if a tap
 // started it before, and with the screen locked nothing new may start unless something is
 // already playing. Archive.org audio is replaced by generated WAV files of the right length,
-// and the page clock is moved to just before a change of record on WGRM.
+// and the page clock is moved to just before a change of record on the Gramophone.
 //
 //   node tools/test_playback.js [path/to/index.html]
 //   ND_LOG=1 prints each page's debug log; ND_QS=audio=direct adds to the page's query string;
@@ -27,6 +27,7 @@ const snapshotted = Array.isArray(INLINE); // pages built before weekly snapshot
 const api = new Function('CAT', code + `\nreturn { STATIONS, parseCatalog, makeScheduler, ia${snapshotted ? ', loadSnapshots, schedulerFor, EPOCH, WEEK, weekOf' : ''} };`)(null);
 const SCH = snapshotted ? api.schedulerFor(api.loadSnapshots(INLINE)) : api.makeScheduler(api.parseCatalog(INLINE));
 const S = api.STATIONS.find((s) => s.key === 'gramophone');
+const CALL = Object.fromEntries(api.STATIONS.map((x) => [x.key, x.call])); // tests name stations by key, so call letters can change
 // This week's snapshot on its own and whole (the page carries this week's and later weeks' drafts, the
 // later ones partial), with the levels or gap a check sets: such a check tests the same thing whichever
 // week it runs in, with or without the load gap that weeks from 30 Nov have.
@@ -208,12 +209,12 @@ async function presetBanks(browser) {
   const { page } = t, problems = [];
   const bank = () => page.evaluate(() => [...document.querySelectorAll('#presets button')].map((b) => b.querySelector('b').textContent));
   const am = await bank();
-  if (am.join() !== 'WHOD,WMID,KRKT,KPRY,WHAH,WGRM') problems.push('AM bank is ' + am.join());
+  if (am.join() !== ['whodunit', 'midnight', 'rocket', 'saddle', 'laugh', 'gramophone'].map((k) => CALL[k]).join()) problems.push('AM bank is ' + am.join());
   await page.click('#presets button[data-slot="2"]'); await sleep(1500);
-  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KRKT') problems.push('preset 3 did not tune KRKT');
+  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== CALL.rocket) problems.push('preset 3 did not tune ' + CALL.rocket);
   await page.click('#bFM'); await sleep(800);
   const fm = await bank();
-  if (fm.join() !== 'WNOC,KFRE,KTPR,4,5,6') problems.push('FM bank is ' + fm.join());
+  if (fm.join() !== [CALL.nocturne, CALL.freeform, CALL.tapers, 4, 5, 6].join()) problems.push('FM bank is ' + fm.join());
   // The hold is a real press at the button's spot on screen: bring the bank to the top, above the debug
   // panel pinned to the bottom of the window (whether it covered the button depended on the card's height).
   await page.evaluate(() => document.querySelector('#presets').scrollIntoView({ block: 'start' })); await sleep(100);
@@ -223,30 +224,30 @@ async function presetBanks(browser) {
   await page.mouse.move(cx, cy); await page.mouse.down(); await sleep(900); await page.mouse.up(); await sleep(200);
   await page.keyboard.press('Shift+Digit5'); await sleep(200);
   const saved = await bank();
-  if (saved[3] !== 'KFRE' || saved[4] !== 'KFRE') problems.push('hold and Shift+5 did not save KFRE: ' + saved.join());
-  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== 'KFRE') problems.push('the hold also tuned');
+  if (saved[3] !== CALL.freeform || saved[4] !== CALL.freeform) problems.push('hold and Shift+5 did not save ' + CALL.freeform + ': ' + saved.join());
+  if ((await page.evaluate(() => window.SKY.TUNED && window.SKY.TUNED.call)) !== CALL.freeform) problems.push('the hold also tuned');
   await page.reload(); await sleep(600);
   const after = await bank();
-  if (after.join() !== 'WNOC,KFRE,KTPR,KFRE,KFRE,6') problems.push('after a reload the FM bank is ' + after.join());
+  if (after.join() !== [CALL.nocturne, CALL.freeform, CALL.tapers, CALL.freeform, CALL.freeform, 6].join()) problems.push('after a reload the FM bank is ' + after.join());
   return finish(t, 'preset banks: press, hold, keys, reload', problems);
 }
 
 // iPhone pauses a station that is still loading when the screen locks (seen 25 and 26 Nov). With
 // the keep-alive still playing, the page should start it again by itself, without an unlock.
-const WHOD = api.STATIONS.find((s) => s.call === 'WHOD');
+const WHODUNIT = api.STATIONS.find((s) => s.key === 'whodunit');
 // The iPhone from the 26 Nov tests: the page should pick direct audio and the keep-alive by itself.
 const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1';
 async function lockWhileLoading(browser, ua) {
   const name = 'paused while loading at lock time, restarted' + (ua ? ' · iPhone' : '');
   const sc = { at: end(a.c), first: a.c, lead: 40, len: {} };
-  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
-  sc.slow = new Set(Object.keys(sc.len)); // whatever WHOD is playing then, program or filler, loads slowly
+  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHODUNIT, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  sc.slow = new Set(Object.keys(sc.len)); // whatever Whodunit is playing then, program or filler, loads slowly
   const t = await open(browser, sc, { strict: true, timers: 'slow', ua });
   const { page } = t, problems = [];
-  await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1)); // tune to WHOD with the screen on
+  await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1)); // tune to Whodunit with the screen on
   let u = '';
-  for (let i = 0; i < 30 && !u; i++) { await sleep(100); u = await page.evaluate(() => (window.SKY.A.kind === 'media' && window.SKY.TUNED && window.SKY.TUNED.call === 'WHOD' ? window.SKY.A.src : '')); }
-  if (!u) { problems.push('WHOD never started loading'); return finish(t, name, problems); }
+  for (let i = 0; i < 30 && !u; i++) { await sleep(100); u = await page.evaluate((c) => (window.SKY.A.kind === 'media' && window.SKY.TUNED && window.SKY.TUNED.call === c ? window.SKY.A.src : ''), WHODUNIT.call); }
+  if (!u) { problems.push(WHODUNIT.call + ' never started loading'); return finish(t, name, problems); }
   await sleep(800);
   // lock, and pause the station the way iOS does when the file hasn't started playing yet
   const loading = await page.evaluate(() => { const el = window.SKY.A.el, r = el.readyState; window.__lock(); el.pause(); return r < 3; });
@@ -254,7 +255,7 @@ async function lockWhileLoading(browser, ua) {
   let ok = false;
   for (let i = 0; i < 60 && !ok; i++) { await sleep(200); ok = await page.evaluate((u) => { const A = window.SKY.A; return A.src === u && A.shown === u && !A.el.paused && A.el.readyState >= 3; }, u); }
   const s = await page.evaluate(() => ({ held: window.SKY.A.held, log: window.SKY.log() }));
-  if (!ok) problems.push('WHOD did not start playing again with the screen locked');
+  if (!ok) problems.push(WHODUNIT.call + ' did not start playing again with the screen locked');
   if (s.held) problems.push('the page gave up and held the station');
   if (!/paused as the screen locked while loading; restarting/.test(s.log)) problems.push('no restart in the log');
   if (ua && !/audio direct, with keep-alive/.test(s.log)) problems.push('expected direct audio with the keep-alive on iPhone');
@@ -270,14 +271,14 @@ async function lockWhileLoading(browser, ua) {
 // Tuning in seeks into the middle of a file, and the player starts as far behind the schedule as the
 // seek took to load. Once one tune-in has been timed, the next should start within a second of the
 // schedule. Both stations' files load slowly here (the first request for each waits 2.5 s).
-const WMID = api.STATIONS.find((s) => s.call === 'WMID');
+const MIDNIGHT = api.STATIONS.find((s) => s.key === 'midnight');
 async function tuneInLead(browser) {
   const sc = { at: end(a.c), first: a.c, lead: 60, len: {} };
-  for (const S2 of [WHOD, WMID]) for (let t = sc.at - 65; t < sc.at + 5; t++) { const c = SCH.at(S2, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  for (const S2 of [WHODUNIT, MIDNIGHT]) for (let t = sc.at - 65; t < sc.at + 5; t++) { const c = SCH.at(S2, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
   sc.slow = new Set(Object.keys(sc.len));
   const t = await open(browser, sc, { strict: false, timers: 'slow' });
   const { page } = t, problems = [], lags = [];
-  for (const [f, call] of [[640, 'WHOD'], [760, 'WMID']]) {
+  for (const [f, call] of [[640, WHODUNIT.call], [760, MIDNIGHT.call]]) {
     await page.evaluate((f) => window.SKY.sweepTo('AM', f, 1), f);
     let r = null;
     for (let i = 0; i < 80 && !r; i++) {
@@ -290,7 +291,7 @@ async function tuneInLead(browser) {
   const log = await page.evaluate(() => window.SKY.log());
   if (lags.length === 2) {
     if (Math.abs(lags[1]) > 1.5) problems.push(`second tune-in started ${Math.abs(lags[1]).toFixed(1)} s ${lags[1] > 0 ? 'behind' : 'ahead of'} the schedule (first: ${lags[0].toFixed(1)} s behind)`);
-    if (!/WMID \w+ .*aiming \d+\.\d s ahead/.test(log)) problems.push('no aimed seek in the log');
+    if (!new RegExp(MIDNIGHT.call + ' \\w+ .*aiming \\d+\\.\\d s ahead').test(log)) problems.push('no aimed seek in the log');
   }
   return finish(t, 'tuning in starts in step with the schedule', problems);
 }
@@ -349,12 +350,12 @@ function checkReport(St, href, now, problems) {
 }
 async function reportLink(browser) {
   const sc = { at: end(a.c), first: a.c, lead: 40, len: {} };
-  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHOD, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
+  for (let t = sc.at - 45; t < sc.at + 5; t++) { const c = SCH.at(WHODUNIT, t); if (media(c)) sc.len[url(c.seg)] = c.seg.nd || c.seg.d; }
   const t = await open(browser, sc, { strict: false, timers: 'slow' });
   const { page, ctx } = t, problems = [], name = 'report link: what is playing when pressed';
   await ctx.route('https://github.com/**', (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>Report a broadcast</title>' }));
   const press = () => page.evaluate(() => { const l = document.querySelector('#card a.report'); if (!l) return null; l.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); return { href: l.href, now: Date.now() / 1000 }; });
-  // WGRM, a record (the card shows "Warming up" for a moment after power on)
+  // the Gramophone, a record (the card shows "Warming up" for a moment after power on)
   for (let i = 0; i < 20 && !(await page.evaluate(() => !!document.querySelector('#card a.report'))); i++) await sleep(150);
   const r1 = await press();
   if (!r1) { problems.push('no Report link on the card'); return finish(t, name, problems); }
@@ -368,12 +369,12 @@ async function reportLink(browser) {
   await tab.waitForLoadState('domcontentloaded').catch(() => {});
   checkReport(S, tab.url(), at, problems);
   await tab.close();
-  // WHOD, a program station
+  // Whodunit, a program station
   await page.evaluate(() => window.SKY.sweepTo('AM', 640, 1));
   let r3 = null;
-  for (let i = 0; i < 40 && !r3; i++) { await sleep(150); r3 = await page.evaluate(() => (window.SKY.TUNED && window.SKY.TUNED.call === 'WHOD' && /WHOD/.test(document.querySelector('#card .call').textContent) ? true : null)); }
-  if (!r3) problems.push('never tuned WHOD');
-  else { const r = await press(); checkReport(WHOD, r.href, r.now, problems); }
+  for (let i = 0; i < 40 && !r3; i++) { await sleep(150); r3 = await page.evaluate((c) => (window.SKY.TUNED && window.SKY.TUNED.call === c && document.querySelector('#card .call').textContent.includes(c) ? true : null), WHODUNIT.call); }
+  if (!r3) problems.push('never tuned ' + WHODUNIT.call);
+  else { const r = await press(); checkReport(WHODUNIT, r.href, r.now, problems); }
   // between stations, nothing to report
   await page.evaluate(() => window.SKY.sweepTo('AM', 700, 1));
   await sleep(2200);
@@ -440,7 +441,7 @@ async function gapPlay(browser) {
   if (!fin || !(+fin[1] > 0.1 && +fin[1] < 1.5)) problems.push('the slow record should finish past its slot: ' + (fin ? fin[0] : 'no line'));
   if (/^.* cut .* unplayed/m.test(log)) problems.push('a record was cut: ' + /^.* cut .* unplayed/m.exec(log)[0]);
   if (/resync|interval signal/.test(log)) problems.push('unexpected: ' + /.*(resync|interval signal).*/.exec(log)[0]);
-  if (!new RegExp('→ WGRM music .* at 0 of 20 s, from ' + SKIP.toFixed(1) + ' s').test(log)) problems.push('the record lines should give the time in the recording, without the lead');
+  if (!new RegExp('→ ' + S.call + ' music .* at 0 of 20 s, from ' + SKIP.toFixed(1) + ' s').test(log)) problems.push('the record lines should give the time in the recording, without the lead');
   if (!/schedule: this week has a 2 s load gap/.test(log)) problems.push('no load gap line in the log');
   return finish(t, name, problems);
 }
@@ -469,7 +470,7 @@ async function levelsPlay(browser, qs) {
   else if (!(s2.t - into > SKIP - 1.5 && s2.t - into < SKIP + 0.5)) problems.push(`the next record is at ${s2.t.toFixed(1)} s, ${into.toFixed(1)} s into its slot: expected about ${(SKIP + into).toFixed(1)}`);
   await page.evaluate(() => window.SKY.beat());
   const log = await page.evaluate(() => window.SKY.log());
-  if (!new RegExp('→ WGRM music .*, from ' + SKIP.toFixed(1) + ' s, ' + GAIN + ' dB').test(log)) problems.push('no skip point and gain in the log');
+  if (!new RegExp('→ ' + S.call + ' music .*, from ' + SKIP.toFixed(1) + ' s, ' + GAIN + ' dB').test(log)) problems.push('no skip point and gain in the log');
   // the record that started at its slot says where it started, against its start point (tools/check_log.js)
   const sp = [...log.matchAll(/playing media from ([\d.]+) s \(start point ([\d.]+) s\), ([\d.]+) s (behind|ahead of) the schedule/g)].pop();
   if (!sp) problems.push('no start position for the record that started at its slot');
@@ -516,7 +517,7 @@ async function limiterPlay(browser, qs) {
     await page.evaluate(() => window.SKY.setLimiter(true)); await sleep(400); expect(await st(), true, 'switched back on');
   }
   const log = await page.evaluate(() => window.SKY.log());
-  const want = direct ? /audio direct/ : qs ? new RegExp('limiter off[\\s\\S]*→ WGRM music .*, \\+' + LIM_G0 + ' dB$', 'm') : new RegExp('→ WGRM music .*, \\+' + LIM_G + ' dB with the limiter[\\s\\S]*limiter off: \\+' + LIM_G0 + ' dB[\\s\\S]*limiter on: \\+' + LIM_G + ' dB');
+  const want = direct ? /audio direct/ : qs ? new RegExp('limiter off[\\s\\S]*→ ' + S.call + ' music .*, \\+' + LIM_G0 + ' dB$', 'm') : new RegExp('→ ' + S.call + ' music .*, \\+' + LIM_G + ' dB with the limiter[\\s\\S]*limiter off: \\+' + LIM_G0 + ' dB[\\s\\S]*limiter on: \\+' + LIM_G + ' dB');
   if (!want.test(log)) problems.push('the log does not show the gains: wanted ' + want);
   return finish(t, name, problems);
 }
@@ -554,7 +555,7 @@ async function previewPlay(browser) {
   const nx = (c) => SCH_PV.at(S, c.start + c.seg.d + 0.01);
   let c = SCH_PV.at(S, tnow() + 300);
   for (let k = 0; k < 5000 && !(media(c) && c.seg.d > 60 && c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain); k++) c = nx(c);
-  if (!(c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain)) return { name, ok: false, problems: [...problems, 'no WGRM record leaning on the limiter within reach'], log: '' };
+  if (!(c.seg.gain0 != null && c.seg.gain0 !== c.seg.gain)) return { name, ok: false, problems: [...problems, 'no ' + S.call + ' record leaning on the limiter within reach'], log: '' };
   const sc = { at: c.start + c.seg.d, first: c, lead: 40, html: HTML_PV, len: { [url(c.seg)]: (c.seg.skip || 0) + c.seg.d + 3 } };
   const t = await open(browser, sc, { strict: false, timers: 'slow' }), { page } = t, f = (x) => (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(1) + ' dB';
   const st = () => page.evaluate(() => ({ hidden: document.getElementById('pv').hidden, note: document.getElementById('pvNote').textContent, now: document.getElementById('pvNow').textContent, on: window.SKY.LIM.on, pressed: [...document.querySelectorAll('#pv [data-lim]')].map((b) => b.getAttribute('aria-pressed')), g: window.SKY.A.g.gain.value, title: document.title }));
